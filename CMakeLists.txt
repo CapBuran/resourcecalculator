@@ -48,5 +48,5 @@ include(GiveMePath)
 GIVE_ME_PATH()
 
 add_subdirectory(ThreeParty)
-add_subdirectory(FactorioData)
+add_subdirectory(FactorioCalculator)
 add_subdirectory(Program)
