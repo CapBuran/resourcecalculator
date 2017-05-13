@@ -2,8 +2,8 @@
 
 namespace FactorioCalculator {
 
-  Item::Item(const std::string &Name):
-    FactorioItem(Name)
+  Item::Item(const std::string &Name, KEY_ITEM Key):
+    FactorioItem(Name), _Key(Key)
   {
   }
 

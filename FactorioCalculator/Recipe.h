@@ -2,16 +2,21 @@
 #include "Types.h"
 
 namespace FactorioCalculator{
+
+  struct CountsItem{
+    KEY_ITEM ItemId;
+    double   Count;
+  };
+
   class Recipe: public FactorioItem{
   private:
-    FactoryType Factory;
-    double Time;
-    std::list<KEY_RECIPE> _Required;
-    std::list<KEY_RECIPE> _Result;
+    const double     _Time;
+    const KEY_RECIPE _Key;
+    const std::list<CountsItem> _Required;
+    const std::list<CountsItem> _Result;
+    std::list<KEY_FACTORY> _FactoryAllowed;
   public:
-    void SetRequired(std::list<KEY_RECIPE> const &Required);
-    void SetResult(std::list<KEY_RECIPE> const &Result);
-    Recipe(std::string const &Name);
+    Recipe(std::string const &Name, KEY_RECIPE Key, double Time, std::list<CountsItem> const &Required, const std::list<CountsItem> &Result);
     ~Recipe();
   };
 

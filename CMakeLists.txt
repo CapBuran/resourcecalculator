@@ -49,4 +49,5 @@ GIVE_ME_PATH()
 
 add_subdirectory(ThreeParty)
 add_subdirectory(FactorioCalculator)
+add_subdirectory(Tests)
 add_subdirectory(Program)

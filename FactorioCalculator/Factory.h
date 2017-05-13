@@ -7,6 +7,8 @@ namespace FactorioCalculator {
   private:
     double _Speed;
     double _Power;
+    
+    KEY_FACTORY _Key;
 
   public:
 
