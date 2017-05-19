@@ -11,4 +11,14 @@ namespace FactorioCalculator {
   {
   }
 
+  int Factory::ReadFromJson(const Json::Value & jsonPr)
+  {
+    return 0;
+  }
+
+  int Factory::WriteToJson(Json::Value & jsonPr) const
+  {
+    return 0;
+  }
+
 }

@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list>
+#include "json/json.h"
 
 namespace FactorioCalculator {
 
@@ -42,11 +43,17 @@ namespace FactorioCalculator {
 
   public:
 
-    inline const std::string& GetName() const{
+    inline const std::string& GetName() const
+    {
       return _Name;
-
     }
 
+  };
+
+  class Jsonable {
+  public:
+    virtual int ReadFromJson(const Json::Value & jsonPr) = 0;
+    virtual int WriteToJson(Json::Value & jsonPr) const = 0;
   };
 
 
