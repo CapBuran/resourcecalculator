@@ -92,27 +92,27 @@ UInt ValueIteratorBase::index() const {
   return Value::UInt(-1);
 }
 
-std::string ValueIteratorBase::name() const {
-  char const* key;
+JSONCPP_STRING ValueIteratorBase::name() const {
+  char const* keey;
   char const* end;
-  key = memberName(&end);
-  if (!key) return std::string();
-  return std::string(key, end);
+  keey = memberName(&end);
+  if (!keey) return JSONCPP_STRING();
+  return JSONCPP_STRING(keey, end);
 }
 
 char const* ValueIteratorBase::memberName() const {
-  const char* name = (*current_).first.data();
-  return name ? name : "";
+  const char* cname = (*current_).first.data();
+  return cname ? cname : "";
 }
 
 char const* ValueIteratorBase::memberName(char const** end) const {
-  const char* name = (*current_).first.data();
-  if (!name) {
+  const char* cname = (*current_).first.data();
+  if (!cname) {
     *end = NULL;
     return NULL;
   }
-  *end = name + (*current_).first.length();
-  return name;
+  *end = cname + (*current_).first.length();
+  return cname;
 }
 
 // //////////////////////////////////////////////////////////////////
@@ -128,6 +128,9 @@ ValueConstIterator::ValueConstIterator() {}
 ValueConstIterator::ValueConstIterator(
     const Value::ObjectValues::iterator& current)
     : ValueIteratorBase(current) {}
+
+ValueConstIterator::ValueConstIterator(ValueIterator const& other)
+    : ValueIteratorBase(other) {}
 
 ValueConstIterator& ValueConstIterator::
 operator=(const ValueIteratorBase& other) {
@@ -149,7 +152,9 @@ ValueIterator::ValueIterator(const Value::ObjectValues::iterator& current)
     : ValueIteratorBase(current) {}
 
 ValueIterator::ValueIterator(const ValueConstIterator& other)
-    : ValueIteratorBase(other) {}
+    : ValueIteratorBase(other) {
+  throwRuntimeError("ConstIterator to Iterator should never be allowed.");
+}
 
 ValueIterator::ValueIterator(const ValueIterator& other)
     : ValueIteratorBase(other) {}
