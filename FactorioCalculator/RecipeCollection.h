@@ -1,4 +1,6 @@
-#include "Types.h"
+#ifndef RecipeCollectionH
+#define RecipeCollectionH
+
 #include "Recipe.h"
 
 namespace FactorioCalculator{
@@ -20,7 +22,6 @@ namespace FactorioCalculator{
 
   };
 
-
-  
-
 }
+
+#endif // !RecipeCollectionH

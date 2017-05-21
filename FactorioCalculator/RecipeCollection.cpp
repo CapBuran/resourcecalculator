@@ -15,36 +15,20 @@ namespace FactorioCalculator{
     return 0;
   }
 
-  void RecipeCollection::ADD(const Recipe &)
+  void RecipeCollection::ADD(const Recipe &recipe)
   {
+    _Recipes.push_back(recipe);
   }
-
-  bool JsonCheckIsEmptyField(const Json::Value &obj_json, std::string obj_path = "", bool critical = false)
-  {
-    if (obj_json.empty()) {
-      if (critical)
-        throw ("\"" + obj_path + "\" field is empty.\n");
-      return true;
-    }
-    return false;
-  }
-
 
   int RecipeCollection::ReadFromJson(const Json::Value & jsonPr)
   {
-    if (!JsonCheckIsEmptyField(jsonPr["icntl"]))
-    {
-      Json::ArrayIndex size = jsonPr.size();
-      for (Json::ArrayIndex i = 0; i < size; i++) {
-        const Json::Value & jsonPr = jsonPr["Recipe"][std::to_string(i)];
-        if (!JsonCheckIsEmptyField(jsonPr)) {
-          RecipeParams Params;
-          //Params.
-          //Recipe ToADDVal(;
-        }
-        if (!JsonCheckIsEmptyField(jsonPr["Recipe"][std::to_string(i)]))
-          ;// icntl[i] = jsonPr["iparm"][std::to_string(i)].asInt();
-      }
+    for (auto it : jsonPr) {
+      RecipeParams RP;
+      RP.ReadFromJson(it);
+      KEY_TO_Json Key  = it["Key"].asInt64();
+      std::string Name = it["Name"]["ru"].asString();
+      Recipe ToAdd(Name, RP);
+      ADD(ToAdd);
     }
     return 0;
   }

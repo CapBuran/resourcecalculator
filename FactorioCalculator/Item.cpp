@@ -18,6 +18,9 @@ namespace FactorioCalculator {
 
   int Item::WriteToJson(Json::Value & jsonPr) const
   {
+    jsonPr["Key"] = static_cast<KEY_TO_Json>(_Key);
+    jsonPr["Name"]["ru"] = _Name;
+    jsonPr["Name"]["en"] = "English lang";
     return 0;
   }
 

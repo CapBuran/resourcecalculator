@@ -1,3 +1,5 @@
+#ifndef RecipeH
+#define RecipeH
 
 #include "Types.h"
 
@@ -9,6 +11,8 @@ namespace FactorioCalculator{
   };
 
   struct RecipeParams: public Jsonable {
+    KEY_TO_Json Key;
+    double      Time;
     std::list<CountsItem> 
       Required,
       Result;
@@ -18,20 +22,21 @@ namespace FactorioCalculator{
     int WriteToJson(Json::Value & jsonPr) const override;
   };
 
-  class Recipe: public FactorioItem, public Jsonable {
+
+  class Recipe: public FactorioItem, public Jsonable{
   private:
-    const double     _Time;
-    const KEY_RECIPE _Key;
+    const double      _Time;
+    const KEY_TO_Json _Key;
     const std::list<CountsItem> _Required;
     const std::list<CountsItem> _Result;
     std::list<KEY_FACTORY> _FactoryAllowed;
   public:
-    Recipe(std::string const &Name, KEY_RECIPE Key, double Time, const RecipeParams &Params);
-
+    Recipe(std::string const &Name, const RecipeParams &Params);
+    RecipeParams GetRecipeParams() const;
     int ReadFromJson(const Json::Value & jsonPr) override;
     int WriteToJson(Json::Value & jsonPr) const override;
-
     ~Recipe();
   };
 
 }
+#endif//RecipeH

@@ -35,7 +35,25 @@ namespace FactorioCalculator {
   //typedef int KEY_ITEM;
   //typedef int KEY_FACTORY;
 
-  class FactorioItem{
+  typedef Json::LargestUInt KEY_TO_Json;
+
+  class Jsonable {
+  protected:
+    inline bool JsonCheckIsEmptyField(const Json::Value &obj_json, std::string obj_path = "", bool critical = false) const
+    {
+      if (obj_json.empty()) {
+        if (critical)
+          throw ("\"" + obj_path + "\" field is empty.\n");
+        return true;
+      }
+      return false;
+    }
+  public:
+    virtual int ReadFromJson(const Json::Value & jsonPr) = 0;
+    virtual int WriteToJson(Json::Value & jsonPr) const = 0;
+  };
+
+  class FactorioItem {
   protected:
     std::string _Name;
     FactorioItem(const std::string &Name);
@@ -49,13 +67,6 @@ namespace FactorioCalculator {
     }
 
   };
-
-  class Jsonable {
-  public:
-    virtual int ReadFromJson(const Json::Value & jsonPr) = 0;
-    virtual int WriteToJson(Json::Value & jsonPr) const = 0;
-  };
-
 
 }
 #endif // !FACTORIES_TYPES
