@@ -17,7 +17,9 @@ namespace FactorioCalculator{
     int WriteToJson(Json::Value &jsonPr) const override;
 
   private:
-    std::list<Item> _Items;
+    std::map<KEY_ITEM, Item> _Items;
+    
+    const Item &GetItem(KEY_ITEM key) const;
 
   };
 

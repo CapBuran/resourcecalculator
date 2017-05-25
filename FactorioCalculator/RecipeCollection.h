@@ -18,7 +18,7 @@ namespace FactorioCalculator{
     int WriteToJson(Json::Value &jsonPr) const override;
 
   private:
-    std::list<Recipe> _Recipes;
+    std::map<KEY_RECIPE, Recipe> _Recipes;
 
   };
 

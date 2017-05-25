@@ -3,6 +3,7 @@
 
 #include <string>
 #include <list>
+#include <map>
 #include "json/json.h"
 
 namespace FactorioCalculator {

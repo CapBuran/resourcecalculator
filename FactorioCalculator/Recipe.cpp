@@ -2,21 +2,54 @@
 
 namespace FactorioCalculator{
 
+  static RecipeParams RecipeParamsDefault;
+
+  Recipe::Recipe():
+    FactorioItem(""),_Key(RecipeParamsDefault.Key), _Time(RecipeParamsDefault.Time),
+    _Required(RecipeParamsDefault.Required), _Result(RecipeParamsDefault.Result)
+  {
+
+  }
+
   Recipe::Recipe(std::string const & Name, const RecipeParams & Params):
     FactorioItem(Name), _Key(Params.Key), _Time(Params.Time),
     _Required(Params.Required), _Result(Params.Result)
   {
   }
 
+  Recipe::Recipe(const Recipe & item):
+    FactorioItem(item.GetName())
+  {
+  }
+
+  //Recipe & Recipe::operator=(const Recipe & right)
+  //{
+  //  if (this == &right) {
+  //    return *this;
+  //  }
+  //  _Key = right._Key;
+  //  _Name = right._Name;
+  //  _Time = right._Time;
+  //  _Required = right._Required;
+  //  _Result = right._Result;
+  //  _FactoryAllowed = right._FactoryAllowed;
+  //  return *this;
+  //}
+
   RecipeParams Recipe::GetRecipeParams() const
   {
     RecipeParams Retval;
-    Retval.Key = _Key;
-    Retval.Time = _Time;
-    Retval.Required = _Required;
-    Retval.Result = _Result;
+    Retval.Key            = _Key;
+    Retval.Time           = _Time;
+    Retval.Required       = _Required;
+    Retval.Result         = _Result;
     Retval.FactoryAllowed = _FactoryAllowed;
     return Retval;
+  }
+
+  KEY_RECIPE Recipe::GetKey() const
+  {
+    return _Key;
   }
 
   int Recipe::ReadFromJson(const Json::Value & jsonPr)
@@ -58,7 +91,7 @@ namespace FactorioCalculator{
       KEY_FACTORY KF = static_cast<KEY_FACTORY>(it["KEY_FACTORY"].asInt64());
       FactoryAllowed.push_back(KF);
     }
-    Key = jsonPr["Key"].asInt64();
+    Key = static_cast<KEY_RECIPE>(jsonPr["Key"].asInt64());
     Time = jsonPr["Time"].asDouble();
     return 0;
   }
@@ -88,7 +121,7 @@ namespace FactorioCalculator{
     jsonPr["Required"] = jsonRequired;
     jsonPr["Result"] = jsonResult;
     jsonPr["FactoryAllowed"] = jsonFactoryAllowed;
-    jsonPr["Key"] = Key;
+    jsonPr["Key"] = static_cast<Json::Value::Int64>(Key);
     jsonPr["Time"] = Time;
     return 0;
   }

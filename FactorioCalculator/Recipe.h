@@ -11,8 +11,8 @@ namespace FactorioCalculator{
   };
 
   struct RecipeParams: public Jsonable {
-    KEY_TO_Json Key;
-    double      Time;
+    KEY_RECIPE Key;
+    double     Time;
     std::list<CountsItem> 
       Required,
       Result;
@@ -22,20 +22,27 @@ namespace FactorioCalculator{
     int WriteToJson(Json::Value & jsonPr) const override;
   };
 
-
   class Recipe: public FactorioItem, public Jsonable{
   private:
-    const double      _Time;
-    const KEY_TO_Json _Key;
-    const std::list<CountsItem> _Required;
-    const std::list<CountsItem> _Result;
+    double      _Time;
+    KEY_RECIPE  _Key;
+    std::list<CountsItem> _Required;
+    std::list<CountsItem> _Result;
     std::list<KEY_FACTORY> _FactoryAllowed;
+    Recipe();
+    Recipe(const Recipe &recipe);
+    //Recipe& operator=(const Recipe& right);
   public:
     Recipe(std::string const &Name, const RecipeParams &Params);
+    ~Recipe();
+
     RecipeParams GetRecipeParams() const;
+    KEY_RECIPE GetKey() const;
+
     int ReadFromJson(const Json::Value & jsonPr) override;
     int WriteToJson(Json::Value & jsonPr) const override;
-    ~Recipe();
+
+    friend std::pair<const KEY_RECIPE, Recipe>;
   };
 
 }

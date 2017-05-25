@@ -1,3 +1,4 @@
+#include <assert.h>
 #include "ItemCollection.h"
 
 namespace FactorioCalculator{
@@ -12,7 +13,7 @@ namespace FactorioCalculator{
 
   void ItemCollection::ADD(const Item &Item)
   {
-    _Items.push_back(Item);
+    _Items[Item.GetKey()] = Item;
   }
 
   int ItemCollection::ReadFromJson(const Json::Value & jsonPr)
@@ -31,10 +32,20 @@ namespace FactorioCalculator{
     jsonPr = Json::Value(Json::arrayValue);
     for (auto& it : _Items){
       Json::Value newVal;
-      it.WriteToJson(newVal);
+      it.second.WriteToJson(newVal);
       jsonPr.append(newVal);
     }
     return 0;
+  }
+
+  const Item & ItemCollection::GetItem(KEY_ITEM key) const
+  {
+    std::string f;
+    static Item d(f, key);
+    return d;
+    //return _Items.at(key);
+    //return _Items[key];
+
   }
 
 }

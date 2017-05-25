@@ -25,25 +25,25 @@ int main(int argc, char ** argv) {
   {
     std::list<CountsItem> Required, Result;
     RecipeParams RP;
-    RP.Key = 1;
+    RP.Key = KEY_RECIPE::ID_Cuprum_Plate;
     RP.Time = 3.5;
     RP.Required = { };
     RP.Result = { { KEY_ITEM::ID_Cuprum_Plate, 1.0 } };
     Recipe R1("Выплавка меди", RP);
 
     RP.Required = { };
-    RP.Key = 2;
+    RP.Key = KEY_RECIPE::ID_Iron_Plate;
     RP.Time = 3.5;
     RP.Result = { { KEY_ITEM::ID_Iron_Plate, 1.0 } };
     Recipe R2("Выплавка железа", RP);
 
-    RP.Key = 3;
+    RP.Key = KEY_RECIPE::ID_Sherst;
     RP.Time = 0.5;
     RP.Required = { { KEY_ITEM::ID_Iron_Plate, 2.0 } };
     RP.Result = { { KEY_ITEM::ID_Sherst, 1.0 } };
     Recipe R3("Изготовление шестерни", RP);
 
-    RP.Key = 4;
+    RP.Key = KEY_RECIPE::ID_Paket1;
     RP.Time = 5.0;
     RP.Required = { { KEY_ITEM::ID_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_Sherst, 1.0 } };
     RP.Result = { { KEY_ITEM::ID_Paket1, 1 } };

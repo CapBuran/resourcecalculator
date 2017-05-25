@@ -17,7 +17,7 @@ namespace FactorioCalculator{
 
   void RecipeCollection::ADD(const Recipe &recipe)
   {
-    _Recipes.push_back(recipe);
+    _Recipes[recipe.GetKey()] = recipe;
   }
 
   int RecipeCollection::ReadFromJson(const Json::Value & jsonPr)
@@ -38,7 +38,7 @@ namespace FactorioCalculator{
     jsonPr = Json::Value(Json::arrayValue);
     for (auto& it : _Recipes){
       Json::Value newVal;
-      it.WriteToJson(newVal);
+      it.second.WriteToJson(newVal);
       jsonPr.append(newVal);
     }
     return 0;
