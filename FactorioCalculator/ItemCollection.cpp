@@ -40,12 +40,7 @@ namespace FactorioCalculator{
 
   const Item & ItemCollection::GetItem(KEY_ITEM key) const
   {
-    std::string f;
-    static Item d(f, key);
-    return d;
-    //return _Items.at(key);
-    //return _Items[key];
-
+    return _Items.at(key);
   }
 
 }

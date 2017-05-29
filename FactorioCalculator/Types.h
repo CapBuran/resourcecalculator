@@ -10,26 +10,30 @@ namespace FactorioCalculator {
 
   enum class KEY_RECIPE
   {
-    ID_Iron_Plate,
-    ID_Cuprum_Plate,
-    ID_Sherst,
-    ID_Paket1
+    ID_RECIPE_NoFindRecipe,
+    ID_RECIPE_FindRecipeROOT,
+    ID_RECIPE_Iron_Plate,
+    ID_RECIPE_Cuprum_Plate,
+    ID_RECIPE_Sherst,
+    ID_RECIPE_Paket1,
+    ID_RECIPE_Paket1_2
   };
 
   enum class KEY_ITEM
   {
-    ID_Iron_Plate,
-    ID_Cuprum_Plate,
-    ID_Sherst,
-    ID_Paket1
+    ID_ITEM_Iron_Plate,
+    ID_ITEM_Cuprum_Plate,
+    ID_ITEM_Sherst,
+    ID_ITEM_Paket1
   };
 
   enum class KEY_FACTORY
   {
-    ID_Iron_Plate,
-    ID_Cuprum_Plate,
-    ID_Sherst,
-    ID_Paket1_Plate
+    ID_FACTORY_Assembly1,
+    ID_FACTORY_Assembly2,
+    ID_FACTORY_Assembly3,
+    ID_FACTORY_PechKamenaya,
+    ID_FACTORY_PechStalnaya
   };
 
   //typedef int KEY_RECIPE;

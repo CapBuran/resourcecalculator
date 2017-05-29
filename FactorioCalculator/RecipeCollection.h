@@ -5,12 +5,24 @@
 
 namespace FactorioCalculator{
 
+  class RecipeCollection;
+
+  struct RecipeResultTree
+  {
+  private:
+    KEY_ITEM   _ItemKey;
+    std::map<KEY_RECIPE, RecipeResultTree> _Result;
+  public:
+    const std::map<KEY_RECIPE, RecipeResultTree> & GetResult() const;
+    friend RecipeCollection;
+    friend std::pair<const KEY_RECIPE, RecipeResultTree>;
+  };
+
   class RecipeCollection: public Jsonable
   {
   public:
-    RecipeCollection();
-    ~RecipeCollection();
-    int BuildTableRecipe(KEY_ITEM Item, std::list<std::list<CountsItem> > &Result);
+
+    RecipeResultTree BuildTreeRecipe(KEY_ITEM Item, int NestingResults) const;
 
     void ADD(const Recipe &);
 
@@ -19,7 +31,7 @@ namespace FactorioCalculator{
 
   private:
     std::map<KEY_RECIPE, Recipe> _Recipes;
-
+ 
   };
 
 }

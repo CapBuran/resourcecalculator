@@ -12,10 +12,10 @@ int main(int argc, char ** argv) {
   RecipeCollection RC;
 
   {
-    Item To1("Железная плита", KEY_ITEM::ID_Iron_Plate);
-    Item To2("Медная плита", KEY_ITEM::ID_Cuprum_Plate);
-    Item To3("Железная шестерня", KEY_ITEM::ID_Sherst);
-    Item To4("Исследовательский пакет 1", KEY_ITEM::ID_Paket1);
+    Item To1("Железная плита", KEY_ITEM::ID_ITEM_Iron_Plate);
+    Item To2("Медная плита", KEY_ITEM::ID_ITEM_Cuprum_Plate);
+    Item To3("Железная шестерня", KEY_ITEM::ID_ITEM_Sherst);
+    Item To4("Исследовательский пакет 1", KEY_ITEM::ID_ITEM_Paket1);
     IC.ADD(To1);
     IC.ADD(To2);
     IC.ADD(To3);
@@ -25,34 +25,46 @@ int main(int argc, char ** argv) {
   {
     std::list<CountsItem> Required, Result;
     RecipeParams RP;
-    RP.Key = KEY_RECIPE::ID_Cuprum_Plate;
+    RP.Key = KEY_RECIPE::ID_RECIPE_Cuprum_Plate;
     RP.Time = 3.5;
     RP.Required = { };
-    RP.Result = { { KEY_ITEM::ID_Cuprum_Plate, 1.0 } };
+    RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_PechKamenaya, KEY_FACTORY::ID_FACTORY_PechStalnaya };
+    RP.Result = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 } };
+    RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_PechKamenaya;
     Recipe R1("Выплавка меди", RP);
 
-    RP.Required = { };
-    RP.Key = KEY_RECIPE::ID_Iron_Plate;
+    RP.Key = KEY_RECIPE::ID_RECIPE_Iron_Plate;
     RP.Time = 3.5;
-    RP.Result = { { KEY_ITEM::ID_Iron_Plate, 1.0 } };
+    RP.Result = { { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } };
     Recipe R2("Выплавка железа", RP);
 
-    RP.Key = KEY_RECIPE::ID_Sherst;
+    RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly1;
+    RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_Assembly1, KEY_FACTORY::ID_FACTORY_Assembly2, KEY_FACTORY::ID_FACTORY_Assembly3 };
+    RP.Key = KEY_RECIPE::ID_RECIPE_Sherst;
     RP.Time = 0.5;
-    RP.Required = { { KEY_ITEM::ID_Iron_Plate, 2.0 } };
-    RP.Result = { { KEY_ITEM::ID_Sherst, 1.0 } };
+    RP.Required = { { KEY_ITEM::ID_ITEM_Iron_Plate, 2.0 } };
+    RP.Result = { { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
     Recipe R3("Изготовление шестерни", RP);
 
-    RP.Key = KEY_RECIPE::ID_Paket1;
+    RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly2;
+    RP.Key = KEY_RECIPE::ID_RECIPE_Paket1;
     RP.Time = 5.0;
-    RP.Required = { { KEY_ITEM::ID_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_Sherst, 1.0 } };
-    RP.Result = { { KEY_ITEM::ID_Paket1, 1 } };
+    RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
+    RP.Result = { { KEY_ITEM::ID_ITEM_Paket1, 1 } };
     Recipe R4("Изготовление исследовательского пакета 1", RP);
+    
+    RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly3;
+    RP.Key = KEY_RECIPE::ID_RECIPE_Paket1_2;
+    RP.Time = 3.0;
+    RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.5 }, { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
+    RP.Result = { { KEY_ITEM::ID_ITEM_Paket1, 1 } };
+    Recipe R5("Изготовление исследовательского пакета 1 1", RP);
 
     RC.ADD(R1);
     RC.ADD(R2);
     RC.ADD(R3);
     RC.ADD(R4);
+    RC.ADD(R5);
   }
 
   std::ofstream out;
@@ -85,6 +97,8 @@ int main(int argc, char ** argv) {
 
   ICRestore.ReadFromJson(jsonPr["Items"]);
   RCRestore.ReadFromJson(jsonPr["Recipes"]);
+
+  RecipeResultTree RT = RCRestore.BuildTreeRecipe(KEY_ITEM::ID_ITEM_Paket1, 8);
 
   return 0;
 

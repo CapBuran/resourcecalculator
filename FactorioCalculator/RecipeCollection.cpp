@@ -2,17 +2,49 @@
 
 namespace FactorioCalculator{
 
-  RecipeCollection::RecipeCollection()
+  //int RecipeCollection::BuildListRecipe(KEY_ITEM Item, std::list<Recipe>& Result)
+  //{
+
+  //  for (auto &recipe : _Recipes) {
+  //    RecipeParams RP = recipe.second.GetRecipeParams();
+  //    for (auto &f : RP.Required) {
+  //      std::list<Recipe> ResultOne;
+  //      BuildListRecipe(f.ItemId, ResultOne);
+  //    }
+  //  }
+  //  
+  //  return 0;
+  //}
+
+  const std::map<KEY_RECIPE, RecipeResultTree> & RecipeResultTree::GetResult() const
   {
+    return _Result;
   }
 
-  RecipeCollection::~RecipeCollection()
-  {
-  }
 
-  int RecipeCollection::BuildTableRecipe(KEY_ITEM Item, std::list<std::list<CountsItem>>& Result)
+  RecipeResultTree RecipeCollection::BuildTreeRecipe(KEY_ITEM Item, int NestingResults) const
   {
-    return 0;
+    RecipeResultTree RetVal;
+    RetVal._ItemKey = Item;
+    if (NestingResults == 0) {
+      return RetVal;
+    }
+
+    for (auto &recipe : _Recipes) {
+      const RecipeParams RP = recipe.second.GetRecipeParams();
+      for (const CountsItem &Result : RP.Result) {
+        if (Result.ItemId == Item){
+          for (const CountsItem &Required : RP.Required) {
+            RecipeResultTree AddVal = BuildTreeRecipe(Required.ItemId, NestingResults - 1);
+            AddVal._ItemKey = Required.ItemId;
+            RetVal._Result[RP.Key] = AddVal;
+          }
+        }
+
+      }
+    }
+
+    return RetVal;
   }
 
   void RecipeCollection::ADD(const Recipe &recipe)
@@ -43,5 +75,7 @@ namespace FactorioCalculator{
     }
     return 0;
   }
+
+
 
 }

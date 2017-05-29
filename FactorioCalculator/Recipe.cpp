@@ -13,7 +13,7 @@ namespace FactorioCalculator{
 
   Recipe::Recipe(std::string const & Name, const RecipeParams & Params):
     FactorioItem(Name), _Key(Params.Key), _Time(Params.Time),
-    _Required(Params.Required), _Result(Params.Result)
+    _Required(Params.Required), _Result(Params.Result), _CurrentFactory(Params.CurrentFactory)
   {
   }
 
@@ -21,20 +21,6 @@ namespace FactorioCalculator{
     FactorioItem(item.GetName())
   {
   }
-
-  //Recipe & Recipe::operator=(const Recipe & right)
-  //{
-  //  if (this == &right) {
-  //    return *this;
-  //  }
-  //  _Key = right._Key;
-  //  _Name = right._Name;
-  //  _Time = right._Time;
-  //  _Required = right._Required;
-  //  _Result = right._Result;
-  //  _FactoryAllowed = right._FactoryAllowed;
-  //  return *this;
-  //}
 
   RecipeParams Recipe::GetRecipeParams() const
   {
@@ -44,6 +30,7 @@ namespace FactorioCalculator{
     Retval.Required       = _Required;
     Retval.Result         = _Result;
     Retval.FactoryAllowed = _FactoryAllowed;
+    Retval.CurrentFactory = _CurrentFactory;
     return Retval;
   }
 
@@ -54,6 +41,7 @@ namespace FactorioCalculator{
 
   int Recipe::ReadFromJson(const Json::Value & jsonPr)
   {
+    _Name = jsonPr["Name"]["ru"].asString();
     return 0;
   }
 
@@ -92,6 +80,7 @@ namespace FactorioCalculator{
       FactoryAllowed.push_back(KF);
     }
     Key = static_cast<KEY_RECIPE>(jsonPr["Key"].asInt64());
+    CurrentFactory = static_cast<KEY_FACTORY>(jsonPr["CurrentFactory"].asInt64());
     Time = jsonPr["Time"].asDouble();
     return 0;
   }
@@ -123,6 +112,7 @@ namespace FactorioCalculator{
     jsonPr["FactoryAllowed"] = jsonFactoryAllowed;
     jsonPr["Key"] = static_cast<Json::Value::Int64>(Key);
     jsonPr["Time"] = Time;
+    jsonPr["CurrentFactory"] = static_cast<Json::Value::Int64>(CurrentFactory);
     return 0;
   }
 

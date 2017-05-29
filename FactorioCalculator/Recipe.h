@@ -18,6 +18,7 @@ namespace FactorioCalculator{
       Result;
     std::list<KEY_FACTORY> 
       FactoryAllowed;
+    KEY_FACTORY CurrentFactory;
     int ReadFromJson(const Json::Value & jsonPr) override;
     int WriteToJson(Json::Value & jsonPr) const override;
   };
@@ -29,9 +30,10 @@ namespace FactorioCalculator{
     std::list<CountsItem> _Required;
     std::list<CountsItem> _Result;
     std::list<KEY_FACTORY> _FactoryAllowed;
+    KEY_FACTORY _CurrentFactory;
     Recipe();
     Recipe(const Recipe &recipe);
-    //Recipe& operator=(const Recipe& right);
+
   public:
     Recipe(std::string const &Name, const RecipeParams &Params);
     ~Recipe();
