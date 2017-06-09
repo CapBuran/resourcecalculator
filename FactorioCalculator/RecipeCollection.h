@@ -1,16 +1,18 @@
 #ifndef RecipeCollectionH
 #define RecipeCollectionH
 
+#include <set>
+
 #include "Recipe.h"
 
 namespace FactorioCalculator{
 
   class RecipeCollection;
+  struct RecipeResultTree;
 
-  struct RecipeResultTree
+  struct ItemResultTree
   {
   private:
-    KEY_ITEM   _ItemKey;
     std::map<KEY_RECIPE, RecipeResultTree> _Result;
   public:
     const std::map<KEY_RECIPE, RecipeResultTree> & GetResult() const;
@@ -18,11 +20,22 @@ namespace FactorioCalculator{
     friend std::pair<const KEY_RECIPE, RecipeResultTree>;
   };
 
+  struct RecipeResultTree
+  {
+  private:
+    std::map<KEY_ITEM, ItemResultTree> _Result;
+  public:
+    const std::map<KEY_ITEM, ItemResultTree> & GetResult() const;
+    friend RecipeCollection;
+    friend std::pair<const KEY_ITEM, ItemResultTree>;
+  };
+
   class RecipeCollection: public Jsonable
   {
   public:
 
-    RecipeResultTree BuildTreeRecipe(KEY_ITEM Item, int NestingResults) const;
+    ItemResultTree   BuildTree(KEY_ITEM ItemID,     int NestingResults) const;
+    RecipeResultTree BuildTree(KEY_RECIPE RecipeID, int NestingResults) const;
 
     void ADD(const Recipe &);
 

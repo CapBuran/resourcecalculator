@@ -23,6 +23,8 @@ namespace FactorioCalculator {
   {
     ID_ITEM_Iron_Plate,
     ID_ITEM_Cuprum_Plate,
+    ID_ITEM_Iron_Ruda,
+    ID_ITEM_Cuprum_Ruda,
     ID_ITEM_Sherst,
     ID_ITEM_Paket1
   };

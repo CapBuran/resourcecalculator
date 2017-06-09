@@ -2,48 +2,42 @@
 
 namespace FactorioCalculator{
 
-  //int RecipeCollection::BuildListRecipe(KEY_ITEM Item, std::list<Recipe>& Result)
-  //{
-
-  //  for (auto &recipe : _Recipes) {
-  //    RecipeParams RP = recipe.second.GetRecipeParams();
-  //    for (auto &f : RP.Required) {
-  //      std::list<Recipe> ResultOne;
-  //      BuildListRecipe(f.ItemId, ResultOne);
-  //    }
-  //  }
-  //  
-  //  return 0;
-  //}
-
-  const std::map<KEY_RECIPE, RecipeResultTree> & RecipeResultTree::GetResult() const
+  const std::map<KEY_RECIPE, RecipeResultTree> & ItemResultTree::GetResult() const
   {
     return _Result;
   }
 
-
-  RecipeResultTree RecipeCollection::BuildTreeRecipe(KEY_ITEM Item, int NestingResults) const
+  const std::map<KEY_ITEM, ItemResultTree> & RecipeResultTree::GetResult() const
   {
-    RecipeResultTree RetVal;
-    RetVal._ItemKey = Item;
-    if (NestingResults == 0) {
-      return RetVal;
-    }
+    return _Result;
+  }
 
-    for (auto &recipe : _Recipes) {
-      const RecipeParams RP = recipe.second.GetRecipeParams();
-      for (const CountsItem &Result : RP.Result) {
-        if (Result.ItemId == Item){
-          for (const CountsItem &Required : RP.Required) {
-            RecipeResultTree AddVal = BuildTreeRecipe(Required.ItemId, NestingResults - 1);
-            AddVal._ItemKey = Required.ItemId;
-            RetVal._Result[RP.Key] = AddVal;
-          }
+  ItemResultTree RecipeCollection::BuildTree(KEY_ITEM ItemID, int NestingResults) const
+  {
+    ItemResultTree RetVal;
+    if (NestingResults == 0) return RetVal;
+      for (auto &it : _Recipes) {
+      RecipeParams RP = it.second.GetRecipeParams();
+      for (auto it : RP.Result) {
+        if (it.ItemId == ItemID) {
+          RetVal._Result[RP.Key] = BuildTree(RP.Key, NestingResults - 1);
         }
-
       }
     }
+    return RetVal;
+  }
 
+  RecipeResultTree RecipeCollection::BuildTree(KEY_RECIPE RecipeID, int NestingResults) const
+  {
+    RecipeResultTree RetVal;
+    if (NestingResults == 0) return RetVal;
+    std::map<KEY_RECIPE, Recipe>::const_iterator RP_FIND = _Recipes.find(RecipeID);
+    if (RP_FIND != _Recipes.end()){
+      RecipeParams RP = RP_FIND->second.GetRecipeParams();
+      for (auto &it : RP.Required) {
+        RetVal._Result[it.ItemId] = BuildTree(it.ItemId, NestingResults - 1);
+      }
+    }
     return RetVal;
   }
 
@@ -75,7 +69,4 @@ namespace FactorioCalculator{
     }
     return 0;
   }
-
-
-
 }

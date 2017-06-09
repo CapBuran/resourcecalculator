@@ -16,6 +16,8 @@ int main(int argc, char ** argv) {
     Item To2("Медная плита", KEY_ITEM::ID_ITEM_Cuprum_Plate);
     Item To3("Железная шестерня", KEY_ITEM::ID_ITEM_Sherst);
     Item To4("Исследовательский пакет 1", KEY_ITEM::ID_ITEM_Paket1);
+    Item To5("Железная руда", KEY_ITEM::ID_ITEM_Iron_Ruda);
+    Item To6("Медная руда", KEY_ITEM::ID_ITEM_Cuprum_Ruda);
     IC.ADD(To1);
     IC.ADD(To2);
     IC.ADD(To3);
@@ -27,14 +29,14 @@ int main(int argc, char ** argv) {
     RecipeParams RP;
     RP.Key = KEY_RECIPE::ID_RECIPE_Cuprum_Plate;
     RP.Time = 3.5;
-    RP.Required = { };
+    RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Ruda, 1.0 } };
     RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_PechKamenaya, KEY_FACTORY::ID_FACTORY_PechStalnaya };
     RP.Result = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 } };
     RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_PechKamenaya;
     Recipe R1("Выплавка меди", RP);
 
     RP.Key = KEY_RECIPE::ID_RECIPE_Iron_Plate;
-    RP.Time = 3.5;
+    RP.Required = { { KEY_ITEM::ID_ITEM_Iron_Ruda, 1.0 } };
     RP.Result = { { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } };
     Recipe R2("Выплавка железа", RP);
 
@@ -98,7 +100,7 @@ int main(int argc, char ** argv) {
   ICRestore.ReadFromJson(jsonPr["Items"]);
   RCRestore.ReadFromJson(jsonPr["Recipes"]);
 
-  RecipeResultTree RT = RCRestore.BuildTreeRecipe(KEY_ITEM::ID_ITEM_Paket1, 8);
+  ItemResultTree IRT = RCRestore.BuildTree(KEY_ITEM::ID_ITEM_Paket1, 8);
 
   return 0;
 
