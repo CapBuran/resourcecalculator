@@ -97,8 +97,8 @@ int main(int argc, char ** argv) {
   bool parsingSuccessful = JsonReader.parse(contents.c_str(), jsonPrRestore);
   contents.clear();
 
-  ICRestore.ReadFromJson(jsonPr["Items"]);
-  RCRestore.ReadFromJson(jsonPr["Recipes"]);
+  ICRestore.ReadFromJson(jsonPrRestore["Items"]);
+  RCRestore.ReadFromJson(jsonPrRestore["Recipes"]);
 
   ItemResultTree IRT = RCRestore.BuildTree(KEY_ITEM::ID_ITEM_Paket1, 8);
 

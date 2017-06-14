@@ -37,6 +37,8 @@ namespace FactorioCalculator{
     ItemResultTree   BuildTree(KEY_ITEM ItemID,     int NestingResults) const;
     RecipeResultTree BuildTree(KEY_RECIPE RecipeID, int NestingResults) const;
 
+    void Build(KEY_ITEM ItemID, const std::map<KEY_ITEM, KEY_RECIPE> SelectRecipe, std::list<KEY_RECIPE> &ResultRecipe, std::set<KEY_ITEM> &ResultItem);
+
     void ADD(const Recipe &);
 
     int ReadFromJson(const Json::Value &jsonPr) override;

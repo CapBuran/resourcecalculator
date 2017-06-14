@@ -41,6 +41,34 @@ namespace FactorioCalculator{
     return RetVal;
   }
 
+  void RecipeCollection::Build(KEY_ITEM ItemID, const std::map<KEY_ITEM, KEY_RECIPE> SelectRecipe,
+                               std::list<KEY_RECIPE> &ResultRecipe, std::set<KEY_ITEM> &ResultItem)
+  {
+    std::map<KEY_ITEM, KEY_RECIPE>::const_iterator SelectRecipeFind = SelectRecipe.find(ItemID);
+
+    if (SelectRecipeFind == SelectRecipe.end() ) {
+      return;
+    }
+
+    KEY_RECIPE KR = SelectRecipeFind->second;
+
+    std::map<KEY_RECIPE, Recipe >::const_iterator  Recipe = _Recipes.find(KR);
+
+    if (Recipe == _Recipes.end()) {
+      return;
+    }
+
+    RecipeParams RP = Recipe->second.GetRecipeParams();
+
+    ResultRecipe.push_front(RP.Key);
+
+    for (auto &Item : RP.Required ){
+      ResultItem.insert(Item.ItemId);
+      Build(Item.ItemId, SelectRecipe, ResultRecipe, ResultItem);
+    }
+
+  }
+
   void RecipeCollection::ADD(const Recipe &recipe)
   {
     _Recipes[recipe.GetKey()] = recipe;
