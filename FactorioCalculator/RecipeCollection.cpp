@@ -87,6 +87,11 @@ namespace FactorioCalculator{
     return 0;
   }
 
+  const std::map<KEY_RECIPE, Recipe> &RecipeCollection::GetData() const
+  {
+    return _Recipes;
+  }
+
   int RecipeCollection::WriteToJson(Json::Value & jsonPr) const
   {
     jsonPr = Json::Value(Json::arrayValue);

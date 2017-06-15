@@ -44,6 +44,8 @@ namespace FactorioCalculator{
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;
 
+    const std::map<KEY_RECIPE, Recipe> &GetData() const;
+
   private:
     std::map<KEY_RECIPE, Recipe> _Recipes;
  

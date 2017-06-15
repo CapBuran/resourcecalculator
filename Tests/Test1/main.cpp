@@ -12,12 +12,12 @@ int main(int argc, char ** argv) {
   RecipeCollection RC;
 
   {
-    Item To1("Железная плита", KEY_ITEM::ID_ITEM_Iron_Plate);
-    Item To2("Медная плита", KEY_ITEM::ID_ITEM_Cuprum_Plate);
-    Item To3("Железная шестерня", KEY_ITEM::ID_ITEM_Sherst);
-    Item To4("Исследовательский пакет 1", KEY_ITEM::ID_ITEM_Paket1);
-    Item To5("Железная руда", KEY_ITEM::ID_ITEM_Iron_Ruda);
-    Item To6("Медная руда", KEY_ITEM::ID_ITEM_Cuprum_Ruda);
+    Item To1("Р–РµР»РµР·РЅР°СЏ РїР»РёС‚Р°", KEY_ITEM::ID_ITEM_Iron_Plate);
+    Item To2("РњРµРґРЅР°СЏ РїР»РёС‚Р°", KEY_ITEM::ID_ITEM_Cuprum_Plate);
+    Item To3("Р–РµР»РµР·РЅР°СЏ С€РµСЃС‚РµСЂРЅСЏ", KEY_ITEM::ID_ITEM_Sherst);
+    Item To4("РСЃСЃР»РµРґРѕРІР°С‚РµР»СЊСЃРєРёР№ РїР°РєРµС‚ 1", KEY_ITEM::ID_ITEM_Paket1);
+    Item To5("Р–РµР»РµР·РЅР°СЏ СЂСѓРґР°", KEY_ITEM::ID_ITEM_Iron_Ruda);
+    Item To6("РњРµРґРЅР°СЏ СЂСѓРґР°", KEY_ITEM::ID_ITEM_Cuprum_Ruda);
     IC.ADD(To1);
     IC.ADD(To2);
     IC.ADD(To3);
@@ -33,12 +33,12 @@ int main(int argc, char ** argv) {
     RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_PechKamenaya, KEY_FACTORY::ID_FACTORY_PechStalnaya };
     RP.Result = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 } };
     RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_PechKamenaya;
-    Recipe R1("Выплавка меди", RP);
+    Recipe R1("Р’С‹РїР»Р°РІРєР° РјРµРґРё", RP);
 
     RP.Key = KEY_RECIPE::ID_RECIPE_Iron_Plate;
     RP.Required = { { KEY_ITEM::ID_ITEM_Iron_Ruda, 1.0 } };
     RP.Result = { { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } };
-    Recipe R2("Выплавка железа", RP);
+    Recipe R2("Р’С‹РїР»Р°РІРєР° Р¶РµР»РµР·Р°", RP);
 
     RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly1;
     RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_Assembly1, KEY_FACTORY::ID_FACTORY_Assembly2, KEY_FACTORY::ID_FACTORY_Assembly3 };
@@ -46,21 +46,21 @@ int main(int argc, char ** argv) {
     RP.Time = 0.5;
     RP.Required = { { KEY_ITEM::ID_ITEM_Iron_Plate, 2.0 } };
     RP.Result = { { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
-    Recipe R3("Изготовление шестерни", RP);
+    Recipe R3("РР·РіРѕС‚РѕРІР»РµРЅРёРµ С€РµСЃС‚РµСЂРЅРё", RP);
 
     RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly2;
     RP.Key = KEY_RECIPE::ID_RECIPE_Paket1;
     RP.Time = 5.0;
     RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
     RP.Result = { { KEY_ITEM::ID_ITEM_Paket1, 1 } };
-    Recipe R4("Изготовление исследовательского пакета 1", RP);
+    Recipe R4("РР·РіРѕС‚РѕРІР»РµРЅРёРµ РёСЃСЃР»РµРґРѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ РїР°РєРµС‚Р° 1", RP);
     
     RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly3;
     RP.Key = KEY_RECIPE::ID_RECIPE_Paket1_2;
     RP.Time = 3.0;
     RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.5 }, { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
     RP.Result = { { KEY_ITEM::ID_ITEM_Paket1, 1 } };
-    Recipe R5("Изготовление исследовательского пакета 1 1", RP);
+    Recipe R5("РР·РіРѕС‚РѕРІР»РµРЅРёРµ РёСЃСЃР»РµРґРѕРІР°С‚РµР»СЊСЃРєРѕРіРѕ РїР°РєРµС‚Р° 1 1", RP);
 
     RC.ADD(R1);
     RC.ADD(R2);

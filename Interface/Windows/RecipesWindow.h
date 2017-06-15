@@ -23,6 +23,7 @@ private:
     QWidget *CentralWidget;
 
     FactorioCalculator::RecipeCollection &_RC;
+
     RecipeWidget *_RecipeWidget;
     QMenu *fileMenu;
     QMenu *toolMenu;

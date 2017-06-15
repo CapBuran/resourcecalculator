@@ -4,6 +4,7 @@
 #include <QDialog>
 
 #include "../../FactorioCalculator/RecipeCollection.h"
+#include "RecipeModel.h"
 
 QT_BEGIN_NAMESPACE
 class QLabel;
@@ -18,15 +19,17 @@ class RecipesEditDialog : public QDialog
 
 public:
   RecipesEditDialog(FactorioCalculator::RecipeCollection &RC, QWidget *parent = 0);
-  QLineEdit *nameText;
-  QTextEdit *addressText;
+  //QLineEdit *nameText;
+  //QTextEdit *addressText;
 
 private:
 
   FactorioCalculator::RecipeCollection &_RC;
 
-  QLabel *nameLabel;
-  QLabel *addressLabel;
+  ChainsCalcModel::RecipeListModel *table;
+
+  //QLabel *nameLabel;
+  //QLabel *addressLabel;
   QPushButton *okButton;
   QPushButton *cancelButton;
 };
