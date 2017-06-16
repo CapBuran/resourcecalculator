@@ -33,6 +33,7 @@ private:
     RecipeWidget *_RecipeWidget;
     QPushButton  *_ButtonRecipesOpen;
     QPushButton  *_ButtonItemOpen;
+    QPushButton  *_ButtonFactoryOpen;
     QMenu *fileMenu;
     QMenu *toolMenu;
     QAction *openAct;

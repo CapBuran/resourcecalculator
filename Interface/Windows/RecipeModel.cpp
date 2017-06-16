@@ -1,5 +1,8 @@
 
 #include "RecipeModel.h"
+#include <QComboBox>
+#include <QTabWidget>
+#include <QItemDelegate>
 
 namespace ChainsCalcModel {
 
@@ -133,23 +136,24 @@ namespace ChainsCalcModel {
   RecipeListModel::RecipeListModel(FactorioCalculator::RecipeCollection &RC, QObject *parent)
     : QAbstractTableModel(parent), _RC(RC)
   {
-    //listOfPairs = pairs;
+    using namespace FactorioCalculator;
+    const std::map<KEY_RECIPE, Recipe> &DATA = _RC.GetData();
+    listOfRecipes.reserve(static_cast<int>(DATA.size()) );
+    for (auto &it : DATA){
+      listOfRecipes.push_back(it.first);
+    }
   }
 
   int RecipeListModel::rowCount(const QModelIndex &parent) const
   {
     Q_UNUSED(parent);
-    return _RC.GetData().size();
+    return listOfRecipes.size();
   }
 
   int RecipeListModel::columnCount(const QModelIndex &parent) const
   {
     Q_UNUSED(parent);
-    //1) name
-    //2) Time
-    //3) Зависимость
-    //4) Factorys allowes
-    return 4;
+    return 5;
   }
 
   QVariant RecipeListModel::data(const QModelIndex &index, int role) const
@@ -159,18 +163,22 @@ namespace ChainsCalcModel {
     if (!index.isValid())
       return QVariant();
 
-    const std::map<KEY_RECIPE, Recipe> &DATA = _RC.GetData();
-
-    if (index.row() >= DATA.size() || index.row() < 0)
+    if (index.row() >= listOfRecipes.size() || index.row() < 0)
         return QVariant();
 
-    const int row = index.row();
-    
-    std::map<KEY_RECIPE, Recipe>::const_iterator it = DATA.cbegin();
-    for (size_t i = 0; i < row; i++, it++);
+    const FactorioCalculator::KEY_RECIPE KeyRecipe = listOfRecipes[index.row()];
 
     if (role == Qt::DisplayRole) {
       QString retval;
+
+      const std::map<KEY_RECIPE, Recipe> &DATA = _RC.GetData();
+
+      std::map<KEY_RECIPE, Recipe>::const_iterator it = DATA.find(KeyRecipe);
+
+      if (it == DATA.end()) {
+        return QVariant();
+      }
+
       RecipeParams RP = it->second.GetRecipeParams();
 
       switch (index.column())
@@ -184,10 +192,14 @@ namespace ChainsCalcModel {
         return retval;
         break;
       case 2:
-        retval = "TODO: Зависимость";
+        retval = "TODO: Интегриенты";
         return retval;
         break;
       case 3:
+        retval = "TODO: Зависимость";
+        return retval;
+        break;
+      case 4:
         retval = "TODO: Factorys allowes";
         return retval;
         break;
@@ -214,6 +226,8 @@ namespace ChainsCalcModel {
       case 2:
         return tr("Recipe Зависимость");
       case 3:
+        return tr("Recipe Интегреенты");
+      case 4:
         return tr("Factorys allowes");
       default:
         return QVariant();
@@ -278,12 +292,6 @@ namespace ChainsCalcModel {
 
     return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
   }
-
-  //QList< QPair<QString, QString> > RecipeListModel::getList()
-  //{
-  //  QList<QPair<QString, QString> > RetVal;
-  //  return RetVal;
-  //}
 
 #pragma endregion
 

@@ -17,6 +17,9 @@ MainWindow::MainWindow(FactorioCalculator::RecipeCollection &RC):
   _ButtonItemOpen    = new QPushButton("Items");
   connect(_ButtonItemOpen, SIGNAL(clicked()), SLOT(PushButtonClicked()));
 
+  _ButtonFactoryOpen = new QPushButton("Factorys");
+  connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClicked()));
+
   _RecipeWidget      = new RecipeWidget(RC);
 
   QHBoxLayout *h = new QHBoxLayout();
@@ -24,6 +27,7 @@ MainWindow::MainWindow(FactorioCalculator::RecipeCollection &RC):
   h->setSpacing(15);
   h->addWidget(_ButtonRecipesOpen);
   h->addWidget(_ButtonItemOpen);
+  h->addWidget(_ButtonFactoryOpen);
 
   QVBoxLayout *v = new QVBoxLayout();
   v->setMargin(5);
