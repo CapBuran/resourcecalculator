@@ -69,7 +69,7 @@ namespace FactorioCalculator{
 
   }
 
-  void RecipeCollection::ADD(const Recipe &recipe)
+  void RecipeCollection::Add(const Recipe &recipe)
   {
     _Recipes[recipe.GetKey()] = recipe;
   }
@@ -82,7 +82,7 @@ namespace FactorioCalculator{
       KEY_TO_Json Key  = it["Key"].asInt64();
       std::string Name = it["Name"]["ru"].asString();
       Recipe ToAdd(Name, RP);
-      ADD(ToAdd);
+      Add(ToAdd);
     }
     return 0;
   }
@@ -90,6 +90,31 @@ namespace FactorioCalculator{
   const std::map<KEY_RECIPE, Recipe> &RecipeCollection::GetData() const
   {
     return _Recipes;
+  }
+
+  Recipe *RecipeCollection::GetRecipeForEdit(KEY_RECIPE KeyRecipe) {
+    std::map<KEY_RECIPE, Recipe>::iterator it = _Recipes.find(KeyRecipe);
+    if (it == _Recipes.end()) {
+      return nullptr;
+    }
+    return &it->second;
+  }
+
+  KEY_RECIPE RecipeCollection::GetUniqueRecipeKey() const
+  {
+    unsigned int retval = 0;
+    if (_Recipes.size() > 0) {
+      while (_Recipes.find(static_cast<KEY_RECIPE>(retval)) != _Recipes.end()){
+        retval++;
+      }
+    }
+    return static_cast<KEY_RECIPE>(retval);
+  }
+
+  void RecipeCollection::Delete(KEY_RECIPE KeyRecipe) {
+    if (_Recipes.find(KeyRecipe) != _Recipes.end()) {
+      _Recipes.erase(KeyRecipe);
+    }
   }
 
   int RecipeCollection::WriteToJson(Json::Value & jsonPr) const

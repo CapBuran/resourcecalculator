@@ -8,7 +8,7 @@
 
 namespace FactorioCalculator {
 
-  enum class KEY_RECIPE
+  enum class KEY_RECIPE : unsigned int
   {
     ID_RECIPE_NoFindRecipe,
     ID_RECIPE_FindRecipeROOT,
@@ -19,7 +19,7 @@ namespace FactorioCalculator {
     ID_RECIPE_Paket1_2
   };
 
-  enum class KEY_ITEM
+  enum class KEY_ITEM : unsigned int
   {
     ID_ITEM_Iron_Plate,
     ID_ITEM_Cuprum_Plate,
@@ -29,7 +29,7 @@ namespace FactorioCalculator {
     ID_ITEM_Paket1
   };
 
-  enum class KEY_FACTORY
+  enum class KEY_FACTORY : unsigned int
   {
     ID_FACTORY_Assembly1,
     ID_FACTORY_Assembly2,

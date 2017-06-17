@@ -2,16 +2,49 @@
 #define RECIPE_EDIT_DIALOG_H
 
 #include <QDialog>
+#include <QStyledItemDelegate>
+#include <QAbstractTableModel>
 
 #include "../../FactorioCalculator/RecipeCollection.h"
-#include "RecipeModel.h"
 
-QT_BEGIN_NAMESPACE
-class QLabel;
-class QPushButton;
-class QTextEdit;
-class QLineEdit;
-QT_END_NAMESPACE
+//QT_BEGIN_NAMESPACE
+//class QLabel;
+//class QPushButton;
+//class QTextEdit;
+//class QLineEdit;
+//QT_END_NAMESPACE
+
+
+class RecipeListModel : public QAbstractTableModel
+{
+  Q_OBJECT
+public:
+  RecipeListModel(FactorioCalculator::RecipeCollection &RC, QObject *parent = 0);
+  int rowCount(const QModelIndex &parent) const override;
+  int columnCount(const QModelIndex &parent) const override;
+  QVariant data(const QModelIndex &index, int role) const override;
+  QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
+  Qt::ItemFlags flags(const QModelIndex &index) const override;
+  bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
+  bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
+  bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
+  FactorioCalculator::KEY_RECIPE GetRecipeId(int Num) const;
+private:
+  FactorioCalculator::RecipeCollection &_RC;
+  QList<FactorioCalculator::KEY_RECIPE> _listOfRecipesId;
+};
+
+class SpinBoxDelegate : public QStyledItemDelegate
+{
+  Q_OBJECT
+
+public:
+  SpinBoxDelegate(QObject *parent = 0);
+  QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+  void setEditorData(QWidget *editor, const QModelIndex &index) const override;
+  void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
+  void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+};
 
 class RecipesEditDialog : public QDialog
 {
@@ -25,8 +58,6 @@ public:
 private:
 
   FactorioCalculator::RecipeCollection &_RC;
-
-  ChainsCalcModel::RecipeListModel *table;
 
   //QLabel *nameLabel;
   //QLabel *addressLabel;

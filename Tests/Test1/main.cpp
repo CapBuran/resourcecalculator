@@ -62,11 +62,11 @@ int main(int argc, char ** argv) {
     RP.Result = { { KEY_ITEM::ID_ITEM_Paket1, 1 } };
     Recipe R5("Изготовление исследовательского пакета 1 1", RP);
 
-    RC.ADD(R1);
-    RC.ADD(R2);
-    RC.ADD(R3);
-    RC.ADD(R4);
-    RC.ADD(R5);
+    RC.Add(R1);
+    RC.Add(R2);
+    RC.Add(R3);
+    RC.Add(R4);
+    RC.Add(R5);
   }
 
   std::ofstream out;

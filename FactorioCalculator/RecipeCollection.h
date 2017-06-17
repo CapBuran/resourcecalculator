@@ -39,12 +39,18 @@ namespace FactorioCalculator{
 
     void Build(KEY_ITEM ItemID, const std::map<KEY_ITEM, KEY_RECIPE> SelectRecipe, std::list<KEY_RECIPE> &ResultRecipe, std::set<KEY_ITEM> &ResultItem);
 
-    void ADD(const Recipe &);
-
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;
 
     const std::map<KEY_RECIPE, Recipe> &GetData() const;
+
+    Recipe *GetRecipeForEdit(KEY_RECIPE KeyRecipe);
+
+    KEY_RECIPE GetUniqueRecipeKey() const;
+
+    void Add(const Recipe &);
+
+    void Delete(KEY_RECIPE KeyRecipe);
 
   private:
     std::map<KEY_RECIPE, Recipe> _Recipes;
