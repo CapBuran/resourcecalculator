@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
 
-  FactorioCalculator::RecipeCollection RC;
+  ResourceCalculator::ParamsCollection PC;
 
   {
     QFile file(StandartTestFileJson);
@@ -21,10 +21,10 @@ int main(int argc, char *argv[])
     Json::Value jsonPrRestore;
     Json::Reader JsonReader;
     bool parsingSuccessful = JsonReader.parse(fileData.constData(), jsonPrRestore);
-    RC.ReadFromJson(jsonPrRestore["Recipes"]);
+    PC.RC.ReadFromJson(jsonPrRestore["Recipes"]);
   }
 
-  MainWindow mw(RC);
+  MainWindow mw(PC);
   mw.show();
   return app.exec();
 }

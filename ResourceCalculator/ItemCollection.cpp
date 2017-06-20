@@ -1,7 +1,7 @@
 #include <assert.h>
 #include "ItemCollection.h"
 
-namespace FactorioCalculator{
+namespace ResourceCalculator {
 
   ItemCollection::ItemCollection()
   {

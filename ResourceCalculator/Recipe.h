@@ -3,7 +3,7 @@
 
 #include "Types.h"
 
-namespace FactorioCalculator{
+namespace ResourceCalculator {
 
   struct CountsItem{
     KEY_ITEM ItemId;

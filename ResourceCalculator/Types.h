@@ -6,7 +6,7 @@
 #include <map>
 #include "json/json.h"
 
-namespace FactorioCalculator {
+namespace ResourceCalculator {
 
   enum class KEY_RECIPE : unsigned int
   {

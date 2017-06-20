@@ -1,6 +1,6 @@
 #include "Recipe.h"
 
-namespace FactorioCalculator{
+namespace ResourceCalculator {
 
   static RecipeParams RecipeParamsDefault;
 

@@ -1,15 +1,15 @@
-#include "..\..\FactorioCalculator\ItemCollection.h"
-#include "..\..\FactorioCalculator\RecipeCollection.h"
+#include "..\..\ResourceCalculator\ParamsCollection.h"
 #include <fstream>
 
 #define StandartTestFileJson "C:\\games\\Factorio.json"
 
 int main(int argc, char ** argv) {
   using namespace std;
-  using namespace FactorioCalculator;
+  using namespace ResourceCalculator;
 
-  ItemCollection IC;
-  RecipeCollection RC;
+  ParamsCollection PC;
+  ItemCollection &IC = PC.IC;
+  RecipeCollection &RC = PC.RC;
 
   {
     Item To1("Железная плита", KEY_ITEM::ID_ITEM_Iron_Plate);

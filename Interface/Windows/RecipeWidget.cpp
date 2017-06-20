@@ -4,10 +4,10 @@
 
 #include <QtWidgets>
 
-RecipeWidget::RecipeWidget(FactorioCalculator::RecipeCollection &RC, QWidget *parent)
-  : QTabWidget(parent), _RC(RC)
+RecipeWidget::RecipeWidget(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
+  : QTabWidget(parent), _PC(PC)
 {
-  table = new ChainsCalcModel::RecipeModelNames(_RC, this);
+  table = new ChainsCalcModel::RecipeModelNames(_PC, this);
   //newAddressTab = new NewAddressTab(this);
   //connect(newAddressTab, &NewAddressTab::sendDetails, this, &AddressWidget::addEntry);
   //addTab(newAddressTab, "Address Book");
@@ -144,7 +144,7 @@ void RecipeWidget::readFromFile(const QString &fileName)
   Json::Value jsonPrRestore;
   Json::Reader JsonReader;
   bool parsingSuccessful = JsonReader.parse(fileData.constData(), jsonPrRestore);
-  _RC.ReadFromJson(jsonPrRestore["Recipes"]);
+  _PC.ReadFromJson(jsonPrRestore["Recipes"]);
 }
 
 void RecipeWidget::writeToFile(const QString &fileName)

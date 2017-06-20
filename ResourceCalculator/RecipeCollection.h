@@ -5,7 +5,7 @@
 
 #include "Recipe.h"
 
-namespace FactorioCalculator{
+namespace ResourceCalculator {
 
   class RecipeCollection;
   struct RecipeResultTree;

@@ -5,7 +5,7 @@
 #include <QStyledItemDelegate>
 #include <QAbstractTableModel>
 
-#include "../../FactorioCalculator/RecipeCollection.h"
+#include "../../ResourceCalculator/ParamsCollection.h"
 
 //QT_BEGIN_NAMESPACE
 //class QLabel;
@@ -19,7 +19,7 @@ class RecipeListModel : public QAbstractTableModel
 {
   Q_OBJECT
 public:
-  RecipeListModel(FactorioCalculator::RecipeCollection &RC, QObject *parent = 0);
+  RecipeListModel(ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
   int rowCount(const QModelIndex &parent) const override;
   int columnCount(const QModelIndex &parent) const override;
   QVariant data(const QModelIndex &index, int role) const override;
@@ -28,10 +28,10 @@ public:
   bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
   bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
   bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
-  FactorioCalculator::KEY_RECIPE GetRecipeId(int Num) const;
+  ResourceCalculator::KEY_RECIPE GetRecipeId(int Num) const;
 private:
-  FactorioCalculator::RecipeCollection &_RC;
-  QList<FactorioCalculator::KEY_RECIPE> _listOfRecipesId;
+  ResourceCalculator::ParamsCollection &_PC;
+  QList<ResourceCalculator::KEY_RECIPE> _listOfRecipesId;
 };
 
 class SpinBoxDelegate : public QStyledItemDelegate
@@ -51,13 +51,13 @@ class RecipesEditDialog : public QDialog
   Q_OBJECT
 
 public:
-  RecipesEditDialog(FactorioCalculator::RecipeCollection &RC, QWidget *parent = 0);
+  RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
   //QLineEdit *nameText;
   //QTextEdit *addressText;
 
 private:
 
-  FactorioCalculator::RecipeCollection &_RC;
+  ResourceCalculator::ParamsCollection &_PC;
 
   //QLabel *nameLabel;
   //QLabel *addressLabel;

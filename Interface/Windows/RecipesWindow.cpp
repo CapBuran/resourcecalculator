@@ -7,12 +7,12 @@
 #include <QMenuBar>
 #include <QWidget>
 
-RecipesWindow::RecipesWindow(FactorioCalculator::RecipeCollection &RC):
-  _RC(RC)
+RecipesWindow::RecipesWindow(ResourceCalculator::ParamsCollection &PC):
+  _PC(PC)
 {
   QPushButton* ButtonRecipesOpen = new QPushButton("Recipes");
   QPushButton* ButtonItemOpen    = new QPushButton("Items");
-  _RecipeWidget = new RecipeWidget(RC);
+  _RecipeWidget = new RecipeWidget(PC);
 
   QHBoxLayout *h = new QHBoxLayout();
   h->setMargin(5);

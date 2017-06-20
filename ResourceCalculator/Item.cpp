@@ -1,6 +1,6 @@
 #include "Item.h"
 
-namespace FactorioCalculator {
+namespace ResourceCalculator {
   Item::Item():
     FactorioItem("")
   {

@@ -1,6 +1,6 @@
 #include "Types.h"
 
-namespace FactorioCalculator {
+namespace ResourceCalculator {
 
   FactorioItem::FactorioItem(const std::string & Name)
   {

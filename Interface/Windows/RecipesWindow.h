@@ -2,7 +2,7 @@
 #ifndef RECIPEWINDOW_H
 #define RECIPEWINDOW_H
 
-#include "../../FactorioCalculator/RecipeCollection.h"
+#include "../../ResourceCalculator/ParamsCollection.h"
 #include "RecipeWidget.h"
 
 #include <QMainWindow>
@@ -14,7 +14,7 @@ class RecipesWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    RecipesWindow(FactorioCalculator::RecipeCollection &RC);
+    RecipesWindow(ResourceCalculator::ParamsCollection &PC);
 
 private slots:
     void updateActions(const QItemSelection &selection);
@@ -22,7 +22,7 @@ private slots:
 private:
     QWidget *CentralWidget;
 
-    FactorioCalculator::RecipeCollection &_RC;
+    ResourceCalculator::ParamsCollection &_PC;
 
     RecipeWidget *_RecipeWidget;
     QMenu *fileMenu;

@@ -3,7 +3,7 @@
 
 #include "Item.h"
 
-namespace FactorioCalculator{
+namespace ResourceCalculator {
 
   class ItemCollection: public Jsonable
   {

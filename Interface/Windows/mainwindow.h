@@ -2,7 +2,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "../../FactorioCalculator/RecipeCollection.h"
+#include "../../ResourceCalculator/ParamsCollection.h"
 #include "RecipeWidget.h"
 
 #include <QMainWindow>
@@ -15,7 +15,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(FactorioCalculator::RecipeCollection &RC);
+    MainWindow(ResourceCalculator::ParamsCollection &PC);
 
 private slots:
     void updateActions(const QItemSelection &selection);
@@ -28,7 +28,7 @@ private:
 
     QWidget *CentralWidget;
 
-    FactorioCalculator::RecipeCollection &_RC;
+    ResourceCalculator::ParamsCollection &_PC;
 
     RecipeWidget *_RecipeWidget;
     QPushButton  *_ButtonRecipesOpen;

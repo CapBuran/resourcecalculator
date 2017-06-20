@@ -1,6 +1,6 @@
 #include "Types.h"
 
-namespace FactorioCalculator  {
+namespace ResourceCalculator {
   
   class Item: public FactorioItem, public Jsonable {
   private:

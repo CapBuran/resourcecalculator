@@ -8,8 +8,8 @@
 #include <QMenuBar>
 #include <QWidget>
 
-MainWindow::MainWindow(FactorioCalculator::RecipeCollection &RC):
-  _RC(RC)
+MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
+  _PC(PC)
 {
   _ButtonRecipesOpen = new QPushButton("Recipes");
   connect(_ButtonRecipesOpen, SIGNAL(clicked()), SLOT(PushButtonClicked())) ;
@@ -20,7 +20,7 @@ MainWindow::MainWindow(FactorioCalculator::RecipeCollection &RC):
   _ButtonFactoryOpen = new QPushButton("Factorys");
   connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClicked()));
 
-  _RecipeWidget      = new RecipeWidget(RC);
+  _RecipeWidget      = new RecipeWidget(PC);
 
   QHBoxLayout *h = new QHBoxLayout();
   h->setMargin(5);
@@ -101,7 +101,7 @@ void MainWindow::saveFile()
 
 void MainWindow::PushButtonClicked()
 {
-  RecipesEditDialog _RecipesEditDialog(_RC);
+  RecipesEditDialog _RecipesEditDialog(_PC);
   if (_RecipesEditDialog.exec()) {
     //QString name = _RecipesEditDialog.nameText->text();
     //QString address = _RecipesEditDialog.addressText->toPlainText();

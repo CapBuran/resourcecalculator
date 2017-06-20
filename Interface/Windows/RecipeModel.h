@@ -1,7 +1,7 @@
 #ifndef RECIPEMODEL_H
 #define RECIPEMODEL_H
 
-#include "../../FactorioCalculator/RecipeCollection.h"
+#include "../../ResourceCalculator/ParamsCollection.h"
 
 #include <QAbstractTableModel>
 #include <QList>
@@ -14,7 +14,7 @@ class RecipeModelNames : public QAbstractTableModel
     Q_OBJECT
 
 public:
-  RecipeModelNames(FactorioCalculator::RecipeCollection &RC, QObject *parent = 0);
+  RecipeModelNames(ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
 
   int rowCount(const QModelIndex &parent) const override;
   int columnCount(const QModelIndex &parent) const override;
@@ -27,7 +27,7 @@ public:
   QList<QPair<QString, QString> > getList();
 
 private:
-  FactorioCalculator::RecipeCollection &_RC;
+  ResourceCalculator::ParamsCollection &_PC;
   QList<QPair<QString, QString> > listOfPairs;
 };
 

@@ -4,11 +4,11 @@
 
 #pragma region MODEL
 
-RecipeListModel::RecipeListModel(FactorioCalculator::RecipeCollection &RC, QObject *parent):
-  QAbstractTableModel(parent), _RC(RC)
+RecipeListModel::RecipeListModel(ResourceCalculator::ParamsCollection &PC, QObject *parent):
+  QAbstractTableModel(parent), _PC(PC)
 {
-  using namespace FactorioCalculator;
-  const std::map<KEY_RECIPE, Recipe> &DATA = _RC.GetData();
+  using namespace ResourceCalculator;
+  const std::map<KEY_RECIPE, Recipe> &DATA = _PC.RC.GetData();
   _listOfRecipesId.reserve(static_cast<int>(DATA.size()));
   for (auto &it : DATA) {
     _listOfRecipesId.push_back(it.first);
@@ -29,7 +29,7 @@ int RecipeListModel::columnCount(const QModelIndex &parent) const
 
 QVariant RecipeListModel::data(const QModelIndex &index, int role) const
 {
-  using namespace FactorioCalculator;
+  using namespace ResourceCalculator;
 
   if (!index.isValid())
     return QVariant();
@@ -39,9 +39,9 @@ QVariant RecipeListModel::data(const QModelIndex &index, int role) const
 
   if (role == Qt::DisplayRole) {
 
-    const FactorioCalculator::KEY_RECIPE KeyRecipe = GetRecipeId(index.row());
+    const ResourceCalculator::KEY_RECIPE KeyRecipe = GetRecipeId(index.row());
 
-    Recipe *R = _RC.GetRecipeForEdit(KeyRecipe);
+    Recipe *R = _PC.RC.GetRecipeForEdit(KeyRecipe);
     if (R == nullptr) {
       return QVariant();
     }
@@ -117,11 +117,11 @@ bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, i
   if (index.isValid() && role == Qt::EditRole) {
     int row = index.row();
     
-    using namespace FactorioCalculator;
+    using namespace ResourceCalculator;
 
-    const FactorioCalculator::KEY_RECIPE KeyRecipe = GetRecipeId(row);
+    const ResourceCalculator::KEY_RECIPE KeyRecipe = GetRecipeId(row);
 
-    Recipe *R = _RC.GetRecipeForEdit(KeyRecipe);
+    Recipe *R = _PC.RC.GetRecipeForEdit(KeyRecipe);
     if (R == nullptr) {
       return false;
     }
@@ -143,7 +143,7 @@ bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, i
     }
 
     Recipe ToADD(Name, Params);
-    _RC.Add(ToADD);
+    _PC.RC.Add(ToADD);
 
     _listOfRecipesId.replace(row, R->GetKey());
     
@@ -160,8 +160,8 @@ bool RecipeListModel::insertRows(int position, int rows, const QModelIndex &inde
   Q_UNUSED(index);
   beginInsertRows(QModelIndex(), position, position + rows - 1);
   for (int row = 0; row < rows; ++row) {
-    using namespace FactorioCalculator;
-    KEY_RECIPE NewKey = _RC.GetUniqueRecipeKey();
+    using namespace ResourceCalculator;
+    KEY_RECIPE NewKey = _PC.RC.GetUniqueRecipeKey();
     std::string Name("Новый рецепт" + std::to_string(row));
     RecipeParams Params;
     Params.Key = NewKey;
@@ -177,14 +177,14 @@ bool RecipeListModel::removeRows(int position, int rows, const QModelIndex &inde
   Q_UNUSED(index);
   beginRemoveRows(QModelIndex(), position, position + rows - 1);
   for (int row = 0; row < rows; ++row) {
-    _RC.Delete(GetRecipeId(position));
+    _PC.RC.Delete(GetRecipeId(position));
     _listOfRecipesId.removeAt(position);
   }
   endRemoveRows();
   return true;
 }
 
-FactorioCalculator::KEY_RECIPE RecipeListModel::GetRecipeId(int Num) const
+ResourceCalculator::KEY_RECIPE RecipeListModel::GetRecipeId(int Num) const
 {
   return _listOfRecipesId[Num];
 }
@@ -232,8 +232,8 @@ void SpinBoxDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionVi
 
 #pragma endregion DELEGATE
 
-RecipesEditDialog::RecipesEditDialog(FactorioCalculator::RecipeCollection &RC, QWidget *parent)
-  : QDialog(parent), _RC(RC)
+RecipesEditDialog::RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
+  : QDialog(parent), _PC(PC)
 {
 
   setMinimumSize(800, 600);
@@ -241,7 +241,7 @@ RecipesEditDialog::RecipesEditDialog(FactorioCalculator::RecipeCollection &RC, Q
   okButton = new QPushButton("OK");
   cancelButton = new QPushButton("Cancel");
 
-  RecipeListModel *table = new RecipeListModel(_RC, this);
+  RecipeListModel *table = new RecipeListModel(_PC, this);
   QTableView *tableView = new QTableView;
   tableView->setModel(table);
 
@@ -258,8 +258,5 @@ RecipesEditDialog::RecipesEditDialog(FactorioCalculator::RecipeCollection &RC, Q
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
   setWindowTitle(tr("Recipes Edit"));
-
-
-
 
 }

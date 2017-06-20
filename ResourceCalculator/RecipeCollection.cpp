@@ -1,6 +1,6 @@
 #include "RecipeCollection.h"
 
-namespace FactorioCalculator{
+namespace ResourceCalculator {
 
   const std::map<KEY_RECIPE, RecipeResultTree> & ItemResultTree::GetResult() const
   {

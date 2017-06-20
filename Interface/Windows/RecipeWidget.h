@@ -17,7 +17,7 @@ class RecipeWidget : public QTabWidget
   Q_OBJECT
 
 public:
-  RecipeWidget(FactorioCalculator::RecipeCollection &RC, QWidget *parent = 0);
+  RecipeWidget(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
   void readFromFile(const QString &fileName);
   void writeToFile(const QString &fileName);
 
@@ -33,7 +33,7 @@ signals:
 private:
   void setupTabs();
 
-  FactorioCalculator::RecipeCollection &_RC;
+  ResourceCalculator::ParamsCollection &_PC;
 
   ChainsCalcModel::RecipeModelNames *table;
 

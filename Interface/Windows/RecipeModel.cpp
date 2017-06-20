@@ -7,8 +7,8 @@
 namespace ChainsCalcModel {
 
 #pragma region RecipeModelNames
-  RecipeModelNames::RecipeModelNames(FactorioCalculator::RecipeCollection &RC, QObject *parent)
-    : QAbstractTableModel(parent), _RC(RC)
+  RecipeModelNames::RecipeModelNames(ResourceCalculator::ParamsCollection &PC, QObject *parent)
+    : QAbstractTableModel(parent), _PC(PC)
   {
     //listOfPairs = pairs;
   }
