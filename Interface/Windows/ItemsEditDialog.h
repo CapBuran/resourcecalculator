@@ -1,5 +1,5 @@
-#ifndef RECIPE_EDIT_DIALOG_H
-#define RECIPE_EDIT_DIALOG_H
+#ifndef ITEM_EDIT_DIALOG_H
+#define ITEM_EDIT_DIALOG_H
 
 #include <QDialog>
 #include <QStyledItemDelegate>
@@ -7,19 +7,19 @@
 
 #include "../../ResourceCalculator/ParamsCollection.h"
 
-QT_BEGIN_NAMESPACE
-class QLabel;
-class QPushButton;
-class QTextEdit;
-class QLineEdit;
-QT_END_NAMESPACE
+//QT_BEGIN_NAMESPACE
+//class QLabel;
+//class QPushButton;
+//class QTextEdit;
+//class QLineEdit;
+//QT_END_NAMESPACE
 
 
-class RecipeListModel : public QAbstractTableModel
+class ItemsEditModel : public QAbstractTableModel
 {
   Q_OBJECT
 public:
-  RecipeListModel(ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
+  ItemsEditModel(ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
   int rowCount(const QModelIndex &parent) const override;
   int columnCount(const QModelIndex &parent) const override;
   QVariant data(const QModelIndex &index, int role) const override;
@@ -28,30 +28,30 @@ public:
   bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
   bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
   bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
-  ResourceCalculator::KEY_RECIPE GetRecipeId(int Num) const;
+  ResourceCalculator::KEY_ITEM GetItemId(int Num) const;
 private:
   ResourceCalculator::ParamsCollection &_PC;
-  QList<ResourceCalculator::KEY_RECIPE> _listOfRecipesId;
+  QList<ResourceCalculator::KEY_ITEM> _listOfItemsId;
 };
 
-class SpinBoxDelegate : public QStyledItemDelegate
+class ItemEditDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
 
 public:
-  SpinBoxDelegate(QObject *parent = 0);
+  ItemEditDelegate(QObject *parent = 0);
   QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
   void setEditorData(QWidget *editor, const QModelIndex &index) const override;
   void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
   void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
-class RecipesEditDialog : public QDialog
+class ItemsEditDialog : public QDialog
 {
   Q_OBJECT
 
 public:
-  RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
+  ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
   //QLineEdit *nameText;
   //QTextEdit *addressText;
 
@@ -65,4 +65,4 @@ private:
   QPushButton *cancelButton;
 };
 
-#endif // RECIPE_EDIT_DIALOG_H
+#endif // ITEM_EDIT_DIALOG_H

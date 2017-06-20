@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "RecipesEditDialog.h"
+#include "ItemsEditDialog.h"
 
 #include <QAction>
 #include <QFileDialog>
@@ -11,14 +12,15 @@
 MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _PC(PC)
 {
-  _ButtonRecipesOpen = new QPushButton("Recipes");
-  connect(_ButtonRecipesOpen, SIGNAL(clicked()), SLOT(PushButtonClicked())) ;
-  
-  _ButtonItemOpen    = new QPushButton("Items");
-  connect(_ButtonItemOpen, SIGNAL(clicked()), SLOT(PushButtonClicked()));
 
+  _ButtonItemOpen = new QPushButton("Items");
+  connect(_ButtonItemOpen, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
+
+  _ButtonRecipesOpen = new QPushButton("Recipes");
+  connect(_ButtonRecipesOpen, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog())) ;
+  
   _ButtonFactoryOpen = new QPushButton("Factorys");
-  connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClicked()));
+  connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
   _RecipeWidget      = new RecipeWidget(PC);
 
@@ -99,7 +101,7 @@ void MainWindow::saveFile()
     //    addressWidget->writeToFile(fileName);
 }
 
-void MainWindow::PushButtonClicked()
+void MainWindow::PushButtonClickedRecipesEditDialog()
 {
   RecipesEditDialog _RecipesEditDialog(_PC);
   if (_RecipesEditDialog.exec()) {
@@ -109,6 +111,28 @@ void MainWindow::PushButtonClicked()
     int d = 0;
     d += 5;
   }
+
+}
+
+void MainWindow::PushButtonClickedItemsEditDialog()
+{
+  ItemsEditDialog _ItemsEditDialog(_PC);
+  if (_ItemsEditDialog.exec()) {
+    //QString name = _RecipesEditDialog.nameText->text();
+    //QString address = _RecipesEditDialog.addressText->toPlainText();
+    //emit sendDetails(name, address);
+  }
+
+}
+
+void MainWindow::PushButtonClickedFactorysEditDialog()
+{
+  //RecipesEditDialog _RecipesEditDialog(_PC);
+  //if (_RecipesEditDialog.exec()) {
+  //  //QString name = _RecipesEditDialog.nameText->text();
+  //  //QString address = _RecipesEditDialog.addressText->toPlainText();
+  //  //emit sendDetails(name, address);
+  //}
 
 }
 

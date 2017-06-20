@@ -21,7 +21,9 @@ private slots:
     void updateActions(const QItemSelection &selection);
     void openFile();
     void saveFile();
-    void PushButtonClicked();
+    void PushButtonClickedRecipesEditDialog();
+    void PushButtonClickedItemsEditDialog();
+    void PushButtonClickedFactorysEditDialog();
 
 private:
     void createMenus();
