@@ -2,6 +2,7 @@
 #define RECIPE_EDIT_DIALOG_H
 
 #include <QDialog>
+#include <QtWidgets>
 #include <QStyledItemDelegate>
 #include <QAbstractTableModel>
 
@@ -34,16 +35,15 @@ private:
   QList<ResourceCalculator::KEY_RECIPE> _listOfRecipesId;
 };
 
-class SpinBoxDelegate : public QStyledItemDelegate
+class RecipesEditDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
-
 public:
-  SpinBoxDelegate(QObject *parent = 0);
-  QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-  void setEditorData(QWidget *editor, const QModelIndex &index) const override;
-  void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
-  void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+  RecipesEditDelegate(ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
+  void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+  bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
+private:
+  ResourceCalculator::ParamsCollection &_PC;
 };
 
 class RecipesEditDialog : public QDialog

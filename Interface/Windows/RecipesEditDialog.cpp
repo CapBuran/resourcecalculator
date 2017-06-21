@@ -1,6 +1,5 @@
 #include "RecipesEditDialog.h"
-
-#include <QtWidgets>
+#include "ItemSelectedDialog.h""
 
 #pragma region MODEL
 
@@ -92,11 +91,11 @@ QVariant RecipeListModel::headerData(int section, Qt::Orientation orientation, i
     case 1:
       return tr("Recipe time");
     case 2:
-      return tr("Recipe Зависимость");
+      return tr("Результаты рецепта");
     case 3:
-      return tr("Recipe Интегреенты");
+      return tr("Интегреенты рецепта");
     case 4:
-      return tr("Factorys allowes");
+      return tr("Фабрики");
     default:
       return QVariant();
     }
@@ -193,41 +192,59 @@ ResourceCalculator::KEY_RECIPE RecipeListModel::GetRecipeId(int Num) const
 
 #pragma region DELEGATE
 
-SpinBoxDelegate::SpinBoxDelegate(QObject *parent)
-  : QStyledItemDelegate(parent)
+RecipesEditDelegate::RecipesEditDelegate(ResourceCalculator::ParamsCollection &PC, QObject *parent)
+  : QStyledItemDelegate(parent), _PC(PC)
 {
 }
 
-QWidget *SpinBoxDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &/* index */) const
+void RecipesEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
-  QSpinBox *editor = new QSpinBox(parent);
-  editor->setFrame(false);
-  editor->setMinimum(0);
-  editor->setMaximum(100);
-
-  return editor;
+  QString ButtonCaption;
+  switch (index.column()) {
+  case 2: 
+    ButtonCaption = "Результаты";
+    break;
+  case 3:
+    ButtonCaption = "Интегреенты";
+    break;
+  case 4: 
+    ButtonCaption = "Фабрики";
+    break;
+  default:
+    QStyledItemDelegate::paint(painter, option, index);
+    return;
+    break;
+  }
+  QStyleOptionButton button;
+  button.rect = option.rect;
+  button.text = ButtonCaption;
+  button.state = QStyle::State_Enabled;
+  QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
 }
 
-void SpinBoxDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+bool RecipesEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
 {
-  int value = index.model()->data(index, Qt::EditRole).toInt();
-
-  QSpinBox *spinBox = static_cast<QSpinBox*>(editor);
-  spinBox->setValue(value);
-}
-
-void SpinBoxDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
-{
-  QSpinBox *spinBox = static_cast<QSpinBox*>(editor);
-  spinBox->interpretText();
-  int value = spinBox->value();
-
-  model->setData(index, value, Qt::EditRole);
-}
-
-void SpinBoxDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &/* index */) const
-{
-  editor->setGeometry(option.rect);
+  if (event->type() == QEvent::MouseButtonPress){
+    switch (index.column()) {
+    case 2:
+    case 3:
+    case 4: {
+      ItemSelectedDialog _ItemSelectedDialog(_PC);
+      if (_ItemSelectedDialog.exec()) {
+        //QString name = _RecipesEditDialog.nameText->text();
+        //QString address = _RecipesEditDialog.addressText->toPlainText();
+        //emit sendDetails(name, address);
+      }
+      return false;
+      break;
+    }
+    default:
+      bool ff = QStyledItemDelegate::editorEvent(event, model, option, index);;
+      return ff;
+      break;
+    }
+  }
+  return QStyledItemDelegate::editorEvent(event, model, option, index);
 }
 
 #pragma endregion DELEGATE
@@ -241,9 +258,9 @@ RecipesEditDialog::RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, Q
   okButton = new QPushButton("OK");
   cancelButton = new QPushButton("Cancel");
 
-  RecipeListModel *table = new RecipeListModel(_PC, this);
   QTableView *tableView = new QTableView;
-  tableView->setModel(table);
+  tableView->setModel(new RecipeListModel(_PC, this));
+  tableView->setItemDelegate(new RecipesEditDelegate(PC, this));
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
   buttonLayout->addWidget(okButton);
