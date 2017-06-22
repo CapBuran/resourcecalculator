@@ -1,5 +1,6 @@
 #include "..\..\ResourceCalculator\ParamsCollection.h"
 #include <fstream>
+#include "..\..\ThreeParty\Base64\base64.h"
 
 #define StandartTestFileJson "C:\\games\\Factorio.json"
 
@@ -101,6 +102,30 @@ int main(int argc, char ** argv) {
   RCRestore.ReadFromJson(jsonPrRestore["Recipes"]);
 
   ItemResultTree IRT = RCRestore.BuildTree(KEY_ITEM::ID_ITEM_Paket1, 8);
+
+  std::string sss("Русские буквы");
+
+  std::vector<char> d(sss.size());
+  
+  for (size_t i = 0; i < sss.size(); i++){
+    d[i] = sss[i];
+  }
+
+  std::vector<char> d1, d2;
+
+  base64_encode(d, d1);
+  base64_decode(d1, d2);
+  
+  std::string sss2;
+  sss2.resize(d2.size());
+
+  for (size_t i = 0; i < sss.size(); i++) {
+    sss2[i] = d2[i];
+  }
+
+  bool b1 = sss2 == sss;
+  sss[2] = '5';
+  bool b2 = sss2 == sss;
 
   return 0;
 
