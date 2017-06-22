@@ -7,8 +7,13 @@ namespace ResourceCalculator {
   private:
     double _Speed;
     double _Power;
-    
+
+    int _CountSlotsForModules;
+    int _CountSlotsForRecipes;
+
     KEY_FACTORY _Key;
+
+    bool _AllowLiquidsAndGases;
 
     Factory();
     Factory(const Factory &recipe);

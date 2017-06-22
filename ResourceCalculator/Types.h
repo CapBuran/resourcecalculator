@@ -38,9 +38,22 @@ namespace ResourceCalculator {
     ID_FACTORY_PechStalnaya
   };
 
-  //typedef int KEY_RECIPE;
-  //typedef int KEY_ITEM;
-  //typedef int KEY_FACTORY;
+  enum class KEY_MODULE : unsigned int
+  {
+    ID_Productivity_1,
+    ID_Productivity_2,
+    ID_Productivity_3,
+    ID_Efficiency_1,
+    ID_Efficiency_2,
+    ID_Efficiency_3,
+    ID_Speed_1,
+    ID_Speed_2,
+    ID_Speed_3
+  };
+
+  //typedef unsigned int KEY_RECIPE;
+  //typedef unsigned int KEY_ITEM;
+  //typedef unsigned int KEY_FACTORY;
 
   typedef Json::LargestUInt KEY_TO_Json;
 

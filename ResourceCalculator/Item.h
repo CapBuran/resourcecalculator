@@ -5,6 +5,7 @@ namespace ResourceCalculator {
   class Item: public FactorioItem, public Jsonable {
   private:
     KEY_ITEM _Key;
+    bool _IsALiquidOrGas;
     Item();
     Item(const Item &item);
   public:
