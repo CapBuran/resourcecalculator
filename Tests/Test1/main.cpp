@@ -4,9 +4,13 @@
 
 #define StandartTestFileJson "C:\\games\\Factorio.json"
 
+
+using namespace ResourceCalculator;
+
+
+
 int main(int argc, char ** argv) {
   using namespace std;
-  using namespace ResourceCalculator;
 
   ParamsCollection PC;
   ItemCollection &IC = PC.IC;
@@ -102,6 +106,12 @@ int main(int argc, char ** argv) {
   RCRestore.ReadFromJson(jsonPrRestore["Recipes"]);
 
   ItemResultTree IRT = RCRestore.BuildTree(KEY_ITEM::ID_ITEM_Paket1, 8);
+
+  std::list <KEY_RECIPE> ResultRecipes;
+  std::list <KEY_ITEM> ResultItems;
+  std::map<KEY_ITEM, KEY_RECIPE> Ansfer;
+
+  RCRestore.Travelling(IRT, Ansfer, ResultRecipes, ResultItems);
 
   std::string sss("Русские буквы");
 

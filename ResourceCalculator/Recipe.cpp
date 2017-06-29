@@ -5,20 +5,20 @@ namespace ResourceCalculator {
   static RecipeParams RecipeParamsDefault;
 
   Recipe::Recipe():
-    FactorioItem(""),_Key(RecipeParamsDefault.Key), _Time(RecipeParamsDefault.Time),
+    ItemBase(""),_Key(RecipeParamsDefault.Key), _Time(RecipeParamsDefault.Time),
     _Required(RecipeParamsDefault.Required), _Result(RecipeParamsDefault.Result)
   {
 
   }
 
   Recipe::Recipe(std::string const & Name, const RecipeParams & Params):
-    FactorioItem(Name), _Key(Params.Key), _Time(Params.Time),
+    ItemBase(Name), _Key(Params.Key), _Time(Params.Time),
     _Required(Params.Required), _Result(Params.Result), _CurrentFactory(Params.CurrentFactory)
   {
   }
 
   Recipe::Recipe(const Recipe & item):
-    FactorioItem(item.GetName())
+    ItemBase(item.GetName())
   {
   }
 

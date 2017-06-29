@@ -23,7 +23,7 @@ namespace ResourceCalculator {
     int WriteToJson(Json::Value & jsonPr) const override;
   };
 
-  class Recipe: public FactorioItem, public Jsonable{
+  class Recipe: public ItemBase, public Jsonable{
   private:
     double      _Time;
     KEY_RECIPE  _Key;

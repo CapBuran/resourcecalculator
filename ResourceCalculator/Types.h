@@ -8,9 +8,14 @@
 
 namespace ResourceCalculator {
 
-  enum class KEY_RECIPE : unsigned int
+  typedef Json::LargestUInt KEY_TO_Json;
+
+  typedef KEY_TO_Json TYPE_KEY;
+
+  enum class KEY_RECIPE : TYPE_KEY
   {
     ID_RECIPE_NoFindRecipe,
+    ID_RECIPE_PreviouslyProduced,
     ID_RECIPE_FindRecipeROOT,
     ID_RECIPE_Iron_Plate,
     ID_RECIPE_Cuprum_Plate,
@@ -19,8 +24,9 @@ namespace ResourceCalculator {
     ID_RECIPE_Paket1_2
   };
 
-  enum class KEY_ITEM : unsigned int
+  enum class KEY_ITEM : TYPE_KEY
   {
+    ID_ITEM_NoFind_Item,
     ID_ITEM_Iron_Plate,
     ID_ITEM_Cuprum_Plate,
     ID_ITEM_Iron_Ruda,
@@ -29,8 +35,19 @@ namespace ResourceCalculator {
     ID_ITEM_Paket1
   };
 
-  enum class KEY_FACTORY : unsigned int
+  enum class TYPE_FACTORY : TYPE_KEY
   {
+    Unknown,
+    Assembly,
+    ChemicalPlant,
+    Refinery,
+    Furnace,
+    ElectrolysisPlant
+  };
+
+  enum class KEY_FACTORY : TYPE_KEY
+  {
+    ID_ITEM_NoFind_Factory,
     ID_FACTORY_Assembly1,
     ID_FACTORY_Assembly2,
     ID_FACTORY_Assembly3,
@@ -38,8 +55,9 @@ namespace ResourceCalculator {
     ID_FACTORY_PechStalnaya
   };
 
-  enum class KEY_MODULE : unsigned int
+  enum class KEY_MODULE : TYPE_KEY
   {
+    ID_CleanSlot,
     ID_Productivity_1,
     ID_Productivity_2,
     ID_Productivity_3,
@@ -51,11 +69,11 @@ namespace ResourceCalculator {
     ID_Speed_3
   };
 
-  //typedef unsigned int KEY_RECIPE;
-  //typedef unsigned int KEY_ITEM;
-  //typedef unsigned int KEY_FACTORY;
-
-  typedef Json::LargestUInt KEY_TO_Json;
+  //typedef TYPE_KEY KEY_RECIPE;
+  //typedef TYPE_KEY KEY_ITEM;
+  //typedef TYPE_KEY KEY_FACTORY;
+  //typedef TYPE_KEY KEY_MODULE;
+  //typedef TYPE_KEY TYPE_FACTORY;  
 
   class Jsonable {
   protected:
@@ -73,11 +91,11 @@ namespace ResourceCalculator {
     virtual int WriteToJson(Json::Value & jsonPr) const = 0;
   };
 
-  class FactorioItem {
+  class ItemBase {
   protected:
     std::string _Name;
-    FactorioItem(const std::string &Name);
-    virtual ~FactorioItem();
+    ItemBase(const std::string &Name);
+    virtual ~ItemBase();
 
   public:
 

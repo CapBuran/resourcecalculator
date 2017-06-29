@@ -21,8 +21,7 @@ int main(int argc, char *argv[])
     Json::Value jsonPrRestore;
     Json::Reader JsonReader;
     bool parsingSuccessful = JsonReader.parse(fileData.constData(), jsonPrRestore);
-    PC.RC.ReadFromJson(jsonPrRestore["Recipes"]);
-    PC.IC.ReadFromJson(jsonPrRestore["Items"]);
+    PC.ReadFromJson(jsonPrRestore);
   }
 
   MainWindow mw(PC);

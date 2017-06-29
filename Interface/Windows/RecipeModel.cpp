@@ -4,30 +4,29 @@
 #include <QTabWidget>
 #include <QItemDelegate>
 
-namespace ChainsCalcModel {
-
-#pragma region RecipeModelNames
-  RecipeModelNames::RecipeModelNames(ResourceCalculator::ParamsCollection &PC, QObject *parent)
+#pragma region Production—hainModelLeft
+ProductionChainModelLeft::ProductionChainModelLeft(ResourceCalculator::ParamsCollection &PC, QObject *parent)
     : QAbstractTableModel(parent), _PC(PC)
   {
     //listOfPairs = pairs;
   }
 
-  int RecipeModelNames::rowCount(const QModelIndex &parent) const
+  int ProductionChainModelLeft::rowCount(const QModelIndex &parent) const
   {
     Q_UNUSED(parent);
     //return listOfPairs.size();
     return 0;
   }
 
-  int RecipeModelNames::columnCount(const QModelIndex &parent) const
+  int ProductionChainModelLeft::columnCount(const QModelIndex &parent) const
   {
     Q_UNUSED(parent);
     return 1;
   }
 
-  QVariant RecipeModelNames::data(const QModelIndex &index, int role) const
+  QVariant ProductionChainModelLeft::data(const QModelIndex &index, int role) const
   {
+    //this->dataChanged()
     if (!index.isValid())
       return QVariant();
 
@@ -45,7 +44,7 @@ namespace ChainsCalcModel {
     return QVariant();
   }
 
-  QVariant RecipeModelNames::headerData(int section, Qt::Orientation orientation, int role) const
+  QVariant ProductionChainModelLeft::headerData(int section, Qt::Orientation orientation, int role) const
   {
     if (role != Qt::DisplayRole)
       return QVariant();
@@ -65,7 +64,7 @@ namespace ChainsCalcModel {
     return QVariant();
   }
 
-  bool RecipeModelNames::insertRows(int position, int rows, const QModelIndex &index)
+  bool ProductionChainModelLeft::insertRows(int position, int rows, const QModelIndex &index)
   {
     Q_UNUSED(index);
     beginInsertRows(QModelIndex(), position, position + rows - 1);
@@ -79,7 +78,7 @@ namespace ChainsCalcModel {
     return true;
   }
 
-  bool RecipeModelNames::removeRows(int position, int rows, const QModelIndex &index)
+  bool ProductionChainModelLeft::removeRows(int position, int rows, const QModelIndex &index)
   {
     Q_UNUSED(index);
     beginRemoveRows(QModelIndex(), position, position + rows - 1);
@@ -92,7 +91,7 @@ namespace ChainsCalcModel {
     return true;
   }
 
-  bool RecipeModelNames::setData(const QModelIndex &index, const QVariant &value, int role)
+  bool ProductionChainModelLeft::setData(const QModelIndex &index, const QVariant &value, int role)
   {
     if (index.isValid() && role == Qt::EditRole) {
       int row = index.row();
@@ -115,21 +114,64 @@ namespace ChainsCalcModel {
     return false;
   }
 
-  Qt::ItemFlags RecipeModelNames::flags(const QModelIndex &index) const
+  Qt::ItemFlags ProductionChainModelLeft::flags(const QModelIndex &index) const
   {
     if (!index.isValid())
       return Qt::ItemIsEnabled;
-
+    
     return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
   }
 
-  QList< QPair<QString, QString> > RecipeModelNames::getList()
-  {
-    QList<QPair<QString, QString> > RetVal;
-    return RetVal;
-  }
   
 #pragma endregion
 
 
-}
+#pragma region Production—hainModelRight
+
+  int ProductionChainModelRight::rowCount(const QModelIndex & parent) const
+  {
+    return 0;
+  }
+
+  int ProductionChainModelRight::columnCount(const QModelIndex & parent) const
+  {
+    return 5;
+  }
+
+  QVariant ProductionChainModelRight::data(const QModelIndex & index, int role) const
+  {
+    return QVariant();
+  }
+
+  QVariant ProductionChainModelRight::headerData(int section, Qt::Orientation orientation, int role) const
+  {
+    
+    return QVariant();
+  }
+
+  Qt::ItemFlags ProductionChainModelRight::flags(const QModelIndex & index) const
+  {
+    return Qt::ItemFlags();
+  }
+
+  bool ProductionChainModelRight::setData(const QModelIndex & index, const QVariant & value, int role)
+  {
+    return false;
+  }
+
+  bool ProductionChainModelRight::insertRows(int position, int rows, const QModelIndex & index)
+  {
+    return false;
+  }
+
+  bool ProductionChainModelRight::removeRows(int position, int rows, const QModelIndex & index)
+  {
+    return false;
+  }
+
+  ResourceCalculator::KEY_RECIPE ProductionChainModelRight::GetRecipeId(int Num) const
+  {
+    return ResourceCalculator::KEY_RECIPE();
+  }
+
+#pragma endregion

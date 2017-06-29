@@ -18,8 +18,6 @@ class RecipeWidget : public QTabWidget
 
 public:
   RecipeWidget(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
-  void readFromFile(const QString &fileName);
-  void writeToFile(const QString &fileName);
 
 public slots:
   void showAddEntryDialog();
@@ -31,13 +29,12 @@ signals:
   void selectionChanged(const QItemSelection &selected);
 
 private:
-  void setupTabs();
+  //void setupTabs();
 
   ResourceCalculator::ParamsCollection &_PC;
 
-  ChainsCalcModel::RecipeModelNames *table;
+  ProductionChainModelLeft *table;
 
-  //NewAddressTab *newAddressTab;
   QSortFilterProxyModel *proxyModel;
 };
 

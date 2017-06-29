@@ -1,22 +1,23 @@
-#include "Item.h"
+#include "Module.h"
 
 namespace ResourceCalculator {
-  Item::Item():
+
+  Module::Module(): 
     ItemBase("")
   {
   }
 
-  Item::Item(const std::string &Name, KEY_ITEM Key):
+  Module::Module(const std::string &Name, KEY_MODULE Key):
     ItemBase(Name), _Key(Key)
   {
   }
 
-  Item::Item(const Item & item):
-    ItemBase(item.GetName()), _Key(item._Key)
+  Module::Module(const Module & Module):
+    ItemBase(Module.GetName()), _Key(Module._Key)
   {
   }
 
-  //Item & Item::operator=(const Item & right)
+  //Module & Module::operator=(const Module & right)
   //{
   //  if (this == &right) {
   //    return *this;
@@ -26,21 +27,21 @@ namespace ResourceCalculator {
   //  return *this;
   //}
 
-  Item::~Item()
+  Module::~Module()
   {
   }
 
-  KEY_ITEM Item::GetKey() const
+  KEY_MODULE Module::GetKey() const
   {
     return _Key;
   }
 
-  int Item::ReadFromJson(const Json::Value & jsonPr)
+  int Module::ReadFromJson(const Json::Value & jsonPr)
   {
     return 0;
   }
 
-  int Item::WriteToJson(Json::Value & jsonPr) const
+  int Module::WriteToJson(Json::Value & jsonPr) const
   {
     jsonPr["Key"] = static_cast<KEY_TO_Json>(_Key);
     jsonPr["Name"]["ru"] = _Name;

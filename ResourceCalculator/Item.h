@@ -1,8 +1,11 @@
+#ifndef ItemH
+#define ItemH
+
 #include "Types.h"
 
 namespace ResourceCalculator {
   
-  class Item: public FactorioItem, public Jsonable {
+  class Item: public ItemBase, public Jsonable {
   private:
     KEY_ITEM _Key;
     bool _IsALiquidOrGas;
@@ -19,3 +22,5 @@ namespace ResourceCalculator {
   };
 
 }
+
+#endif ItemH

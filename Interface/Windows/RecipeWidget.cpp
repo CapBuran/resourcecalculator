@@ -7,11 +7,11 @@
 RecipeWidget::RecipeWidget(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
   : QTabWidget(parent), _PC(PC)
 {
-  table = new ChainsCalcModel::RecipeModelNames(_PC, this);
+  table = new ProductionChainModelLeft(_PC, this);
   //newAddressTab = new NewAddressTab(this);
   //connect(newAddressTab, &NewAddressTab::sendDetails, this, &AddressWidget::addEntry);
   //addTab(newAddressTab, "Address Book");
-  setupTabs();
+  //setupTabs();
 }
 
 void RecipeWidget::showAddEntryDialog()
@@ -100,61 +100,26 @@ void RecipeWidget::removeEntry()
   //}
 }
 
-void RecipeWidget::setupTabs()
-{
-  QStringList groups;
-  groups << "ABC" << "DEF" << "GHI" << "JKL" << "MNO" << "PQR" << "STU" << "VW" << "XYZ";
-
-  for (int i = 0; i < groups.size(); ++i) {
-    QString str = groups.at(i);
-    QString regExp = QString("^[%1].*").arg(str);
-
-    proxyModel = new QSortFilterProxyModel(this);
-    proxyModel->setSourceModel(table);
-    proxyModel->setFilterRegExp(QRegExp(regExp, Qt::CaseInsensitive));
-    proxyModel->setFilterKeyColumn(0);
-
-    QTableView *tableView = new QTableView;
-    tableView->setModel(proxyModel);
-
-    tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
-    tableView->horizontalHeader()->setStretchLastSection(true);
-    tableView->verticalHeader()->hide();
-    tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-    tableView->setSelectionMode(QAbstractItemView::SingleSelection);
-
-    tableView->setSortingEnabled(true);
-
-    connect(tableView->selectionModel(),
-      &QItemSelectionModel::selectionChanged,
-      this, &RecipeWidget::selectionChanged);
-
-    addTab(tableView, str);
-  }
-}
-
-void RecipeWidget::readFromFile(const QString &fileName)
-{
-  QFile file(fileName);
-  if (!file.open(QIODevice::ReadOnly)) {
-    QMessageBox::information(this, tr("Unable to open file"), file.errorString());
-    return;
-  }
-  QByteArray fileData = file.readAll();
-  Json::Value jsonPrRestore;
-  Json::Reader JsonReader;
-  bool parsingSuccessful = JsonReader.parse(fileData.constData(), jsonPrRestore);
-  _PC.ReadFromJson(jsonPrRestore["Recipes"]);
-}
-
-void RecipeWidget::writeToFile(const QString &fileName)
-{
-  //QFile file(fileName);
-  //if (!file.open(QIODevice::WriteOnly)) {
-  //  QMessageBox::information(this, tr("Unable to open file"), file.errorString());
-  //  return;
+//void RecipeWidget::setupTabs()
+//{
+  //QStringList groups;
+  //groups << "ABC" << "DEF" << "GHI" << "JKL" << "MNO" << "PQR" << "STU" << "VW" << "XYZ";
+  //for (int i = 0; i < groups.size(); ++i) {
+  //  QString str = groups.at(i);
+  //  QString regExp = QString("^[%1].*").arg(str);
+  //  proxyModel = new QSortFilterProxyModel(this);
+  //  proxyModel->setSourceModel(table);
+  //  proxyModel->setFilterRegExp(QRegExp(regExp, Qt::CaseInsensitive));
+  //  proxyModel->setFilterKeyColumn(0);
+  //  QTableView *tableView = new QTableView;
+  //  tableView->setModel(proxyModel);
+  //  tableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+  //  tableView->horizontalHeader()->setStretchLastSection(true);
+  //  tableView->verticalHeader()->hide();
+  //  tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  //  tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+  //  tableView->setSortingEnabled(true);
+  //  connect(tableView->selectionModel(), &QItemSelectionModel::selectionChanged,  this, &RecipeWidget::selectionChanged);
+  //  addTab(tableView, str);
   //}
-  //QList<QPair<QString, QString> > pairs = table->getList();
-  //QDataStream out(&file);
-  //out << pairs;
-}
+//}

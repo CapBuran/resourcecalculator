@@ -7,14 +7,25 @@ namespace ResourceCalculator {
     return _Result;
   }
 
+  KEY_ITEM ItemResultTree::GetItemKey() const
+  {
+    return _ItemKey;
+  }
+
   const std::map<KEY_ITEM, ItemResultTree> & RecipeResultTree::GetResult() const
   {
     return _Result;
   }
 
+  KEY_RECIPE RecipeResultTree::GetRecipeKey() const
+  {
+    return _RecipeKey;
+  }
+
   ItemResultTree RecipeCollection::BuildTree(KEY_ITEM ItemID, int NestingResults) const
   {
     ItemResultTree RetVal;
+    RetVal._ItemKey = ItemID;
     if (NestingResults == 0) return RetVal;
       for (auto &it : _Recipes) {
       RecipeParams RP = it.second.GetRecipeParams();
@@ -27,9 +38,55 @@ namespace ResourceCalculator {
     return RetVal;
   }
 
+
+  void RecipeCollection::Travelling(const RecipeResultTree &Tree, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer,
+    std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const
+  {
+    const KEY_RECIPE FindRecipeKey = Tree.GetRecipeKey();
+
+    const std::map<KEY_ITEM, ItemResultTree> & ResultTree = Tree.GetResult();
+
+    for (auto &it : ResultTree) {
+      Travelling(it.second, Ansfer, ResultRecipes, ResultItems);
+    }
+
+    ResultRecipes.remove(FindRecipeKey);
+    ResultRecipes.push_back(FindRecipeKey);
+
+  }
+
+
+  void RecipeCollection::Travelling(const ItemResultTree &Tree, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer, 
+    std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const
+  {
+    const KEY_ITEM FindItemKey = Tree.GetItemKey();
+    const std::map<KEY_RECIPE, RecipeResultTree> &ResultTree = Tree.GetResult();
+    if (ResultTree.size() > 0) {
+      auto FindAnsfer = Ansfer.find(FindItemKey);
+      if (FindAnsfer != Ansfer.end()) {
+        KEY_RECIPE RecipeKeyAnsfer = FindAnsfer->second;
+        if (RecipeKeyAnsfer != KEY_RECIPE::ID_RECIPE_PreviouslyProduced) {
+          auto FindRecipeTree = ResultTree.find(RecipeKeyAnsfer);
+          if (FindRecipeTree != ResultTree.end()) {
+            Travelling(FindRecipeTree->second, Ansfer, ResultRecipes, ResultItems);
+          }
+        }
+      } else {
+        if (ResultTree.begin()->second.GetRecipeKey() != KEY_RECIPE::ID_RECIPE_PreviouslyProduced) {
+          Travelling(ResultTree.begin()->second, Ansfer, ResultRecipes, ResultItems);
+        }
+      }
+    }
+    ResultItems.remove(FindItemKey);
+    ResultItems.push_back(FindItemKey);
+  }
+
+
+
   RecipeResultTree RecipeCollection::BuildTree(KEY_RECIPE RecipeID, int NestingResults) const
   {
     RecipeResultTree RetVal;
+    RetVal._RecipeKey = RecipeID;
     if (NestingResults == 0) return RetVal;
     std::map<KEY_RECIPE, Recipe>::const_iterator RP_FIND = _Recipes.find(RecipeID);
     if (RP_FIND != _Recipes.end()){

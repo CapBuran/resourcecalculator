@@ -36,6 +36,9 @@ private:
     QPushButton  *_ButtonRecipesOpen;
     QPushButton  *_ButtonItemOpen;
     QPushButton  *_ButtonFactoryOpen;
+    QPushButton  *_ButtonAddRecipeTab;
+    QPushButton  *_ButtonDelRecipeTab;
+    QPushButton  *_ButtonPropertyTableRecipeTab;
     QMenu *fileMenu;
     QMenu *toolMenu;
     QAction *openAct;

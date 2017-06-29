@@ -13,27 +13,39 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _PC(PC)
 {
 
+  _ButtonPropertyTableRecipeTab = new QPushButton("Property");
+  connect(_ButtonPropertyTableRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
+
+  _ButtonAddRecipeTab = new QPushButton("Add");
+  connect(_ButtonAddRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
+
+  _ButtonDelRecipeTab = new QPushButton("Remote");
+  connect(_ButtonDelRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog()));
+
   _ButtonItemOpen = new QPushButton("Items");
   connect(_ButtonItemOpen, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
 
   _ButtonRecipesOpen = new QPushButton("Recipes");
-  connect(_ButtonRecipesOpen, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog())) ;
-  
+  connect(_ButtonRecipesOpen, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog()));
+
   _ButtonFactoryOpen = new QPushButton("Factorys");
   connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
-  _RecipeWidget      = new RecipeWidget(PC);
+  _RecipeWidget       = new RecipeWidget(PC);
 
   QHBoxLayout *h = new QHBoxLayout();
   h->setMargin(5);
-  h->setSpacing(15);
+  h->setSpacing(5);
+  h->addWidget(_ButtonPropertyTableRecipeTab); 
+  h->addWidget(_ButtonAddRecipeTab);
+  h->addWidget(_ButtonDelRecipeTab);
   h->addWidget(_ButtonRecipesOpen);
   h->addWidget(_ButtonItemOpen);
   h->addWidget(_ButtonFactoryOpen);
 
   QVBoxLayout *v = new QVBoxLayout();
   v->setMargin(5);
-  v->setSpacing(15);
+  v->setSpacing(5);
   v->addWidget(_RecipeWidget);
   v->addLayout(h);
 
@@ -47,6 +59,7 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   setWindowTitle(tr("Resurse calculator "));
 
 }
+
 void MainWindow::createMenus()
 {
   fileMenu = menuBar()->addMenu(tr("&File"));
@@ -90,15 +103,37 @@ void MainWindow::openFile()
 {
   QString fileName = QFileDialog::getOpenFileName(this);
   if (!fileName.isEmpty()) {
-    _RecipeWidget->readFromFile(fileName);
+    QFile file(fileName);
+    if (!file.open(QIODevice::ReadOnly)) {
+      QMessageBox::warning(this, tr("Unable to open file"), file.errorString());
+      return;
+    }
+    QByteArray fileData = file.readAll();
+    Json::Value jsonPrRestore;
+    Json::Reader JsonReader;
+    if (JsonReader.parse(fileData.constData(), jsonPrRestore)) {
+      _PC.ReadFromJson(jsonPrRestore);
+    } else {
+      QMessageBox::warning(this, tr("Unable parse json file"), JsonReader.getFormattedErrorMessages().c_str());
+      return;
+    }
   }
 }
 
 void MainWindow::saveFile()
 {
-    //QString fileName = QFileDialog::getSaveFileName(this);
-    //if (!fileName.isEmpty())
-    //    addressWidget->writeToFile(fileName);
+  QString fileName = QFileDialog::getSaveFileName(this);
+  if (!fileName.isEmpty()) {
+    QFile file(fileName);
+    if (!file.open(QIODevice::WriteOnly)) {
+      QMessageBox::warning(this, tr("Unable to open file"), file.errorString());
+      return;
+    }
+    Json::Value jsonPr;
+    _PC.WriteToJson(jsonPr);
+    Json::StyledWriter styledWriter;
+    file.write(styledWriter.write(jsonPr).c_str());
+  }
 }
 
 void MainWindow::PushButtonClickedRecipesEditDialog()
