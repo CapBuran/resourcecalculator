@@ -63,7 +63,7 @@ int main(int argc, char ** argv) {
     RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly3;
     RP.Key = KEY_RECIPE::ID_RECIPE_Paket1_2;
     RP.Time = 3.0;
-    RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.5 }, { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
+    RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.5 }, { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } };
     RP.Result = { { KEY_ITEM::ID_ITEM_Paket1, 1 } };
     Recipe R5("Изготовление исследовательского пакета 1 1", RP);
 
@@ -110,6 +110,9 @@ int main(int argc, char ** argv) {
   std::list <KEY_RECIPE> ResultRecipes;
   std::list <KEY_ITEM> ResultItems;
   std::map<KEY_ITEM, KEY_RECIPE> Ansfer;
+
+  Ansfer[KEY_ITEM::ID_ITEM_Sherst] = KEY_RECIPE::ID_RECIPE_PreviouslyProduced;
+  Ansfer[KEY_ITEM::ID_ITEM_Paket1] = KEY_RECIPE::ID_RECIPE_Paket1_2;
 
   RCRestore.Travelling(IRT, Ansfer, ResultRecipes, ResultItems);
 
