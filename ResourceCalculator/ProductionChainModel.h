@@ -24,9 +24,16 @@ namespace ResourceCalculator {
     std::vector <double> _CountItems;
     std::vector <double> _ItemsPerSec;
 
+    bool _Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::map<int, KEY_ITEM> &Cols);
+
+    bool _SetCountFactorys(int Count);
+    bool _SetFactoryModules(const FactoryModules &FM);
+
+    FactoryModules _GetFactoryModules() const;
+
   public:
     
-    bool Build(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const FactoryModules& FM, int CountFactorys);
+    
     
     friend ProductionChainModel;
 

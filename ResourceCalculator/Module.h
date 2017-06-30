@@ -35,9 +35,9 @@ namespace ResourceCalculator {
   class FactoryModules {
   private:
     std::vector < KEY_MODULE > _Modules;
-    FactoryModules() = delete;
+    //FactoryModules() = delete;
     FactoryModules(KEY_FACTORY FactoryID);
-    FactoryModules(const FactoryModules &) = delete;
+    //FactoryModules(const FactoryModules &) = delete;
   public:
     const KEY_FACTORY FactoryID;
     const std::vector < KEY_MODULE > GetModules() const;

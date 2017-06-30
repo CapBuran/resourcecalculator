@@ -100,24 +100,24 @@ namespace ResourceCalculator {
     return _DataRows[Row];
   }
 
-  bool ProductionChainDataRow::Build(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const FactoryModules & FM, int CountFactorys)
+  bool ProductionChainDataRow::_Init(const ParamsCollection & PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::map<int, KEY_ITEM>&Cols)
   {
     assert(_FM.FactoryID == FactoryCurrent);
 
     bool RetVal = RecipeCurrent == RecipeId;
 
     RetVal = RetVal && FactoryCurrent == FactoryId;
-    RetVal = RetVal && _FM.GetModules() == FM.GetModules();
+    RetVal = RetVal && _FM.GetModules() == _FM.GetModules();
 
     if (RetVal) {
       return true;
     }
 
-    RecipeCurrent  = RecipeId;
+    RecipeCurrent = RecipeId;
     FactoryCurrent = FactoryId;
 
     const Factory &factory = PC.FC.GetFactory(FactoryId);
-    
+
     //TODO modules
 
     //_SpeedFactory = factory.
@@ -139,9 +139,23 @@ namespace ResourceCalculator {
     //std::vector <double> _CountItems;
     //std::vector <double> _ItemsPerSec;
 
-    
-
     return false;
+  }
+
+
+  bool ProductionChainDataRow::_SetCountFactorys(int Count)
+  {
+    return false;
+  }
+
+  bool ProductionChainDataRow::_SetFactoryModules(const FactoryModules & FM)
+  {
+    return false;
+  }
+
+  FactoryModules ProductionChainDataRow::_GetFactoryModules() const
+  {
+    return _FM;
   }
 
 }
