@@ -11,9 +11,9 @@ namespace ResourceCalculator {
     bool _IsALiquidOrGas;
     Item();
     Item(const Item &item);
+    //Item& operator=(const Item& right);
   public:
     Item(std::string const &Name, KEY_ITEM Key);
-    //Item& operator=(const Item& right);
     ~Item();
     KEY_ITEM GetKey() const;
     int ReadFromJson(const Json::Value & jsonPr) override;

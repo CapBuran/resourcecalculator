@@ -4,23 +4,31 @@
 
 namespace ResourceCalculator {
 
+  class ProductionChainModel;
 
-  struct ProductionChainDataRow {
+  class ProductionChainDataRow {
     KEY_RECIPE  RecipeCurrent;
     KEY_FACTORY FactoryCurrent;
 
-    double PeakPower;
-    double SpeedFactory;
-    double SecPerOneRecipe;
-    double ProductionSpeedPerSecond;
-    double CountFactorys;
+    double _PeakPower;
+    double _LevelOfPollution;
+    double _SpeedFactory;
+    double _SecPerOneRecipe;
+    double _ProductionSpeedPerSecond;
+    double _CountFactorys;
 
-    std::vector <KEY_RECIPE> Recipes;
-    std::vector <KEY_FACTORY> Factorys;
-    FactoryModules FM;
+    std::vector <KEY_RECIPE>  _Recipes;
+    std::vector <KEY_FACTORY> _Factorys;
+    FactoryModules _FM;
 
-    std::vector <double> CountRecipes;
-    std::vector <double> ItemsPerSec;
+    std::vector <double> _CountItems;
+    std::vector <double> _ItemsPerSec;
+
+  public:
+    
+    bool Build(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const FactoryModules& FM, int CountFactorys);
+    
+    friend ProductionChainModel;
 
   };
 
@@ -34,15 +42,18 @@ namespace ResourceCalculator {
     //Возвращают истину, когда нужно обновить всю модель
     bool SetItemKey(KEY_ITEM ItemKey);
 
-    //Возвращают истину, когда нужно обновить всю строку
+    //Возвращают истину, когда нужно обновить всю модель
     bool SetFactory(int Row, KEY_FACTORY FactoryId);
 
-    //Возвращают истину, когда нужно обновить всю строку
+    //Возвращают истину, когда нужно обновить всю модель
     bool SetModules(int Row, const std::vector < KEY_MODULE > & Modules );
 
     //Возвращают истину, когда нужно обновить всю модель
     bool SetRecipe(int Row, KEY_RECIPE RecipeId);
-    
+
+    //Возвращают истину, когда нужно обновить всю модель
+    bool SetAnsfer(std::map<KEY_ITEM, KEY_RECIPE> &AnsferRecipeKey, int row = -1);
+
     //Возвращают истину, когда нужно обновить всю модель
     bool Rebuild();
 
@@ -55,10 +66,9 @@ namespace ResourceCalculator {
     KEY_ITEM _ItemKey;
     const ParamsCollection &_PC;
 
-    std::vector <ProductionChainDataRow>  _DataRows;
+    std::map<KEY_ITEM, KEY_RECIPE> _AnsferRecipeKey;//TODO edit From interface
 
-      
-    //std::vector <std::list<std::pair <KEY_MODULE, int> > > _FactoryVariants;
+    std::vector <ProductionChainDataRow>  _DataRows;
 
   };
 

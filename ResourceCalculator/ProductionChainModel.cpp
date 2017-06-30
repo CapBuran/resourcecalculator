@@ -1,3 +1,5 @@
+#include <assert.h>
+
 #include "ProductionChainModel.h"
 
 
@@ -27,6 +29,16 @@ namespace ResourceCalculator {
 
   bool ProductionChainModel::SetItemKey(KEY_ITEM ItemKey)
   {
+
+    ItemResultTree IRT = _PC.RC.BuildTree(KEY_ITEM::ID_ITEM_Paket1, 8);
+
+    std::list <KEY_RECIPE> ResultRecipes;
+    std::list <KEY_ITEM> ResultItems;
+    std::map<KEY_ITEM, KEY_RECIPE> Ansfer;
+
+    _PC.RC.Travelling(IRT, Ansfer, ResultRecipes, ResultItems);
+
+
     std::string Name = "Production Chain";
     const std::map<KEY_ITEM, Item>& Data = _PC.IC.GetData();
     std::map<KEY_ITEM, Item>::const_iterator find = Data.find(ItemKey);
@@ -62,6 +74,12 @@ namespace ResourceCalculator {
     return false;
   }
 
+  bool ProductionChainModel::SetAnsfer(std::map<KEY_ITEM, KEY_RECIPE>& AnsferRecipeKey, int row)
+  {
+    _AnsferRecipeKey = AnsferRecipeKey;
+    return Rebuild();
+  }
+
   bool ProductionChainModel::Rebuild()
   {
     return false;
@@ -82,21 +100,48 @@ namespace ResourceCalculator {
     return _DataRows[Row];
   }
 
-  FactoryModules::FactoryModules(KEY_FACTORY factoryID):
-    FactoryID(factoryID)
+  bool ProductionChainDataRow::Build(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const FactoryModules & FM, int CountFactorys)
   {
-  }
+    assert(_FM.FactoryID == FactoryCurrent);
 
-  const std::vector<KEY_MODULE> FactoryModules::GetModules()
-  {
-    return _Modules;
-  }
+    bool RetVal = RecipeCurrent == RecipeId;
 
-  bool FactoryModules::SetModule(int IndexSlot, KEY_MODULE key)
-  {
-    bool retvalue = _Modules.size() > IndexSlot;
-    if (retvalue) _Modules[IndexSlot] = key;
-    return retvalue;
+    RetVal = RetVal && FactoryCurrent == FactoryId;
+    RetVal = RetVal && _FM.GetModules() == FM.GetModules();
+
+    if (RetVal) {
+      return true;
+    }
+
+    RecipeCurrent  = RecipeId;
+    FactoryCurrent = FactoryId;
+
+    const Factory &factory = PC.FC.GetFactory(FactoryId);
+    
+    //TODO modules
+
+    //_SpeedFactory = factory.
+
+
+    //KEY_RECIPE  RecipeCurrent;
+    //KEY_FACTORY FactoryCurrent;
+
+    ////double _PeakPower;
+    //double _SpeedFactory;
+    //double _SecPerOneRecipe;
+    //double _ProductionSpeedPerSecond;
+    //double _CountFactorys;
+
+    //std::vector <KEY_RECIPE>  _Recipes;
+    //std::vector <KEY_FACTORY> _Factorys;
+    //FactoryModules _FM;
+
+    //std::vector <double> _CountItems;
+    //std::vector <double> _ItemsPerSec;
+
+    
+
+    return false;
   }
 
 }

@@ -11,6 +11,11 @@ namespace ResourceCalculator {
 
   }
 
+  const Module & ModuleCollection::GetModule(KEY_MODULE ModuleKey) const
+  {
+    return _Modules.find(ModuleKey)->second;
+  }
+
   int ModuleCollection::ReadFromJson(const Json::Value & jsonPr)
   {
     return 0;

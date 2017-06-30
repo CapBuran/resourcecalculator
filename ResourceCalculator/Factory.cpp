@@ -1,3 +1,4 @@
+#include "Module.h"
 #include "Factory.h"
 
 namespace ResourceCalculator {
@@ -10,6 +11,8 @@ namespace ResourceCalculator {
     _CountSlotsForModules = 0;
     _CountSlotsForRecipes = 0;
     _Wear = 0.0;
+    _PeakPower = 0.0;
+    _LevelOfPollution = 0.0;
     _Key = KEY_FACTORY::ID_ITEM_NoFind_Factory;
     _Type = TYPE_FACTORY::Unknown;
   }
@@ -22,6 +25,8 @@ namespace ResourceCalculator {
     _CountSlotsForModules = 0;
     _CountSlotsForRecipes = 0;
     _Wear = 0.0;
+    _PeakPower = 0.0;
+    _LevelOfPollution = 0.0;
     _Key = KEY_FACTORY::ID_ITEM_NoFind_Factory;
     _Type = TYPE_FACTORY::Unknown;
   }
@@ -31,6 +36,8 @@ namespace ResourceCalculator {
   {
     _Speed = factory._Speed;
     _Power = factory._Power;
+    _PeakPower = factory._PeakPower;
+    _LevelOfPollution = factory._LevelOfPollution;
     _CountSlotsForModules = factory._CountSlotsForModules;
     _CountSlotsForRecipes = factory._CountSlotsForRecipes;
     _Wear = factory._Wear;
@@ -47,10 +54,9 @@ namespace ResourceCalculator {
     return _Key;
   }
 
-  void Factory::InitFactoryModules(FactoryModules & FM) const
+  void Factory::FixFactoryModules(FactoryModules & FM) const
   {
-    FM._Modules.resize(_CountSlotsForModules);
-    for (auto &it : FM._Modules) it = KEY_MODULE::ID_CleanSlot;
+    FM.SetCountModules(_CountSlotsForModules);
   }
 
   int Factory::ReadFromJson(const Json::Value & jsonPr)

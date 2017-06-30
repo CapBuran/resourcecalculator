@@ -13,6 +13,8 @@ namespace ResourceCalculator {
 
     void ADD(const Factory &);
 
+    const Factory& GetFactory(KEY_FACTORY Key) const;
+
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;
 

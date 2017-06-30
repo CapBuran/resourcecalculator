@@ -10,15 +10,12 @@ namespace ResourceCalculator {
   public:
     ModuleCollection();
     ~ModuleCollection();
-
+    const Module & GetModule(KEY_MODULE ModuleKey) const;
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;
 
   private:
-    //std::map<KEY_ITEM, Item> _Items;
-    
-    //const Item &GetItem(KEY_ITEM key) const;
-
+    std::map<KEY_MODULE, Module> _Modules;
   };
 
 }
