@@ -9,7 +9,22 @@
 namespace ResourceCalculator {
 
   class FactoryModules;
+  class FactoryCollection;
   class ParamsCollection;
+
+  struct FactoryParams{
+    double Speed;
+    int CountSlotsForModules;
+    int CountSlotsForRecipes;
+    //!Износ от 0.0 до 1.0
+    double Wear;
+    //!Пиковая мощность потребляемая из электросети
+    double PeakPower;
+    //!Пиковое значение загрязнения
+    double LevelOfPollution;
+    KEY_FACTORY Key;
+    KEY_TYPE_FACTORY Type;
+  };
 
   class Factory : public ItemBase, public Jsonable {
   private:
@@ -29,10 +44,10 @@ namespace ResourceCalculator {
 
     KEY_FACTORY _Key;
 
-    TYPE_FACTORY _Type;
+    KEY_TYPE_FACTORY _Type;
 
     Factory();
-    Factory(const Factory &recipe);
+    Factory(const Factory &factory);
 
   public:
 
@@ -46,6 +61,8 @@ namespace ResourceCalculator {
     double GetLevelOfPollution() const;
     double GetWear() const;
 
+    void SetParams(const FactoryParams &params);
+
     bool IsAllowedProduction(const ParamsCollection & PC, KEY_RECIPE RecipeId) const;
 
     void FixFactoryModules(FactoryModules &) const;
@@ -54,6 +71,7 @@ namespace ResourceCalculator {
     int WriteToJson(Json::Value & jsonPr) const override;
 
     friend std::pair<const KEY_FACTORY, Factory>;
+    friend FactoryCollection;
 
   };
 

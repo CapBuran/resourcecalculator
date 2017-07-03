@@ -22,7 +22,7 @@ namespace ResourceCalculator {
 
   private:
     std::map<KEY_FACTORY, Factory> _Factorys;
-
+    Factory _NoFindFactory;
   };
 
 }

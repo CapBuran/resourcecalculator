@@ -16,9 +16,7 @@ namespace ResourceCalculator {
     std::list<CountsItem> 
       Required,
       Result;
-    //std::list<KEY_FACTORY> 
-    //  FactoryAllowed;
-    KEY_FACTORY CurrentFactory;
+    KEY_TYPE_FACTORY TypeFactory;
     int ReadFromJson(const Json::Value & jsonPr) override;
     int WriteToJson(Json::Value & jsonPr) const override;
   };
@@ -29,8 +27,7 @@ namespace ResourceCalculator {
     KEY_RECIPE  _Key;
     std::list<CountsItem> _Required;
     std::list<CountsItem> _Result;
-    std::list<KEY_FACTORY> _FactoryAllowed;
-    KEY_FACTORY _CurrentFactory;
+    KEY_TYPE_FACTORY _TypeFactory;
     Recipe();
     Recipe(const Recipe &recipe);
 

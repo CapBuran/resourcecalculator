@@ -25,10 +25,10 @@ namespace ResourceCalculator {
     _ItemsPerSec.clear();
     _ColItems.clear();
 
-    std::map<KEY_FACTORY, Factory> Factorys = PC.FC.GetFactorys();
+    const std::map<KEY_FACTORY, Factory> &Factorys = PC.FC.GetFactorys();
     for (auto & it : Factorys) {
       if (it.second.IsAllowedProduction(PC, RecipeId)) {
-        if (IsFactoryOk) {
+        if (!IsFactoryOk) {
           FactoryCurrent = it.first;
         }
         _Factorys.push_back(it.first);
@@ -171,7 +171,7 @@ namespace ResourceCalculator {
 
     auto IT_Recipe = ResultRecipes.begin();
 
-    for (size_t RecipeIdx = 0; RecipeIdx < CountsRecipes; RecipeIdx++){
+    for (size_t RecipeIdx = 0; RecipeIdx < CountsRecipes; RecipeIdx++, IT_Recipe++){
       KEY_RECIPE RecipeId = *IT_Recipe;
       _DataRows[RecipeIdx]._Init(_PC, RecipeId, KEY_FACTORY::ID_ITEM_NoFind_Factory, _ColsItems);
     }

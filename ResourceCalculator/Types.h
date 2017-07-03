@@ -35,7 +35,7 @@ namespace ResourceCalculator {
     ID_ITEM_Paket1
   };
 
-  enum class TYPE_FACTORY : TYPE_KEY
+  enum class KEY_TYPE_FACTORY : TYPE_KEY
   {
     Unknown,
     Assembly,
@@ -52,7 +52,8 @@ namespace ResourceCalculator {
     ID_FACTORY_Assembly2,
     ID_FACTORY_Assembly3,
     ID_FACTORY_PechKamenaya,
-    ID_FACTORY_PechStalnaya
+    ID_FACTORY_PechStalnaya,
+    ID_FACTORY_PechElectro1
   };
 
   enum class KEY_MODULE : TYPE_KEY

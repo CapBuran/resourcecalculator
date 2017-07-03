@@ -6,14 +6,16 @@ namespace ResourceCalculator {
 
   Recipe::Recipe():
     ItemBase(""),_Key(RecipeParamsDefault.Key), _Time(RecipeParamsDefault.Time),
-    _Required(RecipeParamsDefault.Required), _Result(RecipeParamsDefault.Result)
+    _Required(RecipeParamsDefault.Required), _Result(RecipeParamsDefault.Result),
+    _TypeFactory(KEY_TYPE_FACTORY::Unknown)
   {
 
   }
 
   Recipe::Recipe(std::string const & Name, const RecipeParams & Params):
     ItemBase(Name), _Key(Params.Key), _Time(Params.Time),
-    _Required(Params.Required), _Result(Params.Result), _CurrentFactory(Params.CurrentFactory)
+    _Required(Params.Required), _Result(Params.Result), 
+    _TypeFactory(Params.TypeFactory)
   {
   }
 
@@ -29,8 +31,7 @@ namespace ResourceCalculator {
     Retval.Time           = _Time;
     Retval.Required       = _Required;
     Retval.Result         = _Result;
-//    Retval.FactoryAllowed = _FactoryAllowed;
-    Retval.CurrentFactory = _CurrentFactory;
+    Retval.TypeFactory    = _TypeFactory;
     return Retval;
   }
 
@@ -74,13 +75,8 @@ namespace ResourceCalculator {
       ToAdd.Count = it["Count"].asDouble();
       Result.push_back(ToAdd);
     }
-//    FactoryAllowed.clear();
-    for (auto &it : jsonPr["FactoryAllowed"]) {
-      KEY_FACTORY KF = static_cast<KEY_FACTORY>(it["KEY_FACTORY"].asInt64());
-//      FactoryAllowed.push_back(KF);
-    }
     Key = static_cast<KEY_RECIPE>(jsonPr["Key"].asInt64());
-    CurrentFactory = static_cast<KEY_FACTORY>(jsonPr["CurrentFactory"].asInt64());
+    TypeFactory = static_cast<KEY_TYPE_FACTORY>(jsonPr["TypeFactory"].asInt64());
     Time = jsonPr["Time"].asDouble();
     return 0;
   }
@@ -102,17 +98,12 @@ namespace ResourceCalculator {
       jsonResult.append(newVal);
     }
     Json::Value jsonFactoryAllowed = Json::Value(Json::arrayValue);
-    //for (auto &it : FactoryAllowed) {
-    //  Json::Value newVal;
-    //  newVal["FactoryId"] = static_cast<KEY_TO_Json>(it);
-    //  jsonFactoryAllowed.append(newVal);
-    //}
+    jsonPr["TypeFactory"] = static_cast<Json::Value::Int64>(TypeFactory);
     jsonPr["Required"] = jsonRequired;
     jsonPr["Result"] = jsonResult;
     jsonPr["FactoryAllowed"] = jsonFactoryAllowed;
     jsonPr["Key"] = static_cast<Json::Value::Int64>(Key);
     jsonPr["Time"] = Time;
-    jsonPr["CurrentFactory"] = static_cast<Json::Value::Int64>(CurrentFactory);
     return 0;
   }
 

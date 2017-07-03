@@ -37,9 +37,8 @@ int main(int argc, char ** argv) {
     RP.Key = KEY_RECIPE::ID_RECIPE_Cuprum_Plate;
     RP.Time = 3.5;
     RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Ruda, 1.0 } };
-    //RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_PechKamenaya, KEY_FACTORY::ID_FACTORY_PechStalnaya };
     RP.Result = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 } };
-    RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_PechKamenaya;
+    RP.TypeFactory = KEY_TYPE_FACTORY::Furnace;
     Recipe R1("Выплавка меди", RP);
 
     RP.Key = KEY_RECIPE::ID_RECIPE_Iron_Plate;
@@ -47,22 +46,19 @@ int main(int argc, char ** argv) {
     RP.Result = { { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } };
     Recipe R2("Выплавка железа", RP);
 
-    RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly1;
-//    RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_Assembly1, KEY_FACTORY::ID_FACTORY_Assembly2, KEY_FACTORY::ID_FACTORY_Assembly3 };
     RP.Key = KEY_RECIPE::ID_RECIPE_Sherst;
+    RP.TypeFactory = KEY_TYPE_FACTORY::Assembly;
     RP.Time = 0.5;
     RP.Required = { { KEY_ITEM::ID_ITEM_Iron_Plate, 2.0 } };
     RP.Result = { { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
     Recipe R3("Изготовление шестерни", RP);
 
-    RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly2;
     RP.Key = KEY_RECIPE::ID_RECIPE_Paket1;
     RP.Time = 5.0;
     RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
     RP.Result = { { KEY_ITEM::ID_ITEM_Paket1, 1 } };
     Recipe R4("Изготовление исследовательского пакета 1", RP);
     
-    RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly3;
     RP.Key = KEY_RECIPE::ID_RECIPE_Paket1_2;
     RP.Time = 3.0;
     RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.5 }, { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } };
@@ -76,38 +72,97 @@ int main(int argc, char ** argv) {
     RC.Add(R5);
   }
 
+  {
+    FactoryParams FP;
+
+    Factory P1("Каменная печь", 1.0);
+    FP.CountSlotsForModules = 0;
+    FP.CountSlotsForRecipes = 2;
+    FP.Key = KEY_FACTORY::ID_FACTORY_PechKamenaya;
+    FP.LevelOfPollution = 0.01;
+    FP.PeakPower = 0.01;
+    FP.Speed = 1.0;
+    FP.Type = KEY_TYPE_FACTORY::Furnace;
+    FP.Wear = 0.0;
+    P1.SetParams(FP);
+
+    Factory P2("Стальная печь", 2.0);
+    FP.Speed = 2.0;
+    FP.Key = KEY_FACTORY::ID_FACTORY_PechStalnaya;
+    P2.SetParams(FP);
+
+    Factory P3("Электрическая печь", 2.0);
+    FP.Speed = 2.0;
+    FP.Key = KEY_FACTORY::ID_FACTORY_PechElectro1;
+    FP.CountSlotsForModules = 2;
+    FP.CountSlotsForRecipes = 3;
+    P3.SetParams(FP);
+
+    Factory A1("Сборочный автомат", 0.50);
+    FP.Speed = 0.50;
+    FP.Type = KEY_TYPE_FACTORY::Assembly;
+    FP.Key = KEY_FACTORY::ID_FACTORY_Assembly1;
+    FP.CountSlotsForModules = 0;
+    FP.CountSlotsForRecipes = 2;
+    A1.SetParams(FP);
+
+    Factory A2("Сборочный автомат 2", 0.75);
+    FP.Speed = 0.75;
+    FP.Key = KEY_FACTORY::ID_FACTORY_Assembly2;
+    FP.CountSlotsForModules = 2;
+    FP.CountSlotsForRecipes = 3;
+    A2.SetParams(FP);
+
+    Factory A3("Сборочный автомат 3", 1.75);
+    FP.Speed = 1.75;
+    FP.Key = KEY_FACTORY::ID_FACTORY_Assembly3;
+    FP.CountSlotsForModules = 4;
+    FP.CountSlotsForRecipes = 4;
+    A3.SetParams(FP);
+
+    PC.FC.ADD(A1);
+    PC.FC.ADD(A2);
+    PC.FC.ADD(A3);
+    PC.FC.ADD(P1);
+    PC.FC.ADD(P2);
+    PC.FC.ADD(P3);
+  }
+
+
   std::ofstream out;
   out.open(StandartTestFileJson);
   
   Json::Value jsonPr;
-  IC.WriteToJson(jsonPr["Items"]);
-  RC.WriteToJson(jsonPr["Recipes"]);
+  PC.WriteToJson(jsonPr);
   Json::StyledWriter styledWriter;
   out << styledWriter.write(jsonPr);
   out.close();
 
-  ItemCollection ICRestore;
-  RecipeCollection RCRestore;
-  Json::Value jsonPrRestore;
 
-  std::ifstream in(StandartTestFileJson);
+  
 
-  std::string contents;
-  in.seekg(0, std::ios::end);
-  contents.resize(in.tellg());
-  in.seekg(0, std::ios::beg);
-  in.read(&contents[0], contents.size());
-  in.close();
-  in.clear();
+  ParamsCollection PCRestore;
 
-  Json::Reader JsonReader;
-  bool parsingSuccessful = JsonReader.parse(contents.c_str(), jsonPrRestore);
-  contents.clear();
+  {
+    std::ifstream in(StandartTestFileJson);
 
-  ICRestore.ReadFromJson(jsonPrRestore["Items"]);
-  RCRestore.ReadFromJson(jsonPrRestore["Recipes"]);
+    std::string contents;
+    in.seekg(0, std::ios::end);
+    contents.resize(in.tellg());
+    in.seekg(0, std::ios::beg);
+    in.read(&contents[0], contents.size());
+    in.close();
+    in.clear();
 
-  ItemResultTree IRT = RCRestore.BuildTree(KEY_ITEM::ID_ITEM_Paket1, 8);
+    Json::Reader JsonReader;
+    Json::Value jsonPrRestore;
+    bool parsingSuccessful = JsonReader.parse(contents.c_str(), jsonPrRestore);
+    contents.clear();
+    PCRestore.ReadFromJson(jsonPrRestore);
+
+  }
+
+  ItemResultTree IRT = PCRestore.RC.BuildTree(KEY_ITEM::ID_ITEM_Paket1, 8);
 
   std::list <KEY_RECIPE> ResultRecipes;
   std::list <KEY_ITEM> ResultItems;
@@ -116,7 +171,7 @@ int main(int argc, char ** argv) {
   Ansfer[KEY_ITEM::ID_ITEM_Sherst] = KEY_RECIPE::ID_RECIPE_PreviouslyProduced;
   Ansfer[KEY_ITEM::ID_ITEM_Paket1] = KEY_RECIPE::ID_RECIPE_Paket1_2;
 
-  RCRestore.Travelling(IRT, Ansfer, ResultRecipes, ResultItems);
+  PCRestore.RC.Travelling(IRT, Ansfer, ResultRecipes, ResultItems);
 
   std::string sss("Русские буквы");
 
