@@ -9,11 +9,11 @@
 namespace ResourceCalculator {
 
   class FactoryModules;
+  class ParamsCollection;
 
   class Factory : public ItemBase, public Jsonable {
   private:
     double _Speed;
-    double _Power;
 
     int _CountSlotsForModules;
     int _CountSlotsForRecipes;
@@ -40,6 +40,13 @@ namespace ResourceCalculator {
     ~Factory();
 
     KEY_FACTORY GetKey() const;
+
+    double GetSpeed() const;
+    double GetPeakPower() const;
+    double GetLevelOfPollution() const;
+    double GetWear() const;
+
+    bool IsAllowedProduction(const ParamsCollection & PC, KEY_RECIPE RecipeId) const;
 
     void FixFactoryModules(FactoryModules &) const;
 

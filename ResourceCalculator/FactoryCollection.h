@@ -15,6 +15,8 @@ namespace ResourceCalculator {
 
     const Factory& GetFactory(KEY_FACTORY Key) const;
 
+    const std::map<KEY_FACTORY, Factory>& GetFactorys() const;
+
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;
 

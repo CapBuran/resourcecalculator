@@ -29,7 +29,7 @@ namespace ResourceCalculator {
     Retval.Time           = _Time;
     Retval.Required       = _Required;
     Retval.Result         = _Result;
-    Retval.FactoryAllowed = _FactoryAllowed;
+//    Retval.FactoryAllowed = _FactoryAllowed;
     Retval.CurrentFactory = _CurrentFactory;
     return Retval;
   }
@@ -74,10 +74,10 @@ namespace ResourceCalculator {
       ToAdd.Count = it["Count"].asDouble();
       Result.push_back(ToAdd);
     }
-    FactoryAllowed.clear();
+//    FactoryAllowed.clear();
     for (auto &it : jsonPr["FactoryAllowed"]) {
       KEY_FACTORY KF = static_cast<KEY_FACTORY>(it["KEY_FACTORY"].asInt64());
-      FactoryAllowed.push_back(KF);
+//      FactoryAllowed.push_back(KF);
     }
     Key = static_cast<KEY_RECIPE>(jsonPr["Key"].asInt64());
     CurrentFactory = static_cast<KEY_FACTORY>(jsonPr["CurrentFactory"].asInt64());
@@ -102,11 +102,11 @@ namespace ResourceCalculator {
       jsonResult.append(newVal);
     }
     Json::Value jsonFactoryAllowed = Json::Value(Json::arrayValue);
-    for (auto &it : FactoryAllowed) {
-      Json::Value newVal;
-      newVal["FactoryId"] = static_cast<KEY_TO_Json>(it);
-      jsonFactoryAllowed.append(newVal);
-    }
+    //for (auto &it : FactoryAllowed) {
+    //  Json::Value newVal;
+    //  newVal["FactoryId"] = static_cast<KEY_TO_Json>(it);
+    //  jsonFactoryAllowed.append(newVal);
+    //}
     jsonPr["Required"] = jsonRequired;
     jsonPr["Result"] = jsonResult;
     jsonPr["FactoryAllowed"] = jsonFactoryAllowed;

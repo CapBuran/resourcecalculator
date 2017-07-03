@@ -14,28 +14,27 @@ namespace ResourceCalculator {
     double _LevelOfPollution;
     double _SpeedFactory;
     double _SecPerOneRecipe;
-    double _ProductionSpeedPerSecond;
+    double _RealTimeProductionOfOneItemPerSec;
     double _CountFactorys;
 
-    std::vector <KEY_RECIPE>  _Recipes;
     std::vector <KEY_FACTORY> _Factorys;
+    std::vector <KEY_ITEM>    _ColItems;
     FactoryModules _FM;
 
     std::vector <double> _CountItems;
     std::vector <double> _ItemsPerSec;
 
-    bool _Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::map<int, KEY_ITEM> &Cols);
+    bool _Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols);
 
-    bool _SetCountFactorys(int Count);
-    bool _SetFactoryModules(const FactoryModules &FM);
+    bool _SetCountFactorys(double Count);
+    bool _SetFactoryModules(const ParamsCollection & PC, const FactoryModules &FM);
 
     FactoryModules _GetFactoryModules() const;
 
   public:
     
-    
-    
     friend ProductionChainModel;
+    //friend std::vector <ProductionChainModel>;
 
   };
 
@@ -50,31 +49,28 @@ namespace ResourceCalculator {
     bool SetItemKey(KEY_ITEM ItemKey);
 
     //Возвращают истину, когда нужно обновить всю модель
+    bool SetRecipe(int Row, KEY_RECIPE RecipeId);
+
+    //Возвращают истину, когда нужно обновить всю модель
     bool SetFactory(int Row, KEY_FACTORY FactoryId);
 
     //Возвращают истину, когда нужно обновить всю модель
     bool SetModules(int Row, const std::vector < KEY_MODULE > & Modules );
 
-    //Возвращают истину, когда нужно обновить всю модель
-    bool SetRecipe(int Row, KEY_RECIPE RecipeId);
+    int CountItems() const;
 
-    //Возвращают истину, когда нужно обновить всю модель
-    bool SetAnsfer(std::map<KEY_ITEM, KEY_RECIPE> &AnsferRecipeKey, int row = -1);
-
-    //Возвращают истину, когда нужно обновить всю модель
-    bool Rebuild();
-
-    int CountRequired() const;
-    int CountResult() const;
+    int CountRecipes() const;
 
     const ProductionChainDataRow &GetRow(int Row) const;
+
+    //Возвращают истину, когда нужно обновить всю модель
+    bool Optimize();
 
   private:
     KEY_ITEM _ItemKey;
     const ParamsCollection &_PC;
 
-    std::map<KEY_ITEM, KEY_RECIPE> _AnsferRecipeKey;//TODO edit From interface
-
+    std::vector<KEY_ITEM> _ColsItems;
     std::vector <ProductionChainDataRow>  _DataRows;
 
   };

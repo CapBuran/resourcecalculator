@@ -2,6 +2,8 @@
 #include <fstream>
 #include "..\..\ThreeParty\Base64\base64.h"
 
+#include "..\..\ResourceCalculator\ProductionChainModel.h"
+
 #define StandartTestFileJson "C:\\games\\Factorio.json"
 
 
@@ -35,7 +37,7 @@ int main(int argc, char ** argv) {
     RP.Key = KEY_RECIPE::ID_RECIPE_Cuprum_Plate;
     RP.Time = 3.5;
     RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Ruda, 1.0 } };
-    RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_PechKamenaya, KEY_FACTORY::ID_FACTORY_PechStalnaya };
+    //RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_PechKamenaya, KEY_FACTORY::ID_FACTORY_PechStalnaya };
     RP.Result = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 } };
     RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_PechKamenaya;
     Recipe R1("Выплавка меди", RP);
@@ -46,7 +48,7 @@ int main(int argc, char ** argv) {
     Recipe R2("Выплавка железа", RP);
 
     RP.CurrentFactory = KEY_FACTORY::ID_FACTORY_Assembly1;
-    RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_Assembly1, KEY_FACTORY::ID_FACTORY_Assembly2, KEY_FACTORY::ID_FACTORY_Assembly3 };
+//    RP.FactoryAllowed = { KEY_FACTORY::ID_FACTORY_Assembly1, KEY_FACTORY::ID_FACTORY_Assembly2, KEY_FACTORY::ID_FACTORY_Assembly3 };
     RP.Key = KEY_RECIPE::ID_RECIPE_Sherst;
     RP.Time = 0.5;
     RP.Required = { { KEY_ITEM::ID_ITEM_Iron_Plate, 2.0 } };
@@ -139,6 +141,11 @@ int main(int argc, char ** argv) {
   bool b1 = sss2 == sss;
   sss[2] = '5';
   bool b2 = sss2 == sss;
+
+
+  ProductionChainModel PCM(PC);
+  PCM.SetItemKey(KEY_ITEM::ID_ITEM_Paket1);
+
 
   return 0;
 

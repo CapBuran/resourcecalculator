@@ -1,5 +1,6 @@
 #include "Module.h"
 #include "Factory.h"
+#include "ParamsCollection.h"
 
 namespace ResourceCalculator {
 
@@ -7,7 +8,6 @@ namespace ResourceCalculator {
     ItemBase(Name)
   {
     _Speed = 1.0;
-    _Power = 0.0;
     _CountSlotsForModules = 0;
     _CountSlotsForRecipes = 0;
     _Wear = 0.0;
@@ -21,7 +21,6 @@ namespace ResourceCalculator {
     ItemBase("")
   {
     _Speed = 1.0;
-    _Power = 0.0;
     _CountSlotsForModules = 0;
     _CountSlotsForRecipes = 0;
     _Wear = 0.0;
@@ -35,7 +34,6 @@ namespace ResourceCalculator {
     ItemBase(factory.GetName()), _Wear(0.0)
   {
     _Speed = factory._Speed;
-    _Power = factory._Power;
     _PeakPower = factory._PeakPower;
     _LevelOfPollution = factory._LevelOfPollution;
     _CountSlotsForModules = factory._CountSlotsForModules;
@@ -52,6 +50,32 @@ namespace ResourceCalculator {
   KEY_FACTORY Factory::GetKey() const
   {
     return _Key;
+  }
+
+  double Factory::GetSpeed() const
+  {
+    return _Speed;
+  }
+
+  double Factory::GetPeakPower() const
+  {
+    return _PeakPower;
+  }
+
+  double Factory::GetLevelOfPollution() const
+  {
+    return _LevelOfPollution;
+  }
+
+  double Factory::GetWear() const
+  {
+    return _Wear;
+  }
+
+  bool Factory::IsAllowedProduction(const ParamsCollection & PC, KEY_RECIPE RecipeId) const
+  {
+    //TODO:
+    return true;
   }
 
   void Factory::FixFactoryModules(FactoryModules & FM) const

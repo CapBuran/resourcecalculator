@@ -21,6 +21,11 @@ namespace ResourceCalculator {
     return _Factorys.find(Key)->second;
   }
 
+  const std::map<KEY_FACTORY, Factory>& FactoryCollection::GetFactorys() const
+  {
+    return _Factorys;
+  }
+
   int FactoryCollection::ReadFromJson(const Json::Value & jsonPr)
   {
     return 0;

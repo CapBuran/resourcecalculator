@@ -76,13 +76,7 @@ namespace ResourceCalculator {
     return 0;
   }
 
-
-
-
-  FactoryModules::FactoryModules(KEY_FACTORY factoryID) :
-    FactoryID(factoryID)
-  {
-  }
+ 
 
   bool FactoryModules::SetCountModules(int Count)
   {

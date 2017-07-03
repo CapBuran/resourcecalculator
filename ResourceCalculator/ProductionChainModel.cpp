@@ -5,6 +5,128 @@
 
 namespace ResourceCalculator {
 
+  bool ProductionChainDataRow::_Init(const ParamsCollection & PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM>&Cols)
+  {
+    bool RetVal = RecipeCurrent == RecipeId && FactoryCurrent == FactoryId;
+
+    if (RetVal) {
+      return false;
+    }
+
+    RecipeCurrent = RecipeId;
+    FactoryCurrent = FactoryId;
+
+    const bool IsFactoryOk = PC.FC.GetFactory(FactoryId).IsAllowedProduction(PC, RecipeId);
+
+    const size_t CountsCols = Cols.size();
+
+    _Factorys.clear();
+    _CountItems.clear();
+    _ItemsPerSec.clear();
+    _ColItems.clear();
+
+    std::map<KEY_FACTORY, Factory> Factorys = PC.FC.GetFactorys();
+    for (auto & it : Factorys) {
+      if (it.second.IsAllowedProduction(PC, RecipeId)) {
+        if (IsFactoryOk) {
+          FactoryCurrent = it.first;
+        }
+        _Factorys.push_back(it.first);
+      }
+    }
+
+    const Factory &factory = PC.FC.GetFactory(FactoryCurrent);
+    const Recipe &recipe = PC.RC.GetData().find(RecipeCurrent)->second;
+    const RecipeParams RP = recipe.GetRecipeParams();
+
+    factory.FixFactoryModules(_FM);
+
+    _SecPerOneRecipe = RP.Time;
+    _SpeedFactory = factory.GetSpeed() * _FM.GetSummSpeed(PC.MC);
+    _RealTimeProductionOfOneItemPerSec = _SpeedFactory / _SecPerOneRecipe;
+
+    double ProductionSpeedPerSecond = _FM.GetSummProductivity(PC.MC);
+
+    _PeakPower = 0.0;
+    _LevelOfPollution = 0.0;
+    _CountFactorys = 0.0;
+
+    _CountItems.resize(CountsCols, 0.0);
+    _ItemsPerSec.resize(CountsCols, 0.0);
+
+    _ColItems = Cols;
+
+    for (size_t ColId = 0; ColId < CountsCols; ColId++) {
+      const KEY_ITEM ItemKey = _ColItems[ColId];
+      for (auto Required : RP.Required) {
+        if (Required.ItemId == ItemKey) {
+          _CountItems[ColId] = -Required.Count;
+        }
+      }
+      for (auto Result : RP.Result) {
+        if (Result.ItemId == ItemKey) {
+          _CountItems[ColId] += Result.Count * ProductionSpeedPerSecond;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  bool ProductionChainDataRow::_SetCountFactorys( double Count)
+  {
+    bool RetVal = _CountFactorys != Count;
+    if (RetVal) {
+      return false;
+    }
+    _CountFactorys = Count;
+    const size_t CountsCols = _CountItems.size();
+    for (size_t ColId = 0; ColId < CountsCols; ColId++) {
+      _ItemsPerSec[ColId] = _CountItems[ColId] / _RealTimeProductionOfOneItemPerSec * _CountFactorys;
+    }
+    return RetVal;
+  }
+
+  bool ProductionChainDataRow::_SetFactoryModules(const ParamsCollection & PC, const FactoryModules & FM)
+  {
+    const size_t CountsCols = _CountItems.size();
+
+    const Recipe &recipe = PC.RC.GetData().find(RecipeCurrent)->second;
+    const RecipeParams RP = recipe.GetRecipeParams();
+
+    double ProductionSpeedPerSecond = _FM.GetSummProductivity(PC.MC);
+
+    for (size_t ColId = 0; ColId < CountsCols; ColId++) {
+      const KEY_ITEM ItemKey = _ColItems[ColId];
+      for (auto Required : RP.Required) {
+        if (Required.ItemId == ItemKey) {
+          _CountItems[ColId] = -Required.Count;
+        }
+      }
+      for (auto Result : RP.Result) {
+        if (Result.ItemId == ItemKey) {
+          _CountItems[ColId] += Result.Count * ProductionSpeedPerSecond;
+        }
+      }
+      _ItemsPerSec[ColId] = _CountItems[ColId] / _RealTimeProductionOfOneItemPerSec * _CountFactorys;
+    }
+    return false;
+  }
+
+  FactoryModules ProductionChainDataRow::_GetFactoryModules() const
+  {
+    return _FM;
+  }
+
+  const ProductionChainDataRow & ProductionChainModel::GetRow(int Row) const
+  {
+    return _DataRows[Row];
+  }
+
+  bool ProductionChainModel::Optimize()
+  {
+    return false;
+  }
 
   ProductionChainModel::ProductionChainModel(const ParamsCollection &PC, KEY_ITEM ItemKey):
     ItemBase(""), _ItemKey(ItemKey), _PC(PC)
@@ -21,16 +143,9 @@ namespace ResourceCalculator {
   {
   }
 
-
-
-
-
-
-
   bool ProductionChainModel::SetItemKey(KEY_ITEM ItemKey)
   {
-
-    ItemResultTree IRT = _PC.RC.BuildTree(KEY_ITEM::ID_ITEM_Paket1, 8);
+    ItemResultTree IRT = _PC.RC.BuildTree(ItemKey, 8);
 
     std::list <KEY_RECIPE> ResultRecipes;
     std::list <KEY_ITEM> ResultItems;
@@ -38,24 +153,30 @@ namespace ResourceCalculator {
 
     _PC.RC.Travelling(IRT, Ansfer, ResultRecipes, ResultItems);
 
+    const Item &RootItem = _PC.IC.GetData().find(ItemKey)->second;
 
-    std::string Name = "Production Chain";
-    const std::map<KEY_ITEM, Item>& Data = _PC.IC.GetData();
-    std::map<KEY_ITEM, Item>::const_iterator find = Data.find(ItemKey);
-    if (find != Data.cend()) {
-      Name += " " + find->second.GetName();
-      _Name = Name;
-      ItemResultTree _ItemResultTree = _PC.RC.BuildTree(ItemKey, 120);
+    _Name = "Production Chain " + RootItem.GetName();
 
-      _ItemResultTree.GetResult().size();
+    _ItemKey = ItemKey;
+    
+    const size_t CountsItems = ResultItems.size();
+    const size_t CountsRecipes = ResultRecipes.size();
 
+    _ColsItems.clear();
+    _ColsItems.resize(CountsItems);
+    std::copy(ResultItems.begin(), ResultItems.end(), _ColsItems.begin());
 
+    _DataRows.clear();
+    _DataRows.resize(CountsRecipes);
 
+    auto IT_Recipe = ResultRecipes.begin();
+
+    for (size_t RecipeIdx = 0; RecipeIdx < CountsRecipes; RecipeIdx++){
+      KEY_RECIPE RecipeId = *IT_Recipe;
+      _DataRows[RecipeIdx]._Init(_PC, RecipeId, KEY_FACTORY::ID_ITEM_NoFind_Factory, _ColsItems);
     }
 
-    return false;
-
-   
+    return true;
 
   }
 
@@ -74,88 +195,15 @@ namespace ResourceCalculator {
     return false;
   }
 
-  bool ProductionChainModel::SetAnsfer(std::map<KEY_ITEM, KEY_RECIPE>& AnsferRecipeKey, int row)
+
+  int ProductionChainModel::CountItems() const
   {
-    _AnsferRecipeKey = AnsferRecipeKey;
-    return Rebuild();
+    return static_cast<int>(_ColsItems.size());
   }
 
-  bool ProductionChainModel::Rebuild()
+  int ProductionChainModel::CountRecipes() const
   {
-    return false;
-  }
-
-  int ProductionChainModel::CountRequired() const
-  {
-    return 0;
-  }
-
-  int ProductionChainModel::CountResult() const
-  {
-    return 0;
-  }
-
-  const ProductionChainDataRow & ProductionChainModel::GetRow(int Row) const
-  {
-    return _DataRows[Row];
-  }
-
-  bool ProductionChainDataRow::_Init(const ParamsCollection & PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::map<int, KEY_ITEM>&Cols)
-  {
-    assert(_FM.FactoryID == FactoryCurrent);
-
-    bool RetVal = RecipeCurrent == RecipeId;
-
-    RetVal = RetVal && FactoryCurrent == FactoryId;
-    RetVal = RetVal && _FM.GetModules() == _FM.GetModules();
-
-    if (RetVal) {
-      return true;
-    }
-
-    RecipeCurrent = RecipeId;
-    FactoryCurrent = FactoryId;
-
-    const Factory &factory = PC.FC.GetFactory(FactoryId);
-
-    //TODO modules
-
-    //_SpeedFactory = factory.
-
-
-    //KEY_RECIPE  RecipeCurrent;
-    //KEY_FACTORY FactoryCurrent;
-
-    ////double _PeakPower;
-    //double _SpeedFactory;
-    //double _SecPerOneRecipe;
-    //double _ProductionSpeedPerSecond;
-    //double _CountFactorys;
-
-    //std::vector <KEY_RECIPE>  _Recipes;
-    //std::vector <KEY_FACTORY> _Factorys;
-    //FactoryModules _FM;
-
-    //std::vector <double> _CountItems;
-    //std::vector <double> _ItemsPerSec;
-
-    return false;
-  }
-
-
-  bool ProductionChainDataRow::_SetCountFactorys(int Count)
-  {
-    return false;
-  }
-
-  bool ProductionChainDataRow::_SetFactoryModules(const FactoryModules & FM)
-  {
-    return false;
-  }
-
-  FactoryModules ProductionChainDataRow::_GetFactoryModules() const
-  {
-    return _FM;
+    return static_cast<int>(_DataRows.size());
   }
 
 }
