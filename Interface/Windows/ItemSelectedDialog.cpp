@@ -229,7 +229,7 @@ ItemSelectedDialog::ItemSelectedDialog(ResourceCalculator::ParamsCollection &PC,
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
-  setWindowTitle(tr("Выберете предметы"));
+  setWindowTitle(tr("SelectedItems"));
 
 }
 
