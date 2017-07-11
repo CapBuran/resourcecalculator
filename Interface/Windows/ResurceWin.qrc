@@ -1,8 +1,6 @@
 <!DOCTYPE RCC>
 <RCC version="1.0">
   <qresource>
-<!--  <file>ResurceWin_ru_RU.qm</file>-->
-  <file>translations/dddd.txt</file>
-
-</qresource>
+    <file>ResurceWin_ru_RU.qm</file>
+  </qresource>
 </RCC>

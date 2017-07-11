@@ -2,22 +2,11 @@ set_property(DIRECTORY PROPERTY CLEAN_NO_CUSTOM TRUE)
 
 file(GLOB Program_HDRS *.h)
 file(GLOB Program_SRCS *.cpp)
-
-set(Program_TRNS
-  ItemsEditDialog.cpp
-  ItemSelectedDialog.cpp
-  main.cpp
-  mainwindow.cpp
-  RecipeAddDialog.cpp
-  RecipeModel.cpp
-  RecipesEditDialog.cpp
-  RecipeWidget.cpp
-)
+file(GLOB Program_TRNS *.cpp)
 
 set(TS_FILES translations/ResurceWin_ru_RU.ts)
 
 option(UPDATE_TRANSLATIONS "Update source translation (files translations/*.ts)." ON)
-
 
 if(UPDATE_TRANSLATIONS)
   message(STATUS "UPDATE_TRANSLATIONS option is set.")
@@ -28,17 +17,12 @@ endif()
 
 add_custom_target(translations DEPENDS ${QM_FILES})
 
-#qt5_add_resources(Program_RES ResurceWin.qrc)
+configure_file( ResurceWin.qrc ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
+
+qt5_add_resources(Program_TRS ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
 
 
-configure_file( ResurceWinTranslate.qrc ${CMAKE_CURRENT_BINARY_DIR}/ResurceWinTranslate.qrc)
-qt5_add_resources(Program_TRS ${CMAKE_CURRENT_BINARY_DIR}/ResurceWinTranslate.qrc)
-
-file(GLOB Program_SRCS *.cpp)
-file(GLOB Program_HDRS *.h  )
-
-#add_executable(ResurceWin WIN32 ${Program_SRCS} ${Program_HDRS} ${Program_RES} ${Program_TRS} {FILES_TO_TRANSLATE} ${TS_FILES})
-add_executable(ResurceWin WIN32 ${Program_SRCS} ${Program_HDRS} ${Program_TRS})
+add_executable(ResurceWin WIN32 ${Program_SRCS} ${Program_HDRS} ${Program_TRS} ${Program_RES} ${TS_FILES})
 
 qt5_use_modules(ResurceWin Widgets)
 

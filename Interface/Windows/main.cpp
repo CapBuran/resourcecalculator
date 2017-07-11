@@ -26,6 +26,18 @@ int main(int argc, char *argv[])
     PC.ReadFromJson(jsonPrRestore);
   }
 
+  //Q_INIT_RESOURCE(resources);
+
+  //QFile file(":/test.txt");
+  //QByteArray dd = file.readAll();
+
+  //std::vector<char> d(dd.size());
+
+  //for (size_t i = 0; i < dd.size(); i++)
+  //{
+  //  d[i] = dd.operator const char *()[i];
+  //}
+
   QTranslator *qtTranslator = new QTranslator(qApp);
   bool IsOk = qtTranslator->load(":/ResurceWin_" + QLocale::system().name(), QLibraryInfo::location(QLibraryInfo::TranslationsPath));
   qApp->installTranslator(qtTranslator);

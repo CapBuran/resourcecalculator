@@ -8,7 +8,7 @@ PUSHD "%MyProjectDir%"
 
 %CMAKE_EXE% -G%CMAKE_GENERATOR_NAME% %MyRepository%
 
-::devenv.com Factorio_QT.sln /Build "%Config%|%ARCH_BUILD%" /Project "ALL_BUILD"
+devenv.com Factorio_QT.sln /Build "%Config%|%ARCH_BUILD%" /Project "ALL_BUILD"
 
 POPD
 

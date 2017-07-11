@@ -28,7 +28,7 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _ButtonRecipesOpen = new QPushButton("Recipes");
   connect(_ButtonRecipesOpen, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog()));
 
-  _ButtonFactoryOpen = new QPushButton("Factorys");
+  _ButtonFactoryOpen = new QPushButton(tr("Factorys", "Button Factorys"));
   connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
   _RecipeWidget       = new RecipeWidget(PC);
