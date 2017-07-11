@@ -36,10 +36,45 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="31"/>
         <source>Factorys</source>
         <comment>Button Factorys</comment>
-        <translation>Фабрики</translation>
+        <translation type="vanished">Фабрики</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="16"/>
+        <source>MainButtonRecipeTabProperty</source>
+        <comment>Mainwindow button Recipe Tab Property</comment>
+        <translation>Свойства цепочки</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="19"/>
+        <source>MainButtonRecipeTabAdd</source>
+        <comment>Mainwindow button Recipe Tab Add</comment>
+        <translation>Добавить цепочку</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="22"/>
+        <source>MainButtonRecipeTabDel</source>
+        <comment>Mainwindow button Recipe Tab Del</comment>
+        <translation>Удалить цепочку</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="25"/>
+        <source>MainButtonItems</source>
+        <comment>Mainwindow button Items</comment>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="28"/>
+        <source>MainButtonRecipes</source>
+        <comment>Mainwindow button Recipes</comment>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="31"/>
+        <source>MainButtonFactorys</source>
+        <comment>Mainwindow button Factorys</comment>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="59"/>

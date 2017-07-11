@@ -13,22 +13,22 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _PC(PC)
 {
 
-  _ButtonPropertyTableRecipeTab = new QPushButton("Property");
+  _ButtonPropertyTableRecipeTab = new QPushButton(tr("MainButtonRecipeTabProperty", "Mainwindow button Recipe Tab Property"));
   connect(_ButtonPropertyTableRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
-  _ButtonAddRecipeTab = new QPushButton("Add");
+  _ButtonAddRecipeTab = new QPushButton(tr("MainButtonRecipeTabAdd", "Mainwindow button Recipe Tab Add"));
   connect(_ButtonAddRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
 
-  _ButtonDelRecipeTab = new QPushButton("Remote");
+  _ButtonDelRecipeTab = new QPushButton(tr("MainButtonRecipeTabDel", "Mainwindow button Recipe Tab Del"));
   connect(_ButtonDelRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog()));
 
-  _ButtonItemOpen = new QPushButton("Items");
+  _ButtonItemOpen = new QPushButton(tr("MainButtonItems", "Mainwindow button Items"));
   connect(_ButtonItemOpen, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
 
-  _ButtonRecipesOpen = new QPushButton("Recipes");
+  _ButtonRecipesOpen = new QPushButton(tr("MainButtonRecipes", "Mainwindow button Recipes"));
   connect(_ButtonRecipesOpen, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog()));
 
-  _ButtonFactoryOpen = new QPushButton(tr("Factorys", "Button Factorys"));
+  _ButtonFactoryOpen = new QPushButton(tr("MainButtonFactorys", "Mainwindow button Factorys"));
   connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
   _RecipeWidget       = new RecipeWidget(PC);
