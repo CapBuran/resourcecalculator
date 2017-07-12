@@ -21,8 +21,28 @@ configure_file( ResurceWin.qrc ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
 
 qt5_add_resources(Program_TRS ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
 
+source_group(MainWindow         FILES mainwindow.h)
+source_group(MainWindow         FILES mainwindow.cpp)
 
-add_executable(ResurceWin WIN32 ${Program_SRCS} ${Program_HDRS} ${Program_TRS} ${Program_RES} ${TS_FILES})
+source_group(ItemsEditDialog    FILES ItemsEditDialog.h)
+source_group(ItemsEditDialog    FILES ItemsEditDialog.cpp)
+
+source_group(ItemSelectedDialog FILES ItemSelectedDialog.h)
+source_group(ItemSelectedDialog FILES ItemSelectedDialog.cpp)
+
+source_group(RecipeAddDialog    FILES RecipeAddDialog.h)
+source_group(RecipeAddDialog    FILES RecipeAddDialog.cpp)
+
+source_group(RecipesEditDialog  FILES RecipesEditDialog.h)
+source_group(RecipesEditDialog  FILES RecipesEditDialog.cpp)
+
+source_group(NoEdit             FILES ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
+source_group(NoEdit             FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_ResurceWin.cpp)
+source_group(NoEdit             FILES ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin_automoc.cpp)
+                                                                                    
+source_group(Translation        FILES translations/ResurceWin_ru_RU.ts)
+
+add_executable(ResurceWin WIN32 ${Program_SRCS} ${Program_HDRS} ${Program_TRS} ${TS_FILES} ${Program_RES} )
 
 qt5_use_modules(ResurceWin Widgets)
 

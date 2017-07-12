@@ -56,7 +56,7 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   
   createMenus();
 
-  setWindowTitle(tr("Resurse calculator "));
+  setWindowTitle(tr("Resurse calculator"));
 
 }
 
