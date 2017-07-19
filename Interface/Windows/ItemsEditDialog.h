@@ -7,14 +7,6 @@
 
 #include "../../ResourceCalculator/ParamsCollection.h"
 
-//QT_BEGIN_NAMESPACE
-//class QLabel;
-//class QPushButton;
-//class QTextEdit;
-//class QLineEdit;
-//QT_END_NAMESPACE
-
-
 class ItemsEditModel : public QAbstractTableModel
 {
   Q_OBJECT

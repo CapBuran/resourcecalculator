@@ -45,7 +45,6 @@ void base64_encode(const std::vector<char> &input, std::vector<char> &output)
 
   for (int i = 0; i < mod_table[input_length % 3]; i++)
     encoded_data[output_length - 1 - i] = '=';
-
 }
 
 void base64_decode(const std::vector<char> &input, std::vector<char> &output)
@@ -87,5 +86,10 @@ void base64_decode(const std::vector<char> &input, std::vector<char> &output)
     if (j < output_length) decoded_data[j++] = (triple >> 0 * 8) & 0xFF;
   }
 
+}
+
+size_t base64_get_size_encode_data(size_t org_data_size)
+{
+  return 4 * ((org_data_size + 2) / 3);
 }
 

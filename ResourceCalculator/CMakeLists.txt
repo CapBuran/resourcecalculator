@@ -24,10 +24,16 @@ source_group(Factory  FILES FactoryCollection.cpp)
 source_group(Base     FILES Types.h)
 source_group(Base     FILES Types.cpp)
 
+source_group(Icon     FILES Icon.h)
+source_group(Icon     FILES Icon.cpp)
+source_group(Icon     FILES IconCollection.h)
+source_group(Icon     FILES IconCollection.cpp)
+
 source_group(Other    FILES ParamsCollection.h)
 source_group(Other    FILES ParamsCollection.cpp)
 source_group(Other    FILES ProductionChainModel.cpp)
 source_group(Other    FILES ProductionChainModel.h)
+source_group(Other    FILES Serializer.h)
 
 add_library(ResourceCalculator STATIC ${ResourceCalculator_HEADERS} ${ResourceCalculator_SOURCES} )
 

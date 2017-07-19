@@ -2,6 +2,9 @@
 
 #include <QtWidgets>
 
+#include <QFile>
+#include <QBytearray>
+
 #pragma region MODEL
 
 ItemsEditModel::ItemsEditModel(ResourceCalculator::ParamsCollection &PC, QObject *parent):
@@ -208,6 +211,17 @@ void ItemEditDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionV
 ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
   : QDialog(parent), _PC(PC)
 {
+
+  QImage Image;
+
+  QByteArray dataArray;
+
+  qCompress(dataArray, 9);
+
+  Image.loadFromData(dataArray, ".jpg");
+
+  QIcon d;
+  //d.l
 
   setMinimumSize(800, 600);
    

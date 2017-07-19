@@ -29,6 +29,8 @@ int main(int argc, char ** argv) {
     IC.ADD(To2);
     IC.ADD(To3);
     IC.ADD(To4);
+    IC.ADD(To5);
+    IC.ADD(To6);
   }
 
   {
@@ -175,7 +177,7 @@ int main(int argc, char ** argv) {
 
   std::string sss("Русские буквы");
 
-  std::vector<char> d(sss.size());
+  std::vector<char> d(sss.size() + 1);
   
   for (size_t i = 0; i < sss.size(); i++){
     d[i] = sss[i];
@@ -187,7 +189,7 @@ int main(int argc, char ** argv) {
   base64_decode(d1, d2);
   
   std::string sss2;
-  sss2.resize(d2.size());
+  sss2.resize(d2.size()-1);
 
   for (size_t i = 0; i < sss.size(); i++) {
     sss2[i] = d2[i];

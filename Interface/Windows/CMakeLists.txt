@@ -20,6 +20,7 @@ add_custom_target(translations DEPENDS ${QM_FILES})
 configure_file( ResurceWin.qrc ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
 
 qt5_add_resources(Program_TRS ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
+qt5_add_resources(Program_RES_GUI ResurceGui.qrc)
 
 source_group(MainWindow         FILES mainwindow.h)
 source_group(MainWindow         FILES mainwindow.cpp)
@@ -38,11 +39,12 @@ source_group(RecipesEditDialog  FILES RecipesEditDialog.cpp)
 
 source_group(NoEdit             FILES ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
 source_group(NoEdit             FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_ResurceWin.cpp)
+source_group(NoEdit             FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_ResurceGui.cpp)
 source_group(NoEdit             FILES ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin_automoc.cpp)
                                                                                     
 source_group(Translation        FILES translations/ResurceWin_ru_RU.ts)
 
-add_executable(ResurceWin WIN32 ${Program_SRCS} ${Program_HDRS} ${Program_TRS} ${TS_FILES} ${Program_RES} )
+add_executable(ResurceWin WIN32 ${Program_SRCS} ${Program_HDRS} ${Program_TRS} ${TS_FILES} ${Program_RES} ${Program_RES_GUI} )
 
 qt5_use_modules(ResurceWin Widgets)
 

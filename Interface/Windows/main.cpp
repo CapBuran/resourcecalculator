@@ -11,8 +11,16 @@
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
-
   ResourceCalculator::ParamsCollection PC;
+
+  {
+    Q_INIT_RESOURCE(ResurceGui);
+    QFile file(":/Res/IconsDefault");
+    if (file.open(QIODevice::ReadOnly)) {
+      QByteArray RawData = file.readAll();
+      PC.Icons.ReadRawDataAsJson(RawData.constData());
+    }
+  }
 
   {
     QFile file(StandartTestFileJson);
@@ -26,16 +34,30 @@ int main(int argc, char *argv[])
     PC.ReadFromJson(jsonPrRestore);
   }
 
-  //Q_INIT_RESOURCE(resources);
-
-  //QFile file(":/test.txt");
-  //QByteArray dd = file.readAll();
-
-  //std::vector<char> d(dd.size());
-
-  //for (size_t i = 0; i < dd.size(); i++)
   //{
-  //  d[i] = dd.operator const char *()[i];
+  //  //std::string files_preffix = "C:/games/icons";
+  //  std::string files_preffix = "C:/games/icons/";
+  //  std::list<std::string> files;
+  //  QStringList filtres_file; filtres_file << "*.png";
+  //  QDirIterator it(files_preffix.c_str(), filtres_file, QDir::Files, QDirIterator::Subdirectories | QDirIterator::FollowSymlinks);
+  //  while (it.hasNext()) {
+  //    QFileInfo fi = it.fileInfo();
+  //    std::string filename = fi.absoluteFilePath().toStdString();
+  //    QString dd = fi.absoluteFilePath();
+  //    if (filename.length() > 0) {
+  //      files.push_back(fi.absoluteFilePath().toStdString());
+  //    }
+  //    it.next();
+  //  }
+  //  //PC.Icons.ReadAll(files_preffix + "/", files);
+  //  PC.Icons.ReadAll("__base__/graphics/icons/", files_preffix, files);
+  //  std::ofstream out;
+  //  out.open(StandartTestFileJson);
+  //  Json::Value jsonPr;
+  //  PC.WriteToJson(jsonPr);
+  //  Json::StyledWriter styledWriter;
+  //  out << styledWriter.write(jsonPr);
+  //  out.close();
   //}
 
   QTranslator *qtTranslator = new QTranslator(qApp);
