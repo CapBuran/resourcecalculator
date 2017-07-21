@@ -212,16 +212,18 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   : QDialog(parent), _PC(PC)
 {
 
-  QImage Image;
+  //QImage Image;
 
-  QByteArray dataArray;
+  //QByteArray dataArray;
 
-  qCompress(dataArray, 9);
+  //qCompress(dataArray, 9);
 
-  Image.loadFromData(dataArray, ".jpg");
+  //Image.loadFromData(dataArray, ".jpg");
 
-  QIcon d;
-  //d.l
+  //QIcon d;
+  ////d.l
+
+
 
   setMinimumSize(800, 600);
    

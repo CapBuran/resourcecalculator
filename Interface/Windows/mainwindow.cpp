@@ -31,12 +31,16 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _ButtonFactoryOpen = new QPushButton(tr("MainButtonFactorys", "Mainwindow button Factorys"));
   connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
+  _ButtonDebug = new QPushButton(tr("MainButtonDebug", "Mainwindow button Factorys"));
+  connect(_ButtonDebug, SIGNAL(clicked()), SLOT(PushButtonClickedDebug()));
+
   _RecipeWidget       = new RecipeWidget(PC);
 
   QHBoxLayout *h = new QHBoxLayout();
   h->setMargin(5);
   h->setSpacing(5);
-  h->addWidget(_ButtonPropertyTableRecipeTab); 
+  h->addWidget(_ButtonDebug);
+  h->addWidget(_ButtonPropertyTableRecipeTab);
   h->addWidget(_ButtonAddRecipeTab);
   h->addWidget(_ButtonDelRecipeTab);
   h->addWidget(_ButtonRecipesOpen);
@@ -168,6 +172,22 @@ void MainWindow::PushButtonClickedFactorysEditDialog()
   //  //QString address = _RecipesEditDialog.addressText->toPlainText();
   //  //emit sendDetails(name, address);
   //}
+
+}
+
+void MainWindow::PushButtonClickedDebug()
+{
+  IconSelectedDialog _IconSelectedDialog(_PC);
+  if (_IconSelectedDialog.exec()) {
+    //QString name = _RecipesEditDialog.nameText->text();
+    //QString address = _RecipesEditDialog.addressText->toPlainText();
+    //emit sendDetails(name, address);
+  }
+
+
+  const ResourceCalculator::Icon *R = _IconSelectedDialog.GetResult();
+
+  static int dd = 0; dd += 1;
 
 }
 

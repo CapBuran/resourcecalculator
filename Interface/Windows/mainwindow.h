@@ -1,14 +1,15 @@
-
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
-#include "../../ResourceCalculator/ParamsCollection.h"
-#include "RecipeWidget.h"
 
 #include <QMainWindow>
 #include <QItemSelection>
 #include <QTabWidget>
 #include <QPushButton>
+
+#include "../../ResourceCalculator/ParamsCollection.h"
+#include "RecipeWidget.h"
+
+#include "IconSelectedDialog.h"
 
 class MainWindow : public QMainWindow
 {
@@ -24,6 +25,7 @@ private slots:
     void PushButtonClickedRecipesEditDialog();
     void PushButtonClickedItemsEditDialog();
     void PushButtonClickedFactorysEditDialog();
+    void PushButtonClickedDebug();
 
 private:
     void createMenus();
@@ -47,6 +49,9 @@ private:
     QAction *addAct;
     QAction *editAct;
     QAction *removeAct;
+
+
+    QPushButton  *_ButtonDebug;
 
 };
 

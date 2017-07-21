@@ -22,6 +22,8 @@ namespace ResourceCalculator {
 
     const Icon &GetIcon(std::string KeyIcon) const;
 
+    const std::map<std::string, Icon> & GetAllIcon() const;
+
   private:
     std::map<std::string, Icon> _Icons;
 

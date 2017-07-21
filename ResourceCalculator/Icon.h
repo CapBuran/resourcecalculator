@@ -2,6 +2,7 @@
 #define ICON_H
 
 #include <vector>
+#include <string>
 
 namespace ResourceCalculator {
 
@@ -9,6 +10,7 @@ namespace ResourceCalculator {
   private:
     std::vector<char> _data;
   public:
+    std::string ShortName;
     const std::vector<char>& GetRawData() const;
     void SetRawData(size_t len, const char* data);
   };

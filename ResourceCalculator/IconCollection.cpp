@@ -11,6 +11,14 @@ namespace ResourceCalculator {
   void IconCollection::ADD(std::string KeyIcon, std::vector<char> rawdata)
   {
     Icon AddIcon;
+    AddIcon.SetRawData(rawdata.size() - 1, &rawdata[0]);
+    auto n = KeyIcon.rfind('/');
+    if (n != std::string::npos) {
+      AddIcon.ShortName.resize(KeyIcon.size() - n - 1);
+      std::copy(&KeyIcon[n+1], &KeyIcon[KeyIcon.size()], AddIcon.ShortName.begin());
+    }else{
+      AddIcon.ShortName = KeyIcon;
+    }
     AddIcon.SetRawData(rawdata.size(), &rawdata[0]);
     _Icons[KeyIcon] = AddIcon;
   }
@@ -59,15 +67,13 @@ namespace ResourceCalculator {
 
   int IconCollection::ReadFromJson(const Json::Value & jsonPr)
   {
-    for (auto it : jsonPr) {
+    for (auto &it : jsonPr) {
       std::string keyToAdd = it["KeyPath"].asString();
       std::string DataBase64_ = it["Data"].asString();
       std::vector<char> DataBase64(DataBase64_.length());
       std::vector<char> Data;
       std::copy(DataBase64_.begin(), DataBase64_.end(), DataBase64.begin());
       base64_decode(DataBase64, Data);
-      Icon ToAdd;
-      ToAdd.SetRawData(Data.size() - 1, &Data[0]);
       ADD(keyToAdd, Data);
     }
     return 0;
@@ -86,6 +92,11 @@ namespace ResourceCalculator {
       jsonPr.append(newVal);
     }
     return 0;
+  }
+
+  const std::map<std::string, Icon>& IconCollection::GetAllIcon() const
+  {
+    return _Icons;
   }
 
   const Icon & IconCollection::GetIcon(std::string KeyIcon) const
