@@ -1,6 +1,14 @@
 #include "IconSelectedDialog.h"
 
-#include <QtWidgets>
+class QListWidgetItemData : public QListWidgetItem {
+  public:
+    const ResourceCalculator::Icon *IconRC;
+    explicit QListWidgetItemData(const ResourceCalculator::Icon *icon, 
+      const QString &text, QListWidget *view = Q_NULLPTR, int type = Type):
+      QListWidgetItem(text, view, type), IconRC(icon)
+    {
+    }
+};
 
 int SetIconData(QIcon &Icon, QSize Size, int size_data, const char* data) {
   QImage Image;
@@ -13,9 +21,7 @@ int SetIconData(QIcon &Icon, QSize Size, int size_data, const char* data) {
 IconSelectedDialog::IconSelectedDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
   : QDialog(parent), _PC(PC), _Result(nullptr)
 {
-  
   setMinimumSize(800, 600);
-
   setWindowState(Qt::WindowStates::enum_type::WindowMaximized);
   
   QPushButton *okButton = new QPushButton(tr("OK"));;
@@ -28,58 +34,38 @@ IconSelectedDialog::IconSelectedDialog(ResourceCalculator::ParamsCollection &PC,
   //QSize IconSize(32, 32);
   QSize IconSize(64, 64);
 
-  QListWidget *ListWidget = new QListWidget;
-  ListWidget->setWrapping(true);
-  ListWidget->setGridSize(QSize(216, 64+20));
-  ListWidget->setFlow(QListWidget::Flow::LeftToRight);
-  ListWidget->setResizeMode(QListWidget::ResizeMode::Adjust);
-  ListWidget->setViewMode(QListWidget::IconMode);
-  ListWidget->setIconSize(IconSize);
+  _ListWidget = new QListWidget;
+  _ListWidget->setWrapping(true);
+  _ListWidget->setGridSize(QSize(216, 64+20));
+  _ListWidget->setFlow(QListWidget::Flow::LeftToRight);
+  _ListWidget->setResizeMode(QListWidget::ResizeMode::Adjust);
+  _ListWidget->setViewMode(QListWidget::IconMode);
+  _ListWidget->setIconSize(IconSize);
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
-  mainLayout->addWidget(ListWidget);
+  mainLayout->addWidget(_ListWidget);
   mainLayout->addLayout(buttonLayout);
   setLayout(mainLayout);
 
-
   const std::map<std::string, ResourceCalculator::Icon>& Icons = PC.Icons.GetAllIcon();
   for (auto & icon : Icons){
-    QListWidgetItem *ListItem = new QListWidgetItem(icon.second.ShortName.c_str());
+    QListWidgetItemData *ListItem = new QListWidgetItemData(&icon.second, icon.second.ShortName.c_str());
     const std::vector<char>& RawData = icon.second.GetRawData();
     QIcon qicon;
     SetIconData(qicon, IconSize, (int)RawData.size(), &RawData[0]);
     ListItem->setIcon(qicon);
-    ListWidget->addItem(ListItem);
+    
+    _ListWidget->addItem(ListItem);
   }
 
-  //setWidget
-
-  //okButton = new QPushButton("OK");
-  //cancelButton = new QPushButton("Cancel");
-
-  //_table = new IconSelectedModel(_PC, this);
-  //QTableView *tableView = new QTableView;
-  //tableView->setModel(_table);
-
-  //QHBoxLayout *buttonLayout = new QHBoxLayout;
-  //buttonLayout->addWidget(okButton);
-  //buttonLayout->addWidget(cancelButton);
-
-  //QVBoxLayout *mainLayout = new QVBoxLayout;
-  //mainLayout->addWidget(tableView);
-  //mainLayout->addLayout(buttonLayout);
-  //setLayout(mainLayout);
-
-  //connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
-  //connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
-
-
+  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
+  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
   setWindowTitle(tr("SelectedIcons"));
-
 }
 
 const ResourceCalculator::Icon * IconSelectedDialog::GetResult() const
 {
-  return _Result;
+  return dynamic_cast<const QListWidgetItemData *>(_ListWidget->currentItem())->IconRC;
 }
+

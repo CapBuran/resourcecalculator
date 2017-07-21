@@ -2,10 +2,11 @@
 #define ICON_SELECTED_DIALOG_H
 
 #include <QDialog>
-#include <QStyledItemDelegate>
-#include <QAbstractTableModel>
+#include <QtWidgets>
 
 #include "../../ResourceCalculator/ParamsCollection.h"
+
+int SetIconData(QIcon &Icon, QSize Size, int size_data, const char* data);
 
 class IconSelectedDialog : public QDialog
 {
@@ -17,10 +18,10 @@ public:
 
 private:
 
-  //QListWidgetItem _Icons;
-
+  QListWidget *_ListWidget;
   const ResourceCalculator::Icon * _Result;
   ResourceCalculator::ParamsCollection &_PC;
 };
+
 
 #endif // ICON_SELECTED_DIALOG_H

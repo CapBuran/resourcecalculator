@@ -4,19 +4,19 @@
 <context>
     <name>IconSelectedDialog</name>
     <message>
-        <location filename="../IconSelectedDialog.cpp" line="21"/>
+        <location filename="../IconSelectedDialog.cpp" line="27"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Выбрать</translation>
     </message>
     <message>
-        <location filename="../IconSelectedDialog.cpp" line="22"/>
+        <location filename="../IconSelectedDialog.cpp" line="28"/>
         <source>Cancel</source>
-        <translation type="unfinished"></translation>
+        <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../IconSelectedDialog.cpp" line="78"/>
+        <location filename="../IconSelectedDialog.cpp" line="64"/>
         <source>SelectedIcons</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберете иконку</translation>
     </message>
 </context>
 <context>
@@ -39,8 +39,8 @@
     <name>ItemsEditDialog</name>
     <message>
         <location filename="../ItemsEditDialog.cpp" line="249"/>
-        <source>Recipes Edit</source>
-        <translation></translation>
+        <source>Item Edit</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -98,7 +98,7 @@
         <location filename="../mainwindow.cpp" line="34"/>
         <source>MainButtonDebug</source>
         <comment>Mainwindow button Factorys</comment>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="63"/>

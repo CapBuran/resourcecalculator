@@ -246,6 +246,6 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
-  setWindowTitle(tr("Recipes Edit"));
+  setWindowTitle(tr("Item Edit"));
 
 }

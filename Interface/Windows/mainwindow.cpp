@@ -179,15 +179,13 @@ void MainWindow::PushButtonClickedDebug()
 {
   IconSelectedDialog _IconSelectedDialog(_PC);
   if (_IconSelectedDialog.exec()) {
-    //QString name = _RecipesEditDialog.nameText->text();
-    //QString address = _RecipesEditDialog.addressText->toPlainText();
-    //emit sendDetails(name, address);
+    const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
+    if (Icon != nullptr) {
+      QIcon qIcon;
+      SetIconData(qIcon, QSize(32, 32), Icon->GetRawData().size(), &Icon->GetRawData()[0]);
+      setWindowIcon(qIcon);
+    }
   }
-
-
-  const ResourceCalculator::Icon *R = _IconSelectedDialog.GetResult();
-
-  static int dd = 0; dd += 1;
 
 }
 
