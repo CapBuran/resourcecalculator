@@ -73,6 +73,16 @@ namespace ResourceCalculator {
     std::vector<KEY_ITEM> _ColsItems;
     std::vector <ProductionChainDataRow>  _DataRows;
 
+    inline int ReadFromJson(const Json::Value & jsonPr) override
+    {
+      return 0;
+    }
+
+    inline int WriteToJson(Json::Value & jsonPr) const override
+    {
+      return 0;
+    }
+
   };
 
 

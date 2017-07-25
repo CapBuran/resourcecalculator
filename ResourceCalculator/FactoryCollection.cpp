@@ -2,26 +2,25 @@
 
 namespace ResourceCalculator {
 
-  FactoryCollection::FactoryCollection():
-    _NoFindFactory("No find factory", 0.0, 0.0)
+  FactoryCollection::FactoryCollection()
   {
-    _NoFindFactory._Key = KEY_FACTORY::ID_ITEM_NoFind_Factory;
-    _NoFindFactory._Speed = 0.0;
-    _NoFindFactory._CountSlotsForModules = 0;
-    _NoFindFactory._CountSlotsForRecipes = 0;
-    _NoFindFactory._Wear = 1.0;
-    _NoFindFactory._PeakPower = INFINITY;
-    _NoFindFactory._LevelOfPollution = INFINITY;
-    _NoFindFactory._Key = KEY_FACTORY::ID_ITEM_NoFind_Factory;
-    _NoFindFactory._Key = KEY_FACTORY::ID_ITEM_NoFind_Factory;
-    _NoFindFactory._Key = KEY_FACTORY::ID_ITEM_NoFind_Factory;
+    _NoFindFactory.SetKey(KEY_FACTORY::ID_ITEM_NoFind_Factory);
+    _NoFindFactory.SetSpeed(0.0);
+    _NoFindFactory.SetCountSlotsForModules(0);
+    _NoFindFactory.SetCountSlotsForRecipes(0);
+    _NoFindFactory.SetWear(1.0);
+    _NoFindFactory.SetPeakPower(INFINITY);
+    _NoFindFactory.SetLevelOfPollution(INFINITY);
+    _NoFindFactory.SetKey(KEY_FACTORY::ID_ITEM_NoFind_Factory);
+    _NoFindFactory.SetKey(KEY_FACTORY::ID_ITEM_NoFind_Factory);
+    _NoFindFactory.SetKey(KEY_FACTORY::ID_ITEM_NoFind_Factory);
   }
 
   FactoryCollection::~FactoryCollection()
   {
   }
 
-  void FactoryCollection::ADD(const Factory &factory)
+  void FactoryCollection::ADD(const Factory factory)
   {
     _Factorys[factory.GetKey()] = factory;
   }

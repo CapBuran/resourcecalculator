@@ -1,5 +1,5 @@
 #include "RecipesEditDialog.h"
-#include "ItemSelectedDialog.h""
+#include "ItemSelectedDialog.h"
 
 #pragma region MODEL
 
@@ -45,7 +45,7 @@ QVariant RecipeListModel::data(const QModelIndex &index, int role) const
       return QVariant();
     }
 
-    RecipeParams RP = R->GetRecipeParams();
+    //RecipeParams RP = R->GetRecipeParams();
     QString retval;
 
     switch (index.column())
@@ -55,7 +55,7 @@ QVariant RecipeListModel::data(const QModelIndex &index, int role) const
       return retval;
       break;
     case 1:
-      retval = QString::number(RP.Time);
+      retval = QString::number(R->GetTime());
       return retval;
       break;
     case 2:
@@ -120,31 +120,27 @@ bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, i
 
     const ResourceCalculator::KEY_RECIPE KeyRecipe = GetRecipeId(row);
 
-    Recipe *R = _PC.RC.GetRecipeForEdit(KeyRecipe);
-    if (R == nullptr) {
+    Recipe *EditRecipe = _PC.RC.GetRecipeForEdit(KeyRecipe);
+    if (EditRecipe == nullptr) {
       return false;
     }
-    
-    std::string Name = R->GetName();
-    RecipeParams Params = R->GetRecipeParams();
 
     switch (index.column())
     {
     case 0:
-      Name = value.toString().toStdString();
+      EditRecipe->SetName(value.toString().toStdString());
       break;
     case 1:
-      Params.Time = value.toDouble();
+      EditRecipe->SetTime(value.toDouble());
       break;
     default:
       return false;
       break;
     }
 
-    Recipe ToADD(Name, Params);
-    _PC.RC.Add(ToADD);
+    _PC.RC.Add(*EditRecipe);
 
-    _listOfRecipesId.replace(row, R->GetKey());
+    _listOfRecipesId.replace(row, EditRecipe->GetKey());
     
     emit(dataChanged(index, index));
 
@@ -162,9 +158,9 @@ bool RecipeListModel::insertRows(int position, int rows, const QModelIndex &inde
     using namespace ResourceCalculator;
     KEY_RECIPE NewKey = _PC.RC.GetUniqueRecipeKey();
     std::string Name("Новый рецепт" + std::to_string(row));
-    RecipeParams Params;
-    Params.Key = NewKey;
-    Recipe recipe(Name, Params);
+    Recipe recipe;
+    recipe.SetKey(NewKey);
+    recipe.SetName(Name);
     _listOfRecipesId.insert(position, NewKey);
   }
   endInsertRows();

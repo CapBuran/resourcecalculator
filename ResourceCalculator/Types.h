@@ -76,6 +76,18 @@ namespace ResourceCalculator {
   //typedef TYPE_KEY KEY_MODULE;
   //typedef TYPE_KEY TYPE_FACTORY;  
 
+#define DeclareProperty(Name, Type) \
+  Type Get##Name() const; \
+  void Set##Name(Type);
+
+#define DeclareAndDefinitionProperty(Name, Type) \
+  inline Type Get##Name() const { return _##Name; } \
+  inline void Set##Name(Type Name) { _##Name = Name; }
+
+#define DefinitionProperty(Name, Type, ClassName) \
+  Type ClassName::Get##Name() const { return _##Name; } \
+  void ClassName::Set##Name(Type Name) { _##Name = Name; }
+
   class Jsonable {
   protected:
     inline bool JsonCheckIsEmptyField(const Json::Value &obj_json, std::string obj_path = "", bool critical = false) const
@@ -92,18 +104,22 @@ namespace ResourceCalculator {
     virtual int WriteToJson(Json::Value & jsonPr) const = 0;
   };
 
-  class ItemBase {
+  class ItemBase: public Jsonable {
   protected:
     std::string _Name;
-    ItemBase(const std::string &Name);
-    virtual ~ItemBase();
+    std::string _IconPath;
+
+    inline virtual ~ItemBase()
+    {
+    }
 
   public:
 
-    inline const std::string& GetName() const
-    {
-      return _Name;
-    }
+    DeclareAndDefinitionProperty(Name,     std::string)
+    DeclareAndDefinitionProperty(IconPath, std::string)
+
+    int ReadFromJson(const Json::Value & jsonPr) override;
+    int WriteToJson(Json::Value & jsonPr) const override;
 
   };
 

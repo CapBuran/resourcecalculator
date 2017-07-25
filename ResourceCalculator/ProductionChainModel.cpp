@@ -37,11 +37,10 @@ namespace ResourceCalculator {
 
     const Factory &factory = PC.FC.GetFactory(FactoryCurrent);
     const Recipe &recipe = PC.RC.GetData().find(RecipeCurrent)->second;
-    const RecipeParams RP = recipe.GetRecipeParams();
 
     factory.FixFactoryModules(_FM);
 
-    _SecPerOneRecipe = RP.Time;
+    _SecPerOneRecipe = recipe.GetTime();
     _SpeedFactory = factory.GetSpeed() * _FM.GetSummSpeed(PC.MC);
     _RealTimeProductionOfOneItemPerSec = _SpeedFactory / _SecPerOneRecipe;
 
@@ -58,12 +57,12 @@ namespace ResourceCalculator {
 
     for (size_t ColId = 0; ColId < CountsCols; ColId++) {
       const KEY_ITEM ItemKey = _ColItems[ColId];
-      for (auto Required : RP.Required) {
+      for (auto Required : recipe.GetRequired() ) {
         if (Required.ItemId == ItemKey) {
           _CountItems[ColId] = -Required.Count;
         }
       }
-      for (auto Result : RP.Result) {
+      for (auto Result : recipe.GetResult()) {
         if (Result.ItemId == ItemKey) {
           _CountItems[ColId] += Result.Count * ProductionSpeedPerSecond;
         }
@@ -92,18 +91,17 @@ namespace ResourceCalculator {
     const size_t CountsCols = _CountItems.size();
 
     const Recipe &recipe = PC.RC.GetData().find(RecipeCurrent)->second;
-    const RecipeParams RP = recipe.GetRecipeParams();
-
+    
     double ProductionSpeedPerSecond = _FM.GetSummProductivity(PC.MC);
 
     for (size_t ColId = 0; ColId < CountsCols; ColId++) {
       const KEY_ITEM ItemKey = _ColItems[ColId];
-      for (auto Required : RP.Required) {
+      for (auto Required : recipe.GetRequired()) {
         if (Required.ItemId == ItemKey) {
           _CountItems[ColId] = -Required.Count;
         }
       }
-      for (auto Result : RP.Result) {
+      for (auto Result : recipe.GetResult()) {
         if (Result.ItemId == ItemKey) {
           _CountItems[ColId] += Result.Count * ProductionSpeedPerSecond;
         }
@@ -129,13 +127,13 @@ namespace ResourceCalculator {
   }
 
   ProductionChainModel::ProductionChainModel(const ParamsCollection &PC, KEY_ITEM ItemKey):
-    ItemBase(""), _ItemKey(ItemKey), _PC(PC)
+    _ItemKey(ItemKey), _PC(PC)
   {
     SetItemKey(ItemKey);
   }
 
   ProductionChainModel::ProductionChainModel(const ParamsCollection &PC) :
-    ItemBase("Production Chain"), _ItemKey(KEY_ITEM::ID_ITEM_NoFind_Item), _PC(PC)
+    _ItemKey(KEY_ITEM::ID_ITEM_NoFind_Item), _PC(PC)
   {
   }
 

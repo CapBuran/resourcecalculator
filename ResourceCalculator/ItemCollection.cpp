@@ -11,7 +11,7 @@ namespace ResourceCalculator {
   {
   }
 
-  void ItemCollection::ADD(const Item &Item)
+  void ItemCollection::ADD(const Item Item)
   {
     _Items[Item.GetKey()] = Item;
   }
@@ -22,10 +22,12 @@ namespace ResourceCalculator {
 
   int ItemCollection::ReadFromJson(const Json::Value & jsonPr)
   {
-    for (auto it: jsonPr){
-      KEY_TO_Json Key  = it["Key"].asInt64();
-      std::string Name = it["Name"]["ru"].asString();
-      Item ToAdd(Name, static_cast<KEY_ITEM>(Key));
+    for (auto &it: jsonPr){
+      //KEY_TO_Json Key  = it["Key"].asInt64();
+      //std::string Name = it["Name"]["ru"].asString();
+      //Item ToAdd(Name, static_cast<KEY_ITEM>(Key));
+      Item ToAdd;
+      ToAdd.ReadFromJson(it);
       ADD(ToAdd);
     }
     return 0;

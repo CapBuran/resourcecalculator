@@ -1,50 +1,22 @@
 #include "Item.h"
 
 namespace ResourceCalculator {
-  Item::Item():
-    ItemBase("")
-  {
-  }
-
-  Item::Item(const std::string &Name, KEY_ITEM Key):
-    ItemBase(Name), _Key(Key)
-  {
-  }
-
-  Item::Item(const Item & item):
-    ItemBase(item.GetName()), _Key(item._Key)
-  {
-  }
-
-  //Item & Item::operator=(const Item & right)
-  //{
-  //  if (this == &right) {
-  //    return *this;
-  //  }
-  //  _Key = right._Key;
-  //  _Name = right._Name;
-  //  return *this;
-  //}
 
   Item::~Item()
   {
   }
 
-  KEY_ITEM Item::GetKey() const
-  {
-    return _Key;
-  }
-
   int Item::ReadFromJson(const Json::Value & jsonPr)
   {
+    _Key = static_cast<KEY_ITEM>( jsonPr["Key"].asInt64());
+    ItemBase::ReadFromJson(jsonPr);
     return 0;
   }
 
   int Item::WriteToJson(Json::Value & jsonPr) const
   {
+    ItemBase::WriteToJson(jsonPr);
     jsonPr["Key"] = static_cast<KEY_TO_Json>(_Key);
-    jsonPr["Name"]["ru"] = _Name;
-    jsonPr["Name"]["en"] = "English lang";
     return 0;
   }
 

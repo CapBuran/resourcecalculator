@@ -31,11 +31,12 @@ class ItemEditDelegate : public QStyledItemDelegate
   Q_OBJECT
 
 public:
-  ItemEditDelegate(QObject *parent = 0);
-  QWidget *createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-  void setEditorData(QWidget *editor, const QModelIndex &index) const override;
-  void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
-  void updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+  ItemEditDelegate(ResourceCalculator::ParamsCollection &PC, const ItemsEditModel &Model, QObject *parent = 0);
+  void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+  bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
+private:
+  const ItemsEditModel &_Model;
+  ResourceCalculator::ParamsCollection &_PC;
 };
 
 class ItemsEditDialog : public QDialog
@@ -44,17 +45,9 @@ class ItemsEditDialog : public QDialog
 
 public:
   ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
-  //QLineEdit *nameText;
-  //QTextEdit *addressText;
 
 private:
-
   ResourceCalculator::ParamsCollection &_PC;
-
-  //QLabel *nameLabel;
-  //QLabel *addressLabel;
-  QPushButton *okButton;
-  QPushButton *cancelButton;
 };
 
 #endif // ITEM_EDIT_DIALOG_H

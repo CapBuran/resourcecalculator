@@ -22,7 +22,7 @@
 <context>
     <name>ItemSelectedDialog</name>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="232"/>
+        <location filename="../ItemSelectedDialog.cpp" line="236"/>
         <source>SelectedItems</source>
         <translation>Выберете предмет дважды</translation>
     </message>
@@ -38,7 +38,7 @@
 <context>
     <name>ItemsEditDialog</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="249"/>
+        <location filename="../ItemsEditDialog.cpp" line="294"/>
         <source>Item Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -46,9 +46,14 @@
 <context>
     <name>ItemsEditModel</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="78"/>
+        <location filename="../ItemsEditDialog.cpp" line="81"/>
         <source>Item Name</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="../ItemsEditDialog.cpp" line="83"/>
+        <source>Icon</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -209,7 +214,7 @@
 <context>
     <name>RecipesEditDialog</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="277"/>
+        <location filename="../RecipesEditDialog.cpp" line="273"/>
         <source>Recipes Edit</source>
         <translation></translation>
     </message>

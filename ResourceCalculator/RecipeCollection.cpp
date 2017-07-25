@@ -27,11 +27,10 @@ namespace ResourceCalculator {
     ItemResultTree RetVal;
     RetVal._ItemKey = ItemID;
     if (NestingResults == 0) return RetVal;
-      for (auto &it : _Recipes) {
-      RecipeParams RP = it.second.GetRecipeParams();
-      for (auto it : RP.Result) {
-        if (it.ItemId == ItemID) {
-          RetVal._Result[RP.Key] = BuildTree(RP.Key, NestingResults - 1);
+    for (auto &it : _Recipes) {
+      for (auto it2 : it.second.GetResult()) {
+        if (it2.ItemId == ItemID) {
+          RetVal._Result[it.second.GetKey()] = BuildTree(it.second.GetKey(), NestingResults - 1);
         }
       }
     }
@@ -90,8 +89,7 @@ namespace ResourceCalculator {
     if (NestingResults == 0) return RetVal;
     std::map<KEY_RECIPE, Recipe>::const_iterator RP_FIND = _Recipes.find(RecipeID);
     if (RP_FIND != _Recipes.end()){
-      RecipeParams RP = RP_FIND->second.GetRecipeParams();
-      for (auto &it : RP.Required) {
+      for (auto &it : RP_FIND->second.GetRequired()) {
         RetVal._Result[it.ItemId] = BuildTree(it.ItemId, NestingResults - 1);
       }
     }
@@ -115,11 +113,9 @@ namespace ResourceCalculator {
       return;
     }
 
-    RecipeParams RP = Recipe->second.GetRecipeParams();
+    ResultRecipe.push_front(Recipe->second.GetKey());
 
-    ResultRecipe.push_front(RP.Key);
-
-    for (auto &Item : RP.Required ){
+    for (auto &Item : Recipe->second.GetRequired() ){
       ResultItem.insert(Item.ItemId);
       Build(Item.ItemId, SelectRecipe, ResultRecipe, ResultItem);
     }
@@ -134,11 +130,8 @@ namespace ResourceCalculator {
   int RecipeCollection::ReadFromJson(const Json::Value & jsonPr)
   {
     for (auto it : jsonPr) {
-      RecipeParams RP;
-      RP.ReadFromJson(it);
-      KEY_TO_Json Key  = it["Key"].asInt64();
-      std::string Name = it["Name"]["ru"].asString();
-      Recipe ToAdd(Name, RP);
+      Recipe ToAdd;
+      ToAdd.ReadFromJson(it);
       Add(ToAdd);
     }
     return 0;

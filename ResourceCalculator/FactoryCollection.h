@@ -11,7 +11,7 @@ namespace ResourceCalculator {
     FactoryCollection();
     ~FactoryCollection();
 
-    void ADD(const Factory &);
+    void ADD(const Factory);
 
     const Factory& GetFactory(KEY_FACTORY Key) const;
 

@@ -1,9 +1,12 @@
-#include "ItemsEditDialog.h"
-
 #include <QtWidgets>
 
 #include <QFile>
 #include <QBytearray>
+
+
+#include "ItemsEditDialog.h"
+#include "IconSelectedDialog.h"
+
 
 #pragma region MODEL
 
@@ -27,7 +30,7 @@ int ItemsEditModel::rowCount(const QModelIndex &parent) const
 int ItemsEditModel::columnCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
-  return 1;
+  return 2;
 }
 
 QVariant ItemsEditModel::data(const QModelIndex &index, int role) const
@@ -76,6 +79,8 @@ QVariant ItemsEditModel::headerData(int section, Qt::Orientation orientation, in
     switch (section) {
     case 0:
       return tr("Item Name");
+    case 1:
+      return tr("Icon");
     default:
       return QVariant();
     }
@@ -119,7 +124,11 @@ bool ItemsEditModel::setData(const QModelIndex &index, const QVariant &value, in
       break;
     }
 
-    Item ToADD(Name, R->GetKey());
+
+    //Item ToADD(Name, R->GetKey());
+    Item ToADD;
+    ToADD.SetName(Name); ToADD.SetKey(R->GetKey());
+
     _PC.IC.ADD(ToADD);
 
     _listOfItemsId.replace(row, R->GetKey());
@@ -140,7 +149,9 @@ bool ItemsEditModel::insertRows(int position, int rows, const QModelIndex &index
     using namespace ResourceCalculator;
     KEY_ITEM NewKey = _PC.IC.GetUniqueRecipeKey();
     std::string Name("Новый предмет" + std::to_string(row));
-    Item ToADD(Name, NewKey);
+    //Item ToADD(Name, NewKey);
+    Item ToADD;
+    ToADD.SetName(Name); ToADD.SetKey(NewKey);
     _PC.IC.ADD(ToADD);
     _listOfItemsId.insert(position, NewKey);
   }
@@ -169,70 +180,104 @@ ResourceCalculator::KEY_ITEM ItemsEditModel::GetItemId(int Num) const
 
 #pragma region DELEGATE
 
-ItemEditDelegate::ItemEditDelegate(QObject *parent)
-  : QStyledItemDelegate(parent)
+ItemEditDelegate::ItemEditDelegate(ResourceCalculator::ParamsCollection &PC, const ItemsEditModel &Model, QObject *parent)
+  : QStyledItemDelegate(parent), _PC(PC), _Model(Model)
 {
 }
 
-QWidget *ItemEditDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &/* option */, const QModelIndex &/* index */) const
+void ItemEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
-  QSpinBox *editor = new QSpinBox(parent);
-  editor->setFrame(false);
-  editor->setMinimum(0);
-  editor->setMaximum(100);
+  switch (index.column()) {
+  case 1: {
+    const std::map<std::string, ResourceCalculator::Icon>& ff = _PC.Icons.GetAllIcon();
 
-  return editor;
+    if (ff.size() > 0) {
+    
+      const ResourceCalculator::Icon & icon = ff.begin()->second;
+
+      QPixmap pixmap;
+      pixmap.loadFromData((uchar*)&icon.GetRawData()[0], (uint)icon.GetRawData().size());
+      const int MinCoord = std::min(option.rect.width(), option.rect.height());
+      const int MaxCoord = std::max(option.rect.width(), option.rect.height());
+      const int Sub1 = (MaxCoord - MinCoord) / 2;
+      QRect rect;
+      if (MaxCoord == option.rect.width()) {
+        rect.setCoords(
+          option.rect.left() + Sub1,            option.rect.top(),
+          option.rect.left() + Sub1 + MinCoord, option.rect.bottom());
+      } else {
+        rect.setCoords(
+          option.rect.left(),  option.rect.top() + Sub1,
+          option.rect.right(), option.rect.top() + Sub1 + MinCoord);
+      }
+      painter->drawPixmap(rect, pixmap);
+    }
+
+    
+  
+    //QApplication::style()->drawControl(QStyle::SP_DirIcon, &button, painter);
+
+
+    //QString ButtonCaption;
+    //ButtonCaption = "Иконка";
+    //QStyleOptionButton button;
+    //button.rect = option.rect;
+    //button.text = ButtonCaption;
+    //..painter->drawImage()
+    //button.state = QStyle::State_Enabled;
+    //QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
+
+
+
+    break;
+  }
+  default:
+    QStyledItemDelegate::paint(painter, option, index);
+    return;
+    break;
+  }
 }
 
-void ItemEditDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
+bool ItemEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
 {
-  int value = index.model()->data(index, Qt::EditRole).toInt();
-
-  QSpinBox *spinBox = static_cast<QSpinBox*>(editor);
-  spinBox->setValue(value);
+  if (event->type() == QEvent::MouseButtonPress) {
+    switch (index.column()) {
+    case 1:
+    {
+      IconSelectedDialog _ItemSelectedDialog(_PC);
+      if (_ItemSelectedDialog.exec()) {
+        const ResourceCalculator::Icon * Icon = _ItemSelectedDialog.GetResult();
+        if (Icon != nullptr) {
+          ResourceCalculator::Item *item = _PC.IC.GetItemForEdit(dynamic_cast<ItemsEditModel *>(model)->GetItemId(index.row()));
+          item->SetIconPath(Icon->ShortName);
+        }
+      }
+      return false;
+      break;
+    }
+    default:
+      bool ff = QStyledItemDelegate::editorEvent(event, model, option, index);;
+      return ff;
+      break;
+    }
+  }
+  return QStyledItemDelegate::editorEvent(event, model, option, index);
 }
 
-void ItemEditDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
-{
-  QSpinBox *spinBox = static_cast<QSpinBox*>(editor);
-  spinBox->interpretText();
-  int value = spinBox->value();
-
-  model->setData(index, value, Qt::EditRole);
-}
-
-void ItemEditDelegate::updateEditorGeometry(QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &/* index */) const
-{
-  editor->setGeometry(option.rect);
-}
 
 #pragma endregion DELEGATE
 
 ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
   : QDialog(parent), _PC(PC)
 {
-
-  //QImage Image;
-
-  //QByteArray dataArray;
-
-  //qCompress(dataArray, 9);
-
-  //Image.loadFromData(dataArray, ".jpg");
-
-  //QIcon d;
-  ////d.l
-
-
-
   setMinimumSize(800, 600);
-   
-  okButton = new QPushButton("OK");
-  cancelButton = new QPushButton("Cancel");
+  QPushButton *okButton     = new QPushButton("OK");;
+  QPushButton *cancelButton = new QPushButton("Cancel");
 
   ItemsEditModel *table = new ItemsEditModel(_PC, this);
   QTableView *tableView = new QTableView;
   tableView->setModel(table);
+  tableView->setItemDelegate(new ItemEditDelegate(PC, *table, this));
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
   buttonLayout->addWidget(okButton);
@@ -243,9 +288,10 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   mainLayout->addLayout(buttonLayout);
   setLayout(mainLayout);
 
-  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
+  connect(okButton,     &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
   setWindowTitle(tr("Item Edit"));
 
 }
+

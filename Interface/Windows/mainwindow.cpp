@@ -182,7 +182,7 @@ void MainWindow::PushButtonClickedDebug()
     const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
     if (Icon != nullptr) {
       QIcon qIcon;
-      SetIconData(qIcon, QSize(32, 32), Icon->GetRawData().size(), &Icon->GetRawData()[0]);
+      SetIconData(qIcon, QSize(32, 32), (int)Icon->GetRawData().size(), &Icon->GetRawData()[0]);
       setWindowIcon(qIcon);
     }
   }

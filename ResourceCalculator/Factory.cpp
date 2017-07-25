@@ -4,8 +4,7 @@
 
 namespace ResourceCalculator {
 
-  Factory::Factory(const std::string &Name, double Speed, double Power):
-    ItemBase(Name)
+  Factory::Factory()
   {
     _Speed = 1.0;
     _CountSlotsForModules = 0;
@@ -15,61 +14,6 @@ namespace ResourceCalculator {
     _LevelOfPollution = 0.0;
     _Key = KEY_FACTORY::ID_ITEM_NoFind_Factory;
     _Type = KEY_TYPE_FACTORY::Unknown;
-  }
-
-  Factory::Factory():
-    ItemBase("")
-  {
-    _Speed = 1.0;
-    _CountSlotsForModules = 0;
-    _CountSlotsForRecipes = 0;
-    _Wear = 0.0;
-    _PeakPower = 0.0;
-    _LevelOfPollution = 0.0;
-    _Key = KEY_FACTORY::ID_ITEM_NoFind_Factory;
-    _Type = KEY_TYPE_FACTORY::Unknown;
-  }
-
-  Factory::Factory(const Factory &factory):
-    ItemBase(factory.GetName()), _Wear(0.0)
-  {
-    _Speed = factory._Speed;
-    _PeakPower = factory._PeakPower;
-    _LevelOfPollution = factory._LevelOfPollution;
-    _CountSlotsForModules = factory._CountSlotsForModules;
-    _CountSlotsForRecipes = factory._CountSlotsForRecipes;
-    _Wear = factory._Wear;
-    _Key = factory._Key;
-    _Type = factory._Type;
-  }
-
-  Factory::~Factory()
-  {
-  }
-
-  KEY_FACTORY Factory::GetKey() const
-  {
-    return _Key;
-  }
-
-  double Factory::GetSpeed() const
-  {
-    return _Speed;
-  }
-
-  double Factory::GetPeakPower() const
-  {
-    return _PeakPower;
-  }
-
-  double Factory::GetLevelOfPollution() const
-  {
-    return _LevelOfPollution;
-  }
-
-  double Factory::GetWear() const
-  {
-    return _Wear;
   }
 
   void Factory::SetParams(const FactoryParams & params)
@@ -82,21 +26,15 @@ namespace ResourceCalculator {
     _LevelOfPollution = params.LevelOfPollution;
     _Key = params.Key;
     _Type = params.Type;
-
   }
 
   bool Factory::IsAllowedProduction(const ParamsCollection & PC, KEY_RECIPE RecipeId) const
   {
     if(_Type == KEY_TYPE_FACTORY::Unknown) return false;
-    
     const Recipe &recipe = PC.RC.GetData().find(RecipeId)->second;
-    const RecipeParams RP = recipe.GetRecipeParams();
-    
-    if (RP.TypeFactory != _Type) return false;
-
-    if (_CountSlotsForRecipes < RP.Required.size()) return false;
-    if (_CountSlotsForRecipes < RP.Result.size()) return false;
-
+    if (recipe.GetTypeFactory() != _Type) return false;
+    if (_CountSlotsForRecipes < recipe.GetRequired().size()) return false;
+    if (_CountSlotsForRecipes < recipe.GetRequired().size()) return false;
     return true;
   }
 
@@ -107,9 +45,9 @@ namespace ResourceCalculator {
 
   int Factory::ReadFromJson(const Json::Value & jsonPr)
   {
+    ItemBase::ReadFromJson(jsonPr);
     _Speed = jsonPr["Speed"].asDouble();
-    _CountSlotsForModules = jsonPr["CountSlotsForModules"].asInt64();
-    _CountSlotsForRecipes = jsonPr["CountSlotsForRecipes"].asInt64();
+    _CountSlotsForModules = jsonPr["CountSlotsForModules"].asInt();
     _Wear = jsonPr["Wear"].asDouble();
     _PeakPower = jsonPr["PeakPower"].asDouble();
     _LevelOfPollution = jsonPr["LevelOfPollution"].asDouble();
@@ -120,6 +58,7 @@ namespace ResourceCalculator {
 
   int Factory::WriteToJson(Json::Value & jsonPr) const
   {
+    ItemBase::WriteToJson(jsonPr);
     jsonPr["Speed"] = _Speed;
     jsonPr["CountSlotsForModules"] = _CountSlotsForModules;
     jsonPr["CountSlotsForRecipes"] = _CountSlotsForRecipes;

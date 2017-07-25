@@ -5,12 +5,9 @@
 
 namespace ResourceCalculator {
   
-  class Module: public ItemBase, public Jsonable {
+  class Module: public ItemBase {
   private:
     KEY_MODULE _Key;
-    Module();
-    Module(const Module &Module) = delete;
-    Module& operator=(const Module& right) = delete;
 
     double _CoefficientPollution;//Коэффициент загрязнения
     double _CoefficientEffectiveness;//Коэффициент эффективности
@@ -18,16 +15,17 @@ namespace ResourceCalculator {
     double _CoefficientProductivity;//Коэффициент продуктивности
 
   public:
-    double FactorProductivity() const;
-    double FactorSpeed() const;
-    double FactorEffectiveness() const;
-    double FactorPollution() const;
-    Module(std::string const &Name, KEY_MODULE Key);
+    DeclareAndDefinitionProperty(Key,                  KEY_MODULE)
+    DeclareAndDefinitionProperty(CoefficientPollution,     double)
+    DeclareAndDefinitionProperty(CoefficientEffectiveness, double)
+    DeclareAndDefinitionProperty(CoefficientSpeed,         double)
+    DeclareAndDefinitionProperty(CoefficientProductivity,  double)
+
+    Module();
     ~Module();
-    KEY_MODULE GetKey() const;
     int ReadFromJson(const Json::Value & jsonPr) override;
     int WriteToJson(Json::Value & jsonPr) const override;
-    friend std::pair<const KEY_MODULE, Module>;
+
   };
   
   class  ModuleCollection;

@@ -19,115 +19,111 @@ int main(int argc, char ** argv) {
   RecipeCollection &RC = PC.RC;
 
   {
-    Item To1("Железная плита", KEY_ITEM::ID_ITEM_Iron_Plate);
-    Item To2("Медная плита", KEY_ITEM::ID_ITEM_Cuprum_Plate);
-    Item To3("Железная шестерня", KEY_ITEM::ID_ITEM_Sherst);
-    Item To4("Исследовательский пакет 1", KEY_ITEM::ID_ITEM_Paket1);
-    Item To5("Железная руда", KEY_ITEM::ID_ITEM_Iron_Ruda);
-    Item To6("Медная руда", KEY_ITEM::ID_ITEM_Cuprum_Ruda);
-    IC.ADD(To1);
-    IC.ADD(To2);
-    IC.ADD(To3);
-    IC.ADD(To4);
-    IC.ADD(To5);
-    IC.ADD(To6);
+    Item To;
+    To.SetName("Железная плита");            To.SetKey(KEY_ITEM::ID_ITEM_Iron_Plate);
+    IC.ADD(To);
+    To.SetName("Медная плита");              To.SetKey(KEY_ITEM::ID_ITEM_Cuprum_Plate);
+    IC.ADD(To);
+    To.SetName("Железная шестерня");         To.SetKey(KEY_ITEM::ID_ITEM_Sherst);
+    IC.ADD(To);
+    To.SetName("Исследовательский пакет 1"); To.SetKey(KEY_ITEM::ID_ITEM_Paket1);
+    IC.ADD(To);
+    To.SetName("Железная руда");             To.SetKey(KEY_ITEM::ID_ITEM_Iron_Ruda);
+    IC.ADD(To);
+    To.SetName("Медная руда");               To.SetKey(KEY_ITEM::ID_ITEM_Cuprum_Ruda);
+    IC.ADD(To);
   }
 
   {
     std::list<CountsItem> Required, Result;
-    RecipeParams RP;
-    RP.Key = KEY_RECIPE::ID_RECIPE_Cuprum_Plate;
-    RP.Time = 3.5;
-    RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Ruda, 1.0 } };
-    RP.Result = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 } };
-    RP.TypeFactory = KEY_TYPE_FACTORY::Furnace;
-    Recipe R1("Выплавка меди", RP);
+    Recipe recipe;
+    recipe.SetKey(KEY_RECIPE::ID_RECIPE_Cuprum_Plate);
+    recipe.SetTime(3.5);
+    recipe.SetName("Выплавка меди");
+    recipe.SetRequired({ { KEY_ITEM::ID_ITEM_Cuprum_Ruda, 1.0 } });
+    recipe.SetResult({ { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 } });
+    recipe.SetTypeFactory(KEY_TYPE_FACTORY::Furnace);
+    RC.Add(recipe);
 
-    RP.Key = KEY_RECIPE::ID_RECIPE_Iron_Plate;
-    RP.Required = { { KEY_ITEM::ID_ITEM_Iron_Ruda, 1.0 } };
-    RP.Result = { { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } };
-    Recipe R2("Выплавка железа", RP);
+    recipe.SetKey(KEY_RECIPE::ID_RECIPE_Iron_Plate);
+    recipe.SetName("Выплавка железа");
+    recipe.SetRequired({ { KEY_ITEM::ID_ITEM_Iron_Ruda, 1.0 } });
+    recipe.SetResult({ { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } });
+    RC.Add(recipe);
 
-    RP.Key = KEY_RECIPE::ID_RECIPE_Sherst;
-    RP.TypeFactory = KEY_TYPE_FACTORY::Assembly;
-    RP.Time = 0.5;
-    RP.Required = { { KEY_ITEM::ID_ITEM_Iron_Plate, 2.0 } };
-    RP.Result = { { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
-    Recipe R3("Изготовление шестерни", RP);
+    recipe.SetKey(KEY_RECIPE::ID_RECIPE_Sherst);
+    recipe.SetTypeFactory(KEY_TYPE_FACTORY::Assembly);
+    recipe.SetTime(0.5);
+    recipe.SetName("Изготовление шестерни");
+    recipe.SetRequired({ { KEY_ITEM::ID_ITEM_Iron_Plate, 2.0 } });
+    recipe.SetResult({ { KEY_ITEM::ID_ITEM_Sherst, 1.0 } });
+    RC.Add(recipe);
 
-    RP.Key = KEY_RECIPE::ID_RECIPE_Paket1;
-    RP.Time = 5.0;
-    RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.0 } };
-    RP.Result = { { KEY_ITEM::ID_ITEM_Paket1, 1 } };
-    Recipe R4("Изготовление исследовательского пакета 1", RP);
-    
-    RP.Key = KEY_RECIPE::ID_RECIPE_Paket1_2;
-    RP.Time = 3.0;
-    RP.Required = { { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.5 }, { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } };
-    RP.Result = { { KEY_ITEM::ID_ITEM_Paket1, 1 } };
-    Recipe R5("Изготовление исследовательского пакета 1 1", RP);
+    recipe.SetKey(KEY_RECIPE::ID_RECIPE_Paket1);
+    recipe.SetTime(5.0);
+    recipe.SetName("Изготовление исследовательского пакета 1");
+    recipe.SetRequired({ { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.0 } });
+    recipe.SetResult({ { KEY_ITEM::ID_ITEM_Paket1, 1 } });
+    RC.Add(recipe);
 
-    RC.Add(R1);
-    RC.Add(R2);
-    RC.Add(R3);
-    RC.Add(R4);
-    RC.Add(R5);
+    recipe.SetKey(KEY_RECIPE::ID_RECIPE_Paket1_2);
+    recipe.SetTime(3.0);
+    recipe.SetName("Изготовление исследовательского пакета 1 1");
+    recipe.SetRequired({ { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.5 }, { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } });
+    recipe.SetResult({ { KEY_ITEM::ID_ITEM_Paket1, 1 } });
+    RC.Add(recipe);
+
   }
 
   {
-    FactoryParams FP;
+    Factory factory;
+    
+    factory.SetName("Каменная печь");
+    factory.SetSpeed(1.0);
+    factory.SetCountSlotsForModules(0);
+    factory.SetCountSlotsForRecipes(2);
+    factory.SetKey(KEY_FACTORY::ID_FACTORY_PechKamenaya);
+    factory.SetLevelOfPollution(0.01);
+    factory.SetPeakPower(0.01);
+    factory.SetSpeed(1.0);
+    factory.SetType(KEY_TYPE_FACTORY::Furnace);
+    factory.SetWear(0.0);
+    PC.FC.ADD(factory);
 
-    Factory P1("Каменная печь", 1.0);
-    FP.CountSlotsForModules = 0;
-    FP.CountSlotsForRecipes = 2;
-    FP.Key = KEY_FACTORY::ID_FACTORY_PechKamenaya;
-    FP.LevelOfPollution = 0.01;
-    FP.PeakPower = 0.01;
-    FP.Speed = 1.0;
-    FP.Type = KEY_TYPE_FACTORY::Furnace;
-    FP.Wear = 0.0;
-    P1.SetParams(FP);
+    factory.SetName("Стальная печь");
+    factory.SetSpeed(2.0);
+    factory.SetKey(KEY_FACTORY::ID_FACTORY_PechStalnaya);
+    PC.FC.ADD(factory);
 
-    Factory P2("Стальная печь", 2.0);
-    FP.Speed = 2.0;
-    FP.Key = KEY_FACTORY::ID_FACTORY_PechStalnaya;
-    P2.SetParams(FP);
+    factory.SetName("Электрическая печь");
+    factory.SetSpeed(2.0);
+    factory.SetKey(KEY_FACTORY::ID_FACTORY_PechElectro1);
+    factory.SetCountSlotsForModules(2);
+    factory.SetCountSlotsForRecipes(3);
+    PC.FC.ADD(factory);
 
-    Factory P3("Электрическая печь", 2.0);
-    FP.Speed = 2.0;
-    FP.Key = KEY_FACTORY::ID_FACTORY_PechElectro1;
-    FP.CountSlotsForModules = 2;
-    FP.CountSlotsForRecipes = 3;
-    P3.SetParams(FP);
+    factory.SetName("Сборочный автомат");
+    factory.SetSpeed(0.50);
+    factory.SetType(KEY_TYPE_FACTORY::Assembly);
+    factory.SetKey(KEY_FACTORY::ID_FACTORY_Assembly1);
+    factory.SetCountSlotsForModules(0);
+    factory.SetCountSlotsForRecipes(2);
+    PC.FC.ADD(factory);
 
-    Factory A1("Сборочный автомат", 0.50);
-    FP.Speed = 0.50;
-    FP.Type = KEY_TYPE_FACTORY::Assembly;
-    FP.Key = KEY_FACTORY::ID_FACTORY_Assembly1;
-    FP.CountSlotsForModules = 0;
-    FP.CountSlotsForRecipes = 2;
-    A1.SetParams(FP);
+    factory.SetName("Сборочный автомат 2");
+    factory.SetSpeed(0.75);
+    factory.SetKey(KEY_FACTORY::ID_FACTORY_Assembly2);
+    factory.SetCountSlotsForModules(2);
+    factory.SetCountSlotsForRecipes(3);
+    PC.FC.ADD(factory);
 
-    Factory A2("Сборочный автомат 2", 0.75);
-    FP.Speed = 0.75;
-    FP.Key = KEY_FACTORY::ID_FACTORY_Assembly2;
-    FP.CountSlotsForModules = 2;
-    FP.CountSlotsForRecipes = 3;
-    A2.SetParams(FP);
+    factory.SetName("Сборочный автомат 3");
+    factory.SetSpeed(1.75);
+    factory.SetKey(KEY_FACTORY::ID_FACTORY_Assembly3);
+    factory.SetCountSlotsForModules(4);
+    factory.SetCountSlotsForRecipes(4);
+    PC.FC.ADD(factory);
 
-    Factory A3("Сборочный автомат 3", 1.75);
-    FP.Speed = 1.75;
-    FP.Key = KEY_FACTORY::ID_FACTORY_Assembly3;
-    FP.CountSlotsForModules = 4;
-    FP.CountSlotsForRecipes = 4;
-    A3.SetParams(FP);
-
-    PC.FC.ADD(A1);
-    PC.FC.ADD(A2);
-    PC.FC.ADD(A3);
-    PC.FC.ADD(P1);
-    PC.FC.ADD(P2);
-    PC.FC.ADD(P3);
   }
 
 

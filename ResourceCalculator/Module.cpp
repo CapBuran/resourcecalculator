@@ -4,79 +4,30 @@
 namespace ResourceCalculator {
 
   Module::Module(): 
-    ItemBase(""), _Key(KEY_MODULE::ID_CleanSlot),
+    _Key(KEY_MODULE::ID_CleanSlot),
     _CoefficientPollution(0.0),
     _CoefficientSpeed(0.0),
     _CoefficientProductivity(0.0)
   {
   }
-
-  double Module::FactorProductivity() const
-  {
-    return 0.0;
-  }
-
-  double Module::FactorSpeed() const
-  {
-    return 0.0;
-  }
-
-  double Module::FactorEffectiveness() const
-  {
-    return 0.0;
-  }
-
-  double Module::FactorPollution() const
-  {
-    return _CoefficientPollution;
-  }
-
-  Module::Module(const std::string &Name, KEY_MODULE Key):
-    ItemBase(Name), _Key(Key),
-    _CoefficientPollution(0.0),
-    _CoefficientSpeed(0.0),
-    _CoefficientProductivity(0.0)
-  {
-  }
-
-  //Module::Module(const Module & Module):
-  //  ItemBase(Module.GetName()), _Key(Module._Key)
-  //{
-  //}
-
-  //Module & Module::operator=(const Module & right)
-  //{
-  //  if (this == &right) {
-  //    return *this;
-  //  }
-  //  _Key = right._Key;
-  //  _Name = right._Name;
-  //  return *this;
-  //}
 
   Module::~Module()
   {
   }
 
-  KEY_MODULE Module::GetKey() const
-  {
-    return _Key;
-  }
-
   int Module::ReadFromJson(const Json::Value & jsonPr)
   {
+    ItemBase::ReadFromJson(jsonPr);
+    _Key = static_cast<KEY_MODULE>(jsonPr["Key"].asInt64());
     return 0;
   }
 
   int Module::WriteToJson(Json::Value & jsonPr) const
   {
+    ItemBase::WriteToJson(jsonPr);
     jsonPr["Key"] = static_cast<KEY_TO_Json>(_Key);
-    jsonPr["Name"]["ru"] = _Name;
-    jsonPr["Name"]["en"] = "English lang";
     return 0;
   }
-
- 
 
   bool FactoryModules::SetCountModules(int Count)
   {
@@ -90,7 +41,7 @@ namespace ResourceCalculator {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
       const Module &module = MC.GetModule(moduleKey);
-      retval += module.FactorSpeed();
+      retval += module.GetCoefficientSpeed();
     }
     return retval;
   }
@@ -100,7 +51,7 @@ namespace ResourceCalculator {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
       const Module &module = MC.GetModule(moduleKey);
-      retval += module.FactorProductivity();
+      retval += module.GetCoefficientProductivity();
     }
     return retval;
   }
@@ -110,7 +61,7 @@ namespace ResourceCalculator {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
       const Module &module = MC.GetModule(moduleKey);
-      retval += module.FactorEffectiveness();
+      retval += module.GetCoefficientEffectiveness();
     }
     //TODO выставить такие ограничения в настройки
     if (retval > 1.8) retval = 1.8;
@@ -122,7 +73,7 @@ namespace ResourceCalculator {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
       const Module &module = MC.GetModule(moduleKey);
-      retval += module.FactorPollution();
+      retval += module.GetCoefficientPollution();
     }
     return retval;
   }

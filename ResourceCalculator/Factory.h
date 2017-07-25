@@ -26,7 +26,7 @@ namespace ResourceCalculator {
     KEY_TYPE_FACTORY Type;
   };
 
-  class Factory : public ItemBase, public Jsonable {
+  class Factory : public ItemBase {
   private:
     double _Speed;
 
@@ -46,20 +46,18 @@ namespace ResourceCalculator {
 
     KEY_TYPE_FACTORY _Type;
 
-    Factory();
-    Factory(const Factory &factory);
-
   public:
 
-    Factory(std::string const &Name, double Speed, double Power = 1.0);
-    ~Factory();
+    Factory();
 
-    KEY_FACTORY GetKey() const;
-
-    double GetSpeed() const;
-    double GetPeakPower() const;
-    double GetLevelOfPollution() const;
-    double GetWear() const;
+    DeclareAndDefinitionProperty(Speed,  double)
+    DeclareAndDefinitionProperty(CountSlotsForModules, int)
+    DeclareAndDefinitionProperty(CountSlotsForRecipes, int)
+    DeclareAndDefinitionProperty(Wear,   double)
+    DeclareAndDefinitionProperty(PeakPower, double)
+    DeclareAndDefinitionProperty(LevelOfPollution, double)
+    DeclareAndDefinitionProperty(Key,  KEY_FACTORY)
+    DeclareAndDefinitionProperty(Type, KEY_TYPE_FACTORY)
 
     void SetParams(const FactoryParams &params);
 
@@ -70,8 +68,6 @@ namespace ResourceCalculator {
     int ReadFromJson(const Json::Value & jsonPr) override;
     int WriteToJson(Json::Value & jsonPr) const override;
 
-    friend std::pair<const KEY_FACTORY, Factory>;
-    friend FactoryCollection;
 
   };
 

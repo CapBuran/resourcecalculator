@@ -10,38 +10,27 @@ namespace ResourceCalculator {
     double   Count;
   };
 
-  struct RecipeParams: public Jsonable {
-    KEY_RECIPE Key;
-    double     Time;
-    std::list<CountsItem> 
-      Required,
-      Result;
-    KEY_TYPE_FACTORY TypeFactory;
-    int ReadFromJson(const Json::Value & jsonPr) override;
-    int WriteToJson(Json::Value & jsonPr) const override;
-  };
-
-  class Recipe: public ItemBase, public Jsonable{
+  class Recipe: public ItemBase{
   private:
     double      _Time;
     KEY_RECIPE  _Key;
     std::list<CountsItem> _Required;
     std::list<CountsItem> _Result;
     KEY_TYPE_FACTORY _TypeFactory;
-    Recipe();
-    Recipe(const Recipe &recipe);
 
   public:
-    Recipe(std::string const &Name, const RecipeParams &Params);
-    ~Recipe();
 
-    RecipeParams GetRecipeParams() const;
-    KEY_RECIPE GetKey() const;
+    Recipe();
+
+    DeclareAndDefinitionProperty(Key,         KEY_RECIPE)
+    DeclareAndDefinitionProperty(Time,        double)
+    DeclareAndDefinitionProperty(Required,    std::list<CountsItem>)
+    DeclareAndDefinitionProperty(Result,      std::list<CountsItem>)
+    DeclareAndDefinitionProperty(TypeFactory, KEY_TYPE_FACTORY)
 
     int ReadFromJson(const Json::Value & jsonPr) override;
     int WriteToJson(Json::Value & jsonPr) const override;
 
-    friend std::pair<const KEY_RECIPE, Recipe>;
   };
 
 }

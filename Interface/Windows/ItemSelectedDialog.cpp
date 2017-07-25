@@ -101,22 +101,24 @@ bool ItemSelectedModel::setData(const QModelIndex &index, const QVariant &value,
     if (R == nullptr) {
       return false;
     }
-    
-    std::string Name = R->GetName();
+    //
+    //std::string Name = R->GetName();
 
-    switch (index.column())
-    {
-    case 0:
-      Name = value.toString().toStdString();
-      break;
-    case 1:
-      break;
-    default:
-      return false;
-      break;
-    }
+    //switch (index.column())
+    //{
+    //case 0:
+    //  Name = value.toString().toStdString();
+    //  break;
+    //case 1:
+    //  break;
+    //default:
+    //  return false;
+    //  break;
+    //}
 
-    Item ToADD(Name, R->GetKey());
+    //Item ToADD(Name, R->GetKey());
+    Item ToADD;
+    ToADD.SetName(R->GetName()); ToADD.SetKey(R->GetKey());
     _PC.IC.ADD(ToADD);
 
     _listOfItemsId.replace(row, R->GetKey());
@@ -137,7 +139,9 @@ bool ItemSelectedModel::insertRows(int position, int rows, const QModelIndex &in
     using namespace ResourceCalculator;
     KEY_ITEM NewKey = _PC.IC.GetUniqueRecipeKey();
     std::string Name("Новый предмет" + std::to_string(row));
-    Item ToADD(Name, NewKey);
+    //Item ToADD(Name, NewKey);
+    Item ToADD;
+    ToADD.SetName(Name); ToADD.SetKey(NewKey);
     _PC.IC.ADD(ToADD);
     _listOfItemsId.insert(position, NewKey);
   }

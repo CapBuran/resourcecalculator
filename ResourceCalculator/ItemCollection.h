@@ -11,7 +11,7 @@ namespace ResourceCalculator {
     ItemCollection();
     ~ItemCollection();
 
-    void ADD(const Item &);
+    void ADD(const Item);
 
     void Delete(KEY_ITEM KeyRecipe);
 
