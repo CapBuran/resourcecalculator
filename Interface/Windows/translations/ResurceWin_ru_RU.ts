@@ -24,7 +24,7 @@
     <message>
         <location filename="../ItemSelectedDialog.cpp" line="236"/>
         <source>SelectedItems</source>
-        <translation>Выберете предмет дважды</translation>
+        <translation>Выберете предметы</translation>
     </message>
 </context>
 <context>
@@ -32,15 +32,15 @@
     <message>
         <location filename="../ItemSelectedDialog.cpp" line="75"/>
         <source>Item Name</source>
-        <translation></translation>
+        <translation>Имя предмета</translation>
     </message>
 </context>
 <context>
     <name>ItemsEditDialog</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="294"/>
+        <location filename="../ItemsEditDialog.cpp" line="278"/>
         <source>Item Edit</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор предметов</translation>
     </message>
 </context>
 <context>
@@ -48,12 +48,12 @@
     <message>
         <location filename="../ItemsEditDialog.cpp" line="81"/>
         <source>Item Name</source>
-        <translation></translation>
+        <translation>Имя предмета</translation>
     </message>
     <message>
         <location filename="../ItemsEditDialog.cpp" line="83"/>
         <source>Icon</source>
-        <translation type="unfinished"></translation>
+        <translation>Иконка</translation>
     </message>
 </context>
 <context>

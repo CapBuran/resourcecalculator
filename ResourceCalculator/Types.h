@@ -118,8 +118,8 @@ namespace ResourceCalculator {
     DeclareAndDefinitionProperty(Name,     std::string)
     DeclareAndDefinitionProperty(IconPath, std::string)
 
-    int ReadFromJson(const Json::Value & jsonPr) override;
-    int WriteToJson(Json::Value & jsonPr) const override;
+    virtual int ReadFromJson(const Json::Value & jsonPr) override;
+    virtual int WriteToJson(Json::Value & jsonPr) const override;
 
   };
 

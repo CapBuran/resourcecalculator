@@ -10,7 +10,7 @@ namespace ResourceCalculator {
   {
   public:
 
-    void ADD(std::string KeyIcon, std::vector<char> rawdata);
+    void ADD(std::string KeyIcon, const std::vector<char> &rawdata);
     void ADD(std::string KeyIcon, std::string fullpath);
     void Delete(std::string KeyIcon);
 

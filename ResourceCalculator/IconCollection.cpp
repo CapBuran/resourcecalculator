@@ -8,17 +8,10 @@
 namespace ResourceCalculator {
 
 
-  void IconCollection::ADD(std::string KeyIcon, std::vector<char> rawdata)
+  void IconCollection::ADD(std::string KeyIcon, const std::vector<char> &rawdata)
   {
     Icon AddIcon;
-    AddIcon.SetRawData(rawdata.size() - 1, &rawdata[0]);
-    auto n = KeyIcon.rfind('/');
-    if (n != std::string::npos) {
-      AddIcon.ShortName.resize(KeyIcon.size() - n - 1);
-      std::copy(&KeyIcon[n+1], &KeyIcon[KeyIcon.size()], AddIcon.ShortName.begin());
-    }else{
-      AddIcon.ShortName = KeyIcon;
-    }
+    AddIcon.SetIconPath(KeyIcon);
     AddIcon.SetRawData(rawdata.size(), &rawdata[0]);
     _Icons[KeyIcon] = AddIcon;
   }

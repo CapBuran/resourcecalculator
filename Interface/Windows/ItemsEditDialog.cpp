@@ -189,46 +189,30 @@ void ItemEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem & op
 {
   switch (index.column()) {
   case 1: {
-    const std::map<std::string, ResourceCalculator::Icon>& ff = _PC.Icons.GetAllIcon();
-
-    if (ff.size() > 0) {
-    
-      const ResourceCalculator::Icon & icon = ff.begin()->second;
-
-      QPixmap pixmap;
-      pixmap.loadFromData((uchar*)&icon.GetRawData()[0], (uint)icon.GetRawData().size());
-      const int MinCoord = std::min(option.rect.width(), option.rect.height());
-      const int MaxCoord = std::max(option.rect.width(), option.rect.height());
-      const int Sub1 = (MaxCoord - MinCoord) / 2;
-      QRect rect;
-      if (MaxCoord == option.rect.width()) {
-        rect.setCoords(
-          option.rect.left() + Sub1,            option.rect.top(),
-          option.rect.left() + Sub1 + MinCoord, option.rect.bottom());
-      } else {
-        rect.setCoords(
-          option.rect.left(),  option.rect.top() + Sub1,
-          option.rect.right(), option.rect.top() + Sub1 + MinCoord);
+    ResourceCalculator::KEY_ITEM key_item = _Model.GetItemId(index.row());
+    const ResourceCalculator::Item *Item = _PC.IC.GetItemForEdit(key_item);
+    if (Item != nullptr) {
+      std::string IconPath = Item->GetIconPath();
+      const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon(IconPath);
+      if (icon.GetRawData().size() > 0){
+        QPixmap pixmap;
+        pixmap.loadFromData((uchar*)&icon.GetRawData()[0], (uint)icon.GetRawData().size());
+        const int MinCoord = std::min(option.rect.width(), option.rect.height());
+        const int MaxCoord = std::max(option.rect.width(), option.rect.height());
+        const int Sub1 = (MaxCoord - MinCoord) / 2;
+        QRect rect;
+        if (MaxCoord == option.rect.width()) {
+          rect.setCoords(
+            option.rect.left() + Sub1,            option.rect.top(),
+            option.rect.left() + Sub1 + MinCoord, option.rect.bottom());
+        } else {
+          rect.setCoords(
+            option.rect.left(),  option.rect.top() + Sub1,
+            option.rect.right(), option.rect.top() + Sub1 + MinCoord);
+        }
+        painter->drawPixmap(rect, pixmap);
       }
-      painter->drawPixmap(rect, pixmap);
     }
-
-    
-  
-    //QApplication::style()->drawControl(QStyle::SP_DirIcon, &button, painter);
-
-
-    //QString ButtonCaption;
-    //ButtonCaption = "Иконка";
-    //QStyleOptionButton button;
-    //button.rect = option.rect;
-    //button.text = ButtonCaption;
-    //..painter->drawImage()
-    //button.state = QStyle::State_Enabled;
-    //QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
-
-
-
     break;
   }
   default:
@@ -249,7 +233,7 @@ bool ItemEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, c
         const ResourceCalculator::Icon * Icon = _ItemSelectedDialog.GetResult();
         if (Icon != nullptr) {
           ResourceCalculator::Item *item = _PC.IC.GetItemForEdit(dynamic_cast<ItemsEditModel *>(model)->GetItemId(index.row()));
-          item->SetIconPath(Icon->ShortName);
+          item->SetIconPath(Icon->GetIconPath());
         }
       }
       return false;

@@ -49,7 +49,7 @@ IconSelectedDialog::IconSelectedDialog(ResourceCalculator::ParamsCollection &PC,
 
   const std::map<std::string, ResourceCalculator::Icon>& Icons = PC.Icons.GetAllIcon();
   for (auto & icon : Icons){
-    QListWidgetItemData *ListItem = new QListWidgetItemData(&icon.second, icon.second.ShortName.c_str());
+    QListWidgetItemData *ListItem = new QListWidgetItemData(&icon.second, icon.second.GetShortName().c_str());
     const std::vector<char>& RawData = icon.second.GetRawData();
     QIcon qicon;
     SetIconData(qicon, IconSize, (int)RawData.size(), &RawData[0]);
