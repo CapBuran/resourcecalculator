@@ -55,6 +55,7 @@ namespace ResourceCalculator {
     const std::map<KEY_RECIPE, Recipe> &GetData() const;
 
     Recipe *GetRecipeForEdit(KEY_RECIPE KeyRecipe);
+    const Recipe *GetRecipe(KEY_RECIPE KeyRecipe) const;
 
     KEY_RECIPE GetUniqueRecipeKey() const;
 

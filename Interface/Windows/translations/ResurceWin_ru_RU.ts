@@ -22,8 +22,23 @@
 <context>
     <name>ItemSelectedDialog</name>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="236"/>
-        <source>SelectedItems</source>
+        <location filename="../ItemSelectedDialog.cpp" line="252"/>
+        <source>OK</source>
+        <translation>Выбрать</translation>
+    </message>
+    <message>
+        <location filename="../ItemSelectedDialog.cpp" line="253"/>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <location filename="../ItemSelectedDialog.cpp" line="293"/>
+        <source>Select an item</source>
+        <translation>Выберете предмет</translation>
+    </message>
+    <message>
+        <location filename="../ItemSelectedDialog.cpp" line="295"/>
+        <source>Select items</source>
         <translation>Выберете предметы</translation>
     </message>
 </context>
@@ -31,8 +46,23 @@
     <name>ItemSelectedModel</name>
     <message>
         <location filename="../ItemSelectedDialog.cpp" line="75"/>
+        <source>There should be an icon</source>
+        <translation>Тут должна быть иконка</translation>
+    </message>
+    <message>
+        <location filename="../ItemSelectedDialog.cpp" line="101"/>
         <source>Item Name</source>
         <translation>Имя предмета</translation>
+    </message>
+    <message>
+        <location filename="../ItemSelectedDialog.cpp" line="103"/>
+        <source>Number of items</source>
+        <translation>Количество предметов</translation>
+    </message>
+    <message>
+        <location filename="../ItemSelectedDialog.cpp" line="99"/>
+        <source>Icon</source>
+        <translation>Иконка</translation>
     </message>
 </context>
 <context>
@@ -59,51 +89,46 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <source>Factorys</source>
-        <comment>Button Factorys</comment>
-        <translation type="vanished">Фабрики</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="16"/>
-        <source>MainButtonRecipeTabProperty</source>
+        <source>Recipe Tab Property</source>
         <comment>Mainwindow button Recipe Tab Property</comment>
-        <translation>Свойства цепочки</translation>
+        <translation>Свойства вкладки</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="19"/>
-        <source>MainButtonRecipeTabAdd</source>
+        <source>Recipe Tab Add</source>
         <comment>Mainwindow button Recipe Tab Add</comment>
-        <translation>Добавить цепочку</translation>
+        <translation>Добавить вкладку</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="22"/>
-        <source>MainButtonRecipeTabDel</source>
+        <source>Recipe Tab Del</source>
         <comment>Mainwindow button Recipe Tab Del</comment>
-        <translation>Удалмит цепочку</translation>
+        <translation>Удалить фкладку</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="25"/>
-        <source>MainButtonItems</source>
+        <source>Items</source>
         <comment>Mainwindow button Items</comment>
         <translation>Редактор предметов</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="28"/>
-        <source>MainButtonRecipes</source>
+        <source>Recipes</source>
         <comment>Mainwindow button Recipes</comment>
         <translation>Редактор рецептов</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="31"/>
-        <source>MainButtonFactorys</source>
+        <source>Factorys</source>
         <comment>Mainwindow button Factorys</comment>
-        <translation>Редактор фабрик</translation>
+        <translation>Фабрики</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="34"/>
-        <source>MainButtonDebug</source>
-        <comment>Mainwindow button Factorys</comment>
-        <translation></translation>
+        <source>Debug</source>
+        <comment>Mainwindow button debug</comment>
+        <translation>Отладка</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="63"/>
@@ -188,33 +213,33 @@
     <message>
         <location filename="../RecipesEditDialog.cpp" line="90"/>
         <source>Recipe Name</source>
-        <translation></translation>
+        <translation>Имя рецепта</translation>
     </message>
     <message>
         <location filename="../RecipesEditDialog.cpp" line="92"/>
         <source>Recipe time</source>
-        <translation></translation>
+        <translation>Время</translation>
     </message>
     <message>
         <location filename="../RecipesEditDialog.cpp" line="94"/>
-        <source>Результаты рецепта</source>
-        <translation></translation>
+        <source>Result of recipe</source>
+        <translation>Продукция</translation>
     </message>
     <message>
         <location filename="../RecipesEditDialog.cpp" line="96"/>
-        <source>Интегреенты рецепта</source>
-        <translation></translation>
+        <source>Ingredients of the recipe</source>
+        <translation>Ингредиенты</translation>
     </message>
     <message>
         <location filename="../RecipesEditDialog.cpp" line="98"/>
-        <source>Фабрики</source>
-        <translation></translation>
+        <source>Allowed factories</source>
+        <translation>Разрешенные фабрики</translation>
     </message>
 </context>
 <context>
     <name>RecipesEditDialog</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="273"/>
+        <location filename="../RecipesEditDialog.cpp" line="283"/>
         <source>Recipes Edit</source>
         <translation></translation>
     </message>

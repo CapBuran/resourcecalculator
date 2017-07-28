@@ -21,13 +21,13 @@ namespace ResourceCalculator {
     const std::map<KEY_ITEM, Item> &GetData() const;
 
     Item *GetItemForEdit(KEY_ITEM KeyRecipe);
+    const Item *GetItem(KEY_ITEM key) const;
 
     KEY_ITEM GetUniqueRecipeKey() const;
 
   private:
     std::map<KEY_ITEM, Item> _Items;
     
-    const Item &GetItem(KEY_ITEM key) const;
 
   };
 

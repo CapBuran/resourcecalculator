@@ -142,7 +142,18 @@ namespace ResourceCalculator {
     return _Recipes;
   }
 
-  Recipe *RecipeCollection::GetRecipeForEdit(KEY_RECIPE KeyRecipe) {
+  const Recipe *RecipeCollection::GetRecipe(KEY_RECIPE KeyRecipe) const 
+  {
+    std::map<KEY_RECIPE, Recipe>::const_iterator it = _Recipes.find(KeyRecipe);
+    if (it == _Recipes.end()) {
+      return nullptr;
+    }
+    return &it->second;
+  }
+
+
+  Recipe *RecipeCollection::GetRecipeForEdit(KEY_RECIPE KeyRecipe) 
+  {
     std::map<KEY_RECIPE, Recipe>::iterator it = _Recipes.find(KeyRecipe);
     if (it == _Recipes.end()) {
       return nullptr;

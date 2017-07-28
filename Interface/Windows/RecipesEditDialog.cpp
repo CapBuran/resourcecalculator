@@ -91,11 +91,11 @@ QVariant RecipeListModel::headerData(int section, Qt::Orientation orientation, i
     case 1:
       return tr("Recipe time");
     case 2:
-      return tr("Результаты рецепта");
+      return tr("Result of recipe");
     case 3:
-      return tr("Интегреенты рецепта");
+      return tr("Ingredients of the recipe");
     case 4:
-      return tr("Фабрики");
+      return tr("Allowed factories");
     default:
       return QVariant();
     }
@@ -224,18 +224,28 @@ bool RecipesEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model
     switch (index.column()) {
     case 2:
     case 3:
-    case 4: {
-      ItemSelectedDialog _ItemSelectedDialog(_PC);
+    {
+      ItemSelectedDialogMode mode = index.column() == 2 ?
+        ItemSelectedDialogMode::ForRecipeSelectItemsResult :
+        ItemSelectedDialogMode::ForRecipeSelectItemsRequired;
+      RecipeListModel &model_recipe = dynamic_cast<RecipeListModel &>(*model);
+      const ResourceCalculator::KEY_RECIPE recipe_key = model_recipe.GetRecipeId(index.row());
+      ItemSelectedDialog _ItemSelectedDialog(_PC, mode, recipe_key);
       if (_ItemSelectedDialog.exec()) {
-        //QString name = _RecipesEditDialog.nameText->text();
-        //QString address = _RecipesEditDialog.addressText->toPlainText();
-        //emit sendDetails(name, address);
+        ResourceCalculator::Recipe *recipe = _PC.RC.GetRecipeForEdit(recipe_key);
+        auto Result = _ItemSelectedDialog.GetResult();
+        if (mode == ItemSelectedDialogMode::ForRecipeSelectItemsRequired) {
+          recipe->SetRequired(Result);
+        } else{
+          recipe->SetResult(Result);
+        }
       }
       return false;
       break;
     }
+    case 4:
     default:
-      bool ff = QStyledItemDelegate::editorEvent(event, model, option, index);;
+      bool ff = QStyledItemDelegate::editorEvent(event, model, option, index);
       return ff;
       break;
     }

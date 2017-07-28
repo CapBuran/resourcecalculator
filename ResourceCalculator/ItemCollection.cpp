@@ -55,6 +55,15 @@ namespace ResourceCalculator {
     return &it->second;
   }
 
+  const Item * ItemCollection::GetItem(KEY_ITEM KeyRecipe) const
+  {
+    std::map<KEY_ITEM, Item>::const_iterator it = _Items.find(KeyRecipe);
+    if (it == _Items.end()) {
+      return nullptr;
+    }
+    return &it->second;
+  }
+
   KEY_ITEM ItemCollection::GetUniqueRecipeKey() const
   {
     unsigned int retval = 0;
@@ -64,11 +73,6 @@ namespace ResourceCalculator {
       }
     }
     return static_cast<KEY_ITEM>(retval);
-  }
-
-  const Item & ItemCollection::GetItem(KEY_ITEM key) const
-  {
-    return _Items.at(key);
   }
 
 }

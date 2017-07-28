@@ -2,6 +2,7 @@
 #define FACTORIES_TYPES
 
 #include <string>
+#include <set>
 #include <list>
 #include <map>
 #include "json/json.h"

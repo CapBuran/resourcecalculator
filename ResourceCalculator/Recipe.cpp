@@ -14,14 +14,14 @@ namespace ResourceCalculator {
       CountsItem ToAdd;
       ToAdd.ItemId = static_cast<KEY_ITEM>(it["ItemId"].asInt64());
       ToAdd.Count = it["Count"].asDouble();
-      _Required.push_back(ToAdd);
+      _Required.insert(ToAdd);
     }
     _Result.clear();
     for (auto &it : jsonPr["Result"]) {
       CountsItem ToAdd;
       ToAdd.ItemId = static_cast<KEY_ITEM>(it["ItemId"].asInt64());
       ToAdd.Count = it["Count"].asDouble();
-      _Result.push_back(ToAdd);
+      _Result.insert(ToAdd);
     }
     _Key = static_cast<KEY_RECIPE>(jsonPr["Key"].asInt64());
     _TypeFactory = static_cast<KEY_TYPE_FACTORY>(jsonPr["TypeFactory"].asInt64());
