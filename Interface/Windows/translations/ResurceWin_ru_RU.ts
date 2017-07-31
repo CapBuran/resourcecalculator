@@ -22,22 +22,22 @@
 <context>
     <name>ItemSelectedDialog</name>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="252"/>
+        <location filename="../ItemSelectedDialog.cpp" line="219"/>
         <source>OK</source>
         <translation>Выбрать</translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="253"/>
+        <location filename="../ItemSelectedDialog.cpp" line="220"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="293"/>
+        <location filename="../ItemSelectedDialog.cpp" line="259"/>
         <source>Select an item</source>
         <translation>Выберете предмет</translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="295"/>
+        <location filename="../ItemSelectedDialog.cpp" line="261"/>
         <source>Select items</source>
         <translation>Выберете предметы</translation>
     </message>

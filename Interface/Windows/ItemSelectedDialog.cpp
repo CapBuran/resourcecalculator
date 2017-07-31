@@ -158,27 +158,6 @@ bool ItemSelectedModel::setData(const QModelIndex & index, const QVariant & valu
   return false;
 }
 
-ResourceCalculator::KEY_ITEM ItemSelectedModel::GetResultOne() const
-{
-  return _ResultOne;
-}
-
-const std::set<ResourceCalculator::CountsItem>& ItemSelectedModel::GetResult() const
-{
-  return _Result;
-}
-
-void ItemSelectedModel::InserResult(ResourceCalculator::CountsItem CI)
-{
-  _ResultOne = CI.ItemId;
-  _Result.insert(CI);
-}
-
-void ItemSelectedModel::EraseResult(ResourceCalculator::CountsItem CI)
-{
-  _Result.erase(CI);
-}
-
 #pragma endregion MODEL
 
 #pragma region DELEGATE
@@ -228,18 +207,6 @@ void ItemSelectedDelegate::paint(QPainter * painter, const QStyleOptionViewItem 
 
 #pragma endregion DELEGATE
 
-void ItemSelectedDialog::ChangedItems(const QItemSelection & selected, const QItemSelection & deselected)
-{
-  QModelIndexList indexes_selected   = selected.indexes();
-  QModelIndexList indexes_deselected = deselected.indexes();
-  for (auto it : indexes_selected){
-    if(it.column() == 0) _Model->InserResult(_Model->GetItemData(it.row()));
-  }
-  for (auto it : indexes_deselected) {
-    if (it.column() == 0) _Model->EraseResult(_Model->GetItemData(it.row()));
-  }
-}
-
 ItemSelectedDialog::ItemSelectedDialog(
   ResourceCalculator::ParamsCollection &PC,
   ItemSelectedDialogMode Mode,
@@ -253,15 +220,15 @@ ItemSelectedDialog::ItemSelectedDialog(
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));
 
   _Model = new ItemSelectedModel(_PC,  _Mode, recipe_key, this);
-  QTableView *tableView = new QTableView;
-  tableView->setSelectionMode(
+  _tableView = new QTableView;
+  _tableView->setSelectionMode(
     _Mode == ItemSelectedDialogMode::ForSelectOneItem ?
     QTableView::SelectionMode::SingleSelection:
     QTableView::SelectionMode::MultiSelection
   );
-  tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
-  tableView->setModel(_Model);
-  tableView->setItemDelegate(new ItemSelectedDelegate(PC, *_Model, _Mode));
+  _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
+  _tableView->setModel(_Model);
+  _tableView->setItemDelegate(new ItemSelectedDelegate(PC, *_Model, _Mode));
 
   if (_Mode != ItemSelectedDialogMode::ForSelectOneItem) {
     using namespace ResourceCalculator;
@@ -271,7 +238,7 @@ ItemSelectedDialog::ItemSelectedDialog(
     for (auto it : _ResultOld){
       int row = _Model->GetItemRow(it.ItemId);
       if (row >= 0) {
-        tableView->selectRow(row);
+        _tableView->selectRow(row);
       }
     }
   }
@@ -281,28 +248,38 @@ ItemSelectedDialog::ItemSelectedDialog(
   buttonLayout->addWidget(cancelButton);
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
-  mainLayout->addWidget(tableView);
+  mainLayout->addWidget(_tableView);
   mainLayout->addLayout(buttonLayout);
   setLayout(mainLayout);
 
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
-  connect(tableView->selectionModel(), &QItemSelectionModel::selectionChanged, this, &ItemSelectedDialog::ChangedItems);
 
   if (Mode == ItemSelectedDialogMode::ForSelectOneItem) {
     setWindowTitle(tr("Select an item"));
   }else{
     setWindowTitle(tr("Select items"));
   }
-
+  
 }
 
 ResourceCalculator::KEY_ITEM ItemSelectedDialog::GetResultOne() const
 {
-  return _Model->GetResultOne();
+  ResourceCalculator::KEY_ITEM RetVal = ResourceCalculator::KEY_ITEM::ID_ITEM_NoFind_Item;
+  QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
+  if (Rows.size() > 0){
+    RetVal = _Model->GetItemData(Rows[0].row()).ItemId;
+  }
+  return RetVal;
 }
 
-const std::set<ResourceCalculator::CountsItem>& ItemSelectedDialog::GetResult() const
+std::set<ResourceCalculator::CountsItem> ItemSelectedDialog::GetResult() const
 {
-  return _Model->GetResult();
+  std::set<ResourceCalculator::CountsItem> RetVal;
+  QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
+  for (auto & Row : Rows){
+    ResourceCalculator::CountsItem InsertOne = _Model->GetItemData(Row.row());
+    RetVal.insert(InsertOne);
+  }
+  return RetVal;
 }
