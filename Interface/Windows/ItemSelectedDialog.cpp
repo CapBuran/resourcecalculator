@@ -162,7 +162,7 @@ bool ItemSelectedModel::setData(const QModelIndex & index, const QVariant & valu
 
 #pragma region DELEGATE
 
-ItemSelectedDelegate::ItemSelectedDelegate(ResourceCalculator::ParamsCollection &PC, const ItemSelectedModel &Model, ItemSelectedDialogMode Mode, QObject *parent)
+ItemSelectedDelegate::ItemSelectedDelegate(const ResourceCalculator::ParamsCollection &PC, const ItemSelectedModel &Model, ItemSelectedDialogMode Mode, QObject *parent)
   : QStyledItemDelegate(parent), _PC(PC), _Model(Model), _Mode(Mode)
 {
 }
@@ -208,7 +208,7 @@ void ItemSelectedDelegate::paint(QPainter * painter, const QStyleOptionViewItem 
 #pragma endregion DELEGATE
 
 ItemSelectedDialog::ItemSelectedDialog(
-  ResourceCalculator::ParamsCollection &PC,
+  const ResourceCalculator::ParamsCollection &PC,
   ItemSelectedDialogMode Mode,
   ResourceCalculator::KEY_RECIPE recipe_key,
   QWidget *parent)

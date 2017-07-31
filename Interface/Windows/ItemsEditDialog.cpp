@@ -171,6 +171,14 @@ bool ItemsEditModel::removeRows(int position, int rows, const QModelIndex &index
   return true;
 }
 
+void ItemsEditModel::SetKeyPathForItem(int Row, const std::string & KeyPath)
+{
+  ResourceCalculator::Item *item = _PC.IC.GetItemForEdit(GetItemId(Row));
+  if (item != nullptr) {
+    item->SetIconPath(KeyPath);
+  }
+}
+
 ResourceCalculator::KEY_ITEM ItemsEditModel::GetItemId(int Num) const
 {
   return _listOfItemsId[Num];
@@ -180,7 +188,7 @@ ResourceCalculator::KEY_ITEM ItemsEditModel::GetItemId(int Num) const
 
 #pragma region DELEGATE
 
-ItemEditDelegate::ItemEditDelegate(ResourceCalculator::ParamsCollection &PC, const ItemsEditModel &Model, QObject *parent)
+ItemEditDelegate::ItemEditDelegate(const ResourceCalculator::ParamsCollection &PC, ItemsEditModel &Model, QObject *parent)
   : QStyledItemDelegate(parent), _PC(PC), _Model(Model)
 {
 }
@@ -190,7 +198,7 @@ void ItemEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem & op
   switch (index.column()) {
   case 1: {
     ResourceCalculator::KEY_ITEM key_item = _Model.GetItemId(index.row());
-    const ResourceCalculator::Item *Item = _PC.IC.GetItemForEdit(key_item);
+    const ResourceCalculator::Item *Item = _PC.IC.GetItem(key_item);
     if (Item != nullptr) {
       std::string IconPath = Item->GetIconPath();
       const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon(IconPath);
@@ -228,12 +236,11 @@ bool ItemEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, c
     switch (index.column()) {
     case 1:
     {
-      IconSelectedDialog _ItemSelectedDialog(_PC);
-      if (_ItemSelectedDialog.exec()) {
-        const ResourceCalculator::Icon * Icon = _ItemSelectedDialog.GetResult();
+      IconSelectedDialog _IconSelectedDialog(_PC);
+      if (_IconSelectedDialog.exec()) {
+        const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
         if (Icon != nullptr) {
-          ResourceCalculator::Item *item = _PC.IC.GetItemForEdit(dynamic_cast<ItemsEditModel *>(model)->GetItemId(index.row()));
-          item->SetIconPath(Icon->GetIconPath());
+          _Model.SetKeyPathForItem(index.row(), Icon->GetIconPath());
         }
       }
       return false;

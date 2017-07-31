@@ -20,6 +20,7 @@ public:
   bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
   bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
   bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
+  void SetKeyPathForItem(int Row, const std::string &KeyPath);
   ResourceCalculator::KEY_ITEM GetItemId(int Num) const;
 private:
   ResourceCalculator::ParamsCollection &_PC;
@@ -31,12 +32,12 @@ class ItemEditDelegate : public QStyledItemDelegate
   Q_OBJECT
 
 public:
-  ItemEditDelegate(ResourceCalculator::ParamsCollection &PC, const ItemsEditModel &Model, QObject *parent = 0);
+  ItemEditDelegate(const ResourceCalculator::ParamsCollection &PC, ItemsEditModel &Model, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
   bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 private:
-  const ItemsEditModel &_Model;
-  ResourceCalculator::ParamsCollection &_PC;
+  ItemsEditModel &_Model;
+  const ResourceCalculator::ParamsCollection &_PC;
 };
 
 class ItemsEditDialog : public QDialog

@@ -68,7 +68,7 @@
 <context>
     <name>ItemsEditDialog</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="278"/>
+        <location filename="../ItemsEditDialog.cpp" line="285"/>
         <source>Item Edit</source>
         <translation>Редактор предметов</translation>
     </message>

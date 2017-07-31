@@ -51,7 +51,7 @@ class ItemSelectedDelegate : public QStyledItemDelegate
   const ItemSelectedModel &_Model;
   const ResourceCalculator::ParamsCollection &_PC;
 public:
-  ItemSelectedDelegate(ResourceCalculator::ParamsCollection &PC, const ItemSelectedModel &_Model, ItemSelectedDialogMode Mode, QObject *parent = 0);
+  ItemSelectedDelegate(const ResourceCalculator::ParamsCollection &PC, const ItemSelectedModel &_Model, ItemSelectedDialogMode Mode, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
@@ -61,7 +61,7 @@ class ItemSelectedDialog : public QDialog
 
 public:
   ItemSelectedDialog(
-    ResourceCalculator::ParamsCollection & PC,
+    const ResourceCalculator::ParamsCollection & PC,
     ItemSelectedDialogMode Mode,
     ResourceCalculator::KEY_RECIPE recipe_key = ResourceCalculator::KEY_RECIPE::ID_RECIPE_NoFindRecipe,
     QWidget * parent = 0);

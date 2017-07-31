@@ -18,7 +18,7 @@ int SetIconData(QIcon &Icon, QSize Size, int size_data, const char* data) {
   return 0;
 }
 
-IconSelectedDialog::IconSelectedDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
+IconSelectedDialog::IconSelectedDialog(const ResourceCalculator::ParamsCollection &PC, QWidget *parent)
   : QDialog(parent), _PC(PC), _Result(nullptr)
 {
   setMinimumSize(800, 600);
