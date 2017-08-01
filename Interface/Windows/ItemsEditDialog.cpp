@@ -30,7 +30,7 @@ int ItemsEditModel::rowCount(const QModelIndex &parent) const
 int ItemsEditModel::columnCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
-  return 2;
+  return 3;
 }
 
 QVariant ItemsEditModel::data(const QModelIndex &index, int role) const
@@ -81,6 +81,8 @@ QVariant ItemsEditModel::headerData(int section, Qt::Orientation orientation, in
       return tr("Item Name");
     case 1:
       return tr("Icon");
+    case 2:
+      return tr("Is a liquid or gas");
     default:
       return QVariant();
     }
@@ -93,7 +95,11 @@ Qt::ItemFlags ItemsEditModel::flags(const QModelIndex &index) const
   if (!index.isValid())
     return Qt::ItemIsEnabled;
 
-  return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
+  Qt::ItemFlags retval = QAbstractTableModel::flags(index);
+  if (index.column() == 0 || index.column() == 1){
+    retval |= Qt::ItemIsEditable;
+  }
+  return retval;
 }
 
 bool ItemsEditModel::setData(const QModelIndex &index, const QVariant &value, int role)
@@ -119,6 +125,7 @@ bool ItemsEditModel::setData(const QModelIndex &index, const QVariant &value, in
       break;
     case 1:
       break;
+    case 2:
     default:
       return false;
       break;
@@ -179,6 +186,13 @@ void ItemsEditModel::SetKeyPathForItem(int Row, const std::string & KeyPath)
   }
 }
 
+void ItemsEditModel::SetIsALiquidOrGasForItem(int Row)
+{
+  ResourceCalculator::Item *Item = _PC.IC.GetItemForEdit(GetItemId(Row));
+  Q_ASSERT(Item != nullptr);
+  Item->SetIsALiquidOrGas(!Item->GetIsALiquidOrGas());
+}
+
 ResourceCalculator::KEY_ITEM ItemsEditModel::GetItemId(int Num) const
 {
   return _listOfItemsId[Num];
@@ -223,6 +237,22 @@ void ItemEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem & op
     }
     break;
   }
+  case 2: {
+    ResourceCalculator::KEY_ITEM ItemKey = _Model.GetItemId(index.row());
+    const ResourceCalculator::Item *Item = _PC.IC.GetItem(ItemKey);
+    Q_ASSERT(Item != nullptr);
+    bool IsALiquidOrGasForItem = false;
+    if (Item != nullptr) {
+      IsALiquidOrGasForItem = Item->GetIsALiquidOrGas();
+    }
+    QStyleOptionButton checkbox;
+    //checkbox.styleObject = option.styleObject;//???
+    checkbox.rect = option.rect;
+    checkbox.state = QStyle::State_Enabled;
+    checkbox.state |= IsALiquidOrGasForItem ? QStyle::State_On: QStyle::State_Off;
+    QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkbox, painter);
+    break;
+  }
   default:
     QStyledItemDelegate::paint(painter, option, index);
     return;
@@ -243,6 +273,12 @@ bool ItemEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, c
           _Model.SetKeyPathForItem(index.row(), Icon->GetIconPath());
         }
       }
+      return false;
+      break;
+    }
+    case 2:
+    {
+      _Model.SetIsALiquidOrGasForItem(index.row());
       return false;
       break;
     }

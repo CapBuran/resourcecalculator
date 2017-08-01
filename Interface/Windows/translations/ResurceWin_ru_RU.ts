@@ -68,7 +68,7 @@
 <context>
     <name>ItemsEditDialog</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="285"/>
+        <location filename="../ItemsEditDialog.cpp" line="322"/>
         <source>Item Edit</source>
         <translation>Редактор предметов</translation>
     </message>
@@ -84,6 +84,11 @@
         <location filename="../ItemsEditDialog.cpp" line="83"/>
         <source>Icon</source>
         <translation>Иконка</translation>
+    </message>
+    <message>
+        <location filename="../ItemsEditDialog.cpp" line="85"/>
+        <source>Is a liquid or gas</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>

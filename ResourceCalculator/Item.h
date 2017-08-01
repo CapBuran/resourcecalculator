@@ -16,6 +16,7 @@ namespace ResourceCalculator {
     ~Item();
     
     DeclareAndDefinitionProperty(Key, KEY_ITEM)
+    DeclareAndDefinitionProperty(IsALiquidOrGas, bool)
 
     int ReadFromJson(const Json::Value & jsonPr) override;
     int WriteToJson(Json::Value & jsonPr) const override;

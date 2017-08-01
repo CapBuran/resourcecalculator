@@ -21,6 +21,7 @@ public:
   bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
   bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
   void SetKeyPathForItem(int Row, const std::string &KeyPath);
+  void SetIsALiquidOrGasForItem(int Row);
   ResourceCalculator::KEY_ITEM GetItemId(int Num) const;
 private:
   ResourceCalculator::ParamsCollection &_PC;
