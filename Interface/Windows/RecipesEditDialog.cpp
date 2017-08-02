@@ -37,39 +37,23 @@ QVariant RecipeListModel::data(const QModelIndex &index, int role) const
     return QVariant();
 
   if (role == Qt::DisplayRole) {
+    const KEY_RECIPE KeyRecipe = GetRecipeId( index.row() );
 
-    const ResourceCalculator::KEY_RECIPE KeyRecipe = GetRecipeId(index.row());
-
-    Recipe *R = _PC.RC.GetRecipeForEdit(KeyRecipe);
+    Recipe *R = _PC.RC.GetRecipeForEdit( KeyRecipe );
     if (R == nullptr) {
       return QVariant();
     }
 
-    //RecipeParams RP = R->GetRecipeParams();
-    QString retval;
-
-    switch (index.column())
-    {
+    switch (index.column()) {
     case 0:
-      retval = QString::fromUtf8(R->GetName().c_str());
-      return retval;
+      return QString::fromStdString( R->GetName() );
       break;
     case 1:
-      retval = QString::number(R->GetTime());
-      return retval;
+      return QString::number( R->GetTime() );
       break;
     case 2:
-      retval = "TODO: Интегриенты";
-      return retval;
-      break;
     case 3:
-      retval = "TODO: Зависимость";
-      return retval;
-      break;
     case 4:
-      retval = "TODO: Factorys allowes";
-      return retval;
-      break;
     default:
       return QVariant();
       break;
@@ -114,11 +98,9 @@ Qt::ItemFlags RecipeListModel::flags(const QModelIndex &index) const
 bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
   if (index.isValid() && role == Qt::EditRole) {
-    int row = index.row();
-    
     using namespace ResourceCalculator;
 
-    const ResourceCalculator::KEY_RECIPE KeyRecipe = GetRecipeId(row);
+    const KEY_RECIPE KeyRecipe = GetRecipeId( index.row( ) );
 
     Recipe *EditRecipe = _PC.RC.GetRecipeForEdit(KeyRecipe);
     if (EditRecipe == nullptr) {
@@ -127,21 +109,25 @@ bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, i
 
     switch (index.column())
     {
-    case 0:
-      EditRecipe->SetName(value.toString().toStdString());
+    case 0: {
+      QString Name = value.toString( );
+      if ( Name.length() > 0 ) {
+        EditRecipe->SetName( Name.toStdString( ) );
+      }
       break;
-    case 1:
-      EditRecipe->SetTime(value.toDouble());
+    }
+    case 1: {
+      double Value = value.toDouble( );
+      if ( Value >= 0 ) {
+        EditRecipe->SetTime( Value );
+      }
       break;
+    }
     default:
       return false;
       break;
     }
 
-    _PC.RC.Add(*EditRecipe);
-
-    _listOfRecipesId.replace(row, EditRecipe->GetKey());
-    
     emit(dataChanged(index, index));
 
     return true;
@@ -157,11 +143,12 @@ bool RecipeListModel::insertRows(int position, int rows, const QModelIndex &inde
   for (int row = 0; row < rows; ++row) {
     using namespace ResourceCalculator;
     KEY_RECIPE NewKey = _PC.RC.GetUniqueRecipeKey();
-    std::string Name("Новый рецепт" + std::to_string(row));
+    QString Name(tr("New recipe") + ' ' + QString::number( static_cast<KEY_TO_Json>(NewKey) ));
     Recipe recipe;
-    recipe.SetKey(NewKey);
-    recipe.SetName(Name);
-    _listOfRecipesId.insert(position, NewKey);
+    recipe.SetKey( NewKey );
+    recipe.SetName( Name.toStdString() );
+    _PC.RC.Add( recipe );
+    _listOfRecipesId.insert( position, NewKey );
   }
   endInsertRows();
   return true;
@@ -198,13 +185,13 @@ void RecipesEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem &
   QString ButtonCaption;
   switch (index.column()) {
   case 2: 
-    ButtonCaption = "Результаты";
+    ButtonCaption = tr("Result");
     break;
   case 3:
-    ButtonCaption = "Интегреенты";
+    ButtonCaption = tr( "Required" );
     break;
   case 4: 
-    ButtonCaption = "Фабрики";
+    ButtonCaption = tr( "Factorys" ); 
     break;
   default:
     QStyledItemDelegate::paint(painter, option, index);
@@ -258,28 +245,54 @@ bool RecipesEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model
 RecipesEditDialog::RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
   : QDialog(parent), _PC(PC)
 {
-
   setMinimumSize(800, 600);
    
-  okButton = new QPushButton("OK");
-  cancelButton = new QPushButton("Cancel");
+  QPushButton *okButton = new QPushButton( tr( "Ok" ) );
+  QPushButton *addButton = new QPushButton( tr( "Add" ) );
+  QPushButton *removelButton = new QPushButton( tr( "Remove" ) );
+  QPushButton *cancelButton = new QPushButton( tr( "Cancel" ) );
 
-  QTableView *tableView = new QTableView;
-  tableView->setModel(new RecipeListModel(_PC, this));
-  tableView->setItemDelegate(new RecipesEditDelegate(PC, this));
+  _tableView = new QTableView;
+  _Model = new RecipeListModel( _PC, this );
+  _tableView->setModel( _Model );
+  _tableView->setItemDelegate( new RecipesEditDelegate( PC, this ) );
+  _tableView->setSelectionMode( QTableView::SelectionMode::SingleSelection );
+  _tableView->setSelectionBehavior( QTableView::SelectionBehavior::SelectRows );
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
-  buttonLayout->addWidget(okButton);
-  buttonLayout->addWidget(cancelButton);
-
+  buttonLayout->addWidget( okButton );
+  buttonLayout->addWidget( addButton );
+  buttonLayout->addWidget( removelButton );
+  buttonLayout->addWidget( cancelButton );
+  
   QVBoxLayout *mainLayout = new QVBoxLayout;
-  mainLayout->addWidget(tableView);
-  mainLayout->addLayout(buttonLayout);
-  setLayout(mainLayout);
+  mainLayout->addWidget( _tableView );
+  mainLayout->addLayout( buttonLayout );
+  setLayout( mainLayout );
 
-  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
-  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
+  connect( okButton, &QAbstractButton::clicked, this, &QDialog::accept );
+  connect( cancelButton, &QAbstractButton::clicked, this, &QDialog::reject );
+  connect( addButton, &QAbstractButton::clicked, this, &RecipesEditDialog::add_item );
+  connect( removelButton, &QAbstractButton::clicked, this, &RecipesEditDialog::remove_item );
 
-  setWindowTitle(tr("Recipes Edit"));
+  setWindowTitle( tr( "Recipes Edit" ) );
 
+}
+
+void RecipesEditDialog::add_item()
+{
+  QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
+  if ( Rows.size() > 0 ) {
+    _Model->insertRow( Rows[0].row() );
+  } else {
+    _Model->insertRow( 0 );
+  }
+}
+
+void RecipesEditDialog::remove_item()
+{
+  QModelIndexList RowsSelected = _tableView->selectionModel()->selectedRows();
+  if ( RowsSelected.size() > 0 ) {
+    _Model->removeRow( RowsSelected[0].row() );
+  }
 }

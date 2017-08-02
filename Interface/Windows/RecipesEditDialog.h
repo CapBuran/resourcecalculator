@@ -52,17 +52,16 @@ class RecipesEditDialog : public QDialog
 
 public:
   RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
-  //QLineEdit *nameText;
-  //QTextEdit *addressText;
 
 private:
-
+  QTableView *_tableView;
+  RecipeListModel *_Model;
   ResourceCalculator::ParamsCollection &_PC;
 
-  //QLabel *nameLabel;
-  //QLabel *addressLabel;
-  QPushButton *okButton;
-  QPushButton *cancelButton;
+  private Q_SLOTS:
+    void add_item();
+    void remove_item();
+
 };
 
 #endif // RECIPE_EDIT_DIALOG_H

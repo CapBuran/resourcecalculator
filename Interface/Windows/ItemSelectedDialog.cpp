@@ -233,12 +233,14 @@ ItemSelectedDialog::ItemSelectedDialog(
   if (_Mode != ItemSelectedDialogMode::ForSelectOneItem) {
     using namespace ResourceCalculator;
     const Recipe *recipe = PC.RC.GetRecipe(recipe_key);
-    auto _ResultOld = _Mode == ItemSelectedDialogMode::ForRecipeSelectItemsRequired ?
-      recipe->GetRequired() : recipe->GetResult();
-    for (auto it : _ResultOld){
-      int row = _Model->GetItemRow(it.ItemId);
-      if (row >= 0) {
-        _tableView->selectRow(row);
+    if ( recipe != nullptr ) {
+      auto _ResultOld = _Mode == ItemSelectedDialogMode::ForRecipeSelectItemsRequired ?
+        recipe->GetRequired() : recipe->GetResult();
+      for ( auto it : _ResultOld ) {
+        int row = _Model->GetItemRow( it.ItemId );
+        if ( row >= 0 ) {
+          _tableView->selectRow( row );
+        }
       }
     }
   }

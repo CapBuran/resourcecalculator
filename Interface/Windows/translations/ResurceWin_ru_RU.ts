@@ -32,12 +32,12 @@
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="259"/>
+        <location filename="../ItemSelectedDialog.cpp" line="261"/>
         <source>Select an item</source>
         <translation>Выберете предмет</translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="261"/>
+        <location filename="../ItemSelectedDialog.cpp" line="263"/>
         <source>Select items</source>
         <translation>Выберете предметы</translation>
     </message>
@@ -68,27 +68,27 @@
 <context>
     <name>ItemsEditDialog</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="302"/>
+        <location filename="../ItemsEditDialog.cpp" line="292"/>
         <source>OK</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="303"/>
+        <location filename="../ItemsEditDialog.cpp" line="293"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="305"/>
+        <location filename="../ItemsEditDialog.cpp" line="294"/>
         <source>ADD</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="306"/>
+        <location filename="../ItemsEditDialog.cpp" line="295"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="333"/>
+        <location filename="../ItemsEditDialog.cpp" line="322"/>
         <source>Item Edit</source>
         <translation>Редактор предметов</translation>
     </message>
@@ -111,7 +111,7 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="158"/>
+        <location filename="../ItemsEditDialog.cpp" line="148"/>
         <source>New item</source>
         <translation>Новый предмет</translation>
     </message>
@@ -222,56 +222,91 @@
     <message>
         <location filename="../RecipeModel.cpp" line="55"/>
         <source>Name</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../RecipeModel.cpp" line="58"/>
         <source>Address</source>
-        <translation></translation>
-    </message>
-</context>
-<context>
-    <name>RecipeAddDialog</name>
-    <message>
-        <location filename="../RecipeAddDialog.cpp" line="37"/>
-        <source>Add a Contact</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>RecipeListModel</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="90"/>
+        <location filename="../RecipesEditDialog.cpp" line="74"/>
         <source>Recipe Name</source>
         <translation>Имя рецепта</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="92"/>
+        <location filename="../RecipesEditDialog.cpp" line="76"/>
         <source>Recipe time</source>
         <translation>Время</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="94"/>
+        <location filename="../RecipesEditDialog.cpp" line="78"/>
         <source>Result of recipe</source>
         <translation>Продукция</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="96"/>
+        <location filename="../RecipesEditDialog.cpp" line="80"/>
         <source>Ingredients of the recipe</source>
-        <translation>Ингредиенты</translation>
+        <translation>Интегреенты</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="98"/>
+        <location filename="../RecipesEditDialog.cpp" line="82"/>
         <source>Allowed factories</source>
         <translation>Разрешенные фабрики</translation>
+    </message>
+    <message>
+        <location filename="../RecipesEditDialog.cpp" line="146"/>
+        <source>New recipe</source>
+        <translation>Новый рецепт</translation>
+    </message>
+</context>
+<context>
+    <name>RecipesEditDelegate</name>
+    <message>
+        <location filename="../RecipesEditDialog.cpp" line="188"/>
+        <source>Result</source>
+        <translation>Результаты</translation>
+    </message>
+    <message>
+        <location filename="../RecipesEditDialog.cpp" line="191"/>
+        <source>Required</source>
+        <translation>Интегреенты</translation>
+    </message>
+    <message>
+        <location filename="../RecipesEditDialog.cpp" line="194"/>
+        <source>Factorys</source>
+        <translation>Фабрики</translation>
     </message>
 </context>
 <context>
     <name>RecipesEditDialog</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="283"/>
+        <location filename="../RecipesEditDialog.cpp" line="250"/>
+        <source>Ok</source>
+        <translation>Ок</translation>
+    </message>
+    <message>
+        <location filename="../RecipesEditDialog.cpp" line="251"/>
+        <source>Add</source>
+        <translation>Добавить</translation>
+    </message>
+    <message>
+        <location filename="../RecipesEditDialog.cpp" line="252"/>
+        <source>Remove</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <location filename="../RecipesEditDialog.cpp" line="253"/>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <location filename="../RecipesEditDialog.cpp" line="278"/>
         <source>Recipes Edit</source>
-        <translation></translation>
+        <translation>Редактор рецептов</translation>
     </message>
 </context>
 </TS>

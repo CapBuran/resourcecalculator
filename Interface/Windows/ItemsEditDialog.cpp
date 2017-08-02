@@ -105,41 +105,31 @@ Qt::ItemFlags ItemsEditModel::flags(const QModelIndex &index) const
 bool ItemsEditModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
   if (index.isValid() && role == Qt::EditRole) {
-    int row = index.row();
     
     using namespace ResourceCalculator;
 
-    const ResourceCalculator::KEY_ITEM KeyItem = GetItemId(row);
+    const KEY_ITEM KeyItem = GetItemId( index.row( ) );
 
     Item *R = _PC.IC.GetItemForEdit(KeyItem);
     if (R == nullptr) {
       return false;
     }
     
-    std::string Name = R->GetName();
-
-    switch (index.column())
-    {
-    case 0:
-      Name = value.toString().toStdString();
+    switch (index.column()){
+    case 0: {
+      std::string Name = value.toString( ).toStdString( );
+      if ( Name.length( ) > 0 ) {
+        R->SetName( Name );
+      }
       break;
+    }
     case 1:
-      break;
     case 2:
     default:
       return false;
       break;
     }
 
-
-    //Item ToADD(Name, R->GetKey());
-    Item ToADD;
-    ToADD.SetName(Name); ToADD.SetKey(R->GetKey());
-
-    _PC.IC.ADD(ToADD);
-
-    _listOfItemsId.replace(row, R->GetKey());
-    
     emit(dataChanged(index, index));
 
     return true;
@@ -155,8 +145,7 @@ bool ItemsEditModel::insertRows(int position, int rows, const QModelIndex &index
   for (int row = 0; row < rows; ++row) {
     using namespace ResourceCalculator;
     KEY_ITEM NewKey = _PC.IC.GetUniqueRecipeKey();
-    QString Name(tr("New item"));
-    Name += QString(' ') + QString::number(static_cast<Json::LargestUInt>(NewKey));
+    QString Name(tr("New item") + QString(' ') + QString::number(static_cast<KEY_TO_Json>(NewKey)));
     Item ToADD;
     ToADD.SetKey(NewKey);
     ToADD.SetName(Name.toStdString());
@@ -299,9 +288,9 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   : QDialog(parent), _PC(PC)
 {
   setMinimumSize(800, 600);
+
   QPushButton *okButton     = new QPushButton(tr("OK"));
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-
   QPushButton *addButton = new QPushButton(tr("ADD"));
   _removeButton = new QPushButton(tr("Remove"));
   
@@ -314,16 +303,16 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
+  buttonLayout->addWidget(okButton);
   buttonLayout->addWidget(addButton);
   buttonLayout->addWidget(_removeButton);
-  buttonLayout->addWidget(okButton);
   buttonLayout->addWidget(cancelButton);
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
   mainLayout->addWidget(_tableView);
   mainLayout->addLayout(buttonLayout);
   setLayout(mainLayout);
-
+  
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
   connect(addButton, &QAbstractButton::clicked, this, &ItemsEditDialog::add_item);
@@ -331,7 +320,6 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   connect(Delegate, &ItemEditDelegate::editorEventDelegate, this, &ItemsEditDialog::editorEventDelegate);
 
   setWindowTitle(tr("Item Edit"));
-
 }
 
 void ItemsEditDialog::remove_item()

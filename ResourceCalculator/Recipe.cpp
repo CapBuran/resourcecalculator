@@ -2,7 +2,8 @@
 
 namespace ResourceCalculator {
 
-  Recipe::Recipe()
+  Recipe::Recipe():
+    _Time(1.0)
   {
   }
 

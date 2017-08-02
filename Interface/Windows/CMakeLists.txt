@@ -34,9 +34,6 @@ source_group(ItemSelectedDialog FILES ItemSelectedDialog.cpp)
 source_group(IconSelectedDialog FILES IconSelectedDialog.h)
 source_group(IconSelectedDialog FILES IconSelectedDialog.cpp)
 
-source_group(RecipeAddDialog    FILES RecipeAddDialog.h)
-source_group(RecipeAddDialog    FILES RecipeAddDialog.cpp)
-
 source_group(RecipesEditDialog  FILES RecipesEditDialog.h)
 source_group(RecipesEditDialog  FILES RecipesEditDialog.cpp)
 
