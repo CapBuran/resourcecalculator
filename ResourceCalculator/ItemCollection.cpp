@@ -16,8 +16,10 @@ namespace ResourceCalculator {
     _Items[Item.GetKey()] = Item;
   }
 
-  void ItemCollection::Delete(KEY_ITEM KeyRecipe)
+  bool ItemCollection::DeleteItem(KEY_ITEM KeyItem)
   {
+    _Items.erase(KeyItem);
+    return true;
   }
 
   int ItemCollection::ReadFromJson(const Json::Value & jsonPr)

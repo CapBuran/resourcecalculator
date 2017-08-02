@@ -8,6 +8,7 @@
 namespace ResourceCalculator {
 
   class RecipeCollection;
+  class ParamsCollection;
   struct RecipeResultTree;
 
   struct ItemResultTree
@@ -31,7 +32,6 @@ namespace ResourceCalculator {
     const std::map<KEY_ITEM, ItemResultTree> & GetResult() const;
     KEY_RECIPE GetRecipeKey() const;
     friend RecipeCollection;
-    friend std::pair<const KEY_ITEM, ItemResultTree>;
   };
 
   class RecipeCollection: public Jsonable
@@ -53,6 +53,7 @@ namespace ResourceCalculator {
     int WriteToJson(Json::Value &jsonPr) const override;
 
     const std::map<KEY_RECIPE, Recipe> &GetData() const;
+    std::map<KEY_RECIPE, Recipe> &GetDataForEdit();
 
     Recipe *GetRecipeForEdit(KEY_RECIPE KeyRecipe);
     const Recipe *GetRecipe(KEY_RECIPE KeyRecipe) const;
@@ -61,11 +62,15 @@ namespace ResourceCalculator {
 
     void Add(const Recipe &);
 
-    void Delete(KEY_RECIPE KeyRecipe);
-
   private:
+    
+    bool DeleteRecipe(KEY_RECIPE KeyRecipe);
+    bool DeleteItem(KEY_ITEM ItemID);
+
     std::map<KEY_RECIPE, Recipe> _Recipes;
- 
+
+    friend ParamsCollection;
+
   };
 
 }

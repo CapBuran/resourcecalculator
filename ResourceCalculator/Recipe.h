@@ -40,6 +40,8 @@ namespace ResourceCalculator {
     int ReadFromJson(const Json::Value & jsonPr) override;
     int WriteToJson(Json::Value & jsonPr) const override;
 
+    bool DeleteItem(KEY_ITEM KeyItem);
+
   };
 
 }

@@ -39,6 +39,10 @@ public:
 private:
   ItemsEditModel &_Model;
   const ResourceCalculator::ParamsCollection &_PC;
+
+Q_SIGNALS:
+  void editorEventDelegate(const QModelIndex & index) const;
+
 };
 
 class ItemsEditDialog : public QDialog
@@ -50,6 +54,14 @@ public:
 
 private:
   ResourceCalculator::ParamsCollection &_PC;
+  QTableView *_tableView;
+  QPushButton *_removeButton;
+  ItemsEditModel *_Model;
+
+private Q_SLOTS:
+  void add_item();
+  void remove_item();
+  void editorEventDelegate(const QModelIndex &index);
 };
 
 #endif // ITEM_EDIT_DIALOG_H

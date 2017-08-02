@@ -216,7 +216,7 @@ ItemSelectedDialog::ItemSelectedDialog(
 {
   setMinimumSize(400, 600);
    
-  QPushButton *okButton     = new QPushButton(tr("OK"));
+  QPushButton *okButton = new QPushButton(tr("OK"));
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));
 
   _Model = new ItemSelectedModel(_PC,  _Mode, recipe_key, this);

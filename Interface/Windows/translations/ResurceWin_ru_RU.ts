@@ -68,7 +68,27 @@
 <context>
     <name>ItemsEditDialog</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="322"/>
+        <location filename="../ItemsEditDialog.cpp" line="302"/>
+        <source>OK</source>
+        <translation>Ок</translation>
+    </message>
+    <message>
+        <location filename="../ItemsEditDialog.cpp" line="303"/>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <location filename="../ItemsEditDialog.cpp" line="305"/>
+        <source>ADD</source>
+        <translation>Добавить</translation>
+    </message>
+    <message>
+        <location filename="../ItemsEditDialog.cpp" line="306"/>
+        <source>Remove</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <location filename="../ItemsEditDialog.cpp" line="333"/>
         <source>Item Edit</source>
         <translation>Редактор предметов</translation>
     </message>
@@ -89,6 +109,11 @@
         <location filename="../ItemsEditDialog.cpp" line="85"/>
         <source>Is a liquid or gas</source>
         <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ItemsEditDialog.cpp" line="158"/>
+        <source>New item</source>
+        <translation>Новый предмет</translation>
     </message>
 </context>
 <context>

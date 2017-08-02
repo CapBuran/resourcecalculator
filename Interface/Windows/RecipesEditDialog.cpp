@@ -172,7 +172,7 @@ bool RecipeListModel::removeRows(int position, int rows, const QModelIndex &inde
   Q_UNUSED(index);
   beginRemoveRows(QModelIndex(), position, position + rows - 1);
   for (int row = 0; row < rows; ++row) {
-    _PC.RC.Delete(GetRecipeId(position));
+    _PC.DeleteRecipe(GetRecipeId(position));
     _listOfRecipesId.removeAt(position);
   }
   endRemoveRows();

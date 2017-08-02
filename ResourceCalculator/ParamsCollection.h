@@ -17,6 +17,10 @@ namespace ResourceCalculator {
     ModuleCollection  MC;
     FactoryCollection FC;
     IconCollection Icons;
+    
+    bool DeleteRecipe(KEY_RECIPE KeyRecipe);
+    bool DeleteItem(KEY_ITEM ItemID);
+
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;
   };

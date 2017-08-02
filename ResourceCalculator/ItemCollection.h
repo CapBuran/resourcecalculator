@@ -5,6 +5,8 @@
 
 namespace ResourceCalculator {
 
+  class ParamsCollection;
+
   class ItemCollection: public Jsonable
   {
   public:
@@ -12,8 +14,6 @@ namespace ResourceCalculator {
     ~ItemCollection();
 
     void ADD(const Item);
-
-    void Delete(KEY_ITEM KeyRecipe);
 
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;
@@ -26,8 +26,11 @@ namespace ResourceCalculator {
     KEY_ITEM GetUniqueRecipeKey() const;
 
   private:
+    bool DeleteItem(KEY_ITEM KeyItem);
+
     std::map<KEY_ITEM, Item> _Items;
     
+    friend ParamsCollection;
 
   };
 

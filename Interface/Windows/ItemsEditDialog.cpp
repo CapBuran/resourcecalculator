@@ -155,10 +155,11 @@ bool ItemsEditModel::insertRows(int position, int rows, const QModelIndex &index
   for (int row = 0; row < rows; ++row) {
     using namespace ResourceCalculator;
     KEY_ITEM NewKey = _PC.IC.GetUniqueRecipeKey();
-    std::string Name("Новый предмет" + std::to_string(row));
-    //Item ToADD(Name, NewKey);
+    QString Name(tr("New item"));
+    Name += QString(' ') + QString::number(static_cast<Json::LargestUInt>(NewKey));
     Item ToADD;
-    ToADD.SetName(Name); ToADD.SetKey(NewKey);
+    ToADD.SetKey(NewKey);
+    ToADD.SetName(Name.toStdString());
     _PC.IC.ADD(ToADD);
     _listOfItemsId.insert(position, NewKey);
   }
@@ -171,7 +172,7 @@ bool ItemsEditModel::removeRows(int position, int rows, const QModelIndex &index
   Q_UNUSED(index);
   beginRemoveRows(QModelIndex(), position, position + rows - 1);
   for (int row = 0; row < rows; ++row) {
-    _PC.IC.Delete(GetItemId(position));
+    _PC.DeleteItem(GetItemId(position));
     _listOfItemsId.removeAt(position);
   }
   endRemoveRows();
@@ -209,6 +210,7 @@ ItemEditDelegate::ItemEditDelegate(const ResourceCalculator::ParamsCollection &P
 
 void ItemEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
+  emit(editorEventDelegate(index));
   switch (index.column()) {
   case 1: {
     ResourceCalculator::KEY_ITEM key_item = _Model.GetItemId(index.row());
@@ -283,8 +285,7 @@ bool ItemEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, c
       break;
     }
     default:
-      bool ff = QStyledItemDelegate::editorEvent(event, model, option, index);;
-      return ff;
+      return QStyledItemDelegate::editorEvent(event, model, option, index);
       break;
     }
   }
@@ -298,27 +299,61 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   : QDialog(parent), _PC(PC)
 {
   setMinimumSize(800, 600);
-  QPushButton *okButton     = new QPushButton("OK");;
-  QPushButton *cancelButton = new QPushButton("Cancel");
+  QPushButton *okButton     = new QPushButton(tr("OK"));
+  QPushButton *cancelButton = new QPushButton(tr("Cancel"));
 
-  ItemsEditModel *table = new ItemsEditModel(_PC, this);
-  QTableView *tableView = new QTableView;
-  tableView->setModel(table);
-  tableView->setItemDelegate(new ItemEditDelegate(PC, *table, this));
+  QPushButton *addButton = new QPushButton(tr("ADD"));
+  _removeButton = new QPushButton(tr("Remove"));
+  
+  _Model = new ItemsEditModel(_PC, this);
+  ItemEditDelegate *Delegate = new ItemEditDelegate(PC, *_Model, this);
+  _tableView = new QTableView;
+  _tableView->setModel(_Model);
+  _tableView->setItemDelegate(Delegate);
+  _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
+  _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
+  buttonLayout->addWidget(addButton);
+  buttonLayout->addWidget(_removeButton);
   buttonLayout->addWidget(okButton);
   buttonLayout->addWidget(cancelButton);
 
   QVBoxLayout *mainLayout = new QVBoxLayout;
-  mainLayout->addWidget(tableView);
+  mainLayout->addWidget(_tableView);
   mainLayout->addLayout(buttonLayout);
   setLayout(mainLayout);
 
-  connect(okButton,     &QAbstractButton::clicked, this, &QDialog::accept);
+  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
+  connect(addButton, &QAbstractButton::clicked, this, &ItemsEditDialog::add_item);
+  connect(_removeButton, &QAbstractButton::clicked, this, &ItemsEditDialog::remove_item);
+  connect(Delegate, &ItemEditDelegate::editorEventDelegate, this, &ItemsEditDialog::editorEventDelegate);
 
   setWindowTitle(tr("Item Edit"));
 
 }
 
+void ItemsEditDialog::remove_item()
+{
+  QModelIndexList RowsSelected = _tableView->selectionModel()->selectedRows();
+  if (RowsSelected.size() > 0) {
+    _Model->removeRow(RowsSelected[0].row());
+  }
+}
+
+void ItemsEditDialog::editorEventDelegate(const QModelIndex & index)
+{
+  QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
+  _removeButton->setEnabled(Rows.size() > 0);
+}
+
+void ItemsEditDialog::add_item()
+{
+  QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
+  if (Rows.size() > 0){
+    _Model->insertRow(Rows[0].row());
+  }else{
+    _Model->insertRow(0);
+  }
+}
