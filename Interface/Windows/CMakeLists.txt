@@ -37,6 +37,11 @@ source_group(IconSelectedDialog FILES IconSelectedDialog.cpp)
 source_group(RecipesEditDialog  FILES RecipesEditDialog.h)
 source_group(RecipesEditDialog  FILES RecipesEditDialog.cpp)
 
+source_group(FactoryEditDialog  FILES FactoryTypesEditDialog.h)
+source_group(FactoryEditDialog  FILES FactoryTypesEditDialog.cpp)
+source_group(FactoryEditDialog  FILES FactorysEditDialog.h)
+source_group(FactoryEditDialog  FILES FactorysEditDialog.cpp)
+
 source_group(NoEdit             FILES ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
 source_group(NoEdit             FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_ResurceWin.cpp)
 source_group(NoEdit             FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_ResurceGui.cpp)

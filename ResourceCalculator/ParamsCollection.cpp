@@ -21,6 +21,7 @@ namespace ResourceCalculator {
     Icons.ReadFromJson(jsonPr["Icons"]);
     IC.ReadFromJson(jsonPr["Items"]);
     FC.ReadFromJson(jsonPr["Factorys"]);
+    FC.ReadFromJsonFactoryTypes( jsonPr["FactoryTypes"] );
     RC.ReadFromJson(jsonPr["Recipes"]);
     return 0;
   }
@@ -30,6 +31,7 @@ namespace ResourceCalculator {
     Icons.WriteToJson(jsonPr["Icons"]);
     IC.WriteToJson(jsonPr["Items"]);
     FC.WriteToJson(jsonPr["Factorys"]);
+    FC.WriteToJsonFactoryTypes( jsonPr["FactoryTypes"] );
     RC.WriteToJson(jsonPr["Recipes"]);
     return 0;
   }

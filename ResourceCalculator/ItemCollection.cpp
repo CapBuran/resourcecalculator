@@ -68,7 +68,7 @@ namespace ResourceCalculator {
 
   KEY_ITEM ItemCollection::GetUniqueRecipeKey() const
   {
-    unsigned int retval = 0;
+    TYPE_KEY retval = 0;
     if (_Items.size() > 0) {
       while (_Items.find(static_cast<KEY_ITEM>(retval)) != _Items.end()) {
         retval++;

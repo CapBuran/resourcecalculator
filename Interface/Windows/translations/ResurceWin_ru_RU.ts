@@ -2,6 +2,155 @@
 <!DOCTYPE TS>
 <TS version="2.1" language="ru_RU">
 <context>
+    <name>FactoryTypesEditDialog</name>
+    <message>
+        <location filename="../FactoryTypesEditDialog.cpp" line="229"/>
+        <source>OK</source>
+        <translation>Ок</translation>
+    </message>
+    <message>
+        <location filename="../FactoryTypesEditDialog.cpp" line="230"/>
+        <source>Add</source>
+        <translation>Добавить</translation>
+    </message>
+    <message>
+        <location filename="../FactoryTypesEditDialog.cpp" line="231"/>
+        <source>Remote</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <location filename="../FactoryTypesEditDialog.cpp" line="232"/>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <location filename="../FactoryTypesEditDialog.cpp" line="261"/>
+        <source>Editor types factory items</source>
+        <translation>Название типа фабрики</translation>
+    </message>
+    <message>
+        <source>Select an item</source>
+        <translation type="obsolete">Выберете предмет</translation>
+    </message>
+    <message>
+        <source>Select items</source>
+        <translation type="obsolete">Выберете предметы</translation>
+    </message>
+    <message>
+        <source>ADD</source>
+        <translation type="obsolete">Добавить</translation>
+    </message>
+    <message>
+        <source>Remove</source>
+        <translation type="obsolete">Удалить</translation>
+    </message>
+    <message>
+        <source>Item Edit</source>
+        <translation type="obsolete">Редактор предметов</translation>
+    </message>
+</context>
+<context>
+    <name>FactoryTypesEditDialogModel</name>
+    <message>
+        <source>Item Name</source>
+        <translation type="obsolete">Имя предмета</translation>
+    </message>
+    <message>
+        <source>Icon</source>
+        <translation type="obsolete">Иконка</translation>
+    </message>
+    <message>
+        <source>New item</source>
+        <translation type="obsolete">Новый предмет</translation>
+    </message>
+</context>
+<context>
+    <name>FactoryTypesEditModel</name>
+    <message>
+        <location filename="../FactoryTypesEditDialog.cpp" line="47"/>
+        <source>There should be an icon</source>
+        <translation>Тут должна быть иконка</translation>
+    </message>
+    <message>
+        <location filename="../FactoryTypesEditDialog.cpp" line="73"/>
+        <source>Icon</source>
+        <translation>Иконка</translation>
+    </message>
+    <message>
+        <location filename="../FactoryTypesEditDialog.cpp" line="75"/>
+        <source>Factory type name</source>
+        <translation>Название фабрики</translation>
+    </message>
+    <message>
+        <location filename="../FactoryTypesEditDialog.cpp" line="90"/>
+        <source>New type factory</source>
+        <translation>Новая фабрика</translation>
+    </message>
+    <message>
+        <source>New item</source>
+        <translation type="obsolete">Новый предмет</translation>
+    </message>
+    <message>
+        <source>Item Name</source>
+        <translation type="obsolete">Название предмета</translation>
+    </message>
+    <message>
+        <source>Number of items</source>
+        <translation type="obsolete">Количество предметов</translation>
+    </message>
+</context>
+<context>
+    <name>FactorysEditDialog</name>
+    <message>
+        <location filename="../FactorysEditDialog.cpp" line="285"/>
+        <source>OK</source>
+        <translation>Ок</translation>
+    </message>
+    <message>
+        <location filename="../FactorysEditDialog.cpp" line="286"/>
+        <source>Cancel</source>
+        <translation>Отмена</translation>
+    </message>
+    <message>
+        <location filename="../FactorysEditDialog.cpp" line="287"/>
+        <source>ADD</source>
+        <translation>Добавить</translation>
+    </message>
+    <message>
+        <location filename="../FactorysEditDialog.cpp" line="288"/>
+        <source>Remove</source>
+        <translation>Удалить</translation>
+    </message>
+    <message>
+        <location filename="../FactorysEditDialog.cpp" line="317"/>
+        <source>Item Edit</source>
+        <translation>Редактор предметов</translation>
+    </message>
+</context>
+<context>
+    <name>FactorysEditDialogModel</name>
+    <message>
+        <location filename="../FactorysEditDialog.cpp" line="74"/>
+        <source>Item Name</source>
+        <translation>Имя предмета</translation>
+    </message>
+    <message>
+        <location filename="../FactorysEditDialog.cpp" line="76"/>
+        <source>Icon</source>
+        <translation>Иконка</translation>
+    </message>
+    <message>
+        <location filename="../FactorysEditDialog.cpp" line="78"/>
+        <source>Is a liquid or gas</source>
+        <translation>Является ли жидкостью?</translation>
+    </message>
+    <message>
+        <location filename="../FactorysEditDialog.cpp" line="141"/>
+        <source>New item</source>
+        <translation>Новый предмет</translation>
+    </message>
+</context>
+<context>
     <name>IconSelectedDialog</name>
     <message>
         <location filename="../IconSelectedDialog.cpp" line="27"/>
@@ -68,27 +217,27 @@
 <context>
     <name>ItemsEditDialog</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="292"/>
+        <location filename="../ItemsEditDialog.cpp" line="285"/>
         <source>OK</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="293"/>
+        <location filename="../ItemsEditDialog.cpp" line="286"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="294"/>
+        <location filename="../ItemsEditDialog.cpp" line="287"/>
         <source>ADD</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="295"/>
+        <location filename="../ItemsEditDialog.cpp" line="288"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="322"/>
+        <location filename="../ItemsEditDialog.cpp" line="315"/>
         <source>Item Edit</source>
         <translation>Редактор предметов</translation>
     </message>
@@ -96,22 +245,22 @@
 <context>
     <name>ItemsEditModel</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="81"/>
+        <location filename="../ItemsEditDialog.cpp" line="74"/>
         <source>Item Name</source>
         <translation>Имя предмета</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="83"/>
+        <location filename="../ItemsEditDialog.cpp" line="76"/>
         <source>Icon</source>
         <translation>Иконка</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="85"/>
+        <location filename="../ItemsEditDialog.cpp" line="78"/>
         <source>Is a liquid or gas</source>
-        <translation type="unfinished"></translation>
+        <translation>Является ли жидкостью?</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="148"/>
+        <location filename="../ItemsEditDialog.cpp" line="141"/>
         <source>New item</source>
         <translation>Новый предмет</translation>
     </message>
@@ -119,100 +268,93 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="16"/>
-        <source>Recipe Tab Property</source>
-        <comment>Mainwindow button Recipe Tab Property</comment>
-        <translation>Свойства вкладки</translation>
-    </message>
-    <message>
         <location filename="../mainwindow.cpp" line="19"/>
-        <source>Recipe Tab Add</source>
-        <comment>Mainwindow button Recipe Tab Add</comment>
-        <translation>Добавить вкладку</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="22"/>
-        <source>Recipe Tab Del</source>
-        <comment>Mainwindow button Recipe Tab Del</comment>
-        <translation>Удалить фкладку</translation>
-    </message>
-    <message>
-        <location filename="../mainwindow.cpp" line="25"/>
-        <source>Items</source>
-        <comment>Mainwindow button Items</comment>
+        <source>Items editor</source>
         <translation>Редактор предметов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="28"/>
-        <source>Recipes</source>
-        <comment>Mainwindow button Recipes</comment>
+        <location filename="../mainwindow.cpp" line="10"/>
+        <source>Recipe Tab Property</source>
+        <translation>Свойства вкладки</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="13"/>
+        <source>Recipe tab add</source>
+        <translation>Добавить вкладку</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="16"/>
+        <source>Recipe tab del</source>
+        <translation>Удалить вкладку</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="22"/>
+        <source>Recipes editor</source>
         <translation>Редактор рецептов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="31"/>
-        <source>Factorys</source>
-        <comment>Mainwindow button Factorys</comment>
-        <translation>Фабрики</translation>
+        <location filename="../mainwindow.cpp" line="25"/>
+        <source>Factorys editor</source>
+        <translation>Редактор фабрик</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="34"/>
-        <source>Debug</source>
-        <comment>Mainwindow button debug</comment>
+        <location filename="../mainwindow.cpp" line="28"/>
+        <source>Debug button</source>
         <translation>Отладка</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="63"/>
+        <location filename="../mainwindow.cpp" line="57"/>
         <source>Resurse calculator</source>
         <translation>Калькулятор производственных цепочек</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="69"/>
+        <location filename="../mainwindow.cpp" line="63"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="71"/>
+        <location filename="../mainwindow.cpp" line="65"/>
         <source>&amp;Open...</source>
         <translation>&amp;Отрыть</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="75"/>
+        <location filename="../mainwindow.cpp" line="69"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Сохранить как</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="81"/>
+        <location filename="../mainwindow.cpp" line="75"/>
         <source>E&amp;xit</source>
         <translation>&amp;Выход</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="85"/>
+        <location filename="../mainwindow.cpp" line="79"/>
         <source>&amp;Tools</source>
         <translation>&amp;Инструменты</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="87"/>
+        <location filename="../mainwindow.cpp" line="81"/>
         <source>&amp;Add Entry...</source>
         <translation>&amp;Добавить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="91"/>
+        <location filename="../mainwindow.cpp" line="85"/>
         <source>&amp;Edit Entry...</source>
         <translation>&amp;Редактировать цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="98"/>
+        <location filename="../mainwindow.cpp" line="92"/>
         <source>&amp;Remove Entry</source>
         <translation>&amp;Удалить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="112"/>
-        <location filename="../mainwindow.cpp" line="133"/>
+        <location filename="../mainwindow.cpp" line="106"/>
+        <location filename="../mainwindow.cpp" line="127"/>
         <source>Unable to open file</source>
         <translation>Ошибка открытия файла</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="121"/>
+        <location filename="../mainwindow.cpp" line="115"/>
         <source>Unable parse json file</source>
         <translation>Ошибка обработки файла</translation>
     </message>

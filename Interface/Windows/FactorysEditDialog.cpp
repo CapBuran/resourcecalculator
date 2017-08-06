@@ -1,9 +1,9 @@
-#include "ItemsEditDialog.h"
+#include "FactorysEditDialog.h"
 #include "IconSelectedDialog.h"
 
 #pragma region MODEL
 
-ItemsEditModel::ItemsEditModel(ResourceCalculator::ParamsCollection &PC, QObject *parent):
+FactorysEditDialogModel::FactorysEditDialogModel(ResourceCalculator::ParamsCollection &PC, QObject *parent):
   QAbstractTableModel(parent), _PC(PC)
 {
   using namespace ResourceCalculator;
@@ -14,19 +14,19 @@ ItemsEditModel::ItemsEditModel(ResourceCalculator::ParamsCollection &PC, QObject
   }
 }
 
-int ItemsEditModel::rowCount(const QModelIndex &parent) const
+int FactorysEditDialogModel::rowCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
   return _listOfItemsId.size();
 }
 
-int ItemsEditModel::columnCount(const QModelIndex &parent) const
+int FactorysEditDialogModel::columnCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
   return 3;
 }
 
-QVariant ItemsEditModel::data(const QModelIndex &index, int role) const
+QVariant FactorysEditDialogModel::data(const QModelIndex &index, int role) const
 {
   using namespace ResourceCalculator;
 
@@ -63,7 +63,7 @@ QVariant ItemsEditModel::data(const QModelIndex &index, int role) const
   return QVariant();
 }
 
-QVariant ItemsEditModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant FactorysEditDialogModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
   if (role != Qt::DisplayRole)
     return QVariant();
@@ -83,7 +83,7 @@ QVariant ItemsEditModel::headerData(int section, Qt::Orientation orientation, in
   return QVariant();
 }
  
-Qt::ItemFlags ItemsEditModel::flags(const QModelIndex &index) const
+Qt::ItemFlags FactorysEditDialogModel::flags(const QModelIndex &index) const
 {
   if (!index.isValid())
     return Qt::ItemIsEnabled;
@@ -95,7 +95,7 @@ Qt::ItemFlags ItemsEditModel::flags(const QModelIndex &index) const
   return retval;
 }
 
-bool ItemsEditModel::setData(const QModelIndex &index, const QVariant &value, int role)
+bool FactorysEditDialogModel::setData(const QModelIndex &index, const QVariant &value, int role)
 {
   if (index.isValid() && role == Qt::EditRole) {
     
@@ -131,7 +131,7 @@ bool ItemsEditModel::setData(const QModelIndex &index, const QVariant &value, in
   return false;
 }
 
-bool ItemsEditModel::insertRows(int position, int rows, const QModelIndex &index)
+bool FactorysEditDialogModel::insertRows(int position, int rows, const QModelIndex &index)
 {
   Q_UNUSED(index);
   beginInsertRows(QModelIndex(), position, position + rows - 1);
@@ -149,7 +149,7 @@ bool ItemsEditModel::insertRows(int position, int rows, const QModelIndex &index
   return true;
 }
   
-bool ItemsEditModel::removeRows(int position, int rows, const QModelIndex &index)
+bool FactorysEditDialogModel::removeRows(int position, int rows, const QModelIndex &index)
 {
   Q_UNUSED(index);
   beginRemoveRows(QModelIndex(), position, position + rows - 1);
@@ -161,7 +161,7 @@ bool ItemsEditModel::removeRows(int position, int rows, const QModelIndex &index
   return true;
 }
 
-void ItemsEditModel::SetKeyPathForItem(int Row, const std::string & KeyPath)
+void FactorysEditDialogModel::SetKeyPathForItem(int Row, const std::string & KeyPath)
 {
   ResourceCalculator::Item *item = _PC.IC.GetItemForEdit(GetItemId(Row));
   if (item != nullptr) {
@@ -169,14 +169,14 @@ void ItemsEditModel::SetKeyPathForItem(int Row, const std::string & KeyPath)
   }
 }
 
-void ItemsEditModel::SetIsALiquidOrGasForItem(int Row)
+void FactorysEditDialogModel::SetIsALiquidOrGasForItem(int Row)
 {
   ResourceCalculator::Item *Item = _PC.IC.GetItemForEdit(GetItemId(Row));
   Q_ASSERT(Item != nullptr);
   Item->SetIsALiquidOrGas(!Item->GetIsALiquidOrGas());
 }
 
-ResourceCalculator::KEY_ITEM ItemsEditModel::GetItemId(int Num) const
+ResourceCalculator::KEY_ITEM FactorysEditDialogModel::GetItemId(int Num) const
 {
   return _listOfItemsId[Num];
 }
@@ -185,12 +185,12 @@ ResourceCalculator::KEY_ITEM ItemsEditModel::GetItemId(int Num) const
 
 #pragma region DELEGATE
 
-ItemEditDelegate::ItemEditDelegate(const ResourceCalculator::ParamsCollection &PC, ItemsEditModel &Model, QObject *parent)
+FactorysEditDialogDelegate::FactorysEditDialogDelegate(const ResourceCalculator::ParamsCollection &PC, FactorysEditDialogModel &Model, QObject *parent)
   : QStyledItemDelegate(parent), _PC(PC), _Model(Model)
 {
 }
 
-void ItemEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
+void FactorysEditDialogDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
 {
   emit(editorEventDelegate(index));
   switch (index.column()) {
@@ -244,7 +244,7 @@ void ItemEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem & op
   }
 }
 
-bool ItemEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
+bool FactorysEditDialogDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
 {
   if (event->type() == QEvent::MouseButtonPress) {
     switch (index.column()) {
@@ -277,7 +277,7 @@ bool ItemEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, c
 
 #pragma endregion DELEGATE
 
-ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
+FactorysEditDialog::FactorysEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
   : QDialog(parent), _PC(PC)
 {
   setMinimumSize(800, 600);
@@ -287,8 +287,8 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   QPushButton *addButton = new QPushButton(tr("ADD"));
   _removeButton = new QPushButton(tr("Remove"));
   
-  _Model = new ItemsEditModel(_PC, this);
-  ItemEditDelegate *Delegate = new ItemEditDelegate(PC, *_Model, this);
+  _Model = new FactorysEditDialogModel(_PC, this);
+  FactorysEditDialogDelegate *Delegate = new FactorysEditDialogDelegate(PC, *_Model, this);
   _tableView = new QTableView;
   _tableView->setModel(_Model);
   _tableView->setItemDelegate(Delegate);
@@ -308,14 +308,16 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
-  connect(addButton, &QAbstractButton::clicked, this, &ItemsEditDialog::add_item);
-  connect(_removeButton, &QAbstractButton::clicked, this, &ItemsEditDialog::remove_item);
-  connect(Delegate, &ItemEditDelegate::editorEventDelegate, this, &ItemsEditDialog::editorEventDelegate);
+  connect(addButton, &QAbstractButton::clicked, this, &FactorysEditDialog::add_item);
+  connect(_removeButton, &QAbstractButton::clicked, this, &FactorysEditDialog::remove_item);
+  connect(
+    Delegate, &FactorysEditDialogDelegate::editorEventDelegate,
+    this, &FactorysEditDialog::editorEventDelegate);
 
   setWindowTitle(tr("Item Edit"));
 }
 
-void ItemsEditDialog::remove_item()
+void FactorysEditDialog::remove_item()
 {
   QModelIndexList RowsSelected = _tableView->selectionModel()->selectedRows();
   if (RowsSelected.size() > 0) {
@@ -323,13 +325,13 @@ void ItemsEditDialog::remove_item()
   }
 }
 
-void ItemsEditDialog::editorEventDelegate(const QModelIndex & index)
+void FactorysEditDialog::editorEventDelegate(const QModelIndex & index)
 {
   QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
   _removeButton->setEnabled(Rows.size() > 0);
 }
 
-void ItemsEditDialog::add_item()
+void FactorysEditDialog::add_item()
 {
   QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
   if (Rows.size() > 0){

@@ -5,28 +5,13 @@
 
 #include "Types.h"
 
-
-namespace ResourceCalculator {
-
+namespace ResourceCalculator
+{
   class FactoryModules;
   class FactoryCollection;
   class ParamsCollection;
 
-  struct FactoryParams{
-    double Speed;
-    int CountSlotsForModules;
-    int CountSlotsForRecipes;
-    //!Износ от 0.0 до 1.0
-    double Wear;
-    //!Пиковая мощность потребляемая из электросети
-    double PeakPower;
-    //!Пиковое значение загрязнения
-    double LevelOfPollution;
-    KEY_FACTORY Key;
-    KEY_TYPE_FACTORY Type;
-  };
-
-  class Factory : public ItemBase {
+  class Factory: public ItemBase {
   private:
     double _Speed;
 
@@ -35,10 +20,13 @@ namespace ResourceCalculator {
 
     //!Износ от 0.0 до 1.0
     double _Wear;
-    
+
+    //! Мощность буровых установок
+    double _Power;
+
     //!Пиковая мощность потребляемая из электросети
-    double _PeakPower;
-    
+    double _ElectricPeakPower;
+
     //!Пиковое значение загрязнения
     double _LevelOfPollution;
 
@@ -50,24 +38,21 @@ namespace ResourceCalculator {
 
     Factory();
 
-    DeclareAndDefinitionProperty(Speed,  double)
-    DeclareAndDefinitionProperty(CountSlotsForModules, int)
-    DeclareAndDefinitionProperty(CountSlotsForRecipes, int)
-    DeclareAndDefinitionProperty(Wear,   double)
-    DeclareAndDefinitionProperty(PeakPower, double)
-    DeclareAndDefinitionProperty(LevelOfPollution, double)
-    DeclareAndDefinitionProperty(Key,  KEY_FACTORY)
-    DeclareAndDefinitionProperty(Type, KEY_TYPE_FACTORY)
+    DeclareAndDefinitionProperty( Speed, double )
+    DeclareAndDefinitionProperty( CountSlotsForModules, int )
+    DeclareAndDefinitionProperty( CountSlotsForRecipes, int )
+    DeclareAndDefinitionProperty( Wear, double )
+    DeclareAndDefinitionProperty( Power, double )
+    DeclareAndDefinitionProperty( LevelOfPollution, double )
+    DeclareAndDefinitionProperty( Key, KEY_FACTORY )
+    DeclareAndDefinitionProperty( Type, KEY_TYPE_FACTORY )
 
-    void SetParams(const FactoryParams &params);
+    bool IsAllowedProduction( const ParamsCollection & PC, KEY_RECIPE RecipeId ) const;
 
-    bool IsAllowedProduction(const ParamsCollection & PC, KEY_RECIPE RecipeId) const;
+    void FixFactoryModules( FactoryModules & ) const;
 
-    void FixFactoryModules(FactoryModules &) const;
-
-    int ReadFromJson(const Json::Value & jsonPr) override;
-    int WriteToJson(Json::Value & jsonPr) const override;
-
+    int ReadFromJson( const Json::Value & jsonPr ) override;
+    int WriteToJson( Json::Value & jsonPr ) const override;
 
   };
 

@@ -7,14 +7,14 @@
 #include <map>
 #include "json/json.h"
 
-namespace ResourceCalculator {
+namespace ResourceCalculator
+{
 
   typedef Json::LargestUInt KEY_TO_Json;
 
   typedef KEY_TO_Json TYPE_KEY;
 
-  enum class KEY_RECIPE : TYPE_KEY
-  {
+  enum class KEY_RECIPE: TYPE_KEY {
     ID_RECIPE_NoFindRecipe,
     ID_RECIPE_PreviouslyProduced,
     ID_RECIPE_FindRecipeROOT,
@@ -25,8 +25,7 @@ namespace ResourceCalculator {
     ID_RECIPE_Paket1_2
   };
 
-  enum class KEY_ITEM : TYPE_KEY
-  {
+  enum class KEY_ITEM: TYPE_KEY {
     ID_ITEM_NoFind_Item,
     ID_ITEM_Iron_Plate,
     ID_ITEM_Cuprum_Plate,
@@ -36,8 +35,7 @@ namespace ResourceCalculator {
     ID_ITEM_Paket1
   };
 
-  enum class KEY_TYPE_FACTORY : TYPE_KEY
-  {
+  enum class KEY_TYPE_FACTORY: TYPE_KEY {
     Unknown,
     Assembly,
     ChemicalPlant,
@@ -46,8 +44,7 @@ namespace ResourceCalculator {
     ElectrolysisPlant
   };
 
-  enum class KEY_FACTORY : TYPE_KEY
-  {
+  enum class KEY_FACTORY: TYPE_KEY {
     ID_ITEM_NoFind_Factory,
     ID_FACTORY_Assembly1,
     ID_FACTORY_Assembly2,
@@ -57,8 +54,7 @@ namespace ResourceCalculator {
     ID_FACTORY_PechElectro1
   };
 
-  enum class KEY_MODULE : TYPE_KEY
-  {
+  enum class KEY_MODULE: TYPE_KEY {
     ID_CleanSlot,
     ID_Productivity_1,
     ID_Productivity_2,
@@ -91,18 +87,18 @@ namespace ResourceCalculator {
 
   class Jsonable {
   protected:
-    inline bool JsonCheckIsEmptyField(const Json::Value &obj_json, std::string obj_path = "", bool critical = false) const
+    inline bool JsonCheckIsEmptyField( const Json::Value &obj_json, std::string obj_path = "", bool critical = false ) const
     {
-      if (obj_json.empty()) {
-        if (critical)
-          throw ("\"" + obj_path + "\" field is empty.\n");
+      if ( obj_json.empty() ) {
+        if ( critical )
+          throw ( "\"" + obj_path + "\" field is empty.\n" );
         return true;
       }
       return false;
     }
   public:
-    virtual int ReadFromJson(const Json::Value & jsonPr) = 0;
-    virtual int WriteToJson(Json::Value & jsonPr) const = 0;
+    virtual int ReadFromJson( const Json::Value & jsonPr ) = 0;
+    virtual int WriteToJson( Json::Value & jsonPr ) const = 0;
   };
 
   class ItemBase: public Jsonable {
@@ -116,11 +112,11 @@ namespace ResourceCalculator {
 
   public:
 
-    DeclareAndDefinitionProperty(Name,     std::string)
-    DeclareAndDefinitionProperty(IconPath, std::string)
+    DeclareAndDefinitionProperty( Name, std::string )
+    DeclareAndDefinitionProperty( IconPath, std::string )
 
-    virtual int ReadFromJson(const Json::Value & jsonPr) override;
-    virtual int WriteToJson(Json::Value & jsonPr) const override;
+    virtual int ReadFromJson( const Json::Value & jsonPr ) override;
+    virtual int WriteToJson( Json::Value & jsonPr ) const override;
 
   };
 

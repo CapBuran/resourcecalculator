@@ -68,9 +68,9 @@ int main(int argc, char ** argv) {
 
     recipe.SetKey(KEY_RECIPE::ID_RECIPE_Paket1_2);
     recipe.SetTime(3.0);
-    recipe.SetName("Изготовление исследовательского пакета 1 1");
+    recipe.SetName( "Изготовление исследовательского пакета 1 1" );
     recipe.SetRequired({ { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.5 }, { KEY_ITEM::ID_ITEM_Iron_Plate, 1.0 } });
-    recipe.SetResult({ { KEY_ITEM::ID_ITEM_Paket1, 1 } });
+    recipe.SetResult( { { KEY_ITEM::ID_ITEM_Paket1, 1 } } );
     RC.Add(recipe);
 
   }
@@ -84,7 +84,7 @@ int main(int argc, char ** argv) {
     factory.SetCountSlotsForRecipes(2);
     factory.SetKey(KEY_FACTORY::ID_FACTORY_PechKamenaya);
     factory.SetLevelOfPollution(0.01);
-    factory.SetPeakPower(0.01);
+    factory.SetPower(0.0);
     factory.SetSpeed(1.0);
     factory.SetType(KEY_TYPE_FACTORY::Furnace);
     factory.SetWear(0.0);

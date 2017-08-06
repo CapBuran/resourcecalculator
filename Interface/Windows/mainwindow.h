@@ -1,10 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QMainWindow>
-#include <QItemSelection>
-#include <QTabWidget>
-#include <QPushButton>
+#include <QWidget>
 
 #include "../../ResourceCalculator/ParamsCollection.h"
 #include "RecipeWidget.h"
@@ -34,7 +31,7 @@ private:
 
     ResourceCalculator::ParamsCollection &_PC;
 
-    RecipeWidget *_RecipeWidget;
+    //RecipeWidget *_RecipeWidget;
     QPushButton  *_ButtonRecipesOpen;
     QPushButton  *_ButtonItemOpen;
     QPushButton  *_ButtonFactoryOpen;

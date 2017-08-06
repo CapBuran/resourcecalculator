@@ -1,40 +1,34 @@
 #include "mainwindow.h"
 #include "RecipesEditDialog.h"
 #include "ItemsEditDialog.h"
-
-#include <QAction>
-#include <QFileDialog>
-#include <QPushButton>
-#include <QVBoxLayout>
-#include <QMenuBar>
-#include <QWidget>
+#include "FactoryTypesEditDialog.h"
 
 MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _PC(PC)
 {
 
-  _ButtonPropertyTableRecipeTab = new QPushButton(tr("Recipe Tab Property", "Mainwindow button Recipe Tab Property"));
+  _ButtonPropertyTableRecipeTab = new QPushButton(tr("Recipe Tab Property"));
   connect(_ButtonPropertyTableRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
-  _ButtonAddRecipeTab = new QPushButton(tr("Recipe Tab Add", "Mainwindow button Recipe Tab Add"));
+  _ButtonAddRecipeTab = new QPushButton(tr("Recipe tab add"));
   connect(_ButtonAddRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
 
-  _ButtonDelRecipeTab = new QPushButton(tr("Recipe Tab Del", "Mainwindow button Recipe Tab Del"));
+  _ButtonDelRecipeTab = new QPushButton(tr("Recipe tab del"));
   connect(_ButtonDelRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog()));
 
-  _ButtonItemOpen = new QPushButton(tr("Items", "Mainwindow button Items"));
+  _ButtonItemOpen = new QPushButton(tr("Items editor"));
   connect(_ButtonItemOpen, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
 
-  _ButtonRecipesOpen = new QPushButton(tr("Recipes", "Mainwindow button Recipes"));
+  _ButtonRecipesOpen = new QPushButton(tr("Recipes editor"));
   connect(_ButtonRecipesOpen, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog()));
 
-  _ButtonFactoryOpen = new QPushButton(tr("Factorys", "Mainwindow button Factorys"));
+  _ButtonFactoryOpen = new QPushButton(tr("Factorys editor"));
   connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
-  _ButtonDebug = new QPushButton(tr("Debug", "Mainwindow button debug"));
+  _ButtonDebug = new QPushButton(tr("Debug button"));
   connect(_ButtonDebug, SIGNAL(clicked()), SLOT(PushButtonClickedDebug()));
 
-  _RecipeWidget       = new RecipeWidget(PC);
+ // _RecipeWidget       = new RecipeWidget(PC);
 
   QHBoxLayout *h = new QHBoxLayout();
   h->setMargin(5);
@@ -50,7 +44,7 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   QVBoxLayout *v = new QVBoxLayout();
   v->setMargin(5);
   v->setSpacing(5);
-  v->addWidget(_RecipeWidget);
+//  v->addWidget(_RecipeWidget);
   v->addLayout(h);
 
   CentralWidget = new QWidget();
@@ -86,21 +80,21 @@ void MainWindow::createMenus()
 
   addAct = new QAction(tr("&Add Entry..."), this);
   toolMenu->addAction(addAct);
-  connect(addAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::showAddEntryDialog);
+//  connect(addAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::showAddEntryDialog);
 
   editAct = new QAction(tr("&Edit Entry..."), this);
   editAct->setEnabled(false);
   toolMenu->addAction(editAct);
-  connect(editAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::editEntry);
+//  connect(editAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::editEntry);
 
   toolMenu->addSeparator();
 
   removeAct = new QAction(tr("&Remove Entry"), this);
   removeAct->setEnabled(false);
   toolMenu->addAction(removeAct);
-  connect(removeAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::removeEntry);
+ // connect(removeAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::removeEntry);
 
-  connect(_RecipeWidget, &RecipeWidget::selectionChanged, this, &MainWindow::updateActions);
+//  connect(_RecipeWidget, &RecipeWidget::selectionChanged, this, &MainWindow::updateActions);
 }
 
 void MainWindow::openFile()
@@ -177,14 +171,9 @@ void MainWindow::PushButtonClickedFactorysEditDialog()
 
 void MainWindow::PushButtonClickedDebug()
 {
-  IconSelectedDialog _IconSelectedDialog(_PC);
-  if (_IconSelectedDialog.exec()) {
-    const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
-    if (Icon != nullptr) {
-      QIcon qIcon;
-      SetIconData(qIcon, QSize(32, 32), (int)Icon->GetRawData().size(), &Icon->GetRawData()[0]);
-      setWindowIcon(qIcon);
-    }
+  FactoryTypesEditDialog _FactoryTypesEditDialog(_PC);
+  if ( _FactoryTypesEditDialog.exec()) {
+    _FactoryTypesEditDialog.Commit();
   }
 
 }

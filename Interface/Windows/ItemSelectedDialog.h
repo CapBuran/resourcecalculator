@@ -3,10 +3,7 @@
 
 #include <set>
 
-#include <QDialog>
 #include <QtWidgets>
-#include <QStyledItemDelegate>
-#include <QAbstractTableModel>
 
 #include "../../ResourceCalculator/ParamsCollection.h"
 

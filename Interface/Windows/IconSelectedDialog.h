@@ -1,7 +1,6 @@
 #ifndef ICON_SELECTED_DIALOG_H
 #define ICON_SELECTED_DIALOG_H
 
-#include <QDialog>
 #include <QtWidgets>
 
 #include "../../ResourceCalculator/ParamsCollection.h"

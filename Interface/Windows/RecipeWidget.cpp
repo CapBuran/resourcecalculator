@@ -1,31 +1,29 @@
 //#include "adddialog.h"
 
 #include "RecipeWidget.h"
+//
+//RecipeWidget::RecipeWidget(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
+//  : QTabWidget(parent), _PC(PC)
+//{
+//  table = new ProductionChainModelLeft(_PC, this);
+//  //newAddressTab = new NewAddressTab(this);
+//  //connect(newAddressTab, &NewAddressTab::sendDetails, this, &AddressWidget::addEntry);
+//  //addTab(newAddressTab, "Address Book");
+//  //setupTabs();
+//}
 
-#include <QtWidgets>
-
-RecipeWidget::RecipeWidget(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
-  : QTabWidget(parent), _PC(PC)
-{
-  table = new ProductionChainModelLeft(_PC, this);
-  //newAddressTab = new NewAddressTab(this);
-  //connect(newAddressTab, &NewAddressTab::sendDetails, this, &AddressWidget::addEntry);
-  //addTab(newAddressTab, "Address Book");
-  //setupTabs();
-}
-
-void RecipeWidget::showAddEntryDialog()
-{
+//void RecipeWidget::showAddEntryDialog()
+//{
   //AddDialog aDialog;
   //if (aDialog.exec()) {
   //  QString name = aDialog.nameText->text();
   //  QString address = aDialog.addressText->toPlainText();
   //  addEntry(name, address);
   //}
-}
-
-void RecipeWidget::addEntry(QString name, QString address)
-{
+//}
+//
+//void RecipeWidget::addEntry(QString name, QString address)
+//{
   //QList<QPair<QString, QString> >list = table->getList();
   //QPair<QString, QString> pair(name, address);
 
@@ -42,10 +40,10 @@ void RecipeWidget::addEntry(QString name, QString address)
   //  QMessageBox::information(this, tr("Duplicate Name"),
   //    tr("The name \"%1\" already exists.").arg(name));
   //}
-}
-
-void RecipeWidget::editEntry()
-{
+//}
+//
+//void RecipeWidget::editEntry()
+//{
   //QTableView *temp = static_cast<QTableView*>(currentWidget());
   //QSortFilterProxyModel *proxy = static_cast<QSortFilterProxyModel*>(temp->model());
   //QItemSelectionModel *selectionModel = temp->selectionModel();
@@ -80,10 +78,10 @@ void RecipeWidget::editEntry()
   //    table->setData(index, newAddress, Qt::EditRole);
   //  }
   //}
-}
-
-void RecipeWidget::removeEntry()
-{
+//}
+//
+//void RecipeWidget::removeEntry()
+//{
   //QTableView *temp = static_cast<QTableView*>(currentWidget());
   //QSortFilterProxyModel *proxy = static_cast<QSortFilterProxyModel*>(temp->model());
   //QItemSelectionModel *selectionModel = temp->selectionModel();
@@ -98,7 +96,7 @@ void RecipeWidget::removeEntry()
   //if (table->rowCount(QModelIndex()) == 0) {
   //  insertTab(0, newAddressTab, "Address Book");
   //}
-}
+//}
 
 //void RecipeWidget::setupTabs()
 //{

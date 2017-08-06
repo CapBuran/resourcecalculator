@@ -1,18 +1,15 @@
-#ifndef ITEM_EDIT_DIALOG_H
-#define ITEM_EDIT_DIALOG_H
+#ifndef FACTORYS_EDIT_DIALOG_H
+#define FACTORYS_EDIT_DIALOG_H
 
-#include <QDialog>
 #include <QtWidgets>
-#include <QStyledItemDelegate>
-#include <QAbstractTableModel>
 
 #include "../../ResourceCalculator/ParamsCollection.h"
 
-class ItemsEditModel : public QAbstractTableModel
+class FactorysEditDialogModel : public QAbstractTableModel
 {
   Q_OBJECT
 public:
-  ItemsEditModel(ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
+  FactorysEditDialogModel(ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
   int rowCount(const QModelIndex &parent) const override;
   int columnCount(const QModelIndex &parent) const override;
   QVariant data(const QModelIndex &index, int role) const override;
@@ -29,16 +26,16 @@ private:
   QList<ResourceCalculator::KEY_ITEM> _listOfItemsId;
 };
 
-class ItemEditDelegate : public QStyledItemDelegate
+class FactorysEditDialogDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
 
 public:
-  ItemEditDelegate(const ResourceCalculator::ParamsCollection &PC, ItemsEditModel &Model, QObject *parent = 0);
+  FactorysEditDialogDelegate(const ResourceCalculator::ParamsCollection &PC, FactorysEditDialogModel &Model, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
   bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 private:
-  ItemsEditModel &_Model;
+  FactorysEditDialogModel &_Model;
   const ResourceCalculator::ParamsCollection &_PC;
 
 Q_SIGNALS:
@@ -46,18 +43,18 @@ Q_SIGNALS:
 
 };
 
-class ItemsEditDialog : public QDialog
+class FactorysEditDialog : public QDialog
 {
   Q_OBJECT
 
 public:
-  ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
+  FactorysEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
 
 private:
   ResourceCalculator::ParamsCollection &_PC;
   QTableView *_tableView;
   QPushButton *_removeButton;
-  ItemsEditModel *_Model;
+  FactorysEditDialogModel *_Model;
 
 private Q_SLOTS:
   void add_item();
@@ -65,4 +62,4 @@ private Q_SLOTS:
   void editorEventDelegate(const QModelIndex &index);
 };
 
-#endif // ITEM_EDIT_DIALOG_H
+#endif // FACTORYS_EDIT_DIALOG_H
