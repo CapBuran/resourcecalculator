@@ -1,10 +1,7 @@
 #ifndef ITEM_EDIT_DIALOG_H
 #define ITEM_EDIT_DIALOG_H
 
-#include <QDialog>
 #include <QtWidgets>
-#include <QStyledItemDelegate>
-#include <QAbstractTableModel>
 
 #include "../../ResourceCalculator/ParamsCollection.h"
 

@@ -18,6 +18,9 @@ namespace ResourceCalculator
     _NoFindFactory.SetKey( KEY_FACTORY::ID_ITEM_NoFind_Factory );
     _NoFindFactory.SetKey( KEY_FACTORY::ID_ITEM_NoFind_Factory );
     _NoFindFactory.SetKey( KEY_FACTORY::ID_ITEM_NoFind_Factory );
+    _UNKNOWN_FactoryType.IconPath = "__base__/graphics/icons/coin.png";
+
+    _TypesFactory[KEY_TYPE_FACTORY::Unknown] = _UNKNOWN_FactoryType;
   }
 
   FactoryCollection::~FactoryCollection()
@@ -33,6 +36,18 @@ namespace ResourceCalculator
   {
     if ( Key == KEY_FACTORY::ID_ITEM_NoFind_Factory ) return _NoFindFactory;
     return _Factorys.find( Key )->second;
+  }
+
+  const FactoryType &FactoryCollection::GetFactoryType( KEY_FACTORY Key ) const
+  {
+    const Factory & facory = GetFactory( Key );
+    
+    auto f = _TypesFactory.find( facory.GetType() );
+    if ( f != _TypesFactory.end() ) {
+      return f->second;
+    }
+
+    return _UNKNOWN_FactoryType;
   }
 
   Factory & FactoryCollection::GetFactoryForEdit( KEY_FACTORY Key )
@@ -67,7 +82,23 @@ namespace ResourceCalculator
           itf.second.SetType( KEY_TYPE_FACTORY::Unknown );
         }
       }
-      _TypesFactory.erase( it );
+      if ( it != KEY_TYPE_FACTORY::Unknown ) {
+        _TypesFactory.erase( it );
+      }
+    }
+  }
+
+  void FactoryCollection::DeleteFactorys( const std::list<KEY_FACTORY>& FactoryTypesKey )
+  {
+    for ( auto & it : FactoryTypesKey ) {
+      _Factorys.erase( it );
+    }
+  }
+
+  void FactoryCollection::AddFactorys( const std::map<KEY_FACTORY, Factory>& FactoryTypes )
+  {
+    for ( auto & it : FactoryTypes ) {
+      _Factorys[it.first] = it.second;
     }
   }
 
@@ -116,8 +147,9 @@ namespace ResourceCalculator
   int FactoryCollection::ReadFromJsonFactoryTypes( const Json::Value & jsonPr )
   {
     _TypesFactory.clear();
+    _TypesFactory[KEY_TYPE_FACTORY::Unknown] = _UNKNOWN_FactoryType;
     for ( auto it : jsonPr ) {
-      KEY_TYPE_FACTORY KeyType = static_cast<KEY_TYPE_FACTORY>( jsonPr["Key"].asInt64() );
+      KEY_TYPE_FACTORY KeyType = static_cast<KEY_TYPE_FACTORY>( it["Key"].asInt64() );
       _TypesFactory[KeyType].Name     = it["Name"].asString();
       _TypesFactory[KeyType].IconPath = it["IconPath"].asString();
     }

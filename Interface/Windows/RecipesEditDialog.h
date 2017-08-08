@@ -1,10 +1,7 @@
 #ifndef RECIPE_EDIT_DIALOG_H
 #define RECIPE_EDIT_DIALOG_H
 
-#include <QDialog>
 #include <QtWidgets>
-#include <QStyledItemDelegate>
-#include <QAbstractTableModel>
 
 #include "../../ResourceCalculator/ParamsCollection.h"
 

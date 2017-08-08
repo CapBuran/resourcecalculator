@@ -89,7 +89,7 @@ Qt::ItemFlags ItemsEditModel::flags(const QModelIndex &index) const
     return Qt::ItemIsEnabled;
 
   Qt::ItemFlags retval = QAbstractTableModel::flags(index);
-  if (index.column() == 0 || index.column() == 1){
+  if (index.column() == 0 ){
     retval |= Qt::ItemIsEditable;
   }
   return retval;
@@ -232,6 +232,7 @@ void ItemEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem & op
     QStyleOptionButton checkbox;
     //checkbox.styleObject = option.styleObject;//???
     checkbox.rect = option.rect;
+    checkbox.text = Item->GetIsALiquidOrGas() ? tr( "Yes" ) : tr( "No" );
     checkbox.state = QStyle::State_Enabled;
     checkbox.state |= IsALiquidOrGasForItem ? QStyle::State_On: QStyle::State_Off;
     QApplication::style()->drawControl(QStyle::CE_CheckBox, &checkbox, painter);
@@ -273,7 +274,6 @@ bool ItemEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, c
   }
   return QStyledItemDelegate::editorEvent(event, model, option, index);
 }
-
 
 #pragma endregion DELEGATE
 

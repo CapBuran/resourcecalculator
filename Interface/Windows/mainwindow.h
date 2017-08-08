@@ -1,12 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QWidget>
+#include <QtWidgets>
 
 #include "../../ResourceCalculator/ParamsCollection.h"
-#include "RecipeWidget.h"
-
-#include "IconSelectedDialog.h"
 
 class MainWindow : public QMainWindow
 {

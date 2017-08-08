@@ -2,9 +2,10 @@
 #include "mainwindow.h"
 #include <fstream>
 
-#include <QApplication>
-#include <QtGui>
-#include <QtCore>
+//#include <QApplication>
+//#include <QtGui>
+//#include <QtCore>
+#include <QtWidgets>
 
 #define StandartTestFileJson "C:\\games\\Factorio.json"
 

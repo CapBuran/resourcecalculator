@@ -2,6 +2,7 @@
 #include "RecipesEditDialog.h"
 #include "ItemsEditDialog.h"
 #include "FactoryTypesEditDialog.h"
+#include "FactorysEditDialog.h"
 
 MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _PC(PC)
@@ -160,20 +161,18 @@ void MainWindow::PushButtonClickedItemsEditDialog()
 
 void MainWindow::PushButtonClickedFactorysEditDialog()
 {
-  //RecipesEditDialog _RecipesEditDialog(_PC);
-  //if (_RecipesEditDialog.exec()) {
-  //  //QString name = _RecipesEditDialog.nameText->text();
-  //  //QString address = _RecipesEditDialog.addressText->toPlainText();
-  //  //emit sendDetails(name, address);
-  //}
-
+  FactorysEditDialog _FactorysEditDialog( _PC );
+  if ( _FactorysEditDialog.exec() ) {
+    _FactorysEditDialog.Commit();
+  }
 }
 
 void MainWindow::PushButtonClickedDebug()
 {
-  FactoryTypesEditDialog _FactoryTypesEditDialog(_PC);
-  if ( _FactoryTypesEditDialog.exec()) {
-    _FactoryTypesEditDialog.Commit();
+  FactoryTypesEditDialog Dialog( _PC );
+  //FactorysEditDialog Dialog(_PC);
+  if ( Dialog.exec()) {
+    Dialog.Commit();
   }
 
 }

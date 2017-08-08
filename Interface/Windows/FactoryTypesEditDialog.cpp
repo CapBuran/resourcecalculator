@@ -7,16 +7,7 @@
 FactoryTypesEditModel::FactoryTypesEditModel(ResourceCalculator::ParamsCollection &PC, QObject *parent ):
   QAbstractTableModel( parent ), _PC( PC )
 {
-  using namespace ResourceCalculator;
-
-  auto & TypesFactorys = PC.FC.GetTypesFactorys();
-
-  _listOfItemsId.reserve( static_cast< int >( TypesFactorys.size() ) );
-
-  for ( auto & TypeFactory : TypesFactorys ) {
-    _listOfItemsId.push_back ( TypeFactory );
-  }
-
+  Select();
 }
 
 int FactoryTypesEditModel::rowCount( const QModelIndex &parent ) const
@@ -123,11 +114,27 @@ void FactoryTypesEditModel::Commit()
 {
   _PC.FC.DeleteFactorysTypes( _FactoryTypesKeyToDelete );
   _PC.FC.AddFactorysTypes( _FactoryTypesKeyToAdd );
+  Select();
+}
+
+void FactoryTypesEditModel::Select()
+{
+  using namespace ResourceCalculator;
+  auto & TypesFactorys = _PC.FC.GetTypesFactorys();
+  _listOfItemsId.reserve( static_cast< int >( TypesFactorys.size() ) );
+  for ( auto & TypeFactory : TypesFactorys ) {
+    _listOfItemsId.push_back( TypeFactory );
+  }
 }
 
 ResourceCalculator::FactoryType FactoryTypesEditModel::GetDataRow( int Row ) const
 {
   return _listOfItemsId[Row].second;
+}
+
+ResourceCalculator::KEY_TYPE_FACTORY FactoryTypesEditModel::GetDataRowType( int Row ) const
+{
+  return _listOfItemsId[Row].first;
 }
 
 bool FactoryTypesEditModel::setData( const QModelIndex & index, const QVariant & value, int role )
@@ -155,7 +162,7 @@ bool FactoryTypesEditModel::setData( const QModelIndex & index, const QVariant &
 
 #pragma region DELEGATE
 
-FactoryTypesEditDelegate::FactoryTypesEditDelegate( const ResourceCalculator::ParamsCollection &PC, const FactoryTypesEditModel &Model, QObject *parent )
+FactoryTypesEditDelegate::FactoryTypesEditDelegate( ResourceCalculator::ParamsCollection &PC, const FactoryTypesEditModel &Model, QObject *parent )
   : QStyledItemDelegate( parent ), _PC( PC ), _Model( Model )
 {
 }

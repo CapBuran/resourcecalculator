@@ -23,8 +23,10 @@ public:
   bool insertRows( int position, int rows, const QModelIndex &index = QModelIndex() ) override;
   bool removeRows( int position, int rows, const QModelIndex &index = QModelIndex() ) override;
   ResourceCalculator::FactoryType GetDataRow( int Row ) const;
+  ResourceCalculator::KEY_TYPE_FACTORY GetDataRowType( int Row ) const;
   bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole ) override;
   void Commit();
+  void Select();
 
 private:
   ResourceCalculator::ParamsCollection &_PC;
@@ -36,9 +38,9 @@ private:
 class FactoryTypesEditDelegate: public QStyledItemDelegate {
   Q_OBJECT
   const FactoryTypesEditModel &_Model;
-  const ResourceCalculator::ParamsCollection &_PC;
+  ResourceCalculator::ParamsCollection &_PC;
 public:
-  FactoryTypesEditDelegate( const ResourceCalculator::ParamsCollection &PC, const FactoryTypesEditModel &_Model, QObject *parent = 0 );
+  FactoryTypesEditDelegate( ResourceCalculator::ParamsCollection &PC, const FactoryTypesEditModel &_Model, QObject *parent = 0 );
   void paint( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   bool editorEvent( QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index ) override;
 

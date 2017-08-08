@@ -1,8 +1,6 @@
 #ifndef ITEM_SELECTED_DIALOG_H
 #define ITEM_SELECTED_DIALOG_H
 
-#include <set>
-
 #include <QtWidgets>
 
 #include "../../ResourceCalculator/ParamsCollection.h"

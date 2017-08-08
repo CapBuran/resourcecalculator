@@ -18,6 +18,7 @@ namespace ResourceCalculator {
     void ADD(const Factory);
 
     const Factory& GetFactory( KEY_FACTORY Key ) const;
+    const FactoryType& GetFactoryType( KEY_FACTORY Key ) const;
     Factory& GetFactoryForEdit( KEY_FACTORY Key );
 
     const std::map<KEY_TYPE_FACTORY, FactoryType >& GetTypesFactorys() const;
@@ -26,6 +27,9 @@ namespace ResourceCalculator {
 
     void DeleteFactorysTypes( const std::list<KEY_TYPE_FACTORY> &FactoryTypesKey );
     void AddFactorysTypes( const std::map<KEY_TYPE_FACTORY, FactoryType > &FactoryTypes );
+
+    void DeleteFactorys( const std::list<KEY_FACTORY> &FactoryKeys );
+    void AddFactorys( const std::map<KEY_FACTORY, Factory > &Factorys );
 
     KEY_FACTORY GetUniqueFactoryKey();
     KEY_TYPE_FACTORY GetUniqueFactoryTypeKey();
@@ -43,6 +47,7 @@ namespace ResourceCalculator {
     std::map<KEY_FACTORY, Factory> _Factorys;
     std::map<KEY_TYPE_FACTORY, FactoryType > _TypesFactory;
     Factory _NoFindFactory;
+    FactoryType _UNKNOWN_FactoryType;
   };
 
 }
