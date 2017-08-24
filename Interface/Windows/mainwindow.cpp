@@ -3,55 +3,58 @@
 #include "ItemsEditDialog.h"
 #include "FactoryTypesEditDialog.h"
 #include "FactorysEditDialog.h"
+#include "ItemSelectedDialog.h"
 
 MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _PC(PC)
 {
 
-  _ButtonPropertyTableRecipeTab = new QPushButton(tr("Recipe Tab Property"));
+  QPushButton *_ButtonPropertyTableRecipeTab = new QPushButton(tr("Recipe Tab Property"));
   connect(_ButtonPropertyTableRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
-  _ButtonAddRecipeTab = new QPushButton(tr("Recipe tab add"));
+  QPushButton *_ButtonAddRecipeTab = new QPushButton(tr("Recipe tab add"));
   connect(_ButtonAddRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
 
-  _ButtonDelRecipeTab = new QPushButton(tr("Recipe tab del"));
+  QPushButton *_ButtonDelRecipeTab = new QPushButton(tr("Recipe tab del"));
   connect(_ButtonDelRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog()));
 
-  _ButtonItemOpen = new QPushButton(tr("Items editor"));
+  QPushButton *_ButtonItemOpen = new QPushButton(tr("Items editor"));
   connect(_ButtonItemOpen, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
 
-  _ButtonRecipesOpen = new QPushButton(tr("Recipes editor"));
+  QPushButton *_ButtonRecipesOpen = new QPushButton(tr("Recipes editor"));
   connect(_ButtonRecipesOpen, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog()));
 
-  _ButtonFactoryOpen = new QPushButton(tr("Factorys editor"));
+  QPushButton *_ButtonFactoryOpen = new QPushButton(tr("Factorys editor"));
   connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
-  _ButtonDebug = new QPushButton(tr("Debug button"));
+  QPushButton *_ButtonDebug = new QPushButton(tr("Debug button"));
   connect(_ButtonDebug, SIGNAL(clicked()), SLOT(PushButtonClickedDebug()));
 
- // _RecipeWidget       = new RecipeWidget(PC);
-
+ 
+  
+  
   QHBoxLayout *h = new QHBoxLayout();
-  h->setMargin(5);
-  h->setSpacing(5);
+  //h->setMargin(5);
+  //h->setSpacing(5);
   h->addWidget(_ButtonDebug);
-  h->addWidget(_ButtonPropertyTableRecipeTab);
   h->addWidget(_ButtonAddRecipeTab);
+  h->addWidget( _ButtonPropertyTableRecipeTab );
   h->addWidget(_ButtonDelRecipeTab);
   h->addWidget(_ButtonRecipesOpen);
   h->addWidget(_ButtonItemOpen);
   h->addWidget(_ButtonFactoryOpen);
-
+  
+  QTabWidget *_PCW = new ProductionChainWidget( _PC );
   QVBoxLayout *v = new QVBoxLayout();
-  v->setMargin(5);
-  v->setSpacing(5);
-//  v->addWidget(_RecipeWidget);
+//  v->setMargin(5);
+//  v->setSpacing(5);
+  v->addWidget( _PCW );
   v->addLayout(h);
 
-  CentralWidget = new QWidget();
+  QWidget *CentralWidget = new QWidget();
   CentralWidget->setLayout(v);
 
-  setCentralWidget(CentralWidget);
+  setCentralWidget( CentralWidget );
   
   createMenus();
 
@@ -61,36 +64,36 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
 
 void MainWindow::createMenus()
 {
-  fileMenu = menuBar()->addMenu(tr("&File"));
+  QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 
-  openAct = new QAction(tr("&Open..."), this);
+  QAction *openAct = new QAction(tr("&Open..."), this);
   fileMenu->addAction(openAct);
   connect(openAct, &QAction::triggered, this, &MainWindow::openFile);
 
-  saveAct = new QAction(tr("&Save As..."), this);
+  QAction *saveAct = new QAction(tr("&Save As..."), this);
   fileMenu->addAction(saveAct);
   connect(saveAct, &QAction::triggered, this, &MainWindow::saveFile);
 
   fileMenu->addSeparator();
 
-  exitAct = new QAction(tr("E&xit"), this);
+  QAction *exitAct = new QAction(tr("E&xit"), this);
   fileMenu->addAction(exitAct);
   connect(exitAct, &QAction::triggered, this, &QWidget::close);
 
-  toolMenu = menuBar()->addMenu(tr("&Tools"));
+  QMenu *toolMenu = menuBar()->addMenu(tr("&Tools"));
 
-  addAct = new QAction(tr("&Add Entry..."), this);
+  QAction *addAct = new QAction(tr("&Add Entry..."), this);
   toolMenu->addAction(addAct);
 //  connect(addAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::showAddEntryDialog);
 
-  editAct = new QAction(tr("&Edit Entry..."), this);
+  QAction *editAct = new QAction(tr("&Edit Entry..."), this);
   editAct->setEnabled(false);
   toolMenu->addAction(editAct);
 //  connect(editAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::editEntry);
 
   toolMenu->addSeparator();
 
-  removeAct = new QAction(tr("&Remove Entry"), this);
+  QAction *removeAct = new QAction(tr("&Remove Entry"), this);
   removeAct->setEnabled(false);
   toolMenu->addAction(removeAct);
  // connect(removeAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::removeEntry);

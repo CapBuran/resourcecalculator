@@ -55,7 +55,7 @@
 <context>
     <name>FactoryTypesViewModel</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="85"/>
+        <location filename="../FactorysEditDialog.cpp" line="86"/>
         <source>Factory type name</source>
         <translation>Тип фабрики</translation>
     </message>
@@ -63,32 +63,32 @@
 <context>
     <name>FactorysEditDialog</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="500"/>
+        <location filename="../FactorysEditDialog.cpp" line="501"/>
         <source>OK</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="501"/>
+        <location filename="../FactorysEditDialog.cpp" line="502"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="502"/>
+        <location filename="../FactorysEditDialog.cpp" line="503"/>
         <source>Remote</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="503"/>
+        <location filename="../FactorysEditDialog.cpp" line="504"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="504"/>
+        <location filename="../FactorysEditDialog.cpp" line="505"/>
         <source>Factory types</source>
         <translation>Типы фабрик</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="540"/>
+        <location filename="../FactorysEditDialog.cpp" line="541"/>
         <source>Editor factorys</source>
         <translation>Редактор фабрик</translation>
     </message>
@@ -96,47 +96,47 @@
 <context>
     <name>FactorysEditDialogModel</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="138"/>
+        <location filename="../FactorysEditDialog.cpp" line="139"/>
         <source>There should be an icon</source>
         <translation>Тут должна быть иконка</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="178"/>
+        <location filename="../FactorysEditDialog.cpp" line="179"/>
         <source>Icon</source>
         <translation>Иконка</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="180"/>
+        <location filename="../FactorysEditDialog.cpp" line="181"/>
         <source>Factory name</source>
         <translation>Название фабрики</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="182"/>
+        <location filename="../FactorysEditDialog.cpp" line="183"/>
         <source>Factory type name</source>
         <translation>Тип фабрики</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="184"/>
+        <location filename="../FactorysEditDialog.cpp" line="185"/>
         <source>Speed</source>
         <translation>Скорость</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="186"/>
+        <location filename="../FactorysEditDialog.cpp" line="187"/>
         <source>Drilling power</source>
         <translation>Мощность бура</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="188"/>
+        <location filename="../FactorysEditDialog.cpp" line="189"/>
         <source>Slots for recipe</source>
         <translation>Слотов для рецепта</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="190"/>
+        <location filename="../FactorysEditDialog.cpp" line="191"/>
         <source>Slots for modules</source>
         <translation>Слотов для модулей</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="205"/>
+        <location filename="../FactorysEditDialog.cpp" line="206"/>
         <source>New factory</source>
         <translation>Новая фабрика</translation>
     </message>
@@ -272,93 +272,93 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="20"/>
+        <location filename="../mainwindow.cpp" line="21"/>
         <source>Items editor</source>
         <translation>Редактор предметов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="11"/>
+        <location filename="../mainwindow.cpp" line="12"/>
         <source>Recipe Tab Property</source>
         <translation>Свойства вкладки</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="14"/>
+        <location filename="../mainwindow.cpp" line="15"/>
         <source>Recipe tab add</source>
         <translation>Добавить вкладку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="17"/>
+        <location filename="../mainwindow.cpp" line="18"/>
         <source>Recipe tab del</source>
         <translation>Удалить вкладку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="23"/>
+        <location filename="../mainwindow.cpp" line="24"/>
         <source>Recipes editor</source>
         <translation>Редактор рецептов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="26"/>
+        <location filename="../mainwindow.cpp" line="27"/>
         <source>Factorys editor</source>
         <translation>Редактор фабрик</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="29"/>
+        <location filename="../mainwindow.cpp" line="30"/>
         <source>Debug button</source>
         <translation>Отладка</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="58"/>
+        <location filename="../mainwindow.cpp" line="61"/>
         <source>Resurse calculator</source>
         <translation>Калькулятор производственных цепочек</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="64"/>
+        <location filename="../mainwindow.cpp" line="67"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="66"/>
+        <location filename="../mainwindow.cpp" line="69"/>
         <source>&amp;Open...</source>
         <translation>&amp;Отрыть</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="70"/>
+        <location filename="../mainwindow.cpp" line="73"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Сохранить как</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="76"/>
+        <location filename="../mainwindow.cpp" line="79"/>
         <source>E&amp;xit</source>
         <translation>&amp;Выход</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="80"/>
+        <location filename="../mainwindow.cpp" line="83"/>
         <source>&amp;Tools</source>
         <translation>&amp;Инструменты</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="82"/>
+        <location filename="../mainwindow.cpp" line="85"/>
         <source>&amp;Add Entry...</source>
         <translation>&amp;Добавить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="86"/>
+        <location filename="../mainwindow.cpp" line="89"/>
         <source>&amp;Edit Entry...</source>
         <translation>&amp;Редактировать цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="93"/>
+        <location filename="../mainwindow.cpp" line="96"/>
         <source>&amp;Remove Entry</source>
         <translation>&amp;Удалить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="107"/>
-        <location filename="../mainwindow.cpp" line="128"/>
+        <location filename="../mainwindow.cpp" line="110"/>
+        <location filename="../mainwindow.cpp" line="131"/>
         <source>Unable to open file</source>
         <translation>Ошибка открытия файла</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="116"/>
+        <location filename="../mainwindow.cpp" line="119"/>
         <source>Unable parse json file</source>
         <translation>Ошибка обработки файла</translation>
     </message>
@@ -374,6 +374,49 @@
         <location filename="../RecipeModel.cpp" line="58"/>
         <source>Address</source>
         <translation>Адрес</translation>
+    </message>
+</context>
+<context>
+    <name>ProductionChainWidgetModel</name>
+    <message>
+        <location filename="../ProductionChainWidget.cpp" line="167"/>
+        <source>Factory</source>
+        <translation>Фабрика</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidget.cpp" line="169"/>
+        <source>Recipe</source>
+        <translation>Рецепт</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidget.cpp" line="171"/>
+        <source>Modules productivity</source>
+        <translation>Модули продуктивности</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidget.cpp" line="173"/>
+        <source>Modules speed</source>
+        <translation>Модули скорости</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidget.cpp" line="175"/>
+        <source>Speed factory</source>
+        <translation>Скорость фабрики</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidget.cpp" line="177"/>
+        <source>Time for recipe</source>
+        <translation>Время рецепта</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidget.cpp" line="179"/>
+        <source>Real time for recipe</source>
+        <translation>Производство одной компоненты</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidget.cpp" line="181"/>
+        <source>Count factorys</source>
+        <translation>Количество фабрик</translation>
     </message>
 </context>
 <context>

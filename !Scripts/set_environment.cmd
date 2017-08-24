@@ -41,7 +41,7 @@ IF NOT DEFINED CMAKE_EXE (
   exit -3
 )
 
-call C:\QT\5.8\msvc2015_64\bin\qtenv2.bat
+call C:\QT\5.9.1\msvc2015_64\bin\qtenv2.bat
 
 ECHO ==========================================================================
 ECHO CMake:                %CMAKE_EXE%

@@ -1,4 +1,5 @@
 #include "FactorysEditDialog.h"
+#include "FactoryTypesEditDialog.h"
 #include "IconSelectedDialog.h"
 
 #pragma region MODELS

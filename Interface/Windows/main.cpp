@@ -66,7 +66,8 @@ int main(int argc, char *argv[])
   qApp->installTranslator(qtTranslator);
 
   MainWindow mw(PC);
-  mw.show();
+  //mw.show();
+  mw.showMaximized();
   return app.exec();
 }
 

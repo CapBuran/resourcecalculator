@@ -85,6 +85,15 @@ namespace ResourceCalculator
   Type ClassName::Get##Name() const { return _##Name; } \
   void ClassName::Set##Name(Type Name) { _##Name = Name; }
 
+#define DeclareAndDefinitionPropertyReadOnly(Name, Type) \
+  inline Type Get##Name() const { return _##Name; }
+
+#define DeclareAndDefinitionRefReadOnly(Name, Type) \
+  inline const Type& Get##Name() const { return _##Name; }
+
+#define DeclarePropertyReadOnly(Name, Type) \
+  Type Get##Name() const;
+
   class Jsonable {
   protected:
     inline bool JsonCheckIsEmptyField( const Json::Value &obj_json, std::string obj_path = "", bool critical = false ) const

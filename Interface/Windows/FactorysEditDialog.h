@@ -5,8 +5,6 @@
 
 #include <QtWidgets>
 
-#include "FactoryTypesEditDialog.h"
-
 class FactoryTypesViewModel: public QAbstractTableModel {
   Q_OBJECT
 public:

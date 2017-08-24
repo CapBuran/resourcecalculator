@@ -6,6 +6,7 @@
 #include "ModuleCollection.h"
 #include "FactoryCollection.h"
 #include "IconCollection.h"
+#include "ProductionChainCollection.h"
 
 namespace ResourceCalculator {
 

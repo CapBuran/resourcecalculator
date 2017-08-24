@@ -1,14 +1,18 @@
+#ifndef ProductionChainModel_H
+#define ProductionChainModel_H
 
 #include "ParamsCollection.h"
-
 
 namespace ResourceCalculator {
 
   class ProductionChainModel;
 
   class ProductionChainDataRow {
-    KEY_RECIPE  RecipeCurrent;
-    KEY_FACTORY FactoryCurrent;
+
+    const ParamsCollection *_PC;
+
+    KEY_RECIPE  _RecipeCurrent;
+    KEY_FACTORY _FactoryCurrent;
 
     double _PeakPower;
     double _LevelOfPollution;
@@ -27,12 +31,23 @@ namespace ResourceCalculator {
     bool _Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols);
 
     bool _SetCountFactorys(double Count);
-    bool _SetFactoryModules(const ParamsCollection & PC, const FactoryModules &FM);
+    bool _SetFactoryModules(const FactoryModules &FM);
 
     FactoryModules _GetFactoryModules() const;
 
-  public:
-    
+   public:
+
+    DeclarePropertyReadOnly( CurrentFactoryName, std::string )
+    DeclarePropertyReadOnly( CurrentRecipeName, std::string )
+    DeclarePropertyReadOnly( SummProductivity, double )
+    DeclarePropertyReadOnly( SummSpeed, double )
+    DeclareAndDefinitionPropertyReadOnly( SpeedFactory, double )
+    DeclareAndDefinitionPropertyReadOnly( SecPerOneRecipe, double )
+    DeclareAndDefinitionPropertyReadOnly( RealTimeProductionOfOneItemPerSec, double )
+    DeclareAndDefinitionPropertyReadOnly( CountFactorys, double )
+    DeclareAndDefinitionRefReadOnly( CountItems, std::vector <double> )
+    DeclareAndDefinitionRefReadOnly( ItemsPerSec, std::vector <double> )
+
     friend ProductionChainModel;
     //friend std::vector <ProductionChainModel>;
 
@@ -40,6 +55,14 @@ namespace ResourceCalculator {
 
   class ProductionChainModel : public ItemBase
   {
+  private:
+    KEY_ITEM _ItemKey;
+    const ParamsCollection &_PC;
+
+    std::vector<KEY_ITEM> _ColsItems;
+    std::vector <ProductionChainDataRow>  _DataRows;
+    std::vector<double> _SummSpeeds;
+
   public:
     ProductionChainModel(const ParamsCollection &PC, KEY_ITEM ItemKey);
     ProductionChainModel(const ParamsCollection &PC);
@@ -63,15 +86,14 @@ namespace ResourceCalculator {
 
     const ProductionChainDataRow &GetRow(int Row) const;
 
+    const std::vector<double> GetSummSpeeds() const;
+
+    std::string GetItemName( int Col ) const;
+
     //Возвращают истину, когда нужно обновить всю модель
     bool Optimize();
 
   private:
-    KEY_ITEM _ItemKey;
-    const ParamsCollection &_PC;
-
-    std::vector<KEY_ITEM> _ColsItems;
-    std::vector <ProductionChainDataRow>  _DataRows;
 
     inline int ReadFromJson(const Json::Value & jsonPr) override
     {
@@ -85,6 +107,6 @@ namespace ResourceCalculator {
 
   };
 
-
-
 }
+
+#endif // ProductionChainModel_H

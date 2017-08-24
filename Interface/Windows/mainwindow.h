@@ -1,9 +1,11 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "../../ResourceCalculator/ParamsCollection.h"
+
 #include <QtWidgets>
 
-#include "../../ResourceCalculator/ParamsCollection.h"
+#include "ProductionChainWidget.h"
 
 class MainWindow : public QMainWindow
 {
@@ -23,30 +25,7 @@ private slots:
 
 private:
     void createMenus();
-
-    QWidget *CentralWidget;
-
     ResourceCalculator::ParamsCollection &_PC;
-
-    //RecipeWidget *_RecipeWidget;
-    QPushButton  *_ButtonRecipesOpen;
-    QPushButton  *_ButtonItemOpen;
-    QPushButton  *_ButtonFactoryOpen;
-    QPushButton  *_ButtonAddRecipeTab;
-    QPushButton  *_ButtonDelRecipeTab;
-    QPushButton  *_ButtonPropertyTableRecipeTab;
-    QMenu *fileMenu;
-    QMenu *toolMenu;
-    QAction *openAct;
-    QAction *saveAct;
-    QAction *exitAct;
-    QAction *addAct;
-    QAction *editAct;
-    QAction *removeAct;
-
-
-    QPushButton  *_ButtonDebug;
-
 };
 
 #endif // MAINWINDOW_H
