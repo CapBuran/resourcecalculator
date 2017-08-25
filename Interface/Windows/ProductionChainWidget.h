@@ -6,23 +6,69 @@
 #include <QtWidgets>
 
 class ProductionChainWidgetHeaderView: public QHeaderView {
+private:
+  int _MaxHeight;
 public:
   ProductionChainWidgetHeaderView( Qt::Orientation orientation, QWidget *parent = Q_NULLPTR );
   void paintSection( QPainter *painter, const QRect &rect, int logicalIndex ) const override;
   QSize sizeHint() const override;
+  int GetMaxHeight();
+  void SetMaxHeight( int MaxHeight );
   virtual QSize sectionSizeFromContents( int logicalIndex ) const override;
-
 };
 
-class ProductionChainWidgetDelegate: public QStyledItemDelegate {
+class ProductionChainWidgetDelegateBase: public QStyledItemDelegate {
   Q_OBJECT
+protected:
   const ResourceCalculator::ParamsCollection &_PC;
 public:
-  ProductionChainWidgetDelegate( const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0 );
+  ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0 );
   QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
-  void paint( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
 };
 
+
+class ProductionChainWidgetDelegate0: public ProductionChainWidgetDelegateBase {
+  Q_OBJECT
+public:
+  ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0 );
+};
+
+
+class ProductionChainWidgetProxyModel0: public QSortFilterProxyModel {
+  Q_OBJECT
+public:
+  ProductionChainWidgetProxyModel0( QObject *parent = 0 );
+protected:
+  bool filterAcceptsColumn( int source_column, const QModelIndex &source_parent ) const override;
+  bool filterAcceptsRow( int source_row, const QModelIndex &source_parent ) const override;
+};
+
+class ProductionChainWidgetProxyModel1: public QSortFilterProxyModel {
+  Q_OBJECT
+public:
+  ProductionChainWidgetProxyModel1( QObject *parent = 0 );
+protected:
+  bool filterAcceptsColumn( int source_column, const QModelIndex &source_parent ) const override;
+  bool filterAcceptsRow( int source_row, const QModelIndex &source_parent ) const override;
+};
+
+class ProductionChainWidgetProxyModel2: public QSortFilterProxyModel {
+  Q_OBJECT
+public:
+  ProductionChainWidgetProxyModel2( QObject *parent = 0 );
+protected:
+  bool filterAcceptsColumn( int source_column, const QModelIndex &source_parent ) const override;
+  bool filterAcceptsRow( int source_row, const QModelIndex &source_parent ) const override;
+};
+
+class ProductionChainWidgetProxyModel3: public QSortFilterProxyModel {
+  Q_OBJECT
+public:
+  ProductionChainWidgetProxyModel3( QObject *parent = 0 );
+protected:
+  bool filterAcceptsColumn( int source_column, const QModelIndex &source_parent ) const override;
+  bool filterAcceptsRow( int source_row, const QModelIndex &source_parent ) const override;
+};
 
 class ProductionChainWidgetModel: public QAbstractTableModel {
   Q_OBJECT
@@ -42,6 +88,7 @@ public:
 
   //int SetItemKey( ResourceCalculator::KEY_ITEM );
 
+  const ResourceCalculator::ProductionChainModel& GetPCM();
 
 private:
 
