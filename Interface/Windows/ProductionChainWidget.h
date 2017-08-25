@@ -35,6 +35,9 @@ public:
   QVariant data( const QModelIndex &index, int role ) const override;
   QVariant headerData( int section, Qt::Orientation orientation, int role ) const override;
   Qt::ItemFlags flags( const QModelIndex &index ) const override;
+
+  bool SetItemKey( ResourceCalculator::KEY_ITEM ItemKey);
+
   //bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole ) override;
 
   //int SetItemKey( ResourceCalculator::KEY_ITEM );
@@ -55,14 +58,13 @@ class ProductionChainWidget: public QTabWidget {
 public:
   ProductionChainWidget( const ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0 );
 
+  void AddTab( ResourceCalculator::KEY_ITEM ItemKey );
+
 public slots:
   void showAddEntryDialog();
   void addEntry( QString name, QString address );
   void editEntry();
   void removeEntry();
-
-public slots:
-  void AddTab();
   
 
 signals:

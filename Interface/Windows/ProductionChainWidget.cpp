@@ -13,7 +13,6 @@ void ProductionChainWidgetHeaderView::paintSection( QPainter * painter, const QR
   QString data = model()->headerData( logicalIndex, orientation() ).toString();
   painter->rotate( -90 );
   painter->setFont( font() );
-  int ff = font().overline();
   painter->drawText( -rect.height() + 5, rect.left() + ( rect.width() ) / 2, data );
 }
 
@@ -73,7 +72,6 @@ void ProductionChainWidgetDelegate::paint( QPainter * painter, const QStyleOptio
 ProductionChainWidgetModel::ProductionChainWidgetModel( const ResourceCalculator::ParamsCollection &PC, QObject *parent )
   : QAbstractTableModel( parent ), _PCM( PC )
 {
-  _PCM.SetItemKey( ResourceCalculator::KEY_ITEM::ID_ITEM_Paket1 );
 }
 
 int ProductionChainWidgetModel::rowCount( const QModelIndex &parent ) const
@@ -230,6 +228,10 @@ Qt::ItemFlags ProductionChainWidgetModel::flags( const QModelIndex &index ) cons
   return QAbstractTableModel::flags( index );
 }
 
+bool ProductionChainWidgetModel::SetItemKey( ResourceCalculator::KEY_ITEM ItemKey )
+{
+  return _PCM.SetItemKey( ItemKey );
+}
 
 #pragma endregion MODEL
 
@@ -256,9 +258,91 @@ void ProductionChainWidget::showAddEntryDialog()
   //}
 }
 
-void ProductionChainWidget::AddTab()
+void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
 {
+  QTableView *tables[4];
 
+  ProductionChainWidgetModel *Model = new ProductionChainWidgetModel( _PC );
+  Model->SetItemKey( ItemKey );
+
+  QSplitter *splitter = new QSplitter( this );
+
+  for ( int i = 0; i < 4; i++ ) {
+    tables[i] = new QTableView();
+    QTableView *tableView = tables[i];
+    tableView->setModel( Model );
+    tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
+    //tableView->setEditTriggers( QAbstractItemView::NoEditTriggers );
+    tableView->setSelectionMode( QAbstractItemView::SingleSelection );
+    tableView->setHorizontalHeader( new ProductionChainWidgetHeaderView( Qt::Orientation::Horizontal ) );
+    tableView->setItemDelegate( new ProductionChainWidgetDelegate( _PC ) );
+    tableView->verticalHeader()->hide();
+    tableView->setAlternatingRowColors( true );
+    //tableView->horizontalHeader()->setStretchLastSection( true );
+    tableView->horizontalHeader()->setStretchLastSection( false );
+    tableView->resizeRowsToContents();
+    tableView->resizeColumnsToContents();
+  }
+
+  splitter->addWidget( tables[0] );
+
+  int VerticalSizeResult = 25;
+
+  tables[3]->setFixedHeight( VerticalSizeResult );
+  tables[3]->verticalHeader()->hide();
+  tables[3]->horizontalHeader()->hide();
+  tables[3]->verticalScrollBar()->hide();
+  tables[3]->verticalScrollBar()->setDisabled( true );
+  tables[1]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
+  tables[2]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
+  tables[3]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
+  tables[3]->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+
+  QWidget *WidgetLabel = new QWidget();
+  WidgetLabel->setFixedHeight( VerticalSizeResult );
+
+  QVBoxLayout *VBoxLayout = new QVBoxLayout();
+  VBoxLayout->setMargin( 0 );
+  VBoxLayout->setSpacing( 0 );
+  VBoxLayout->addWidget( tables[0] );
+  VBoxLayout->addWidget( WidgetLabel );
+  QWidget *Widget1 = new QWidget();
+  Widget1->setLayout( VBoxLayout );
+
+  QWidget *label2 = new QLabel( tr( "Summ results:  " ) );
+  label2->setFixedHeight( VerticalSizeResult );
+
+  QGridLayout *qGridLayout = new QGridLayout;
+  qGridLayout->setMargin( 0 );
+  qGridLayout->setSpacing( 0 );
+  qGridLayout->addWidget( tables[1], 0, 0 );
+  qGridLayout->addWidget( tables[2], 0, 1 );
+  qGridLayout->addWidget( tables[3], 1, 1 );
+  qGridLayout->addWidget( label2, 1, 0, Qt::AlignCenter | Qt::AlignRight );
+  qGridLayout->setRowMinimumHeight( 1, VerticalSizeResult );
+  qGridLayout->setRowStretch( 1, VerticalSizeResult );
+
+  QWidget *Widget2 = new QWidget();
+  Widget2->setLayout( qGridLayout );
+
+  splitter->addWidget( Widget1 );
+  splitter->addWidget( Widget2 );
+
+  connect( tables[1]->horizontalScrollBar(), SIGNAL( valueChanged( int ) ), tables[2]->horizontalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[1]->horizontalScrollBar(), SIGNAL( valueChanged( int ) ), tables[3]->horizontalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[2]->horizontalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->horizontalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[2]->horizontalScrollBar(), SIGNAL( valueChanged( int ) ), tables[3]->horizontalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[3]->horizontalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->horizontalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[3]->horizontalScrollBar(), SIGNAL( valueChanged( int ) ), tables[2]->horizontalScrollBar(), SLOT( setValue( int ) ) );
+
+  connect( tables[0]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->verticalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[0]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[2]->verticalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[1]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[0]->verticalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[1]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[2]->verticalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[2]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[0]->verticalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[2]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->verticalScrollBar(), SLOT( setValue( int ) ) );
+
+  addTab( splitter, QString::fromStdString( _PC.IC.GetItem( ItemKey )->GetName() ) );
 }
 
 void ProductionChainWidget::addEntry( QString name, QString address )
@@ -338,19 +422,6 @@ void ProductionChainWidget::removeEntry()
 
 void ProductionChainWidget::setupTabs()
 {
-  QTableView *tableView = new QTableView();
-  tableView->setModel( new ProductionChainWidgetModel( _PC ) );
-  tableView->setSelectionBehavior( QAbstractItemView::SelectRows );
-  //tableView->setEditTriggers( QAbstractItemView::NoEditTriggers );
-  tableView->setSelectionMode( QAbstractItemView::SingleSelection );
-  tableView->setHorizontalHeader( new ProductionChainWidgetHeaderView( Qt::Orientation::Horizontal ) );
-  tableView->setItemDelegate( new ProductionChainWidgetDelegate( _PC ) );
-  tableView->verticalHeader()->hide();
-  tableView->setAlternatingRowColors( true );
-  //tableView->horizontalHeader()->setStretchLastSection( true );
-  tableView->horizontalHeader()->setStretchLastSection( false );
-  tableView->resizeRowsToContents();
-  tableView->resizeColumnsToContents();
-
-  addTab( tableView, "First" );
+  AddTab( ResourceCalculator::KEY_ITEM::ID_ITEM_Paket1 );
+  AddTab( ResourceCalculator::KEY_ITEM::ID_ITEM_Sherst );
 }
