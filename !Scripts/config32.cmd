@@ -14,6 +14,7 @@ PUSHD ..
 SET MyRepository=%CD%
 PUSHD ..
 SET MyProjectDir=%CD%\%compiler%_%versionVS%
+SET MyDeployDir=%CD%\%compiler%_%versionVS%_QT_DEPLOY
 
 POPD
 POPD

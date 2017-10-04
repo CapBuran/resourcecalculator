@@ -21,16 +21,23 @@ class ProductionChainWidgetDelegateBase: public QStyledItemDelegate {
   Q_OBJECT
 protected:
   const ResourceCalculator::ParamsCollection &_PC;
+  ResourceCalculator::ProductionChainModel &_PCM;
 public:
-  ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0 );
-  QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
+  ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection &PC, ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
+  virtual QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
 };
 
 
 class ProductionChainWidgetDelegate0: public ProductionChainWidgetDelegateBase {
   Q_OBJECT
 public:
-  ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0 );
+  ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
+  QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
+  QWidget *createEditor( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
+  void setEditorData( QWidget *editor, const QModelIndex &index ) const override;
+  void setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const override;
+  void updateEditorGeometry( QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
+  void paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const override;
 };
 
 
@@ -84,11 +91,18 @@ public:
 
   bool SetItemKey( ResourceCalculator::KEY_ITEM ItemKey);
 
-  //bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole ) override;
+  bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole ) override;
 
   //int SetItemKey( ResourceCalculator::KEY_ITEM );
 
-  const ResourceCalculator::ProductionChainModel& GetPCM();
+  ResourceCalculator::ProductionChainModel& GetPCM();
+
+public Q_SLOTS:
+
+  void ModelAllChanged();
+
+Q_SIGNALS:
+  void AllDataChanged();
 
 private:
 
@@ -112,12 +126,15 @@ public slots:
   void addEntry( QString name, QString address );
   void editEntry();
   void removeEntry();
-  
 
 signals:
   void selectionChanged( const QItemSelection &selected );
 
 private:
+
+  QTableView *tables[4];
+
+  ProductionChainWidgetModel *Model;
   void setupTabs();
   const ResourceCalculator::ParamsCollection &_PC;
 };

@@ -8,6 +8,7 @@
 #include <QtWidgets>
 
 #define StandartTestFileJson "C:\\games\\Factorio.json"
+//#define StandartTestFileJson "Factorio.json"
 
 int main(int argc, char *argv[])
 {

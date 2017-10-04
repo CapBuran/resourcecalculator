@@ -2,6 +2,8 @@
 
 #pragma region DELEGATE
 
+#define MINSizeWidthColumb 60
+
 ProductionChainWidgetHeaderView::ProductionChainWidgetHeaderView( Qt::Orientation orientation, QWidget * parent ):
 QHeaderView( orientation, parent )
 {
@@ -31,6 +33,8 @@ QSize ProductionChainWidgetHeaderView::sizeHint() const
       MaxHeight = fm.height();
     }
   }
+  MaxWidth  = qMax( MaxWidth, MINSizeWidthColumb );
+  MaxHeight = qMax( MaxHeight, MINSizeWidthColumb );
   return QSize( MaxHeight, MaxWidth );
 }
 
@@ -51,15 +55,15 @@ QSize ProductionChainWidgetHeaderView::sectionSizeFromContents( int logicalIndex
 {
   QString DisplayData = model()->headerData( logicalIndex, orientation() ).toString();
   QFontMetrics fm( font() );
-  int MaxWidth = fm.width( DisplayData );
-  int MaxHeight = fm.height();
+  int MaxWidth = qMax( fm.width( DisplayData ), MINSizeWidthColumb );
+  int MaxHeight = qMax(fm.height(), MINSizeWidthColumb );
   return QSize( MaxHeight, MaxWidth );
 }
 
 
 
-ProductionChainWidgetDelegateBase::ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection & PC, QObject * parent ):
-  QStyledItemDelegate( parent ), _PC( PC )
+ProductionChainWidgetDelegateBase::ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection & PC, ResourceCalculator::ProductionChainModel &PCM, QObject * parent ):
+  QStyledItemDelegate( parent ), _PC( PC ), _PCM( PCM )
 {
 }
 
@@ -72,6 +76,113 @@ QSize ProductionChainWidgetDelegateBase::sizeHint(
   QFontMetrics fm( optV4.fontMetrics );
   return QSize( fm.width( optV4.text ) + fm.overlinePos(), fm.height() );
 }
+
+
+ProductionChainWidgetDelegate0::ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, ResourceCalculator::ProductionChainModel &PCM, QObject *parent):
+  ProductionChainWidgetDelegateBase( PC, PCM,  parent )
+{
+}
+
+QSize ProductionChainWidgetDelegate0::sizeHint( const QStyleOptionViewItem & option, const QModelIndex & index ) const
+{
+  QSize RetValue = ProductionChainWidgetDelegateBase::sizeHint( option, index );
+  if ( index.column() == 0 ) {
+    RetValue.setWidth( RetValue.width() + 10 );
+  }
+  return RetValue;
+}
+
+QWidget *ProductionChainWidgetDelegate0::createEditor( QWidget *parent, const QStyleOptionViewItem &option,  const QModelIndex &index ) const
+{
+  using namespace ResourceCalculator;
+  if ( index.column() == 0 ) {
+    const std::vector <KEY_FACTORY> &Factorys = _PCM.GetRow( index.row() ).GetFactorys();
+    QComboBox *combobox = new QComboBox( parent );
+    KEY_FACTORY CurenFactory = _PCM.GetRow( index.row() ).GetFactoryCurrent();
+    int Pos = -1;
+    int Counter = 0;
+    for ( KEY_FACTORY FI : Factorys ) {
+      QString str = QString::fromStdString( _PC.FC.GetFactory( FI ).GetName() );
+      combobox->addItem( str );
+      if ( CurenFactory == FI ) {
+        Pos = Counter;
+      }
+      Counter++;
+    }
+    combobox->setGeometry( option.rect );
+    combobox->setCurrentIndex( Pos );
+    combobox->setFrame( true );
+    return combobox;
+  }
+  return ProductionChainWidgetDelegateBase::createEditor( parent, option, index );
+}
+
+void ProductionChainWidgetDelegate0::setEditorData( QWidget *editor, const QModelIndex &index ) const
+{
+  bool IsOk = false;
+  if ( index.column() == 0 ) {
+    QComboBox *combobox = dynamic_cast< QComboBox * >( editor );
+    combobox->setCurrentText( index.model()->data( index, Qt::EditRole ).toString() );
+    IsOk = true;
+  }
+  if ( !IsOk ) {
+    ProductionChainWidgetDelegateBase::setEditorData( editor, index );
+  }
+
+  //int value = index.model()->data( index, Qt::EditRole ).toInt();
+  //QSpinBox *spinBox = static_cast<QSpinBox*>( editor );
+  //spinBox->setValue( value );
+}
+
+void ProductionChainWidgetDelegate0::setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const
+{
+  bool IsOk = false;
+  if ( index.column() == 0 ) {
+    QComboBox *combobox = dynamic_cast< QComboBox * >( editor );
+    int value = combobox->currentIndex();
+    model->setData( index, value, Qt::EditRole );
+    IsOk = true;
+  }
+  if ( !IsOk ) {
+    ProductionChainWidgetDelegateBase::setModelData( editor, model, index );
+  }
+
+  //QSpinBox *spinBox = static_cast<QSpinBox*>( editor );
+  //spinBox->interpretText();
+  //int value = spinBox->value();
+  //model->setData( index, value, Qt::EditRole );
+}
+
+void ProductionChainWidgetDelegate0::updateEditorGeometry( QWidget *editor,
+  const QStyleOptionViewItem &option, const QModelIndex &/* index */ ) const
+{
+  editor->setGeometry( option.rect );
+}
+
+void ProductionChainWidgetDelegate0::paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
+{
+  using namespace ResourceCalculator;
+  switch ( index.column() ) {
+  case 0: {
+    KEY_FACTORY CurenFactory = _PCM.GetRow( index.row() ).GetFactoryCurrent();
+    const Factory &factory = _PC.FC.GetFactory( CurenFactory );
+    QString Text = QString::fromStdString( factory.GetName() );
+    QStyleOptionComboBox comboBoxOption;
+    comboBoxOption.rect = option.rect;
+    comboBoxOption.currentText = Text;
+    comboBoxOption.state = QStyle::State_Enabled;
+    QApplication::style()->drawComplexControl( QStyle::CC_ComboBox, &comboBoxOption, painter, 0 );
+    QApplication::style()->drawControl( QStyle::CE_ComboBoxLabel, &comboBoxOption, painter, 0 );
+    break;
+  }
+  default:
+    QStyledItemDelegate::paint( painter, option, index );
+    return;
+    break;
+  }
+}
+
+
 
 //void ProductionChainWidgetDelegateBase::paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
 //{
@@ -165,7 +276,6 @@ QVariant ProductionChainWidgetModel::data( const QModelIndex &index, int role ) 
   }
 
   if ( index.row() == _PCM.CountRecipes() ) {
-//    return QString::number( index.column() + 8 );
     return QString::number( _PCM.GetSummSpeeds()[index.column() - 8 - CI] );
   }
   
@@ -208,30 +318,28 @@ QVariant ProductionChainWidgetModel::headerData( int section, Qt::Orientation or
   return QVariant();
 }
 
-//
-//bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVariant &value, int role )
-//{
-//  //if ( index.isValid() && role == Qt::EditRole ) {
-//  //  int row = index.row();
-//
-//  //  QPair<QString, QString> p = listOfPairs.value( row );
-//
-//  //  if ( index.column() == 0 )
-//  //    p.first = value.toString();
-//  //  else if ( index.column() == 1 )
-//  //    p.second = value.toString();
-//  //  else
-//  //    return false;
-//
-//  //  listOfPairs.replace( row, p );
-//  //  emit( dataChanged( index, index ) );
-//
-//  //  return true;
-//  //}
-//
-//  return false;
-//}
-//
+bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVariant &value, int role )
+{
+  using namespace ResourceCalculator;
+  if ( !( index.isValid() && role == Qt::EditRole ) )return false;
+
+  if ( index.column() == 0 ) {
+    const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
+    KEY_FACTORY KeyFactory = ROW.GetFactoryIdFromIndex( value.toInt() );
+    _PCM.SetFactory( index.row(), KeyFactory );
+    //emit( dataChanged( index, index ) );
+    emit( AllDataChanged() );
+    return true;
+  }
+  if ( index.column() == 7 ) {
+    _PCM.SetCountFactores( index.row(), value.toDouble() );
+    //emit( dataChanged( index, index ) );
+    emit( AllDataChanged() );
+    return true;
+  }
+  return false;
+}
+
 //int ProductionChainWidgetModel::SetItemKey( ResourceCalculator::KEY_ITEM )
 //{
 //  return 0;
@@ -242,8 +350,11 @@ Qt::ItemFlags ProductionChainWidgetModel::flags( const QModelIndex &index ) cons
   if ( !index.isValid() )
     return Qt::ItemIsEnabled;
 
-  //return QAbstractTableModel::flags( index ) | Qt::ItemIsEditable;
-  return QAbstractTableModel::flags( index );
+  Qt::ItemFlags flags = QAbstractTableModel::flags( index );
+  if ( index.column() == 0 || index.column() == 2 || index.column() == 3 || index.column() == 7 ) {
+    flags |= Qt::ItemIsEditable;
+  }
+  return flags;
 }
 
 bool ProductionChainWidgetModel::SetItemKey( ResourceCalculator::KEY_ITEM ItemKey )
@@ -251,10 +362,17 @@ bool ProductionChainWidgetModel::SetItemKey( ResourceCalculator::KEY_ITEM ItemKe
   return _PCM.SetItemKey( ItemKey );
 }
 
-const ResourceCalculator::ProductionChainModel & ProductionChainWidgetModel::GetPCM()
+ResourceCalculator::ProductionChainModel & ProductionChainWidgetModel::GetPCM()
 {
   return _PCM;
 }
+
+void ProductionChainWidgetModel::ModelAllChanged()
+{
+  beginResetModel();
+  endResetModel();
+}
+
 
 #pragma endregion MODEL
 
@@ -353,10 +471,9 @@ void ProductionChainWidget::showAddEntryDialog()
 
 void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
 {
-  QTableView *tables[4];
   QSortFilterProxyModel *Proxys[4];
 
-  ProductionChainWidgetModel *Model = new ProductionChainWidgetModel( _PC );
+  Model = new ProductionChainWidgetModel( _PC );
   Model->SetItemKey( ItemKey );
 
   QSplitter *splitter = new QSplitter( this );
@@ -369,26 +486,31 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
   int MaxHeight = 0;
 
   for ( int i = 0; i < 4; i++ ) {
-    tables[i] = new QTableView();
+    tables[i] = new QTableView(this);
     Proxys[i]->setSourceModel( Model );
     tables[i]->setModel( Proxys[i] );
     tables[i]->setSelectionBehavior( QAbstractItemView::SelectRows );
     //tables[i]->setEditTriggers( QAbstractItemView::NoEditTriggers );
     tables[i]->setSelectionMode( QAbstractItemView::SingleSelection );
-    tables[i]->setHorizontalHeader( new ProductionChainWidgetHeaderView( Qt::Orientation::Horizontal ) );
-    tables[i]->setItemDelegate( new ProductionChainWidgetDelegateBase( _PC ) );
+    tables[i]->setHorizontalHeader( new ProductionChainWidgetHeaderView( Qt::Orientation::Horizontal, this ) );
+    if ( i == 0 ) {
+      tables[i]->setItemDelegate( new ProductionChainWidgetDelegate0( _PC, Model->GetPCM(), this ) );
+    } else {
+      tables[i]->setItemDelegate( new ProductionChainWidgetDelegateBase( _PC, Model->GetPCM(), this ) );
+      tables[i]->horizontalHeader()->setSectionResizeMode( QHeaderView::Fixed );
+      
+    }
     tables[i]->verticalHeader()->hide();
     tables[i]->setAlternatingRowColors( true );
-    //tables[i]->horizontalHeader()->setStretchLastSection( true );
     tables[i]->horizontalHeader()->setStretchLastSection( false );
     int Height = dynamic_cast< ProductionChainWidgetHeaderView* >( tables[i]->horizontalHeader() )->GetMaxHeight();
     if ( Height > MaxHeight ) {
       MaxHeight = Height;
     }
+    dynamic_cast< ProductionChainWidgetHeaderView* >( tables[i]->horizontalHeader() )->SetMaxHeight( MaxHeight );
   }
 
   for ( int i = 0; i < 4; i++ ) {
-    dynamic_cast< ProductionChainWidgetHeaderView* >( tables[i]->horizontalHeader() )->SetMaxHeight( MaxHeight );
     tables[i]->resizeRowsToContents();
     tables[i]->resizeColumnsToContents();
   }
@@ -397,14 +519,14 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
 
   int VerticalSizeResult = 25;
 
+  tables[0]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+
+  tables[1]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+  tables[1]->setEditTriggers( QAbstractItemView::AllEditTriggers );
+
   tables[3]->setFixedHeight( VerticalSizeResult );
-  tables[3]->verticalHeader()->hide();
   tables[3]->horizontalHeader()->hide();
   tables[3]->verticalScrollBar()->hide();
-  tables[3]->verticalScrollBar()->setDisabled( true );
-  tables[1]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
-  tables[2]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
-  tables[3]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
   tables[3]->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
   QWidget *WidgetLabel = new QWidget();
@@ -444,13 +566,11 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
   connect( tables[3]->horizontalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->horizontalScrollBar(), SLOT( setValue( int ) ) );
   connect( tables[3]->horizontalScrollBar(), SIGNAL( valueChanged( int ) ), tables[2]->horizontalScrollBar(), SLOT( setValue( int ) ) );
 
-  connect( tables[0]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->verticalScrollBar(), SLOT( setValue( int ) ) );
-  connect( tables[0]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[2]->verticalScrollBar(), SLOT( setValue( int ) ) );
-  connect( tables[1]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[0]->verticalScrollBar(), SLOT( setValue( int ) ) );
-  connect( tables[1]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[2]->verticalScrollBar(), SLOT( setValue( int ) ) );
   connect( tables[2]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[0]->verticalScrollBar(), SLOT( setValue( int ) ) );
   connect( tables[2]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->verticalScrollBar(), SLOT( setValue( int ) ) );
 
+  connect( Model, SIGNAL( AllDataChanged() ), Model, SLOT( ModelAllChanged( ) ) );
+  
   addTab( splitter, QString::fromStdString( _PC.IC.GetItem( ItemKey )->GetName() ) );
 }
 

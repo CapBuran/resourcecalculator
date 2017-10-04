@@ -28,15 +28,20 @@ namespace ResourceCalculator {
     std::vector <double> _CountItems;
     std::vector <double> _ItemsPerSec;
 
-    bool _Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols);
-
-    bool _SetCountFactorys(double Count);
-    bool _SetFactoryModules(const FactoryModules &FM);
 
     FactoryModules _GetFactoryModules() const;
 
-   public:
+  public:
 
+    bool SetCountFactorys( double Count );
+    bool SetFactoryModules( const FactoryModules &FM );
+    bool SetFactoryCurrent( KEY_FACTORY );
+    
+    bool Init( const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols );
+
+
+    DeclareAndDefinitionPropertyReadOnly( Factorys, std::vector <KEY_FACTORY> )
+    DeclareAndDefinitionPropertyReadOnly( FactoryCurrent, KEY_FACTORY )
     DeclarePropertyReadOnly( CurrentFactoryName, std::string )
     DeclarePropertyReadOnly( CurrentRecipeName, std::string )
     DeclarePropertyReadOnly( SummProductivity, double )
@@ -47,8 +52,8 @@ namespace ResourceCalculator {
     DeclareAndDefinitionPropertyReadOnly( CountFactorys, double )
     DeclareAndDefinitionRefReadOnly( CountItems, std::vector <double> )
     DeclareAndDefinitionRefReadOnly( ItemsPerSec, std::vector <double> )
-
-    friend ProductionChainModel;
+    KEY_FACTORY GetFactoryIdFromIndex(int Index) const;
+    //friend ProductionChainModel;
     //friend std::vector <ProductionChainModel>;
 
   };
@@ -76,6 +81,8 @@ namespace ResourceCalculator {
 
     //Возвращают истину, когда нужно обновить всю модель
     bool SetFactory(int Row, KEY_FACTORY FactoryId);
+
+    bool SetCountFactores( int Row, double CountFactores );
 
     //Возвращают истину, когда нужно обновить всю модель
     bool SetModules(int Row, const std::vector < KEY_MODULE > & Modules );

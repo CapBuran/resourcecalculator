@@ -38,6 +38,7 @@ namespace ResourceCalculator
     ItemBase::ReadFromJson( jsonPr );
     _Speed = jsonPr["Speed"].asDouble();
     _CountSlotsForModules = jsonPr["CountSlotsForModules"].asInt();
+    _CountSlotsForRecipes = jsonPr["CountSlotsForRecipes"].asInt();
     _Wear = jsonPr["Wear"].asDouble();
     _Power = jsonPr["Power"].asDouble();
     _ElectricPeakPower = jsonPr["ElectricPeakPower"].asDouble();
