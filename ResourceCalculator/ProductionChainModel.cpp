@@ -43,7 +43,7 @@ namespace ResourceCalculator
 
     _SecPerOneRecipe = recipe.GetTime();
     _SpeedFactory = factory.GetSpeed() * _FM.GetSummSpeed( PC.MC );
-    _RealTimeProductionOfOneItemPerSec = _SpeedFactory / _SecPerOneRecipe;
+    _RealTimeProductionOfOneItemPerSec = _SecPerOneRecipe / _SpeedFactory;
 
     double ProductionSpeedPerSecond = _FM.GetSummProductivity( PC.MC );
 
@@ -94,8 +94,11 @@ namespace ResourceCalculator
 
   bool ProductionChainDataRow::SetFactoryModules( const FactoryModules & FM )
   {
+
     _FM = FM;
-    _PC->FC.GetFactory( _FactoryCurrent ).FixFactoryModules( _FM );
+    const Factory &Factory = _PC->FC.GetFactory( _FactoryCurrent );
+      
+    Factory.FixFactoryModules( _FM );
 
     const size_t CountsCols = _CountItems.size();
 
@@ -103,10 +106,12 @@ namespace ResourceCalculator
 
     double ProductionSpeedPerSecond = _FM.GetSummProductivity( _PC->MC );
 
-
+    _SpeedFactory = Factory.GetSpeed();
+    _RealTimeProductionOfOneItemPerSec = _SecPerOneRecipe / _SpeedFactory;
 
     for ( size_t ColId = 0; ColId < CountsCols; ColId++ ) {
       const KEY_ITEM ItemKey = _ColItems[ColId];
+      _CountItems[ColId] = 0;
       for ( auto Required : recipe.GetRequired() ) {
         if ( Required.ItemId == ItemKey ) {
           _CountItems[ColId] = -Required.Count;
@@ -128,7 +133,7 @@ namespace ResourceCalculator
       return false;
     }
     _FactoryCurrent = KeyFactory;
-
+    
     SetFactoryModules( _FM );
 
     return true;
@@ -185,6 +190,8 @@ namespace ResourceCalculator
         _SummSpeeds[ItemId] += row.GetItemsPerSec()[ItemId];
       }
     }
+    
+
     return true;
   }
 
@@ -252,7 +259,7 @@ namespace ResourceCalculator
   {
     _DataRows[Row].SetFactoryCurrent( FactoryId );
     Optimize();
-    return false;
+    return true;
   }
 
   bool ProductionChainModel::SetCountFactores( int Row, double CountFactores )
