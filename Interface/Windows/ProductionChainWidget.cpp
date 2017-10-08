@@ -2,7 +2,8 @@
 
 #pragma region DELEGATE
 
-#define MINSizeWidthColumb 60
+#define MINSizeWidthColumb 65
+#define EpsilonToOut 4
 
 ProductionChainWidgetHeaderView::ProductionChainWidgetHeaderView( Qt::Orientation orientation, QWidget * parent ):
 QHeaderView( orientation, parent )
@@ -194,6 +195,14 @@ void ProductionChainWidgetDelegate0::paint( QPainter * painter, const QStyleOpti
 
 #pragma region MODEL
 
+QString ToOut( double Value )
+{
+  if ( abs( Value ) < 0.0001 ) {
+    Value = 0.0;
+  }
+  return QString::number( Value, 'g', EpsilonToOut );
+}
+
 ProductionChainWidgetModel::ProductionChainWidgetModel( const ResourceCalculator::ParamsCollection &PC, QObject *parent )
   : QAbstractTableModel( parent ), _PCM( PC )
 {
@@ -222,7 +231,6 @@ QVariant ProductionChainWidgetModel::data( const QModelIndex &index, int role ) 
   if ( role != Qt::DisplayRole )
     return QVariant();
 
-
   if ( index.row() > _PCM.CountRecipes() || index.row() < 0 )
     return QVariant();
 
@@ -239,17 +247,17 @@ QVariant ProductionChainWidgetModel::data( const QModelIndex &index, int role ) 
     case 1:
       return QString::fromStdString( ROW.GetCurrentRecipeName() );
     case 2:
-      return QString::number( ROW.GetSummProductivity() );
+      return ToOut( ROW.GetSummProductivity() );
     case 3:
-      return QString::number( ROW.GetSummSpeed() );
+      return ToOut( ROW.GetSummSpeed() );
     case 4:
-      return QString::number( ROW.GetSpeedFactory() );
+      return ToOut( ROW.GetSpeedFactory() );
     case 5:
-      return QString::number( ROW.GetSecPerOneRecipe() );
+      return ToOut( ROW.GetSecPerOneRecipe() );
     case 6:
-      return QString::number( ROW.GetRealTimeProductionOfOneItemPerSec() );
+      return ToOut( ROW.GetRealTimeProductionOfOneItemPerSec() );
     case 7:
-      return QString::number( ROW.GetCountFactorys() );
+      return ToOut( ROW.GetCountFactorys() );
     default:
       break;
     }
@@ -258,25 +266,25 @@ QVariant ProductionChainWidgetModel::data( const QModelIndex &index, int role ) 
   if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
     const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
     if ( 7 < index.column() && index.column() <= 7 + CI ) {
-      return QString::number( ROW.GetCountItems()[index.column() - 8] );
+      return ToOut( ROW.GetCountItems()[index.column() - 8] );
     }
     if ( 7 < index.column() + CI && index.column() <= 7 + CI + CI ) {
-      return QString::number( ROW.GetItemsPerSec()[index.column() - 8 - CI] );
+      return ToOut( ROW.GetItemsPerSec()[index.column() - 8 - CI] );
     }
   }
 
   if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
     const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
     if ( 7 < index.column() && index.column() <= 7 + CI ) {
-      return QString::number( ROW.GetCountItems()[index.column() - 8] );
+      return ToOut( ROW.GetCountItems()[index.column() - 8] );
     }
     if ( 7 < index.column() + CI && index.column() <= 7 + CI + CI ) {
-      return QString::number( ROW.GetItemsPerSec()[index.column() - 8 - CI] );
+      return ToOut( ROW.GetItemsPerSec()[index.column() - 8 - CI] );
     }
   }
 
   if ( index.row() == _PCM.CountRecipes() ) {
-    return QString::number( _PCM.GetSummSpeeds()[index.column() - 8 - CI] );
+    return ToOut( _PCM.GetSummSpeeds()[index.column() - 8 - CI] );
   }
   
   return QVariant();
@@ -324,16 +332,27 @@ bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVaria
   if ( !( index.isValid() && role == Qt::EditRole ) )return false;
 
   if ( index.column() == 0 ) {
+    beginResetModel();
     const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
     KEY_FACTORY KeyFactory = ROW.GetFactoryIdFromIndex( value.toInt() );
     _PCM.SetFactory( index.row(), KeyFactory );
-    //emit( dataChanged( index, index ) );
+    endResetModel();
     emit( AllDataChanged() );
     return true;
   }
   if ( index.column() == 7 ) {
+    beginResetModel();
     _PCM.SetCountFactores( index.row(), value.toDouble() );
-    //emit( dataChanged( index, index ) );
+    endResetModel();
+    emit( AllDataChanged() );
+    return true;
+  }
+  if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
+    beginResetModel();
+    ProductionChainDataRow& ROW = _PCM.GetRowEdit( index.row() );
+    ROW.FindCountFactorysForItemsCount( index.column() - 8 - _PCM.CountItems(), value.toDouble() );
+    _PCM.Optimize();
+    endResetModel();
     emit( AllDataChanged() );
     return true;
   }
@@ -352,6 +371,9 @@ Qt::ItemFlags ProductionChainWidgetModel::flags( const QModelIndex &index ) cons
 
   Qt::ItemFlags flags = QAbstractTableModel::flags( index );
   if ( index.column() == 0 || index.column() == 2 || index.column() == 3 || index.column() == 7 ) {
+    flags |= Qt::ItemIsEditable;
+  }
+  if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
     flags |= Qt::ItemIsEditable;
   }
   return flags;

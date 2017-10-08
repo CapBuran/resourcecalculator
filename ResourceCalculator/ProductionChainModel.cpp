@@ -111,7 +111,7 @@ namespace ResourceCalculator
 
     for ( size_t ColId = 0; ColId < CountsCols; ColId++ ) {
       const KEY_ITEM ItemKey = _ColItems[ColId];
-      _CountItems[ColId] = 0;
+      _CountItems[ColId] = 0.0;
       for ( auto Required : recipe.GetRequired() ) {
         if ( Required.ItemId == ItemKey ) {
           _CountItems[ColId] = -Required.Count;
@@ -139,12 +139,29 @@ namespace ResourceCalculator
     return true;
   }
 
+  bool ProductionChainDataRow::FindCountFactorysForItemsCount( int Columb, double Count )
+  {
+    if ( _CountItems[Columb] == 0.0 ) return false;
+    if ( abs(_CountFactorys) < 0.001 ) {
+      SetCountFactorys( 1.0 );
+    }
+    double OldCountFactorys = _CountFactorys;
+    double OldCount = _ItemsPerSec[Columb];
+    double Coeff = Count / OldCount;
+    return SetCountFactorys( Coeff * OldCountFactorys );
+  }
+
   FactoryModules ProductionChainDataRow::_GetFactoryModules() const
   {
     return _FM;
   }
 
   const ProductionChainDataRow& ProductionChainModel::GetRow( int Row ) const
+  {
+    return _DataRows[Row];
+  }
+
+  ProductionChainDataRow &ProductionChainModel::GetRowEdit( int Row )
   {
     return _DataRows[Row];
   }
@@ -156,12 +173,12 @@ namespace ResourceCalculator
 
   double ProductionChainDataRow::GetSummProductivity() const
   {
-    return 0;
+    return 0.0;
   }
 
   double ProductionChainDataRow::GetSummSpeed() const
   {
-    return 0;
+    return 0.0;
   }
 
   std::string ProductionChainDataRow::GetCurrentFactoryName() const
@@ -175,6 +192,7 @@ namespace ResourceCalculator
   {
     return _PC->RC.GetRecipe( _RecipeCurrent )->GetName();
   }
+
 
   bool ProductionChainModel::Optimize()
   {
@@ -191,6 +209,16 @@ namespace ResourceCalculator
       }
     }
     
+
+    return true;
+  }
+
+  bool ProductionChainModel::SetResultItemCount( double Count )
+  {
+    const size_t CounRecipes = _DataRows.size();
+
+
+
 
     return true;
   }
@@ -212,7 +240,10 @@ namespace ResourceCalculator
 
   bool ProductionChainModel::SetItemKey( KEY_ITEM ItemKey )
   {
-    ItemResultTree IRT = _PC.RC.BuildTree( ItemKey, 8 );
+    std::list<KEY_ITEM> ListRequest;
+    std::list<KEY_ITEM> ListRequestResourceOnly;
+
+    ItemResultTree IRT = _PC.RC.BuildTree( ItemKey, 8, ListRequest, ListRequestResourceOnly );
 
     std::list <KEY_RECIPE> ResultRecipes;
     std::list <KEY_ITEM> ResultItems;
@@ -231,7 +262,15 @@ namespace ResourceCalculator
 
     _ColsItems.clear();
     _ColsItems.resize( CountsItems );
-    std::copy( ResultItems.begin(), ResultItems.end(), _ColsItems.begin() );
+
+   /* bool IsCoolStructFind = ResultRecipes.size() == ListRequestResourceOnly.size();*/
+
+    if ( ListRequest.size() == CountsRecipes && ListRequestResourceOnly.size() + ListRequest.size() == CountsItems ) {
+      std::copy( ListRequestResourceOnly.begin(), ListRequestResourceOnly.end(), _ColsItems.begin() );
+      std::copy( ListRequest.begin(), ListRequest.end(), &_ColsItems[ListRequestResourceOnly.size()] );
+    } else {
+      std::copy( ResultItems.begin(), ResultItems.end(), _ColsItems.begin() );
+    }
 
     _DataRows.clear();
     _DataRows.resize( CountsRecipes );
@@ -268,8 +307,7 @@ namespace ResourceCalculator
     Optimize();
     return true;
   }
-
-
+  
   bool ProductionChainModel::SetModules( int Row, const std::vector<KEY_MODULE>& Modules )
   {
     return false;

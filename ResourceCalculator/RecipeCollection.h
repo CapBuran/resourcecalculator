@@ -38,8 +38,10 @@ namespace ResourceCalculator {
   {
   public:
 
-    ItemResultTree   BuildTree(KEY_ITEM ItemID,     int NestingResults) const;
-    RecipeResultTree BuildTree(KEY_RECIPE RecipeID, int NestingResults) const;
+    ItemResultTree   BuildTree(KEY_ITEM ItemID,     int NestingResults, 
+      std::list<KEY_ITEM> &ListRequest, std::list<KEY_ITEM> &ListRequestResourceOnly ) const;
+    RecipeResultTree BuildTree(KEY_RECIPE RecipeID, int NestingResults,
+      std::list<KEY_ITEM> &ListRequest, std::list<KEY_ITEM> &ListRequestResourceOnly ) const;
 
     void Travelling(const RecipeResultTree &Tree, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer, 
       std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const;

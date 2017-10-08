@@ -36,9 +36,9 @@ namespace ResourceCalculator {
     bool SetCountFactorys( double Count );
     bool SetFactoryModules( const FactoryModules &FM );
     bool SetFactoryCurrent( KEY_FACTORY );
+    bool FindCountFactorysForItemsCount( int Columb, double Count );
     
     bool Init( const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols );
-
 
     DeclareAndDefinitionPropertyReadOnly( Factorys, std::vector <KEY_FACTORY> )
     DeclareAndDefinitionPropertyReadOnly( FactoryCurrent, KEY_FACTORY )
@@ -53,8 +53,6 @@ namespace ResourceCalculator {
     DeclareAndDefinitionRefReadOnly( CountItems, std::vector <double> )
     DeclareAndDefinitionRefReadOnly( ItemsPerSec, std::vector <double> )
     KEY_FACTORY GetFactoryIdFromIndex(int Index) const;
-    //friend ProductionChainModel;
-    //friend std::vector <ProductionChainModel>;
 
   };
 
@@ -91,7 +89,9 @@ namespace ResourceCalculator {
 
     int CountRecipes() const;
 
-    const ProductionChainDataRow &GetRow(int Row) const;
+    const ProductionChainDataRow &GetRow( int Row ) const;
+
+    ProductionChainDataRow &GetRowEdit(int Row);
 
     const std::vector<double> GetSummSpeeds() const;
 
@@ -99,6 +99,8 @@ namespace ResourceCalculator {
 
     //Возвращают истину, когда нужно обновить всю модель
     bool Optimize();
+
+    bool SetResultItemCount( double Count);
 
   private:
 
