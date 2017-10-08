@@ -330,7 +330,7 @@ bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVaria
 {
   using namespace ResourceCalculator;
   if ( !( index.isValid() && role == Qt::EditRole ) )return false;
-
+  int CI = _PCM.CountItems();
   if ( index.column() == 0 ) {
     beginResetModel();
     const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
@@ -350,7 +350,7 @@ bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVaria
   if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
     beginResetModel();
     ProductionChainDataRow& ROW = _PCM.GetRowEdit( index.row() );
-    ROW.FindCountFactorysForItemsCount( index.column() - 8 - _PCM.CountItems(), value.toDouble() );
+    ROW.FindCountFactorysForItemsCount( index.column() - 8 - CI, value.toDouble() );
     _PCM.Optimize();
     endResetModel();
     emit( AllDataChanged() );
@@ -368,12 +368,12 @@ Qt::ItemFlags ProductionChainWidgetModel::flags( const QModelIndex &index ) cons
 {
   if ( !index.isValid() )
     return Qt::ItemIsEnabled;
-
+  int CI = _PCM.CountItems();
   Qt::ItemFlags flags = QAbstractTableModel::flags( index );
   if ( index.column() == 0 || index.column() == 2 || index.column() == 3 || index.column() == 7 ) {
     flags |= Qt::ItemIsEditable;
   }
-  if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
+  if ( index.column() > CI + 7 && index.row() < _PCM.CountRecipes() ) {
     flags |= Qt::ItemIsEditable;
   }
   return flags;
