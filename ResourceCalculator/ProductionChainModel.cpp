@@ -129,12 +129,29 @@ namespace ResourceCalculator
 
   bool ProductionChainDataRow::SetFactoryCurrent( KEY_FACTORY KeyFactory)
   {
+
+    int idfind = -1;
+    double OldVal = 1.0;
+
+    for ( size_t id = 0; id < _ItemsPerSec.size(); id++ ) {
+      if ( _ItemsPerSec[id] > 0.0 ) {
+        idfind = id;
+        OldVal = _ItemsPerSec[id];
+        break;
+      }
+    }       
+
     if ( _FactoryCurrent == KeyFactory ) {
       return false;
     }
+
     _FactoryCurrent = KeyFactory;
     
     SetFactoryModules( _FM );
+
+    if ( idfind >= 0 ) {
+      FindCountFactorysForItemsCount( idfind, OldVal );
+    }
 
     return true;
   }
