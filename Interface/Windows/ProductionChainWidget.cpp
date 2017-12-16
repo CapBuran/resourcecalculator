@@ -147,11 +147,6 @@ void ProductionChainWidgetDelegate0::setModelData( QWidget *editor, QAbstractIte
   if ( !IsOk ) {
     ProductionChainWidgetDelegateBase::setModelData( editor, model, index );
   }
-
-  //QSpinBox *spinBox = static_cast<QSpinBox*>( editor );
-  //spinBox->interpretText();
-  //int value = spinBox->value();
-  //model->setData( index, value, Qt::EditRole );
 }
 
 void ProductionChainWidgetDelegate0::updateEditorGeometry( QWidget *editor,
@@ -392,6 +387,7 @@ ResourceCalculator::ProductionChainModel & ProductionChainWidgetModel::GetPCM()
 void ProductionChainWidgetModel::ModelAllChanged()
 {
   beginResetModel();
+  _PCM.Optimize();
   endResetModel();
 }
 
@@ -495,7 +491,7 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
 {
   QSortFilterProxyModel *Proxys[4];
 
-  Model = new ProductionChainWidgetModel( _PC );
+  ProductionChainWidgetModel *Model = new ProductionChainWidgetModel( _PC, this );
   Model->SetItemKey( ItemKey );
 
   QSplitter *splitter = new QSplitter( this );
@@ -508,19 +504,18 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
   int MaxHeight = 0;
 
   for ( int i = 0; i < 4; i++ ) {
-    tables[i] = new QTableView(this);
+    tables[i] = new QTableView( this );
     Proxys[i]->setSourceModel( Model );
     tables[i]->setModel( Proxys[i] );
     tables[i]->setSelectionBehavior( QAbstractItemView::SelectRows );
     //tables[i]->setEditTriggers( QAbstractItemView::NoEditTriggers );
     tables[i]->setSelectionMode( QAbstractItemView::SingleSelection );
-    tables[i]->setHorizontalHeader( new ProductionChainWidgetHeaderView( Qt::Orientation::Horizontal, this ) );
+    tables[i]->setHorizontalHeader( new ProductionChainWidgetHeaderView( Qt::Orientation::Horizontal, tables[i] ) );
     if ( i == 0 ) {
-      tables[i]->setItemDelegate( new ProductionChainWidgetDelegate0( _PC, Model->GetPCM(), this ) );
+      tables[i]->setItemDelegate( new ProductionChainWidgetDelegate0( _PC, Model->GetPCM(), tables[i] ) );
     } else {
-      tables[i]->setItemDelegate( new ProductionChainWidgetDelegateBase( _PC, Model->GetPCM(), this ) );
+      tables[i]->setItemDelegate( new ProductionChainWidgetDelegateBase( _PC, Model->GetPCM(), tables[i] ) );
       tables[i]->horizontalHeader()->setSectionResizeMode( QHeaderView::Fixed );
-      
     }
     tables[i]->verticalHeader()->hide();
     tables[i]->setAlternatingRowColors( true );
@@ -551,21 +546,21 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
   tables[3]->verticalScrollBar()->hide();
   tables[3]->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
 
-  QWidget *WidgetLabel = new QWidget();
+  QWidget *WidgetLabel = new QWidget( this );
   WidgetLabel->setFixedHeight( VerticalSizeResult );
 
-  QVBoxLayout *VBoxLayout = new QVBoxLayout();
+  QVBoxLayout *VBoxLayout = new QVBoxLayout( this );
   VBoxLayout->setMargin( 0 );
   VBoxLayout->setSpacing( 0 );
   VBoxLayout->addWidget( tables[0] );
   VBoxLayout->addWidget( WidgetLabel );
-  QWidget *Widget1 = new QWidget();
+  QWidget *Widget1 = new QWidget( this );
   Widget1->setLayout( VBoxLayout );
 
-  QWidget *label2 = new QLabel( tr( "Summ results:  " ) );
+  QWidget *label2 = new QLabel( tr( "Summ results:  " ), this );
   label2->setFixedHeight( VerticalSizeResult );
 
-  QGridLayout *qGridLayout = new QGridLayout;
+  QGridLayout *qGridLayout = new QGridLayout( this);
   qGridLayout->setMargin( 0 );
   qGridLayout->setSpacing( 0 );
   qGridLayout->addWidget( tables[1], 0, 0 );
@@ -575,7 +570,7 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
   qGridLayout->setRowMinimumHeight( 1, VerticalSizeResult );
   qGridLayout->setRowStretch( 1, VerticalSizeResult );
 
-  QWidget *Widget2 = new QWidget();
+  QWidget *Widget2 = new QWidget( splitter );
   Widget2->setLayout( qGridLayout );
 
   splitter->addWidget( Widget1 );
@@ -594,6 +589,16 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
   connect( Model, SIGNAL( AllDataChanged() ), Model, SLOT( ModelAllChanged( ) ) );
   
   addTab( splitter, QString::fromStdString( _PC.IC.GetItem( ItemKey )->GetName() ) );
+
+  _Tabs[splitter] = Model;
+}
+
+void ProductionChainWidget::Update()
+{
+  for ( auto & it :_Tabs ) {
+    //it.second->AllDataChanged();
+    it.second->ModelAllChanged();
+  }
 }
 
 void ProductionChainWidget::addEntry( QString name, QString address )
@@ -654,21 +659,14 @@ void ProductionChainWidget::editEntry()
 
 void ProductionChainWidget::removeEntry()
 {
-  //QTableView *temp = static_cast<QTableView*>( currentWidget() );
-  //QSortFilterProxyModel *proxy = static_cast<QSortFilterProxyModel*>( temp->model() );
-  //QItemSelectionModel *selectionModel = temp->selectionModel();
-
-  //QModelIndexList indexes = selectionModel->selectedRows();
-
-  //foreach( QModelIndex index, indexes )
-  //{
-  //  int row = proxy->mapToSource( index ).row();
-  //  table->removeRows( row, 1, QModelIndex() );
-  //}
-
-  //if ( table->rowCount( QModelIndex() ) == 0 ) {
-  //  insertTab( 0, newAddressTab, "Address Book" );
-  //}
+  int CI = currentIndex();
+  if ( CI >= 0 ) {
+    QWidget *W = currentWidget();
+    auto F = _Tabs.find( W );
+    Q_ASSERT( F != _Tabs.end() );
+    _Tabs.erase( W );
+    removeTab( CI );
+  }
 }
 
 void ProductionChainWidget::setupTabs()
@@ -676,4 +674,3 @@ void ProductionChainWidget::setupTabs()
   AddTab( ResourceCalculator::KEY_ITEM::ID_ITEM_Paket1 );
   AddTab( ResourceCalculator::KEY_ITEM::ID_ITEM_Sherst );
 }
-

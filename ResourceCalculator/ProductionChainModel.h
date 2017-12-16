@@ -20,16 +20,18 @@ namespace ResourceCalculator {
     double _SecPerOneRecipe;
     double _RealTimeProductionOfOneItemPerSec;
     double _CountFactorys;
+    int    _InitColumb;
 
     std::vector <KEY_FACTORY> _Factorys;
-    std::vector <KEY_ITEM>    _ColItems;
+    std::vector <KEY_ITEM>    _ColsItems;
     FactoryModules _FM;
 
     std::vector <double> _CountItems;
     std::vector <double> _ItemsPerSec;
 
-
     FactoryModules _GetFactoryModules() const;
+
+    bool _Update();
 
   public:
 
@@ -38,7 +40,7 @@ namespace ResourceCalculator {
     bool SetFactoryCurrent( KEY_FACTORY );
     bool FindCountFactorysForItemsCount( int Columb, double Count );
     
-    bool Init( const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols );
+    bool Init( const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols, int InitColumb );
 
     DeclareAndDefinitionPropertyReadOnly( Factorys, std::vector <KEY_FACTORY> )
     DeclareAndDefinitionPropertyReadOnly( FactoryCurrent, KEY_FACTORY )
@@ -99,8 +101,6 @@ namespace ResourceCalculator {
 
     //Возвращают истину, когда нужно обновить всю модель
     bool Optimize();
-
-    bool SetResultItemCount( double Count);
 
   private:
 

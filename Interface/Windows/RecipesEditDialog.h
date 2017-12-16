@@ -36,11 +36,16 @@ class RecipesEditDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
 public:
-  RecipesEditDelegate(ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
+  RecipesEditDelegate(ResourceCalculator::ParamsCollection &PC, const RecipeListModel &model_recipe, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+  QWidget *RecipesEditDelegate::createEditor( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
+  void setEditorData( QWidget *editor, const QModelIndex &index ) const override;
+  void setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const override;
+  void updateEditorGeometry( QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 private:
   ResourceCalculator::ParamsCollection &_PC;
+  const RecipeListModel &_model_recipe;
 };
 
 class RecipesEditDialog : public QDialog

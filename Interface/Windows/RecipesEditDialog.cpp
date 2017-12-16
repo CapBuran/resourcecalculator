@@ -123,6 +123,13 @@ bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, i
       }
       break;
     }
+    case 4: {
+      int Value = value.toInt();
+      if ( Value >= 0 ) {
+        EditRecipe->SetTypeFactory( static_cast< KEY_TYPE_FACTORY >( Value ) );
+      }
+      break;
+    }
     default:
       return false;
       break;
@@ -175,34 +182,140 @@ ResourceCalculator::KEY_RECIPE RecipeListModel::GetRecipeId(int Num) const
 
 #pragma region DELEGATE
 
-RecipesEditDelegate::RecipesEditDelegate(ResourceCalculator::ParamsCollection &PC, QObject *parent)
-  : QStyledItemDelegate(parent), _PC(PC)
+RecipesEditDelegate::RecipesEditDelegate(ResourceCalculator::ParamsCollection &PC, const RecipeListModel &model_recipe, QObject *parent)
+  : QStyledItemDelegate(parent), _PC(PC), _model_recipe( model_recipe )
 {
 }
 
-void RecipesEditDelegate::paint(QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index) const
+void RecipesEditDelegate::paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
 {
-  QString ButtonCaption;
-  switch (index.column()) {
-  case 2: 
-    ButtonCaption = tr("Result");
-    break;
-  case 3:
-    ButtonCaption = tr( "Required" );
-    break;
-  case 4: 
-    ButtonCaption = tr( "Factorys" ); 
-    break;
+  switch ( index.column() ) {
+  case 2:
+  case 3: {
+    QString ButtonCaption;
+    if ( index.column() == 2 ) {
+      ButtonCaption = tr( "Result" );
+    } else {
+      ButtonCaption = tr( "Result" );
+    }
+    QStyleOptionButton button;
+    button.rect = option.rect;
+    button.text = ButtonCaption;
+    button.state = QStyle::State_Enabled;
+    QApplication::style()->drawControl( QStyle::CE_PushButton, &button, painter );
+  }
+          break;
+  case 4: {
+    using namespace ResourceCalculator;
+    const KEY_RECIPE recipe_key = _model_recipe.GetRecipeId( index.row() );
+    const Recipe *Recipe = _PC.RC.GetRecipe( recipe_key );
+    Q_ASSERT( Recipe != nullptr );
+    KEY_TYPE_FACTORY KFT = Recipe->GetTypeFactory();
+    const std::map<KEY_TYPE_FACTORY, FactoryType> &MAP = _PC.FC.GetTypesFactorys();
+    const auto &FT = MAP.find( KFT );
+    Q_ASSERT( FT != MAP.end() );
+    QString Text = QString::fromStdString( FT->second.Name );
+    QStyleOptionComboBox comboBoxOption;
+    comboBoxOption.rect = option.rect;
+    comboBoxOption.currentText = Text;
+    comboBoxOption.state = QStyle::State_Enabled;
+    QApplication::style()->drawComplexControl( QStyle::CC_ComboBox, &comboBoxOption, painter, 0 );
+    QApplication::style()->drawControl( QStyle::CE_ComboBoxLabel, &comboBoxOption, painter, 0 );
+  }
+          break;
   default:
-    QStyledItemDelegate::paint(painter, option, index);
+    QStyledItemDelegate::paint( painter, option, index );
     return;
     break;
   }
-  QStyleOptionButton button;
-  button.rect = option.rect;
-  button.text = ButtonCaption;
-  button.state = QStyle::State_Enabled;
-  QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
+}
+
+QWidget *RecipesEditDelegate::createEditor( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const
+{
+  using namespace ResourceCalculator;
+  if ( index.column() == 4 ) {
+    const std::map<KEY_TYPE_FACTORY, FactoryType> &MAP = _PC.FC.GetTypesFactorys();
+    QComboBox *combobox = new QComboBox( parent );
+    const KEY_RECIPE recipe_key = _model_recipe.GetRecipeId( index.row() );
+    const Recipe *Recipe = _PC.RC.GetRecipe( recipe_key );
+    Q_ASSERT( Recipe != nullptr );
+    KEY_TYPE_FACTORY KFT = Recipe->GetTypeFactory();
+    int Pos = -1;
+    int Counter = 0;
+    for ( auto &FI : MAP ) {
+      //QString str = QString::fromStdString( _PC.FC.GetFactory( FI ).GetName() );
+      QString str = QString::fromStdString( FI.second.Name );
+      combobox->addItem( str );
+      if ( FI.first == KFT ) {
+        Pos = Counter;
+      }
+      Counter++;
+    }
+    combobox->setGeometry( option.rect );
+    combobox->setCurrentIndex( Pos );
+    combobox->setFrame( true );
+    return combobox;
+
+    //const std::vector <KEY_FACTORY> &Factorys = _PCM.GetRow( index.row() ).GetFactorys();
+    //QComboBox *combobox = new QComboBox( parent );
+    //KEY_FACTORY CurenFactory = _PCM.GetRow( index.row() ).GetFactoryCurrent();
+    //int Pos = -1;
+    //int Counter = 0;
+    //for ( KEY_FACTORY FI : Factorys ) {
+    //  QString str = QString::fromStdString( _PC.FC.GetFactory( FI ).GetName() );
+    //  combobox->addItem( str );
+    //  if ( CurenFactory == FI ) {
+    //    Pos = Counter;
+    //  }
+    //  Counter++;
+    //}
+    //combobox->setGeometry( option.rect );
+    //combobox->setCurrentIndex( Pos );
+    //combobox->setFrame( true );
+    //return combobox;
+  }
+  return QStyledItemDelegate::createEditor( parent, option, index );
+}
+
+void RecipesEditDelegate::setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const
+{
+  bool IsOk = false;
+  if ( index.column() == 0 ) {
+    QComboBox *combobox = dynamic_cast< QComboBox * >( editor );
+    int value = combobox->currentIndex();
+    Q_ASSERT( value > 0 );
+    model->setData( index, value, Qt::EditRole );
+    IsOk = true;
+  }
+  if ( index.column() == 4 ) {
+    QComboBox *combobox = dynamic_cast< QComboBox * >( editor );
+    int value = combobox->currentIndex();
+    Q_ASSERT( value >= 0 );
+    model->setData( index, value, Qt::EditRole );
+    IsOk = true;
+  }
+  if ( !IsOk ) {
+    RecipesEditDelegate::setModelData( editor, model, index );
+  }
+}
+
+void RecipesEditDelegate::updateEditorGeometry( QWidget *editor,
+  const QStyleOptionViewItem &option, const QModelIndex &/* index */ ) const
+{
+  editor->setGeometry( option.rect );
+}
+
+void RecipesEditDelegate::setEditorData( QWidget *editor, const QModelIndex &index ) const
+{
+  bool IsOk = false;
+  if ( index.column() == 4 ) {
+    QComboBox *combobox = dynamic_cast< QComboBox * >( editor );
+    combobox->setCurrentText( index.model()->data( index, Qt::EditRole ).toString() );
+    IsOk = true;
+  }
+  if ( !IsOk ) {
+    QStyledItemDelegate::setEditorData( editor, index );
+  }
 }
 
 bool RecipesEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
@@ -255,7 +368,7 @@ RecipesEditDialog::RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, Q
   _tableView = new QTableView;
   _Model = new RecipeListModel( _PC, this );
   _tableView->setModel( _Model );
-  _tableView->setItemDelegate( new RecipesEditDelegate( PC, this ) );
+  _tableView->setItemDelegate( new RecipesEditDelegate( PC, *_Model, this ) );
   _tableView->setSelectionMode( QTableView::SelectionMode::SingleSelection );
   _tableView->setSelectionBehavior( QTableView::SelectionBehavior::SelectRows );
 

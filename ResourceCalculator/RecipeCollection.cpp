@@ -180,7 +180,7 @@ namespace ResourceCalculator {
 
   KEY_RECIPE RecipeCollection::GetUniqueRecipeKey() const
   {
-    unsigned int retval = 0;
+    unsigned int retval = 10;
     if (_Recipes.size() > 0) {
       while (_Recipes.find(static_cast<KEY_RECIPE>(retval)) != _Recipes.end()){
         retval++;

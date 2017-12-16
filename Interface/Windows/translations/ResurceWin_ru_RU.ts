@@ -307,58 +307,58 @@
         <translation>Отладка</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="61"/>
+        <location filename="../mainwindow.cpp" line="58"/>
         <source>Resurse calculator</source>
         <translation>Калькулятор производственных цепочек</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="67"/>
+        <location filename="../mainwindow.cpp" line="64"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="69"/>
+        <location filename="../mainwindow.cpp" line="66"/>
         <source>&amp;Open...</source>
         <translation>&amp;Отрыть</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="73"/>
+        <location filename="../mainwindow.cpp" line="70"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Сохранить как</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="79"/>
+        <location filename="../mainwindow.cpp" line="76"/>
         <source>E&amp;xit</source>
         <translation>&amp;Выход</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="83"/>
+        <location filename="../mainwindow.cpp" line="80"/>
         <source>&amp;Tools</source>
         <translation>&amp;Инструменты</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="85"/>
+        <location filename="../mainwindow.cpp" line="82"/>
         <source>&amp;Add Entry...</source>
         <translation>&amp;Добавить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="89"/>
+        <location filename="../mainwindow.cpp" line="86"/>
         <source>&amp;Edit Entry...</source>
         <translation>&amp;Редактировать цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="96"/>
+        <location filename="../mainwindow.cpp" line="93"/>
         <source>&amp;Remove Entry</source>
         <translation>&amp;Удалить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="110"/>
-        <location filename="../mainwindow.cpp" line="131"/>
+        <location filename="../mainwindow.cpp" line="107"/>
+        <location filename="../mainwindow.cpp" line="128"/>
         <source>Unable to open file</source>
         <translation>Ошибка открытия файла</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="119"/>
+        <location filename="../mainwindow.cpp" line="116"/>
         <source>Unable parse json file</source>
         <translation>Ошибка обработки файла</translation>
     </message>
@@ -366,20 +366,18 @@
 <context>
     <name>ProductionChainModelLeft</name>
     <message>
-        <location filename="../RecipeModel.cpp" line="55"/>
         <source>Name</source>
-        <translation>Навание</translation>
+        <translation type="vanished">Навание</translation>
     </message>
     <message>
-        <location filename="../RecipeModel.cpp" line="58"/>
         <source>Address</source>
-        <translation>Адрес</translation>
+        <translation type="vanished">Адрес</translation>
     </message>
 </context>
 <context>
     <name>ProductionChainWidget</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="565"/>
+        <location filename="../ProductionChainWidget.cpp" line="560"/>
         <source>Summ results:  </source>
         <translation>Сумма результатов:  </translation>
     </message>
@@ -387,42 +385,42 @@
 <context>
     <name>ProductionChainWidgetModel</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="301"/>
+        <location filename="../ProductionChainWidget.cpp" line="296"/>
         <source>Factory</source>
         <translation>Фабрика</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="303"/>
+        <location filename="../ProductionChainWidget.cpp" line="298"/>
         <source>Recipe</source>
         <translation>Рецепт</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="305"/>
+        <location filename="../ProductionChainWidget.cpp" line="300"/>
         <source>Modules productivity</source>
         <translation>Модули продуктивности</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="307"/>
+        <location filename="../ProductionChainWidget.cpp" line="302"/>
         <source>Modules speed</source>
         <translation>Модули скорости</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="309"/>
+        <location filename="../ProductionChainWidget.cpp" line="304"/>
         <source>Speed factory</source>
         <translation>Скорость фабрики</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="311"/>
+        <location filename="../ProductionChainWidget.cpp" line="306"/>
         <source>Time for recipe</source>
         <translation>Время рецепта</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="313"/>
+        <location filename="../ProductionChainWidget.cpp" line="308"/>
         <source>Real time for recipe</source>
         <translation>Производство одной компоненты</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="315"/>
+        <location filename="../ProductionChainWidget.cpp" line="310"/>
         <source>Count factorys</source>
         <translation>Количество фабрик</translation>
     </message>
@@ -455,7 +453,7 @@
         <translation>Разрешенные фабрики</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="146"/>
+        <location filename="../RecipesEditDialog.cpp" line="153"/>
         <source>New recipe</source>
         <translation>Новый рецепт</translation>
     </message>
@@ -463,45 +461,44 @@
 <context>
     <name>RecipesEditDelegate</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="188"/>
+        <location filename="../RecipesEditDialog.cpp" line="197"/>
+        <location filename="../RecipesEditDialog.cpp" line="199"/>
         <source>Result</source>
         <translation>Результаты</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="191"/>
         <source>Required</source>
-        <translation>Интегреенты</translation>
+        <translation type="vanished">Интегреенты</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="194"/>
         <source>Factorys</source>
-        <translation>Фабрики</translation>
+        <translation type="vanished">Фабрики</translation>
     </message>
 </context>
 <context>
     <name>RecipesEditDialog</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="250"/>
+        <location filename="../RecipesEditDialog.cpp" line="363"/>
         <source>Ok</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="251"/>
+        <location filename="../RecipesEditDialog.cpp" line="364"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="252"/>
+        <location filename="../RecipesEditDialog.cpp" line="365"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="253"/>
+        <location filename="../RecipesEditDialog.cpp" line="366"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="278"/>
+        <location filename="../RecipesEditDialog.cpp" line="391"/>
         <source>Recipes Edit</source>
         <translation>Редактор рецептов</translation>
     </message>

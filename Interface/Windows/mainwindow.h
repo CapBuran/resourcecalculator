@@ -18,6 +18,8 @@ private slots:
     void updateActions(const QItemSelection &selection);
     void openFile();
     void saveFile();
+    void PushButtonClickedAddTab();
+    void PushButtonClickedRemoveTab();
     void PushButtonClickedRecipesEditDialog();
     void PushButtonClickedItemsEditDialog();
     void PushButtonClickedFactorysEditDialog();
@@ -26,6 +28,7 @@ private slots:
 private:
     void createMenus();
     ResourceCalculator::ParamsCollection &_PC;
+    QTabWidget *_PCW;
 };
 
 #endif // MAINWINDOW_H

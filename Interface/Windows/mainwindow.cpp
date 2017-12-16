@@ -13,10 +13,10 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   connect(_ButtonPropertyTableRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
   QPushButton *_ButtonAddRecipeTab = new QPushButton(tr("Recipe tab add"));
-  connect(_ButtonAddRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
+  connect(_ButtonAddRecipeTab, SIGNAL(clicked()), SLOT( PushButtonClickedAddTab()));
 
   QPushButton *_ButtonDelRecipeTab = new QPushButton(tr("Recipe tab del"));
-  connect(_ButtonDelRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedRecipesEditDialog()));
+  connect(_ButtonDelRecipeTab, SIGNAL(clicked()), SLOT( PushButtonClickedRemoveTab()));
 
   QPushButton *_ButtonItemOpen = new QPushButton(tr("Items editor"));
   connect(_ButtonItemOpen, SIGNAL(clicked()), SLOT(PushButtonClickedItemsEditDialog()));
@@ -29,27 +29,24 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
 
   QPushButton *_ButtonDebug = new QPushButton(tr("Debug button"));
   connect(_ButtonDebug, SIGNAL(clicked()), SLOT(PushButtonClickedDebug()));
-
- 
-  
-  
+    
   QHBoxLayout *h = new QHBoxLayout();
   //h->setMargin(5);
   //h->setSpacing(5);
-  h->addWidget(_ButtonDebug);
-  h->addWidget(_ButtonAddRecipeTab);
+  h->addWidget( _ButtonDebug );
+  h->addWidget( _ButtonAddRecipeTab );
   h->addWidget( _ButtonPropertyTableRecipeTab );
-  h->addWidget(_ButtonDelRecipeTab);
-  h->addWidget(_ButtonRecipesOpen);
-  h->addWidget(_ButtonItemOpen);
-  h->addWidget(_ButtonFactoryOpen);
+  h->addWidget( _ButtonDelRecipeTab );
+  h->addWidget( _ButtonRecipesOpen );
+  h->addWidget( _ButtonItemOpen );
+  h->addWidget( _ButtonFactoryOpen );
   
-  QTabWidget *_PCW = new ProductionChainWidget( _PC );
+  _PCW = new ProductionChainWidget( _PC );
   QVBoxLayout *v = new QVBoxLayout();
-//  v->setMargin(5);
-//  v->setSpacing(5);
+  //  v->setMargin(5);
+  //  v->setSpacing(5);
   v->addWidget( _PCW );
-  v->addLayout(h);
+  v->addLayout( h );
 
   QWidget *CentralWidget = new QWidget();
   CentralWidget->setLayout(v);
@@ -142,9 +139,8 @@ void MainWindow::PushButtonClickedRecipesEditDialog()
 {
   RecipesEditDialog _RecipesEditDialog(_PC);
   if (_RecipesEditDialog.exec()) {
-    //QString name = _RecipesEditDialog.nameText->text();
-    //QString address = _RecipesEditDialog.addressText->toPlainText();
-    //emit sendDetails(name, address);
+    ProductionChainWidget* PCW = dynamic_cast< ProductionChainWidget* >( _PCW );
+    PCW->Update();
     int d = 0;
     d += 5;
   }
@@ -160,6 +156,20 @@ void MainWindow::PushButtonClickedItemsEditDialog()
     //emit sendDetails(name, address);
   }
 
+}
+
+void MainWindow::PushButtonClickedAddTab()
+{
+  ItemSelectedDialog _ItemsSelectedDialog( _PC, ItemSelectedDialogMode::ForSelectOneItem );
+  if ( _ItemsSelectedDialog.exec() ) {
+    ProductionChainWidget *PCW = dynamic_cast< ProductionChainWidget * >( _PCW );
+    PCW->AddTab( _ItemsSelectedDialog.GetResultOne() );
+  }
+}
+
+void MainWindow::PushButtonClickedRemoveTab()
+{
+  dynamic_cast< ProductionChainWidget* >( _PCW )->removeEntry();
 }
 
 void MainWindow::PushButtonClickedFactorysEditDialog()

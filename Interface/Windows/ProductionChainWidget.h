@@ -110,9 +110,6 @@ private:
 
 };
 
-
-
-
 class ProductionChainWidget: public QTabWidget {
   Q_OBJECT
 
@@ -120,6 +117,7 @@ public:
   ProductionChainWidget( const ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0 );
 
   void AddTab( ResourceCalculator::KEY_ITEM ItemKey );
+  void Update();
 
 public slots:
   void showAddEntryDialog();
@@ -134,9 +132,11 @@ private:
 
   QTableView *tables[4];
 
-  ProductionChainWidgetModel *Model;
   void setupTabs();
   const ResourceCalculator::ParamsCollection &_PC;
+
+  std::map<QWidget*, ProductionChainWidgetModel*> _Tabs;
+
 };
 
 #endif// ProductionChainWidget_H
