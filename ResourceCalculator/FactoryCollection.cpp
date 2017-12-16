@@ -35,7 +35,8 @@ namespace ResourceCalculator
   const Factory & FactoryCollection::GetFactory( KEY_FACTORY Key ) const
   {
     if ( Key == KEY_FACTORY::ID_ITEM_NoFind_Factory ) return _NoFindFactory;
-    return _Factorys.find( Key )->second;
+    std::map<KEY_FACTORY, Factory>::const_iterator F = _Factorys.find( Key );
+    return F == _Factorys.end() ? _NoFindFactory : F->second;
   }
 
   const FactoryType &FactoryCollection::GetFactoryType( KEY_FACTORY Key ) const
@@ -65,7 +66,6 @@ namespace ResourceCalculator
   {
     return _Factorys;
   }
-
 
   void FactoryCollection::AddFactorysTypes( const std::map<KEY_TYPE_FACTORY, FactoryType > &FactoryTypes )
   {
