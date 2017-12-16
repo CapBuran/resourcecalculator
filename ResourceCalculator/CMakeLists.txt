@@ -37,7 +37,6 @@ source_group(ProductionChain FILES ProductionChainModel.h)
 source_group(ProductionChain FILES ProductionChainCollection.cpp)
 source_group(ProductionChain FILES ProductionChainCollection.h)
 
-
 source_group(Other    FILES Serializer.h)
 
 add_library(ResourceCalculator STATIC ${ResourceCalculator_HEADERS} ${ResourceCalculator_SOURCES} )

@@ -63,7 +63,7 @@ namespace ResourceCalculator {
       const Module &module = MC.GetModule(moduleKey);
       retval += module.GetCoefficientEffectiveness();
     }
-    //TODO âûñòàâèòü òàêèå îãðàíè÷åíèÿ â íàñòðîéêè
+    //TODO Ð²Ñ‹ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑŒ Ñ‚Ð°ÐºÐ¸Ðµ Ð¾Ð³Ñ€Ð°Ð½Ð¸Ñ‡ÐµÐ½Ð¸Ñ Ð² Ð½Ð°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸
     if (retval > 1.8) retval = 1.8;
     return retval;
   }
@@ -89,8 +89,5 @@ namespace ResourceCalculator {
     if (retvalue) _Modules[IndexSlot] = key;
     return retvalue;
   }
-
-
-
 
 }

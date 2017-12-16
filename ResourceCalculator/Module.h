@@ -9,10 +9,10 @@ namespace ResourceCalculator {
   private:
     KEY_MODULE _Key;
 
-    double _CoefficientPollution;//Коэффициент загрязнения
-    double _CoefficientEffectiveness;//Коэффициент эффективности
-    double _CoefficientSpeed;//Коэффициент скорости
-    double _CoefficientProductivity;//Коэффициент продуктивности
+    double _CoefficientPollution;//РљРѕСЌС„С„РёС†РёРµРЅС‚ Р·Р°РіСЂСЏР·РЅРµРЅРёСЏ
+    double _CoefficientEffectiveness;//РљРѕСЌС„С„РёС†РёРµРЅС‚ СЌС„С„РµРєС‚РёРІРЅРѕСЃС‚Рё
+    double _CoefficientSpeed;//РљРѕСЌС„С„РёС†РёРµРЅС‚ СЃРєРѕСЂРѕСЃС‚Рё
+    double _CoefficientProductivity;//РљРѕСЌС„С„РёС†РёРµРЅС‚ РїСЂРѕРґСѓРєС‚РёРІРЅРѕСЃС‚Рё
 
   public:
     DeclareAndDefinitionProperty(Key,                  KEY_MODULE)

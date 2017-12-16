@@ -93,7 +93,7 @@ public:
 	virtual void unpack(SerializerData &) = 0;
 };
 
-//!Функция тяжелая: если объект занимает большое количество памяти лучше реализовать у него метод clone_to
+//!Р¤СѓРЅРєС†РёСЏ С‚СЏР¶РµР»Р°СЏ: РµСЃР»Рё РѕР±СЉРµРєС‚ Р·Р°РЅРёРјР°РµС‚ Р±РѕР»СЊС€РѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїР°РјСЏС‚Рё Р»СѓС‡С€Рµ СЂРµР°Р»РёР·РѕРІР°С‚СЊ Сѓ РЅРµРіРѕ РјРµС‚РѕРґ clone_to
 template <class SerializerClassType>
 void SerializableCopy(const SerializerClassType &ClassFrom, SerializerClassType &ClassTo) {
 	{
@@ -108,7 +108,7 @@ void SerializableCopy(const SerializerClassType &ClassFrom, SerializerClassType 
 	assert(data.Check());
 }
 
-//!Функция тяжелая: если объекты занимают большое количество памяти лучше реализовать у него метод swap
+//!Р¤СѓРЅРєС†РёСЏ С‚СЏР¶РµР»Р°СЏ: РµСЃР»Рё РѕР±СЉРµРєС‚С‹ Р·Р°РЅРёРјР°СЋС‚ Р±РѕР»СЊС€РѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ РїР°РјСЏС‚Рё Р»СѓС‡С€Рµ СЂРµР°Р»РёР·РѕРІР°С‚СЊ Сѓ РЅРµРіРѕ РјРµС‚РѕРґ swap
 template <class SerializerClassType>
 void SerializableSwap(SerializerClassType &Class1, SerializerClassType &Class2) {
 	{
@@ -128,7 +128,7 @@ void SerializableSwap(SerializerClassType &Class1, SerializerClassType &Class2) 
 	assert(data2.Check());
 }
 
-#pragma region Шаблоны для простых типов
+#pragma region РЁР°Р±Р»РѕРЅС‹ РґР»СЏ РїСЂРѕСЃС‚С‹С… С‚РёРїРѕРІ
 template <class Type>
 inline void UnPackValAndSeekData(SerializerData &data, Type &Value) {
 	Type *DataPTR = (Type*)data.operator char *();
@@ -146,7 +146,7 @@ inline void PackValAndSeekData(SerializerData &data, const Type &Value) {
 }
 #pragma endregion
 
-#pragma region Шаблоны для std
+#pragma region РЁР°Р±Р»РѕРЅС‹ РґР»СЏ std
 
 template <class Type>
 inline size_t GetSize(const std::string &Str)

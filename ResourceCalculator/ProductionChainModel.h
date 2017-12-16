@@ -73,18 +73,18 @@ namespace ResourceCalculator {
     ProductionChainModel(const ParamsCollection &PC);
     ~ProductionChainModel();
     
-    //Возвращают истину, когда нужно обновить всю модель
+    //Р’РѕР·РІСЂР°С‰Р°СЋС‚ РёСЃС‚РёРЅСѓ, РєРѕРіРґР° РЅСѓР¶РЅРѕ РѕР±РЅРѕРІРёС‚СЊ РІСЃСЋ РјРѕРґРµР»СЊ
     bool SetItemKey(KEY_ITEM ItemKey);
 
-    //Возвращают истину, когда нужно обновить всю модель
+    //Р’РѕР·РІСЂР°С‰Р°СЋС‚ РёСЃС‚РёРЅСѓ, РєРѕРіРґР° РЅСѓР¶РЅРѕ РѕР±РЅРѕРІРёС‚СЊ РІСЃСЋ РјРѕРґРµР»СЊ
     bool SetRecipe(int Row, KEY_RECIPE RecipeId);
 
-    //Возвращают истину, когда нужно обновить всю модель
+    //Р’РѕР·РІСЂР°С‰Р°СЋС‚ РёСЃС‚РёРЅСѓ, РєРѕРіРґР° РЅСѓР¶РЅРѕ РѕР±РЅРѕРІРёС‚СЊ РІСЃСЋ РјРѕРґРµР»СЊ
     bool SetFactory(int Row, KEY_FACTORY FactoryId);
 
     bool SetCountFactores( int Row, double CountFactores );
 
-    //Возвращают истину, когда нужно обновить всю модель
+    //Р’РѕР·РІСЂР°С‰Р°СЋС‚ РёСЃС‚РёРЅСѓ, РєРѕРіРґР° РЅСѓР¶РЅРѕ РѕР±РЅРѕРІРёС‚СЊ РІСЃСЋ РјРѕРґРµР»СЊ
     bool SetModules(int Row, const std::vector < KEY_MODULE > & Modules );
 
     int CountItems() const;
@@ -99,7 +99,7 @@ namespace ResourceCalculator {
 
     std::string GetItemName( int Col ) const;
 
-    //Возвращают истину, когда нужно обновить всю модель
+    //Р’РѕР·РІСЂР°С‰Р°СЋС‚ РёСЃС‚РёРЅСѓ, РєРѕРіРґР° РЅСѓР¶РЅРѕ РѕР±РЅРѕРІРёС‚СЊ РІСЃСЋ РјРѕРґРµР»СЊ
     bool Optimize();
 
   private:
