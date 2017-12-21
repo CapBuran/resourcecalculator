@@ -178,14 +178,6 @@ void ProductionChainWidgetDelegate0::paint( QPainter * painter, const QStyleOpti
   }
 }
 
-
-
-//void ProductionChainWidgetDelegateBase::paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
-//{
-//  //TODO:
-//  QStyledItemDelegate::paint( painter, option, index );
-//}
-
 #pragma endregion DELEGATE
 
 #pragma region MODEL
@@ -354,11 +346,6 @@ bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVaria
   return false;
 }
 
-//int ProductionChainWidgetModel::SetItemKey( ResourceCalculator::KEY_ITEM )
-//{
-//  return 0;
-//}
-
 Qt::ItemFlags ProductionChainWidgetModel::flags( const QModelIndex &index ) const
 {
   if ( !index.isValid() )
@@ -372,6 +359,12 @@ Qt::ItemFlags ProductionChainWidgetModel::flags( const QModelIndex &index ) cons
     flags |= Qt::ItemIsEditable;
   }
   return flags;
+}
+
+void ProductionChainWidgetModel::FitQuantity()
+{
+  _PCM.FitQuantity();
+  emit( AllDataChanged() );
 }
 
 bool ProductionChainWidgetModel::SetItemKey( ResourceCalculator::KEY_ITEM ItemKey )
@@ -390,7 +383,6 @@ void ProductionChainWidgetModel::ModelAllChanged()
   _PCM.Optimize();
   endResetModel();
 }
-
 
 #pragma endregion MODEL
 
@@ -557,8 +549,16 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
   QWidget *Widget1 = new QWidget( this );
   Widget1->setLayout( VBoxLayout );
 
+  QPushButton *AutoFitQuantityButton = new QPushButton( tr( "Auto-fit quantity items" ) );
+  connect( AutoFitQuantityButton, SIGNAL( clicked() ), SLOT( PushButtonAutoFitQuantity() ) );
+
   QWidget *label2 = new QLabel( tr( "Summ results:  " ), this );
   label2->setFixedHeight( VerticalSizeResult );
+  
+  QHBoxLayout *LabelsLayout = new QHBoxLayout;
+  LabelsLayout->addWidget( AutoFitQuantityButton );
+  LabelsLayout->addStretch( 1 );
+  LabelsLayout->addWidget( label2 );
 
   QGridLayout *qGridLayout = new QGridLayout( this);
   qGridLayout->setMargin( 0 );
@@ -566,7 +566,7 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
   qGridLayout->addWidget( tables[1], 0, 0 );
   qGridLayout->addWidget( tables[2], 0, 1 );
   qGridLayout->addWidget( tables[3], 1, 1 );
-  qGridLayout->addWidget( label2, 1, 0, Qt::AlignCenter | Qt::AlignRight );
+  qGridLayout->addLayout( LabelsLayout, 1, 0 );
   qGridLayout->setRowMinimumHeight( 1, VerticalSizeResult );
   qGridLayout->setRowStretch( 1, VerticalSizeResult );
 
@@ -599,6 +599,18 @@ void ProductionChainWidget::Update()
     //it.second->AllDataChanged();
     it.second->ModelAllChanged();
   }
+}
+
+void ProductionChainWidget::PushButtonAutoFitQuantity()
+{
+  QWidget *CurrentWidget = currentWidget();
+  std::map<QWidget*, ProductionChainWidgetModel*>::iterator F = _Tabs.find( CurrentWidget );
+  if ( F == _Tabs.end() ) {
+    Q_ASSERT( "No find QWidget!!!" );
+    return;
+  }
+  ProductionChainWidgetModel *PCWM = F->second;
+  PCWM->FitQuantity();
 }
 
 void ProductionChainWidget::addEntry( QString name, QString address )

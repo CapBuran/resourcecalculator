@@ -89,6 +89,7 @@ public:
   QVariant headerData( int section, Qt::Orientation orientation, int role ) const override;
   Qt::ItemFlags flags( const QModelIndex &index ) const override;
 
+  void FitQuantity();
   bool SetItemKey( ResourceCalculator::KEY_ITEM ItemKey);
 
   bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole ) override;
@@ -97,7 +98,7 @@ public:
 
   ResourceCalculator::ProductionChainModel& GetPCM();
 
-public Q_SLOTS:
+public slots:
 
   void ModelAllChanged();
 
@@ -124,6 +125,7 @@ public slots:
   void addEntry( QString name, QString address );
   void editEntry();
   void removeEntry();
+  void PushButtonAutoFitQuantity();
 
 signals:
   void selectionChanged( const QItemSelection &selected );
@@ -131,7 +133,7 @@ signals:
 private:
 
   QTableView *tables[4];
-
+  
   void setupTabs();
   const ResourceCalculator::ParamsCollection &_PC;
 

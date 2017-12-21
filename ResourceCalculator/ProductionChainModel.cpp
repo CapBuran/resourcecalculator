@@ -268,6 +268,29 @@ namespace ResourceCalculator
     return _PC.IC.GetItem( _ColsItems[Col] )->GetName();
   }
 
+  bool ProductionChainModel::FitQuantity()
+  {
+    const int CountRows = ( int ) _DataRows.size();
+    const int CountCols = ( int ) _SummSpeeds.size();
+    if ( CountRows == 0 || CountRows == 0 ) return false;
+    const int Sub = ( CountCols - CountRows ) > 2 ? CountCols - CountRows : 0;
+    for ( int ItemId = 0; ItemId < CountCols; ItemId++ ) {
+      _SummSpeeds[ItemId] = _DataRows[CountRows-1].GetItemsPerSec()[ItemId];
+    }
+    for ( int RecipeID = CountRows - 2; RecipeID >= 0; RecipeID-- ) {
+      ProductionChainDataRow &ROW = _DataRows[RecipeID];
+      int col = ROW.GetInitColumb();
+      double RequiresItemsSpeed = _SummSpeeds[col];
+      const std::vector <double> &CountItems = ROW.GetCountItems();
+      double prod = CountItems[col];
+      ROW.FindCountFactorysForItemsCount( col, -RequiresItemsSpeed );
+      for ( int ItemID = 0; ItemID < _SummSpeeds.size(); ItemID++ ) {
+        _SummSpeeds[ItemID] += ROW.GetItemsPerSec()[ItemID];
+      }
+    }
+    return true;
+  }
+
   bool ProductionChainModel::SetFactory( int Row, KEY_FACTORY FactoryId )
   {
     _DataRows[Row].SetFactoryCurrent( FactoryId );

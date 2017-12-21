@@ -48,6 +48,7 @@ namespace ResourceCalculator {
     DeclarePropertyReadOnly( CurrentRecipeName, std::string )
     DeclarePropertyReadOnly( SummProductivity, double )
     DeclarePropertyReadOnly( SummSpeed, double )
+    DeclareAndDefinitionPropertyReadOnly( InitColumb, int )
     DeclareAndDefinitionPropertyReadOnly( SpeedFactory, double )
     DeclareAndDefinitionPropertyReadOnly( SecPerOneRecipe, double )
     DeclareAndDefinitionPropertyReadOnly( RealTimeProductionOfOneItemPerSec, double )
@@ -98,6 +99,8 @@ namespace ResourceCalculator {
     const std::vector<double> GetSummSpeeds() const;
 
     std::string GetItemName( int Col ) const;
+
+    bool FitQuantity();
 
     //Возвращают истину, когда нужно обновить всю модель
     bool Optimize();

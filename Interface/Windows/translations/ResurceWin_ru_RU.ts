@@ -377,7 +377,12 @@
 <context>
     <name>ProductionChainWidget</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="560"/>
+        <location filename="../ProductionChainWidget.cpp" line="552"/>
+        <source>Auto-fit quantity items</source>
+        <translation>Автоподбор</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidget.cpp" line="555"/>
         <source>Summ results:  </source>
         <translation>Сумма результатов:  </translation>
     </message>
@@ -385,42 +390,42 @@
 <context>
     <name>ProductionChainWidgetModel</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="296"/>
+        <location filename="../ProductionChainWidget.cpp" line="288"/>
         <source>Factory</source>
         <translation>Фабрика</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="298"/>
+        <location filename="../ProductionChainWidget.cpp" line="290"/>
         <source>Recipe</source>
         <translation>Рецепт</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="300"/>
+        <location filename="../ProductionChainWidget.cpp" line="292"/>
         <source>Modules productivity</source>
         <translation>Модули продуктивности</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="302"/>
+        <location filename="../ProductionChainWidget.cpp" line="294"/>
         <source>Modules speed</source>
         <translation>Модули скорости</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="304"/>
+        <location filename="../ProductionChainWidget.cpp" line="296"/>
         <source>Speed factory</source>
         <translation>Скорость фабрики</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="306"/>
+        <location filename="../ProductionChainWidget.cpp" line="298"/>
         <source>Time for recipe</source>
         <translation>Время рецепта</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="308"/>
+        <location filename="../ProductionChainWidget.cpp" line="300"/>
         <source>Real time for recipe</source>
         <translation>Производство одной компоненты</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="310"/>
+        <location filename="../ProductionChainWidget.cpp" line="302"/>
         <source>Count factorys</source>
         <translation>Количество фабрик</translation>
     </message>
