@@ -1,38 +1,45 @@
 #include "ParamsCollection.h"
 
-namespace ResourceCalculator {
+namespace ResourceCalculator
+{
 
-  bool ParamsCollection::DeleteItem(KEY_ITEM ItemID)
+  bool ParamsCollection::DeleteItem( KEY_ITEM ItemID )
   {
-    bool IsOk = RC.DeleteItem(ItemID);
-    if (IsOk) {
-      IC.DeleteItem(ItemID);
+    bool IsOk = RC.DeleteItem( ItemID );
+    if ( IsOk ) {
+      IC.DeleteItem( ItemID );
     }
     return IsOk;
   }
 
-  bool ParamsCollection::DeleteRecipe(KEY_RECIPE KeyRecipe)
+  ParamsCollection::ParamsCollection()
   {
-    return RC.DeleteRecipe(KeyRecipe);
   }
 
-  int ResourceCalculator::ParamsCollection::ReadFromJson(const Json::Value & jsonPr)
+  bool ParamsCollection::DeleteRecipe( KEY_RECIPE KeyRecipe )
   {
-    Icons.ReadFromJson(jsonPr["Icons"]);
-    IC.ReadFromJson(jsonPr["Items"]);
-    FC.ReadFromJson(jsonPr["Factorys"]);
+    return RC.DeleteRecipe( KeyRecipe );
+  }
+
+  int ResourceCalculator::ParamsCollection::ReadFromJson( const Json::Value & jsonPr )
+  {
+    Icons.ReadFromJson( jsonPr["Icons"] );
+    IC.ReadFromJson( jsonPr["Items"] );
+    FC.ReadFromJson( jsonPr["Factorys"] );
     FC.ReadFromJsonFactoryTypes( jsonPr["FactoryTypes"] );
-    RC.ReadFromJson(jsonPr["Recipes"]);
+    RC.ReadFromJson( jsonPr["Recipes"] );
+    MC.ReadFromJson( jsonPr["Modules"] );
     return 0;
   }
 
-  int ResourceCalculator::ParamsCollection::WriteToJson(Json::Value & jsonPr) const
+  int ResourceCalculator::ParamsCollection::WriteToJson( Json::Value & jsonPr ) const
   {
-    Icons.WriteToJson(jsonPr["Icons"]);
-    IC.WriteToJson(jsonPr["Items"]);
-    FC.WriteToJson(jsonPr["Factorys"]);
+    Icons.WriteToJson( jsonPr["Icons"] );
+    IC.WriteToJson( jsonPr["Items"] );
+    FC.WriteToJson( jsonPr["Factorys"] );
     FC.WriteToJsonFactoryTypes( jsonPr["FactoryTypes"] );
-    RC.WriteToJson(jsonPr["Recipes"]);
+    RC.WriteToJson( jsonPr["Recipes"] );
+    MC.WriteToJson( jsonPr["Modules"] );
     return 0;
   }
 }

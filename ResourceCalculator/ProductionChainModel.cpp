@@ -123,6 +123,11 @@ namespace ResourceCalculator
     return true;
   }
 
+  void ProductionChainDataRow::DeleteModules( const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel )
+  {
+    _FM.DeleteModules( ModulesToDel );
+  }
+
   KEY_FACTORY ProductionChainDataRow::GetFactoryIdFromIndex( int Index ) const
   {
     KEY_FACTORY RetVal = KEY_FACTORY::ID_ITEM_NoFind_Factory;
@@ -208,6 +213,13 @@ namespace ResourceCalculator
 
   ProductionChainModel::~ProductionChainModel()
   {
+  }
+
+  void ProductionChainModel::DeleteModules( const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel )
+  {
+    for ( auto &it : _DataRows ) {
+      it.DeleteModules( ModulesToDel );
+    }
   }
 
   bool ProductionChainModel::SetItemKey( KEY_ITEM ItemKey )

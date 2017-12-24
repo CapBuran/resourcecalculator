@@ -23,6 +23,7 @@ private slots:
     void PushButtonClickedRecipesEditDialog();
     void PushButtonClickedItemsEditDialog();
     void PushButtonClickedFactorysEditDialog();
+    void PushButtonClickedModulesEditDialog();
     void PushButtonClickedDebug();
 
 private:

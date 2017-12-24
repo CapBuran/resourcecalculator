@@ -15,9 +15,11 @@ namespace ResourceCalculator {
   public:
     ItemCollection    IC;
     RecipeCollection  RC;
-    ModuleCollection  MC;
     FactoryCollection FC;
+    ModuleCollection  MC;
     IconCollection Icons;
+
+    ParamsCollection();
     
     bool DeleteRecipe(KEY_RECIPE KeyRecipe);
     bool DeleteItem(KEY_ITEM ItemID);

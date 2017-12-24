@@ -56,6 +56,7 @@ namespace ResourceCalculator {
     DeclareAndDefinitionRefReadOnly( CountItems, std::vector <double> )
     DeclareAndDefinitionRefReadOnly( ItemsPerSec, std::vector <double> )
     KEY_FACTORY GetFactoryIdFromIndex(int Index) const;
+    void DeleteModules( const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel );
 
   };
 
@@ -74,6 +75,8 @@ namespace ResourceCalculator {
     ProductionChainModel(const ParamsCollection &PC);
     ~ProductionChainModel();
     
+    void DeleteModules( const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel );
+
     //Возвращают истину, когда нужно обновить всю модель
     bool SetItemKey(KEY_ITEM ItemKey);
 

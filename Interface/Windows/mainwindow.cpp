@@ -4,6 +4,7 @@
 #include "FactoryTypesEditDialog.h"
 #include "FactorysEditDialog.h"
 #include "ItemSelectedDialog.h"
+#include "ModulesEditDialog.h"
 
 MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _PC(PC)
@@ -27,9 +28,12 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   QPushButton *_ButtonFactoryOpen = new QPushButton(tr("Factorys editor"));
   connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
+  QPushButton *_ButtonModulesEdit = new QPushButton( tr( "Modules editor" ) );
+  connect( _ButtonModulesEdit, SIGNAL( clicked() ), SLOT( PushButtonClickedModulesEditDialog() ) );
+
   QPushButton *_ButtonDebug = new QPushButton(tr("Debug button"));
   connect(_ButtonDebug, SIGNAL(clicked()), SLOT(PushButtonClickedDebug()));
-    
+  
   QHBoxLayout *h = new QHBoxLayout();
   //h->setMargin(5);
   //h->setSpacing(5);
@@ -40,7 +44,8 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   h->addWidget( _ButtonRecipesOpen );
   h->addWidget( _ButtonItemOpen );
   h->addWidget( _ButtonFactoryOpen );
-  
+  h->addWidget( _ButtonModulesEdit );
+
   _PCW = new ProductionChainWidget( _PC );
   QVBoxLayout *v = new QVBoxLayout();
   //  v->setMargin(5);
@@ -178,6 +183,12 @@ void MainWindow::PushButtonClickedFactorysEditDialog()
   if ( _FactorysEditDialog.exec() ) {
     _FactorysEditDialog.Commit();
   }
+}
+
+void MainWindow::PushButtonClickedModulesEditDialog()
+{
+  ModulesEditDialog MED( _PC );
+  MED.exec();
 }
 
 void MainWindow::PushButtonClickedDebug()

@@ -55,7 +55,6 @@ private:
   QTableView *_tableView;
   QPushButton *_removeButton;
   ItemsEditModel *_Model;
-
 private Q_SLOTS:
   void add_item();
   void remove_item();

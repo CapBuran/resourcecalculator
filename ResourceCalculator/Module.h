@@ -30,7 +30,7 @@ namespace ResourceCalculator {
   
   class  ModuleCollection;
 
-  class FactoryModules {
+  class FactoryModules: public Jsonable {
   private:
     std::vector < KEY_MODULE > _Modules;
   public:
@@ -41,6 +41,9 @@ namespace ResourceCalculator {
     double GetSummProductivity(const ModuleCollection &MC) const;
     double GetSummEffectiveness(const ModuleCollection &MC) const;
     double GetSummPollution(const ModuleCollection &MC) const;
+    void DeleteModules( const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel );
+    int ReadFromJson( const Json::Value & jsonPr ) override;
+    int WriteToJson( Json::Value & jsonPr ) const override;
   };
 
 
