@@ -176,7 +176,7 @@ bool ModulesTypesEditModel::setData( const QModelIndex & index, const QVariant &
 
 void ModulesTypesEditModel::Commit()
 {
-  _PC.MC.DeleteModules( _ModulesToDelete );
+  _PC.MC.Delete( _ModulesToDelete );
   std::map<ResourceCalculator::KEY_MODULE, ResourceCalculator::Module > ModulesToAdd;
   for ( auto it : _ModulesToAdd ) {
     for ( auto itm : _listOfItemsId ) {
@@ -185,7 +185,7 @@ void ModulesTypesEditModel::Commit()
       }
     }
   }
-  _PC.MC.AddModules( ModulesToAdd );
+  _PC.MC.Add( ModulesToAdd );
   _ModulesToDelete.clear();
   _ModulesToAdd.clear();
   _listOfItemsId.clear();
@@ -224,8 +224,8 @@ void ModulesEditDelegate::paint( QPainter * painter, const QStyleOptionViewItem 
   emit( editorEventDelegate( index ) );
   switch ( index.column() ) {
   case 0: {
-    QString IcopPath = index.data().toString();
-    const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon( IcopPath.toStdString() );
+    std::string IconPath = index.data().toString().toStdString();
+    const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon( IconPath );
     if ( icon.GetRawData().size() > 0 ) {
       QPixmap pixmap;
       pixmap.loadFromData( ( uchar* ) &icon.GetRawData()[0], ( uint ) icon.GetRawData().size() );

@@ -2,6 +2,7 @@
 #define FACTORY_H
 
 #include <string>
+#include <set>
 
 #include "Types.h"
 

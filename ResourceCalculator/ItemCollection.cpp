@@ -1,9 +1,11 @@
 #include <assert.h>
 #include "ItemCollection.h"
+#include "RecipeCollection.h"
 
 namespace ResourceCalculator {
 
-  ItemCollection::ItemCollection()
+  ItemCollection::ItemCollection( RecipeCollection &RC ):
+    _RC( RC )
   {
   }
 
@@ -11,23 +13,36 @@ namespace ResourceCalculator {
   {
   }
 
-  void ItemCollection::ADD(const Item Item)
+  void ItemCollection::Add( const std::map<KEY_ITEM, Item > &ModulesToAdd )
   {
-    _Items[Item.GetKey()] = Item;
+    for ( auto & it : ModulesToAdd ) {
+      _Items[it.first] = it.second;
+    }
   }
 
-  bool ItemCollection::DeleteItem(KEY_ITEM KeyItem)
+  void ItemCollection::Delete( const std::set<KEY_ITEM>& ItemsKeysToDel )
   {
-    _Items.erase(KeyItem);
-    return true;
+    _RC.Delete( ItemsKeysToDel );
+    for ( auto & it : ItemsKeysToDel ) {
+      bool ToDel = false;
+      for ( auto &itm : _Items ) {
+        if ( itm.first == it ) {
+          ToDel = true;
+          break;
+        }
+      }
+      if ( ToDel ) {
+        _Items.erase( it );
+      }
+    }
   }
-
+  
   int ItemCollection::ReadFromJson(const Json::Value & jsonPr)
   {
     for (auto &it: jsonPr){
       Item ToAdd;
       ToAdd.ReadFromJson(it);
-      ADD(ToAdd);
+      _Items[ToAdd.GetKey()] = ToAdd;
     }
     return 0;
   }
@@ -48,14 +63,14 @@ namespace ResourceCalculator {
     return _Items;
   }
 
-  Item * ItemCollection::GetItemForEdit(KEY_ITEM KeyRecipe)
-  {
-    std::map<KEY_ITEM, Item>::iterator it = _Items.find(KeyRecipe);
-    if (it == _Items.end()) {
-      return nullptr;
-    }
-    return &it->second;
-  }
+  //Item * ItemCollection::GetItemForEdit(KEY_ITEM KeyRecipe)
+  //{
+  //  std::map<KEY_ITEM, Item>::iterator it = _Items.find(KeyRecipe);
+  //  if (it == _Items.end()) {
+  //    return nullptr;
+  //  }
+  //  return &it->second;
+  //}
 
   const Item * ItemCollection::GetItem(KEY_ITEM KeyRecipe) const
   {
@@ -66,7 +81,7 @@ namespace ResourceCalculator {
     return &it->second;
   }
 
-  KEY_ITEM ItemCollection::GetUniqueRecipeKey() const
+  KEY_ITEM ItemCollection::GetUniqueItemKey() const
   {
     TYPE_KEY retval = 0;
     if (_Items.size() > 0) {

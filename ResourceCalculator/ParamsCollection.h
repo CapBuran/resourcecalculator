@@ -13,17 +13,14 @@ namespace ResourceCalculator {
   class ParamsCollection: public Jsonable
   {
   public:
-    ItemCollection    IC;
     RecipeCollection  RC;
+    ItemCollection    IC;
     FactoryCollection FC;
     ModuleCollection  MC;
     IconCollection Icons;
 
     ParamsCollection();
     
-    bool DeleteRecipe(KEY_RECIPE KeyRecipe);
-    bool DeleteItem(KEY_ITEM ItemID);
-
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;
   };

@@ -13,9 +13,7 @@ class MainWindow : public QMainWindow
 
 public:
     MainWindow(ResourceCalculator::ParamsCollection &PC);
-
 private slots:
-    void updateActions(const QItemSelection &selection);
     void openFile();
     void saveFile();
     void PushButtonClickedAddTab();

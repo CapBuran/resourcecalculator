@@ -25,10 +25,10 @@ namespace ResourceCalculator {
 
     const std::map<KEY_FACTORY, Factory>& GetFactorys() const;
 
-    void DeleteFactorysTypes( const std::list<KEY_TYPE_FACTORY> &FactoryTypesKey );
+    void DeleteFactorysTypes( const std::set<KEY_TYPE_FACTORY> &FactoryTypesKey );
     void AddFactorysTypes( const std::map<KEY_TYPE_FACTORY, FactoryType > &FactoryTypes );
 
-    void DeleteFactorys( const std::list<KEY_FACTORY> &FactoryKeys );
+    void DeleteFactorys( const std::set<KEY_FACTORY> &FactoryKeys );
     void AddFactorys( const std::map<KEY_FACTORY, Factory > &Factorys );
 
     KEY_FACTORY GetUniqueFactoryKey();

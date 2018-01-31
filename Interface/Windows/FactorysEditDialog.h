@@ -41,7 +41,7 @@ public:
 
 private:
   ResourceCalculator::ParamsCollection &_PC;
-  std::list<ResourceCalculator::KEY_FACTORY> _FactorysKeyToDelete;
+  std::set<ResourceCalculator::KEY_FACTORY> _FactorysKeyToDelete;
   std::map<ResourceCalculator::KEY_FACTORY, ResourceCalculator::Factory > _FactorysKeyToAdd;
   QList<std::pair<ResourceCalculator::KEY_FACTORY, ResourceCalculator::Factory > > _listOfItemsId;
 };

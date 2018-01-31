@@ -2,23 +2,9 @@
 
 namespace ResourceCalculator
 {
-
-  bool ParamsCollection::DeleteItem( KEY_ITEM ItemID )
+  ParamsCollection::ParamsCollection():
+    IC( RC )
   {
-    bool IsOk = RC.DeleteItem( ItemID );
-    if ( IsOk ) {
-      IC.DeleteItem( ItemID );
-    }
-    return IsOk;
-  }
-
-  ParamsCollection::ParamsCollection()
-  {
-  }
-
-  bool ParamsCollection::DeleteRecipe( KEY_RECIPE KeyRecipe )
-  {
-    return RC.DeleteRecipe( KeyRecipe );
   }
 
   int ResourceCalculator::ParamsCollection::ReadFromJson( const Json::Value & jsonPr )

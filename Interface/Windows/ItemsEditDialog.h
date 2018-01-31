@@ -18,12 +18,13 @@ public:
   bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
   bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
   bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
-  void SetKeyPathForItem(int Row, const std::string &KeyPath);
-  void SetIsALiquidOrGasForItem(int Row);
-  ResourceCalculator::KEY_ITEM GetItemId(int Num) const;
+  void Commit();
+  void Select();
 private:
   ResourceCalculator::ParamsCollection &_PC;
-  QList<ResourceCalculator::KEY_ITEM> _listOfItemsId;
+  std::set<ResourceCalculator::KEY_ITEM> _ItemsToDelete;
+  std::map<ResourceCalculator::KEY_ITEM, ResourceCalculator::Item> _ItemsToAdd;
+  QList<std::pair<ResourceCalculator::KEY_ITEM, ResourceCalculator::Item > > _listOfItemsId;
 };
 
 class ItemEditDelegate : public QStyledItemDelegate
@@ -31,34 +32,30 @@ class ItemEditDelegate : public QStyledItemDelegate
   Q_OBJECT
 
 public:
-  ItemEditDelegate(const ResourceCalculator::ParamsCollection &PC, ItemsEditModel &Model, QObject *parent = 0);
+  ItemEditDelegate( ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
   bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 private:
-  ItemsEditModel &_Model;
-  const ResourceCalculator::ParamsCollection &_PC;
-
+  ResourceCalculator::ParamsCollection &_PC;
 Q_SIGNALS:
   void editorEventDelegate(const QModelIndex & index) const;
-
 };
 
 class ItemsEditDialog : public QDialog
 {
   Q_OBJECT
-
 public:
   ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
-
 private:
   ResourceCalculator::ParamsCollection &_PC;
   QTableView *_tableView;
   QPushButton *_removeButton;
-  ItemsEditModel *_Model;
+  ItemsEditModel _Model;
 private Q_SLOTS:
   void add_item();
   void remove_item();
   void editorEventDelegate(const QModelIndex &index);
+  void PushButtonOk();
 };
 
 #endif // ITEM_EDIT_DIALOG_H

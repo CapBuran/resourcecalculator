@@ -337,7 +337,7 @@ bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVaria
   if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
     beginResetModel();
     ProductionChainDataRow& ROW = _PCM.GetRowEdit( index.row() );
-    ROW.FindCountFactorysForItemsCount( index.column() - 8 - CI, value.toDouble() );
+    ROW.FindCountFactorysForItemsCount( _PCM.GetPC(), index.column() - 8 - CI, value.toDouble() );
     _PCM.Optimize();
     endResetModel();
     emit( AllDataChanged() );
@@ -596,7 +596,6 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
 void ProductionChainWidget::Update()
 {
   for ( auto & it :_Tabs ) {
-    //it.second->AllDataChanged();
     it.second->ModelAllChanged();
   }
 }

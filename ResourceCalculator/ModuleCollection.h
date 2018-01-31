@@ -14,8 +14,8 @@ namespace ResourceCalculator {
     const Module & GetModule(KEY_MODULE ModuleKey) const;
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;
-    void AddModules( const std::map<KEY_MODULE, Module>& ModulesToAdd );
-    void DeleteModules(const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel );
+    void Add( const std::map<KEY_MODULE, Module>& ModulesToAdd );
+    void Delete(const std::set<KEY_MODULE>& ModulesToDel );
     KEY_MODULE GetUniqueModuleKey();
 
   private:

@@ -5,25 +5,20 @@
 namespace ResourceCalculator
 {
 
-  FactoryModules ProductionChainDataRow::_GetFactoryModules() const
-  {
-    return _FM;
-  }
-
   double ProductionChainDataRow::GetSummSpeed() const
   {
     return 0.0;
   }
 
-  std::string ProductionChainDataRow::GetCurrentFactoryName() const
-  {
-    return _PC->FC.GetFactory( _FactoryCurrent ).GetName();
-  }
+  //std::string ProductionChainDataRow::GetCurrentFactoryName() const
+  //{
+  //  return _PC->FC.GetFactory( _FactoryCurrent ).GetName();
+  //}
 
-  std::string ProductionChainDataRow::GetCurrentRecipeName() const
-  {
-    return _PC->RC.GetRecipe( _RecipeCurrent )->GetName();
-  }
+  //std::string ProductionChainDataRow::GetCurrentRecipeName() const
+  //{
+  //  return _PC->RC.GetRecipe( _RecipeCurrent )->GetName();
+  //}
 
   const ProductionChainDataRow& ProductionChainModel::GetRow( int Row ) const
   {
@@ -40,18 +35,18 @@ namespace ResourceCalculator
     return 0.0;
   }
 
-  bool ProductionChainDataRow::_Update()
+  bool ProductionChainDataRow::_Update( const ParamsCollection & PC )
   {
     const size_t CountsCols = _ColsItems.size();
 
     _Factorys.clear();
 
-    bool IsIsFactoryOkOld = _PC->FC.GetFactory( _FactoryCurrent ).IsAllowedProduction( *_PC, _RecipeCurrent );
+    bool IsIsFactoryOkOld = PC.FC.GetFactory( _FactoryCurrent ).IsAllowedProduction( PC, _RecipeCurrent );
 
-    const std::map<KEY_FACTORY, Factory> &Factorys = _PC->FC.GetFactorys();
+    const std::map<KEY_FACTORY, Factory> &Factorys = PC.FC.GetFactorys();
     for ( auto & it : Factorys ) {
-      bool IsFactoryOk = it.second.IsAllowedProduction( *_PC, _RecipeCurrent );
-      if ( it.second.IsAllowedProduction( *_PC, _RecipeCurrent ) ) {
+      bool IsFactoryOk = it.second.IsAllowedProduction( PC, _RecipeCurrent );
+      if ( it.second.IsAllowedProduction( PC, _RecipeCurrent ) ) {
         if ( !IsFactoryOk ) {
           _FactoryCurrent = it.first;
         }
@@ -69,14 +64,17 @@ namespace ResourceCalculator
       _FactoryCurrent = *_Factorys.begin();
     }
 
-    const Factory &factory = _PC->FC.GetFactory( _FactoryCurrent );
-    const Recipe &recipe = _PC->RC.GetData().find( _RecipeCurrent )->second;
+    const Factory &factory = PC.FC.GetFactory( _FactoryCurrent );
+    const Recipe &recipe = PC.RC.GetData().find( _RecipeCurrent )->second;
+
+    _CurrentFactoryName = factory.GetName();
+    _CurrentRecipeName = recipe.GetName();
 
     factory.FixFactoryModules( _FM );
     _SecPerOneRecipe = recipe.GetTime();
-    _SpeedFactory = factory.GetSpeed() * _FM.GetSummSpeed( _PC->MC );
+    _SpeedFactory = factory.GetSpeed() * _FM.GetSummSpeed( PC.MC );
     _RealTimeProductionOfOneItemPerSec = _SecPerOneRecipe / _SpeedFactory;
-    double ProductionSpeedPerSecond = _FM.GetSummProductivity( _PC->MC );
+    double ProductionSpeedPerSecond = _FM.GetSummProductivity( PC.MC );
 
     _PeakPower = 0.0;
     _LevelOfPollution = 0.0;
@@ -111,7 +109,6 @@ namespace ResourceCalculator
   bool ProductionChainDataRow::Init( const ParamsCollection & PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM>&Cols, int InitColumb )
   {
     _InitColumb = InitColumb;
-    _PC = &PC;
     _ColsItems = Cols;
     _RecipeCurrent = RecipeId;
     _FactoryCurrent = FactoryId;
@@ -119,7 +116,7 @@ namespace ResourceCalculator
     _ItemsPerSec.clear();
     _CountItems.resize( _ColsItems.size(), 0.0 );
     _ItemsPerSec.resize( _ColsItems.size(), 0.0 );
-    _Update();
+    _Update( PC );
     return true;
   }
 
@@ -135,7 +132,7 @@ namespace ResourceCalculator
     return RetVal;
   }
 
-  bool ProductionChainDataRow::SetCountFactorys( double Count )
+  bool ProductionChainDataRow::SetCountFactorys( const ParamsCollection &PC, double Count )
   {
     bool RetVal = _CountFactorys == Count;
     if ( RetVal ) {
@@ -143,42 +140,42 @@ namespace ResourceCalculator
     }
     _CountFactorys = Count;
     _ItemsPerSec[_InitColumb] = 0.0;
-    _Update();
+    _Update( PC );
     return true;
   }
 
-  bool ProductionChainDataRow::SetFactoryModules( const FactoryModules & FM )
+  bool ProductionChainDataRow::SetFactoryModules( const ParamsCollection &PC, const FactoryModules & FM )
   {
     _FM = FM;
-    _Update();
+    _Update( PC );
     return true;
   }
 
-  bool ProductionChainDataRow::SetFactoryCurrent( KEY_FACTORY KeyFactory )
+  bool ProductionChainDataRow::SetFactoryCurrent( const ParamsCollection &PC, KEY_FACTORY KeyFactory )
   {
     if ( _FactoryCurrent == KeyFactory ) {
       return false;
     }
     double OldItemsCount = _ItemsPerSec[_InitColumb];
     _FactoryCurrent = KeyFactory;
-    FindCountFactorysForItemsCount( _InitColumb, OldItemsCount );
-    _Update();
-    FindCountFactorysForItemsCount( _InitColumb, OldItemsCount );
+    FindCountFactorysForItemsCount( PC, _InitColumb, OldItemsCount );
+    _Update( PC );
+    FindCountFactorysForItemsCount( PC, _InitColumb, OldItemsCount );
     return true;
   }
 
-  bool ProductionChainDataRow::FindCountFactorysForItemsCount( int Columb, double Count )
+  bool ProductionChainDataRow::FindCountFactorysForItemsCount( const ParamsCollection &PC, int Columb, double Count )
   {
     if ( _CountItems[Columb] == 0.0 ) return false;
     if ( abs( _CountFactorys ) < 0.00001 ) {
-      SetCountFactorys( 1.0 );
+      SetCountFactorys( PC, 1.0 );
     }
     double OldCountFactorys = _CountFactorys;
     double OldCount = _ItemsPerSec[Columb];
     if ( OldCount == Count ) return false;
     double Coeff = Count / OldCount;
     _CountFactorys = Coeff * OldCountFactorys;
-    _Update();
+    _Update( PC );
     return true;
   }
 
@@ -277,7 +274,11 @@ namespace ResourceCalculator
 
   std::string ProductionChainModel::GetItemName( int Col ) const
   {
-    return _PC.IC.GetItem( _ColsItems[Col] )->GetName();
+    //const ResourceCalculator::Item *Item = _PC.IC.GetItem( _ColsItems[Col] );
+    //if ( Item != nullptr ) {
+    //  return Item->GetName();
+    //} 
+    return "Item deleted!!!";
   }
 
   bool ProductionChainModel::FitQuantity()
@@ -295,7 +296,7 @@ namespace ResourceCalculator
       double RequiresItemsSpeed = _SummSpeeds[col];
       const std::vector <double> &CountItems = ROW.GetCountItems();
       double prod = CountItems[col];
-      ROW.FindCountFactorysForItemsCount( col, -RequiresItemsSpeed );
+      ROW.FindCountFactorysForItemsCount( _PC, col, -RequiresItemsSpeed );
       for ( int ItemID = 0; ItemID < _SummSpeeds.size(); ItemID++ ) {
         _SummSpeeds[ItemID] += ROW.GetItemsPerSec()[ItemID];
       }
@@ -305,14 +306,14 @@ namespace ResourceCalculator
 
   bool ProductionChainModel::SetFactory( int Row, KEY_FACTORY FactoryId )
   {
-    _DataRows[Row].SetFactoryCurrent( FactoryId );
+    _DataRows[Row].SetFactoryCurrent( _PC, FactoryId );
     Optimize();
     return true;
   }
 
   bool ProductionChainModel::SetCountFactores( int Row, double CountFactores )
   {
-    _DataRows[Row].SetCountFactorys( CountFactores );
+    _DataRows[Row].SetCountFactorys( _PC, CountFactores );
     Optimize();
     return true;
   }

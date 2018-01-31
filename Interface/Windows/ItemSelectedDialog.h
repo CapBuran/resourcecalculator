@@ -43,17 +43,15 @@ class ItemSelectedDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
   const ItemSelectedDialogMode _Mode;
-  const ItemSelectedModel &_Model;
   const ResourceCalculator::ParamsCollection &_PC;
 public:
-  ItemSelectedDelegate(const ResourceCalculator::ParamsCollection &PC, const ItemSelectedModel &_Model, ItemSelectedDialogMode Mode, QObject *parent = 0);
+  ItemSelectedDelegate(const ResourceCalculator::ParamsCollection &PC, ItemSelectedDialogMode Mode, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
 };
 
 class ItemSelectedDialog : public QDialog
 {
   Q_OBJECT
-
 public:
   ItemSelectedDialog(
     const ResourceCalculator::ParamsCollection & PC,
@@ -62,13 +60,11 @@ public:
     QWidget * parent = 0);
   ResourceCalculator::KEY_ITEM GetResultOne() const;
   std::set<ResourceCalculator::CountsItem> GetResult() const;
-
 private:
   const ItemSelectedDialogMode _Mode;
   const ResourceCalculator::ParamsCollection &_PC;
-  ItemSelectedModel *_Model;
+  ItemSelectedModel _Model;
   QTableView *_tableView;
-
 };
 
 #endif // ITEM_SELECTED_DIALOG_H

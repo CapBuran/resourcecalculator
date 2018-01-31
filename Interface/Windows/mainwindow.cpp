@@ -146,21 +146,16 @@ void MainWindow::PushButtonClickedRecipesEditDialog()
   if (_RecipesEditDialog.exec()) {
     ProductionChainWidget* PCW = dynamic_cast< ProductionChainWidget* >( _PCW );
     PCW->Update();
-    int d = 0;
-    d += 5;
   }
-
 }
 
 void MainWindow::PushButtonClickedItemsEditDialog()
 {
   ItemsEditDialog _ItemsEditDialog(_PC);
   if (_ItemsEditDialog.exec()) {
-    //QString name = _RecipesEditDialog.nameText->text();
-    //QString address = _RecipesEditDialog.addressText->toPlainText();
-    //emit sendDetails(name, address);
+    ProductionChainWidget* PCW = dynamic_cast< ProductionChainWidget* >( _PCW );
+    PCW->Update();
   }
-
 }
 
 void MainWindow::PushButtonClickedAddTab()
@@ -199,17 +194,4 @@ void MainWindow::PushButtonClickedDebug()
     Dialog.Commit();
   }
 
-}
-
-void MainWindow::updateActions(const QItemSelection &selection)
-{
-    //QModelIndexList indexes = selection.indexes();
-
-    //if (!indexes.isEmpty()) {
-    //    removeAct->setEnabled(true);
-    //    editAct->setEnabled(true);
-    //} else {
-    //    removeAct->setEnabled(false);
-    //    editAct->setEnabled(false);
-    //}
 }

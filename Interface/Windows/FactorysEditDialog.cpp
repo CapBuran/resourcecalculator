@@ -219,7 +219,7 @@ bool FactorysEditDialogModel::removeRows( int position, int rows, const QModelIn
   Q_UNUSED( index );
   beginRemoveRows( QModelIndex(), position, position + rows - 1 );
   for ( int row = 0; row < rows; ++row ) {
-    _FactorysKeyToDelete.push_back( _listOfItemsId.at( position ).first );
+    _FactorysKeyToDelete.insert( _listOfItemsId.at( position ).first );
     _listOfItemsId.removeAt( position );
   }
   endRemoveRows();

@@ -64,21 +64,20 @@ QVariant ItemSelectedModel::data(const QModelIndex &index, int role) const
     return QVariant();
 
   if (role == Qt::DisplayRole) {
-    const CountsItem KeyItem = GetItemData(index.row());
-    const Item *R = _PC.IC.GetItem(KeyItem.ItemId);
+    const Item *R = _PC.IC.GetItem( _listOfItemsId[index.row()].ItemId );
     if (R == nullptr) {
       return QVariant();
     }
     switch (index.column())
     {
     case 0:
-      return QVariant(tr("There should be an icon"));
+      return QString( R->GetIconPath().c_str() );
       break;
     case 1:
-      return QString(R->GetName().c_str());
+      return QString( R->GetName().c_str() );
       break;
     case 2:
-      return QString::number(_listOfItemsId[index.row()].Count);
+      return QString::number( _listOfItemsId[index.row()].Count );
       break;
     default:
       return QVariant();
@@ -162,8 +161,8 @@ bool ItemSelectedModel::setData(const QModelIndex & index, const QVariant & valu
 
 #pragma region DELEGATE
 
-ItemSelectedDelegate::ItemSelectedDelegate(const ResourceCalculator::ParamsCollection &PC, const ItemSelectedModel &Model, ItemSelectedDialogMode Mode, QObject *parent)
-  : QStyledItemDelegate(parent), _PC(PC), _Model(Model), _Mode(Mode)
+ItemSelectedDelegate::ItemSelectedDelegate(const ResourceCalculator::ParamsCollection &PC, ItemSelectedDialogMode Mode, QObject *parent)
+  : QStyledItemDelegate(parent), _Mode(Mode), _PC(PC)
 {
 }
 
@@ -171,32 +170,27 @@ void ItemSelectedDelegate::paint(QPainter * painter, const QStyleOptionViewItem 
 {
   switch (index.column()) {
   case 0: {
-    ResourceCalculator::KEY_ITEM key_item = _Model.GetItemData(index.row()).ItemId;
-    const ResourceCalculator::Item *Item = _PC.IC.GetItem(key_item);
-    if (Item != nullptr) {
-      std::string IconPath = Item->GetIconPath();
-      const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon(IconPath);
-      if (icon.GetRawData().size() > 0) {
-        QPixmap pixmap;
-        pixmap.loadFromData((uchar*)&icon.GetRawData()[0], (uint)icon.GetRawData().size());
-        const int MinCoord = std::min(option.rect.width(), option.rect.height());
-        const int MaxCoord = std::max(option.rect.width(), option.rect.height());
-        const int Sub1 = (MaxCoord - MinCoord) / 2;
-        QRect rect;
-        if (MaxCoord == option.rect.width()) {
-          rect.setCoords(
-            option.rect.left() + Sub1, option.rect.top(),
-            option.rect.left() + Sub1 + MinCoord, option.rect.bottom());
-        }
-        else {
-          rect.setCoords(
-            option.rect.left(), option.rect.top() + Sub1,
-            option.rect.right(), option.rect.top() + Sub1 + MinCoord);
-        }
-        painter->drawPixmap(rect, pixmap);
+    std::string IconPath = index.data().toString().toStdString();
+    const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon( IconPath );
+    if ( icon.GetRawData().size() > 0 ) {
+      QPixmap pixmap;
+      pixmap.loadFromData( ( uchar* ) &icon.GetRawData()[0], ( uint ) icon.GetRawData().size() );
+      const int MinCoord = std::min( option.rect.width(), option.rect.height() );
+      const int MaxCoord = std::max( option.rect.width(), option.rect.height() );
+      const int Sub1 = ( MaxCoord - MinCoord ) / 2;
+      QRect rect;
+      if ( MaxCoord == option.rect.width() ) {
+        rect.setCoords(
+          option.rect.left() + Sub1, option.rect.top(),
+          option.rect.left() + Sub1 + MinCoord, option.rect.bottom() );
+      } else {
+        rect.setCoords(
+          option.rect.left(), option.rect.top() + Sub1,
+          option.rect.right(), option.rect.top() + Sub1 + MinCoord );
       }
+      painter->drawPixmap( rect, pixmap );
     }
-    break;
+   break;
   }
   default:
     QStyledItemDelegate::paint(painter, option, index);
@@ -212,14 +206,12 @@ ItemSelectedDialog::ItemSelectedDialog(
   ItemSelectedDialogMode Mode,
   ResourceCalculator::KEY_RECIPE recipe_key,
   QWidget *parent)
-  : QDialog(parent), _PC(PC), _Mode(Mode)
+  : QDialog( parent ), _PC( PC ), _Mode( Mode ), _Model( PC, _Mode, recipe_key )
 {
   setMinimumSize(400, 600);
    
   QPushButton *okButton = new QPushButton(tr("OK"));
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-
-  _Model = new ItemSelectedModel(_PC,  _Mode, recipe_key, this);
   _tableView = new QTableView;
   _tableView->setSelectionMode(
     _Mode == ItemSelectedDialogMode::ForSelectOneItem ?
@@ -227,8 +219,8 @@ ItemSelectedDialog::ItemSelectedDialog(
     QTableView::SelectionMode::MultiSelection
   );
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
-  _tableView->setModel(_Model);
-  _tableView->setItemDelegate(new ItemSelectedDelegate(PC, *_Model, _Mode));
+  _tableView->setModel(&_Model);
+  _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
 
   if (_Mode != ItemSelectedDialogMode::ForSelectOneItem) {
     using namespace ResourceCalculator;
@@ -237,7 +229,7 @@ ItemSelectedDialog::ItemSelectedDialog(
       auto _ResultOld = _Mode == ItemSelectedDialogMode::ForRecipeSelectItemsRequired ?
         recipe->GetRequired() : recipe->GetResult();
       for ( auto it : _ResultOld ) {
-        int row = _Model->GetItemRow( it.ItemId );
+        int row = _Model.GetItemRow( it.ItemId );
         if ( row >= 0 ) {
           _tableView->selectRow( row );
         }
@@ -270,7 +262,7 @@ ResourceCalculator::KEY_ITEM ItemSelectedDialog::GetResultOne() const
   ResourceCalculator::KEY_ITEM RetVal = ResourceCalculator::KEY_ITEM::ID_ITEM_NoFind_Item;
   QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
   if (Rows.size() > 0){
-    RetVal = _Model->GetItemData(Rows[0].row()).ItemId;
+    RetVal = _Model.GetItemData( Rows[0].row() ).ItemId;
   }
   return RetVal;
 }
@@ -280,7 +272,7 @@ std::set<ResourceCalculator::CountsItem> ItemSelectedDialog::GetResult() const
   std::set<ResourceCalculator::CountsItem> RetVal;
   QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
   for (auto & Row : Rows){
-    ResourceCalculator::CountsItem InsertOne = _Model->GetItemData(Row.row());
+    ResourceCalculator::CountsItem InsertOne = _Model.GetItemData(Row.row());
     RetVal.insert(InsertOne);
   }
   return RetVal;

@@ -30,7 +30,7 @@ public:
 
 private:
   ResourceCalculator::ParamsCollection &_PC;
-  std::list<ResourceCalculator::KEY_TYPE_FACTORY> _FactoryTypesKeyToDelete;
+  std::set<ResourceCalculator::KEY_TYPE_FACTORY> _FactoryTypesKeyToDelete;
   std::map<ResourceCalculator::KEY_TYPE_FACTORY, ResourceCalculator::FactoryType > _FactoryTypesKeyToAdd;
   QList<std::pair<ResourceCalculator::KEY_TYPE_FACTORY, ResourceCalculator::FactoryType > > _listOfItemsId;
 };

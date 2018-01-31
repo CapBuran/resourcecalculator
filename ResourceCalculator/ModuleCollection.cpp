@@ -43,14 +43,14 @@ namespace ResourceCalculator {
     return 0;
   }
 
-  void ModuleCollection::AddModules( const std::map<KEY_MODULE, Module > &ModulesToAdd )
+  void ModuleCollection::Add( const std::map<KEY_MODULE, Module > &ModulesToAdd )
   {
     for ( auto & it : ModulesToAdd ) {
       _Modules[it.first] = it.second;
     }
   }
 
-  void ModuleCollection::DeleteModules( const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel )
+  void ModuleCollection::Delete( const std::set<KEY_MODULE>& ModulesToDel )
   {
     for ( auto & it : ModulesToDel ) {
       bool ToDel = false;

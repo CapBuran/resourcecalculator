@@ -18,21 +18,21 @@ int main(int argc, char ** argv) {
   ItemCollection &IC = PC.IC;
   RecipeCollection &RC = PC.RC;
 
-  {
-    Item To;
-    To.SetName("Железная плита");            To.SetKey(KEY_ITEM::ID_ITEM_Iron_Plate);
-    IC.ADD(To);
-    To.SetName("Медная плита");              To.SetKey(KEY_ITEM::ID_ITEM_Cuprum_Plate);
-    IC.ADD(To);
-    To.SetName("Железная шестерня");         To.SetKey(KEY_ITEM::ID_ITEM_Sherst);
-    IC.ADD(To);
-    To.SetName("Исследовательский пакет 1"); To.SetKey(KEY_ITEM::ID_ITEM_Paket1);
-    IC.ADD(To);
-    To.SetName("Железная руда");             To.SetKey(KEY_ITEM::ID_ITEM_Iron_Ruda);
-    IC.ADD(To);
-    To.SetName("Медная руда");               To.SetKey(KEY_ITEM::ID_ITEM_Cuprum_Ruda);
-    IC.ADD(To);
-  }
+  //{
+  //  Item To;
+  //  To.SetName("Железная плита");            To.SetKey(KEY_ITEM::ID_ITEM_Iron_Plate);
+  //  IC.ADD(To);
+  //  To.SetName("Медная плита");              To.SetKey(KEY_ITEM::ID_ITEM_Cuprum_Plate);
+  //  IC.ADD(To);
+  //  To.SetName("Железная шестерня");         To.SetKey(KEY_ITEM::ID_ITEM_Sherst);
+  //  IC.ADD(To);
+  //  To.SetName("Исследовательский пакет 1"); To.SetKey(KEY_ITEM::ID_ITEM_Paket1);
+  //  IC.ADD(To);
+  //  To.SetName("Железная руда");             To.SetKey(KEY_ITEM::ID_ITEM_Iron_Ruda);
+  //  IC.ADD(To);
+  //  To.SetName("Медная руда");               To.SetKey(KEY_ITEM::ID_ITEM_Cuprum_Ruda);
+  //  IC.ADD(To);
+  //}
 
   {
     std::list<CountsItem> Required, Result;

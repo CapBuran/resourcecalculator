@@ -168,6 +168,15 @@ namespace ResourceCalculator {
     return &it->second;
   }
 
+  void RecipeCollection::Delete( const std::set<KEY_ITEM>& ItemsKeysToDel )
+  {
+    for ( auto ItemID : ItemsKeysToDel ) {
+      for ( auto &recipe : _Recipes ) {
+        recipe.second.DeleteItem( ItemID );
+      }
+    }
+  }
+
 
   Recipe *RecipeCollection::GetRecipeForEdit(KEY_RECIPE KeyRecipe) 
   {
@@ -187,31 +196,6 @@ namespace ResourceCalculator {
       }
     }
     return static_cast<KEY_RECIPE>(retval);
-  }
-
-  bool RecipeCollection::DeleteRecipe(KEY_RECIPE KeyRecipe)
-  {
-    _Recipes.erase(KeyRecipe);
-    //auto cur = _Recipes.begin();
-    //auto end = _Recipes.end();
-    //while (cur != end){
-    //  if (cur->first == KeyRecipe){
-    //    cur = _Recipes.erase(cur);
-    //    end = _Recipes.end();
-    //  }else {
-    //    ++cur;
-    //  }
-    //}
-    return true;
-  }
-
-  bool RecipeCollection::DeleteItem(KEY_ITEM ItemID)
-  {
-    for (auto &recipe : _Recipes){
-      bool IsOk = recipe.second.DeleteItem(ItemID);
-      if (!IsOk) return IsOk;
-    }
-    return true;
   }
 
   int RecipeCollection::WriteToJson(Json::Value & jsonPr) const

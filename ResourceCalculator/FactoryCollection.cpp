@@ -74,7 +74,7 @@ namespace ResourceCalculator
     }
   }
 
-  void FactoryCollection::DeleteFactorysTypes( const std::list<KEY_TYPE_FACTORY> &FactoryTypesKey )
+  void FactoryCollection::DeleteFactorysTypes( const std::set<KEY_TYPE_FACTORY> &FactoryTypesKey )
   {
     for ( auto & it : FactoryTypesKey ) {
       for ( auto &itf : _Factorys ) {
@@ -88,7 +88,7 @@ namespace ResourceCalculator
     }
   }
 
-  void FactoryCollection::DeleteFactorys( const std::list<KEY_FACTORY>& FactoryTypesKey )
+  void FactoryCollection::DeleteFactorys( const std::set<KEY_FACTORY>& FactoryTypesKey )
   {
     for ( auto & it : FactoryTypesKey ) {
       _Factorys.erase( it );

@@ -9,10 +9,11 @@ namespace ResourceCalculator {
 
   class ProductionChainDataRow {
 
-    const ParamsCollection *_PC;
-
     KEY_RECIPE  _RecipeCurrent;
     KEY_FACTORY _FactoryCurrent;
+
+    std::string _CurrentFactoryName;
+    std::string _CurrentRecipeName;
 
     double _PeakPower;
     double _LevelOfPollution;
@@ -29,23 +30,21 @@ namespace ResourceCalculator {
     std::vector <double> _CountItems;
     std::vector <double> _ItemsPerSec;
 
-    FactoryModules _GetFactoryModules() const;
-
-    bool _Update();
+    bool _Update( const ParamsCollection &PC );
 
   public:
 
-    bool SetCountFactorys( double Count );
-    bool SetFactoryModules( const FactoryModules &FM );
-    bool SetFactoryCurrent( KEY_FACTORY );
-    bool FindCountFactorysForItemsCount( int Columb, double Count );
+    bool SetCountFactorys( const ParamsCollection &PC, double Count );
+    bool SetFactoryModules( const ParamsCollection &PC, const FactoryModules &FM );
+    bool SetFactoryCurrent( const ParamsCollection &PC, KEY_FACTORY );
+    bool FindCountFactorysForItemsCount( const ParamsCollection &PC, int Columb, double Count );
     
     bool Init( const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols, int InitColumb );
 
     DeclareAndDefinitionPropertyReadOnly( Factorys, std::vector <KEY_FACTORY> )
     DeclareAndDefinitionPropertyReadOnly( FactoryCurrent, KEY_FACTORY )
-    DeclarePropertyReadOnly( CurrentFactoryName, std::string )
-    DeclarePropertyReadOnly( CurrentRecipeName, std::string )
+    DeclareAndDefinitionPropertyReadOnly( CurrentFactoryName, std::string )
+    DeclareAndDefinitionPropertyReadOnly( CurrentRecipeName, std::string )
     DeclarePropertyReadOnly( SummProductivity, double )
     DeclarePropertyReadOnly( SummSpeed, double )
     DeclareAndDefinitionPropertyReadOnly( InitColumb, int )
@@ -71,6 +70,12 @@ namespace ResourceCalculator {
     std::vector<double> _SummSpeeds;
 
   public:
+
+    inline const ParamsCollection &GetPC() const
+    {
+      return _PC;
+    }
+
     ProductionChainModel(const ParamsCollection &PC, KEY_ITEM ItemKey);
     ProductionChainModel(const ParamsCollection &PC);
     ~ProductionChainModel();

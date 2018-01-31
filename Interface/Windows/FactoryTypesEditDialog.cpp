@@ -38,12 +38,7 @@ QVariant FactoryTypesEditModel::data( const QModelIndex &index, int role ) const
       return QVariant( tr( "There should be an icon" ) );
       break;
     case 1:
-    {
-      std::string dd = _listOfItemsId[index.row()].second.Name;
-      QString ‡‡‡ = QString::fromStdString( dd );
-      return ‡‡‡;
-      //return QString::fromStdString( _listOfItemsId[index.row()].second.Name );
-    }
+      return QString::fromStdString( _listOfItemsId[index.row()].second.Name );
       break;
     default:
       return QVariant();
@@ -94,7 +89,7 @@ bool FactoryTypesEditModel::removeRows( int position, int rows, const QModelInde
   Q_UNUSED( index );
   beginRemoveRows( QModelIndex(), position, position + rows - 1 );
   for ( int row = 0; row < rows; ++row ) {
-    _FactoryTypesKeyToDelete.push_back( _listOfItemsId.at( position ).first );
+    _FactoryTypesKeyToDelete.insert( _listOfItemsId.at( position ).first );
     _listOfItemsId.removeAt( position );
   }
   endRemoveRows();

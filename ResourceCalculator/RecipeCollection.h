@@ -60,18 +60,16 @@ namespace ResourceCalculator {
     Recipe *GetRecipeForEdit(KEY_RECIPE KeyRecipe);
     const Recipe *GetRecipe(KEY_RECIPE KeyRecipe) const;
 
+    void Delete( const std::set<KEY_ITEM>& ItemsKeysToDel );
+    void Delete( const std::set<KEY_RECIPE>& RecipsKeysToDel );
+
     KEY_RECIPE GetUniqueRecipeKey() const;
 
     void Add(const Recipe &);
 
   private:
     
-    bool DeleteRecipe(KEY_RECIPE KeyRecipe);
-    bool DeleteItem(KEY_ITEM ItemID);
-
     std::map<KEY_RECIPE, Recipe> _Recipes;
-
-    friend ParamsCollection;
 
   };
 

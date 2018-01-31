@@ -2,10 +2,6 @@
 
 namespace ResourceCalculator {
 
-  Item::~Item()
-  {
-  }
-
   int Item::ReadFromJson(const Json::Value & jsonPr)
   {
     _Key = static_cast<KEY_ITEM>(jsonPr["Key"].asInt64());
