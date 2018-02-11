@@ -145,22 +145,22 @@ bool ModulesTypesEditModel::setData( const QModelIndex & index, const QVariant &
         _listOfItemsId[index.row()].second.SetName( value.toString().toStdString() );
       break;
     case 2:
-      if ( value.toDouble( &IsOk ) > 0 )
+      if ( value.toDouble( &IsOk ) > 0.0 )
         if ( IsOk )
           _listOfItemsId[index.row()].second.SetCoefficientPollution( value.toDouble() );
       break;
     case 3:
-      if ( value.toDouble( &IsOk ) > 0 )
+      if ( value.toDouble( &IsOk ) > 0.0 )
         if ( IsOk )
           _listOfItemsId[index.row()].second.SetCoefficientEffectiveness( value.toDouble() );
       break;
     case 4:
-      if ( value.toDouble( &IsOk ) > 0 )
+      if ( value.toDouble( &IsOk ) > 0.0 )
         if ( IsOk )
           _listOfItemsId[index.row()].second.SetCoefficientSpeed( value.toDouble() );
       break;
     case 5:
-      if ( value.toDouble( &IsOk ) > 0 )
+      if ( value.toDouble( &IsOk ) > 0.0 )
         if ( IsOk )
           _listOfItemsId[index.row()].second.SetCoefficientProductivity( value.toDouble() );
       break;
@@ -291,7 +291,7 @@ ModulesEditDialog::ModulesEditDialog( ResourceCalculator::ParamsCollection &PC, 
   QPushButton *cancelButton = new QPushButton( tr( "Cancel" ) );
 
   _tableView = new QTableView;
-  _tableView->setSelectionMode( QTableView::SelectionMode::MultiSelection );
+  _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
   _tableView->setSelectionBehavior( QTableView::SelectionBehavior::SelectRows );
   _tableView->setModel( &_Model );
   _tableView->setItemDelegate( new ModulesEditDelegate( PC ) );

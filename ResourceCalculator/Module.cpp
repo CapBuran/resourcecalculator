@@ -5,10 +5,10 @@ namespace ResourceCalculator {
 
   Module::Module(): 
     _Key(KEY_MODULE::ID_CleanSlot),
-    _CoefficientPollution(0.0),
-    _CoefficientEffectiveness(0.0),
-    _CoefficientSpeed(0.0),
-    _CoefficientProductivity(0.0)
+    _CoefficientPollution(1.0),
+    _CoefficientEffectiveness(1.0),
+    _CoefficientSpeed(1.0),
+    _CoefficientProductivity(1.0)
   {
   }
 
