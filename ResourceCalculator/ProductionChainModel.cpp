@@ -120,6 +120,16 @@ namespace ResourceCalculator
     return true;
   }
 
+  bool ProductionChainDataRow::ReInit(const ParamsCollection &PC)
+  {
+    _CountItems.clear();
+    _ItemsPerSec.clear();
+    _CountItems.resize(_ColsItems.size(), 0.0);
+    _ItemsPerSec.resize(_ColsItems.size(), 0.0);
+    _Update(PC);
+    return true;
+  }
+
   void ProductionChainDataRow::DeleteModules( const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel )
   {
     _FM.DeleteModules( ModulesToDel );
@@ -272,12 +282,20 @@ namespace ResourceCalculator
 
   }
 
+  bool ProductionChainModel::ReInit()
+  {
+    for (ProductionChainDataRow &PCDR : _DataRows) {
+      PCDR.ReInit(_PC);
+    }
+    return Optimize();
+  }
+
   std::string ProductionChainModel::GetItemName( int Col ) const
   {
-    //const ResourceCalculator::Item *Item = _PC.IC.GetItem( _ColsItems[Col] );
-    //if ( Item != nullptr ) {
-    //  return Item->GetName();
-    //} 
+    const ResourceCalculator::Item *Item = _PC.IC.GetItem( _ColsItems[Col] );
+    if ( Item != nullptr ) {
+      return Item->GetName();
+    } 
     return "Item deleted!!!";
   }
 

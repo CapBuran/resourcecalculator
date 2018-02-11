@@ -41,6 +41,22 @@ ItemSelectedModel::ItemSelectedModel(
   }
 }
 
+ItemSelectedModel::ItemSelectedModel(const ResourceCalculator::ParamsCollection & PC, ItemSelectedDialogMode Mode, const std::set<ResourceCalculator::CountsItem>& Result, QObject * parent)
+  : QAbstractTableModel(parent), _PC(PC), _Mode(Mode)
+{
+  using namespace ResourceCalculator;
+  const std::map<KEY_ITEM, Item> &DATA = _PC.IC.GetData();
+  _listOfItemsId.reserve(static_cast<int>(DATA.size()));
+  for (auto &it : DATA) {
+    CountsItem CI(it.first);
+    auto f = Result.find(it.first);
+    if (f != Result.end()) {
+      CI.Count = f->Count;
+    }
+    _listOfItemsId.push_back(CI);
+  }
+}
+
 int ItemSelectedModel::rowCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
@@ -115,11 +131,6 @@ Qt::ItemFlags ItemSelectedModel::flags(const QModelIndex &index) const
   return Qt::ItemIsSelectable | Qt::ItemIsEnabled | (index.column() == 2 ? Qt::ItemIsEditable : Qt::NoItemFlags);
 }
 
-ResourceCalculator::CountsItem ItemSelectedModel::GetItemData(int Num) const
-{
-  return _listOfItemsId[Num];
-}
-
 int ItemSelectedModel::GetItemRow(ResourceCalculator::KEY_ITEM ItemKey)
 {
   for (int i = 0; i < _listOfItemsId.size(); i++){
@@ -155,6 +166,11 @@ bool ItemSelectedModel::setData(const QModelIndex & index, const QVariant & valu
     return true;
   }
   return false;
+}
+
+const ResourceCalculator::CountsItem & ItemSelectedModel::GetItemData(int Num) const
+{
+  return _listOfItemsId[Num];
 }
 
 #pragma endregion MODEL
@@ -255,6 +271,53 @@ ItemSelectedDialog::ItemSelectedDialog(
     setWindowTitle(tr("Select items"));
   }
   
+}
+
+ItemSelectedDialog::ItemSelectedDialog(const ResourceCalculator::ParamsCollection & PC, ItemSelectedDialogMode Mode, const std::set<ResourceCalculator::CountsItem> &Result, QWidget * parent)
+  : QDialog(parent), _PC(PC), _Mode(Mode), _Model(PC, _Mode, Result)
+{
+  setMinimumSize(400, 600);
+
+  QPushButton *okButton = new QPushButton(tr("OK"));
+  QPushButton *cancelButton = new QPushButton(tr("Cancel"));
+  _tableView = new QTableView;
+  _tableView->setSelectionMode(
+    _Mode == ItemSelectedDialogMode::ForSelectOneItem ?
+    QTableView::SelectionMode::SingleSelection :
+    QTableView::SelectionMode::MultiSelection
+  );
+  _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
+  _tableView->setModel(&_Model);
+  _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
+
+  if (_Mode != ItemSelectedDialogMode::ForSelectOneItem) {
+    using namespace ResourceCalculator;
+    for (auto it : Result) {
+      int row = _Model.GetItemRow(it.ItemId);
+      if (row >= 0) {
+        _tableView->selectRow(row);
+      }
+    }
+  }
+
+  QHBoxLayout *buttonLayout = new QHBoxLayout;
+  buttonLayout->addWidget(okButton);
+  buttonLayout->addWidget(cancelButton);
+
+  QVBoxLayout *mainLayout = new QVBoxLayout;
+  mainLayout->addWidget(_tableView);
+  mainLayout->addLayout(buttonLayout);
+  setLayout(mainLayout);
+
+  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
+  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
+
+  if (Mode == ItemSelectedDialogMode::ForSelectOneItem) {
+    setWindowTitle(tr("Select an item"));
+  } else {
+    setWindowTitle(tr("Select items"));
+  }
+
 }
 
 ResourceCalculator::KEY_ITEM ItemSelectedDialog::GetResultOne() const

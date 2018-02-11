@@ -27,43 +27,44 @@ public:
   bool insertRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
   bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
   ResourceCalculator::KEY_RECIPE GetRecipeId(int Num) const;
+  void Commit();
+  void Select();
 private:
   ResourceCalculator::ParamsCollection &_PC;
-  QList<ResourceCalculator::KEY_RECIPE> _listOfRecipesId;
+  std::set<ResourceCalculator::KEY_RECIPE> _RecipesToDelete;
+  std::map<ResourceCalculator::KEY_RECIPE, ResourceCalculator::Recipe> _RecipesToAdd;
+  QList<std::pair<ResourceCalculator::KEY_RECIPE, ResourceCalculator::Recipe> > _listOfRecipesId;
 };
 
 class RecipesEditDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
 public:
-  RecipesEditDelegate(ResourceCalculator::ParamsCollection &PC, const RecipeListModel &model_recipe, QObject *parent = 0);
+  RecipesEditDelegate(ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
   QWidget *RecipesEditDelegate::createEditor( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   void setEditorData( QWidget *editor, const QModelIndex &index ) const override;
-  void setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const override;
   void updateEditorGeometry( QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 private:
   ResourceCalculator::ParamsCollection &_PC;
-  const RecipeListModel &_model_recipe;
 };
 
 class RecipesEditDialog : public QDialog
 {
   Q_OBJECT
-
 public:
   RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
-
 private:
   QTableView *_tableView;
-  RecipeListModel *_Model;
+  RecipeListModel _Model;
   ResourceCalculator::ParamsCollection &_PC;
-
+  QPushButton *_removeButton;
   private Q_SLOTS:
     void add_item();
     void remove_item();
-
+    void editorEventDelegate(const QModelIndex &index);
+    void PushButtonOk();
 };
 
 #endif // RECIPE_EDIT_DIALOG_H

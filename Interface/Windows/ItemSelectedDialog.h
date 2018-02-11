@@ -21,15 +21,20 @@ public:
     ResourceCalculator::KEY_RECIPE recipe_key,
     QObject *parent = 0
   );
+  ItemSelectedModel(
+    const ResourceCalculator::ParamsCollection &PC,
+    ItemSelectedDialogMode Mode,
+    const std::set<ResourceCalculator::CountsItem> &Result,
+    QObject *parent = 0
+  );
   int rowCount(const QModelIndex &parent) const override;
   int columnCount(const QModelIndex &parent) const override;
   QVariant data(const QModelIndex &index, int role) const override;
   QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
   Qt::ItemFlags flags(const QModelIndex &index) const override;
-  ResourceCalculator::CountsItem GetItemData(int Num) const;
   int GetItemRow(ResourceCalculator::KEY_ITEM ItemKey);
   bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
-
+  const ResourceCalculator::CountsItem &GetItemData(int Num) const;
 private:
   const ItemSelectedDialogMode _Mode;
   const ResourceCalculator::ParamsCollection &_PC;
@@ -57,6 +62,11 @@ public:
     const ResourceCalculator::ParamsCollection & PC,
     ItemSelectedDialogMode Mode,
     ResourceCalculator::KEY_RECIPE recipe_key = ResourceCalculator::KEY_RECIPE::ID_RECIPE_NoFindRecipe,
+    QWidget * parent = 0);
+  ItemSelectedDialog(
+    const ResourceCalculator::ParamsCollection & PC,
+    ItemSelectedDialogMode Mode,
+    const std::set<ResourceCalculator::CountsItem> &Result,
     QWidget * parent = 0);
   ResourceCalculator::KEY_ITEM GetResultOne() const;
   std::set<ResourceCalculator::CountsItem> GetResult() const;

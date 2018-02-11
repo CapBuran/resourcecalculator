@@ -364,6 +364,7 @@ Qt::ItemFlags ProductionChainWidgetModel::flags( const QModelIndex &index ) cons
 void ProductionChainWidgetModel::FitQuantity()
 {
   _PCM.FitQuantity();
+  _PCM.ReInit();
   emit( AllDataChanged() );
 }
 
@@ -459,11 +460,6 @@ bool ProductionChainWidgetProxyModel3::filterAcceptsRow( int source_row, const Q
 ProductionChainWidget::ProductionChainWidget( const ResourceCalculator::ParamsCollection &PC, QWidget *parent )
   : _PC(PC), QTabWidget( parent )
 {
-  //table = new ProductionChainWidgetModel( this );
-  //connect( newAddressTab, &NewAddressTab::sendDetails, this, &ProductionChainWidget::addEntry );
-
-  //addTab( newAddressTab, "Address Book" );
-
   setupTabs();
 }
 
@@ -595,21 +591,17 @@ void ProductionChainWidget::AddTab( ResourceCalculator::KEY_ITEM ItemKey )
 
 void ProductionChainWidget::Update()
 {
-  for ( auto & it :_Tabs ) {
-    it.second->ModelAllChanged();
+  for ( auto & tab :_Tabs ) {
+    tab.second->ModelAllChanged();
+    tab.second->FitQuantity();
   }
 }
 
 void ProductionChainWidget::PushButtonAutoFitQuantity()
 {
-  QWidget *CurrentWidget = currentWidget();
-  std::map<QWidget*, ProductionChainWidgetModel*>::iterator F = _Tabs.find( CurrentWidget );
-  if ( F == _Tabs.end() ) {
-    Q_ASSERT( "No find QWidget!!!" );
-    return;
+  for (auto &tab : _Tabs) {
+    tab.second->FitQuantity();
   }
-  ProductionChainWidgetModel *PCWM = F->second;
-  PCWM->FitQuantity();
 }
 
 void ProductionChainWidget::addEntry( QString name, QString address )
