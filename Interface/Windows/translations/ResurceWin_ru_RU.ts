@@ -268,12 +268,8 @@
     </message>
     <message>
         <location filename="../ItemsEditDialog.cpp" line="123"/>
-        <source>New module</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
         <source>New item</source>
-        <translation type="vanished">Новый предмет</translation>
+        <translation>Новый предмет</translation>
     </message>
 </context>
 <context>
@@ -311,7 +307,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="31"/>
         <source>Modules editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор модулей</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="34"/>
@@ -380,27 +376,27 @@
     <message>
         <location filename="../ModulesEditDialog.cpp" line="288"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Ок</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="289"/>
         <source>Add</source>
-        <translation type="unfinished">Добавить</translation>
+        <translation>Добавить</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="290"/>
         <source>Remove</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="291"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="315"/>
         <source>Edit modules</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор модулей</translation>
     </message>
 </context>
 <context>
@@ -416,37 +412,37 @@
     <message>
         <location filename="../ModulesEditDialog.cpp" line="70"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="72"/>
         <source>Module name</source>
-        <translation type="unfinished"></translation>
+        <translation>Название модуля</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="74"/>
         <source>Coefficient pollution</source>
-        <translation type="unfinished"></translation>
+        <translation>Коэффициент загрязнения</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="76"/>
         <source>Coefficient effectiveness</source>
-        <translation type="unfinished"></translation>
+        <translation>Коэффициент эффективности</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="78"/>
         <source>Coefficient speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Коэффициент скорости</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="80"/>
         <source>Coefficient productivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Коэффициент продуктивности</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="103"/>
         <source>New module</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый модуль</translation>
     </message>
 </context>
 <context>
@@ -525,12 +521,12 @@
     <message>
         <location filename="../RecipesEditDialog.cpp" line="81"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../RecipesEditDialog.cpp" line="83"/>
         <source>Recipe name</source>
-        <translation type="unfinished"></translation>
+        <translation>Название рецепта</translation>
     </message>
     <message>
         <location filename="../RecipesEditDialog.cpp" line="85"/>
@@ -568,15 +564,7 @@
     <message>
         <location filename="../RecipesEditDialog.cpp" line="271"/>
         <source>Ingredients</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Required</source>
-        <translation type="vanished">Интегреенты</translation>
-    </message>
-    <message>
-        <source>Factorys</source>
-        <translation type="vanished">Фабрики</translation>
+        <translation>Ингредиенты</translation>
     </message>
 </context>
 <context>

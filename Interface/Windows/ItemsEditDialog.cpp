@@ -120,7 +120,7 @@ bool ItemsEditModel::insertRows(int position, int rows, const QModelIndex &index
   for (int row = 0; row < rows; ++row) {
     using namespace ResourceCalculator;
     KEY_ITEM NewKey = _PC.IC.GetUniqueItemKey();
-    QString Name(tr("New module") + QString(' ') + QString::number(static_cast<KEY_TO_Json>(NewKey)));
+    QString Name(tr("New item") + QString(' ') + QString::number(static_cast<KEY_TO_Json>(NewKey)));
     std::pair<KEY_ITEM, Item > ToADD;
     ToADD.first = NewKey;
     ToADD.second.SetKey(NewKey);
