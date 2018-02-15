@@ -1,11 +1,9 @@
 ::Edit this file
 
-::ms32|ms64
-SET compiler=ms64
 SET compiler=ms32
 
-::2012|2013|2015
-SET versionVS=2015
+::2012|2013|2015|2017
+SET versionVS=2017
 
 SET Config=Debug
 SET Config=Release

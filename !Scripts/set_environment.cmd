@@ -13,17 +13,23 @@ IF %compiler%==ms64 (
 
 IF %versionVS%==2012 (
  SET VER_MS=11
+ CALL "C:\Program Files (x86)\Microsoft Visual Studio %VER_MS%.0\VC\vcvarsall.bat" %ARCH_MS%
 )
 
 IF %versionVS%==2013 (
  SET VER_MS=12
+ CALL "C:\Program Files (x86)\Microsoft Visual Studio %VER_MS%.0\VC\vcvarsall.bat" %ARCH_MS%
 )
 
 IF %versionVS%==2015 (
  SET VER_MS=14
+ CALL "C:\Program Files (x86)\Microsoft Visual Studio %VER_MS%.0\VC\vcvarsall.bat" %ARCH_MS%
 )
 
-CALL "C:\Program Files (x86)\Microsoft Visual Studio %VER_MS%.0\VC\vcvarsall.bat" %ARCH_MS%
+IF %versionVS%==2017 (
+ SET VER_MS=15
+ call "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\VC\Auxiliary\Build\vcvarsamd64_x86.bat"
+)
 
 SET CMAKE_GENERATOR_NAME="Visual Studio %VER_MS% %versionVS%%ARCH_CMAKE%"
 
@@ -41,7 +47,7 @@ IF NOT DEFINED CMAKE_EXE (
   exit -3
 )
 
-call C:\QT\5.9.1\msvc2015_64\bin\qtenv2.bat
+call C:\QT\%QT_VERSION%\%QT_INSTALL_FRAMEWORK_NAME%\bin\qtenv2.bat
 
 ECHO ==========================================================================
 ECHO CMake:                %CMAKE_EXE%
