@@ -372,6 +372,37 @@
     </message>
 </context>
 <context>
+    <name>ModuleSelectDialog</name>
+    <message>
+        <location filename="../ModuleSelectDialog.cpp" line="151"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ModuleSelectDialog.cpp" line="152"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Отмена</translation>
+    </message>
+    <message>
+        <location filename="../ModuleSelectDialog.cpp" line="170"/>
+        <source>Select modules for factory</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ModuleSelectModel</name>
+    <message>
+        <location filename="../ModuleSelectDialog.cpp" line="69"/>
+        <source>Icon</source>
+        <translation type="unfinished">Иконка</translation>
+    </message>
+    <message>
+        <location filename="../ModuleSelectDialog.cpp" line="71"/>
+        <source>Module name</source>
+        <translation type="unfinished">Название модуля</translation>
+    </message>
+</context>
+<context>
     <name>ModulesEditDialog</name>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="288"/>
@@ -397,6 +428,40 @@
         <location filename="../ModulesEditDialog.cpp" line="315"/>
         <source>Edit modules</source>
         <translation>Редактор модулей</translation>
+    </message>
+</context>
+<context>
+    <name>ModulesSelectDialog</name>
+    <message>
+        <location filename="../ModulesSelectDialog.cpp" line="186"/>
+        <location filename="../ModulesSelectDialog.cpp" line="213"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ModulesSelectDialog.cpp" line="187"/>
+        <location filename="../ModulesSelectDialog.cpp" line="214"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Отмена</translation>
+    </message>
+    <message>
+        <location filename="../ModulesSelectDialog.cpp" line="205"/>
+        <location filename="../ModulesSelectDialog.cpp" line="232"/>
+        <source>Select modules for factory</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ModulesSelectModel</name>
+    <message>
+        <location filename="../ModulesSelectDialog.cpp" line="68"/>
+        <source>Icon</source>
+        <translation type="unfinished">Иконка</translation>
+    </message>
+    <message>
+        <location filename="../ModulesSelectDialog.cpp" line="70"/>
+        <source>Module name</source>
+        <translation type="unfinished">Название модуля</translation>
     </message>
 </context>
 <context>
@@ -459,12 +524,12 @@
 <context>
     <name>ProductionChainWidget</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="548"/>
+        <location filename="../ProductionChainWidget.cpp" line="569"/>
         <source>Auto-fit quantity items</source>
         <translation>Автоподбор</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="551"/>
+        <location filename="../ProductionChainWidget.cpp" line="572"/>
         <source>Summ results:  </source>
         <translation>Сумма результатов:  </translation>
     </message>
@@ -472,42 +537,42 @@
 <context>
     <name>ProductionChainWidgetModel</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="288"/>
+        <location filename="../ProductionChainWidget.cpp" line="301"/>
         <source>Factory</source>
         <translation>Фабрика</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="290"/>
+        <location filename="../ProductionChainWidget.cpp" line="303"/>
         <source>Recipe</source>
         <translation>Рецепт</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="292"/>
+        <location filename="../ProductionChainWidget.cpp" line="305"/>
         <source>Modules productivity</source>
         <translation>Модули продуктивности</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="294"/>
+        <location filename="../ProductionChainWidget.cpp" line="307"/>
         <source>Modules speed</source>
         <translation>Модули скорости</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="296"/>
+        <location filename="../ProductionChainWidget.cpp" line="309"/>
         <source>Speed factory</source>
         <translation>Скорость фабрики</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="298"/>
+        <location filename="../ProductionChainWidget.cpp" line="311"/>
         <source>Time for recipe</source>
         <translation>Время рецепта</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="300"/>
+        <location filename="../ProductionChainWidget.cpp" line="313"/>
         <source>Real time for recipe</source>
         <translation>Производство одной компоненты</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="302"/>
+        <location filename="../ProductionChainWidget.cpp" line="315"/>
         <source>Count factorys</source>
         <translation>Количество фабрик</translation>
     </message>

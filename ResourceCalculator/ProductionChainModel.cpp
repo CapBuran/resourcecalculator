@@ -4,22 +4,6 @@
 
 namespace ResourceCalculator
 {
-
-  double ProductionChainDataRow::GetSummSpeed() const
-  {
-    return 0.0;
-  }
-
-  //std::string ProductionChainDataRow::GetCurrentFactoryName() const
-  //{
-  //  return _PC->FC.GetFactory( _FactoryCurrent ).GetName();
-  //}
-
-  //std::string ProductionChainDataRow::GetCurrentRecipeName() const
-  //{
-  //  return _PC->RC.GetRecipe( _RecipeCurrent )->GetName();
-  //}
-
   const ProductionChainDataRow& ProductionChainModel::GetRow( int Row ) const
   {
     return _DataRows[Row];
@@ -30,9 +14,14 @@ namespace ResourceCalculator
     return _DataRows[Row];
   }
 
-  double ProductionChainDataRow::GetSummProductivity() const
+  double ProductionChainDataRow::GetSummProductivity(const ParamsCollection & PC) const
   {
-    return 0.0;
+    return _FM.GetSummProductivity(PC.MC);
+  }
+
+  double ProductionChainDataRow::GetSummSpeed(const ParamsCollection & PC) const
+  {
+    return _FM.GetSummSpeed(PC.MC);
   }
 
   bool ProductionChainDataRow::_Update( const ParamsCollection & PC )
@@ -119,7 +108,7 @@ namespace ResourceCalculator
     _Update( PC );
     return true;
   }
-
+  
   bool ProductionChainDataRow::ReInit(const ParamsCollection &PC)
   {
     _CountItems.clear();
@@ -336,9 +325,11 @@ namespace ResourceCalculator
     return true;
   }
 
-  bool ProductionChainModel::SetModules( int Row, const std::vector<KEY_MODULE>& Modules )
+  bool ProductionChainModel::SetModules( int Row, const FactoryModules & Modules )
   {
-    return false;
+    _DataRows[Row].SetFactoryModules(_PC, Modules);
+    Optimize();
+    return true;
   }
 
   bool ProductionChainModel::SetRecipe( int Row, KEY_RECIPE RecipeId )

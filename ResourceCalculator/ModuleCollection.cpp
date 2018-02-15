@@ -1,9 +1,13 @@
+#include <assert.h>
 #include "ModuleCollection.h"
 
 namespace ResourceCalculator {
 
+  static Module EmptyModule;
+
   ModuleCollection::ModuleCollection()
   {
+    EmptyModule.SetName("EMTY SLOT");
     _LastRetvalUniqueModuleKey = KEY_MODULE::ID_CleanSlot;
   }
 
@@ -18,7 +22,8 @@ namespace ResourceCalculator {
 
   const Module & ModuleCollection::GetModule(KEY_MODULE ModuleKey) const
   {
-    return _Modules.find(ModuleKey)->second;
+    std::map<KEY_MODULE, Module>::const_iterator module = _Modules.find(ModuleKey);
+    return module == _Modules.end() ? EmptyModule : module->second;
   }
 
   int ModuleCollection::ReadFromJson(const Json::Value & jsonPr)

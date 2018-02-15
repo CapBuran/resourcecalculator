@@ -54,11 +54,9 @@ namespace ResourceCalculator {
       newVal["Count"] = it.Count;
       jsonResult.append(newVal);
     }
-    Json::Value jsonFactoryAllowed = Json::Value(Json::arrayValue);
     jsonPr["TypeFactory"] = static_cast<Json::Value::Int64>(_TypeFactory);
     jsonPr["Required"] = jsonRequired;
     jsonPr["Result"] = jsonResult;
-    jsonPr["FactoryAllowed"] = jsonFactoryAllowed;
     jsonPr["Key"] = static_cast<Json::Value::Int64>(_Key);
     jsonPr["Time"] = _Time;
     return 0;

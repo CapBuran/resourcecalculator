@@ -40,7 +40,7 @@ namespace ResourceCalculator {
 
   bool FactoryModules::SetCountModules(int Count)
   {
-    bool retval = _Modules.size() > Count;
+    bool retval = _Modules.size() != Count;
     if (retval) _Modules.resize(Count);
     return retval;
   }

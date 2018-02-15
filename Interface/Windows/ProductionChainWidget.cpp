@@ -1,4 +1,7 @@
 #include "ProductionChainWidget.h"
+#include "ModulesSelectDialog.h"
+
+Q_DECLARE_METATYPE(ResourceCalculator::FactoryModules);
 
 #pragma region DELEGATE
 
@@ -61,8 +64,6 @@ QSize ProductionChainWidgetHeaderView::sectionSizeFromContents( int logicalIndex
   return QSize( MaxHeight, MaxWidth );
 }
 
-
-
 ProductionChainWidgetDelegateBase::ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection & PC, ResourceCalculator::ProductionChainModel &PCM, QObject * parent ):
   QStyledItemDelegate( parent ), _PC( PC ), _PCM( PCM )
 {
@@ -77,7 +78,6 @@ QSize ProductionChainWidgetDelegateBase::sizeHint(
   QFontMetrics fm( optV4.fontMetrics );
   return QSize( fm.width( optV4.text ) + fm.overlinePos(), fm.height() );
 }
-
 
 ProductionChainWidgetDelegate0::ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, ResourceCalculator::ProductionChainModel &PCM, QObject *parent):
   ProductionChainWidgetDelegateBase( PC, PCM,  parent )
@@ -129,10 +129,6 @@ void ProductionChainWidgetDelegate0::setEditorData( QWidget *editor, const QMode
   if ( !IsOk ) {
     ProductionChainWidgetDelegateBase::setEditorData( editor, index );
   }
-
-  //int value = index.model()->data( index, Qt::EditRole ).toInt();
-  //QSpinBox *spinBox = static_cast<QSpinBox*>( editor );
-  //spinBox->setValue( value );
 }
 
 void ProductionChainWidgetDelegate0::setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const
@@ -176,6 +172,23 @@ void ProductionChainWidgetDelegate0::paint( QPainter * painter, const QStyleOpti
     return;
     break;
   }
+}
+
+bool ProductionChainWidgetDelegate0::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
+{
+  if (event->type() == QEvent::MouseButtonPress) {
+    int column = index.column();
+    if (column == 2 || column == 3) {
+      ModulesSelectDialog MSD(_PC, _PCM.GetRow(index.row()).GetFM());
+      if (MSD.exec()) {
+        const ResourceCalculator::FactoryModules &Result = MSD.GetResult();
+        QVariant data; data.setValue<ResourceCalculator::FactoryModules>(Result);
+        model->setData(index, data);
+      }
+      return true;
+    }
+  }
+  return ProductionChainWidgetDelegateBase::editorEvent(event, model, option, index);
 }
 
 #pragma endregion DELEGATE
@@ -234,9 +247,9 @@ QVariant ProductionChainWidgetModel::data( const QModelIndex &index, int role ) 
     case 1:
       return QString::fromStdString( ROW.GetCurrentRecipeName() );
     case 2:
-      return ToOut( ROW.GetSummProductivity() );
+      return ToOut( ROW.GetSummProductivity(_PCM.GetPC()) );
     case 3:
-      return ToOut( ROW.GetSummSpeed() );
+      return ToOut( ROW.GetSummSpeed(_PCM.GetPC()) );
     case 4:
       return ToOut( ROW.GetSpeedFactory() );
     case 5:
@@ -325,6 +338,14 @@ bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVaria
     _PCM.SetFactory( index.row(), KeyFactory );
     endResetModel();
     emit( AllDataChanged() );
+    return true;
+  }
+  if (index.column() == 2 || index.column() == 3) {
+    beginResetModel();
+    const ResourceCalculator::FactoryModules &FM = value.value<ResourceCalculator::FactoryModules>();
+    _PCM.SetModules(index.row(), FM);
+    endResetModel();
+    emit(AllDataChanged());
     return true;
   }
   if ( index.column() == 7 ) {

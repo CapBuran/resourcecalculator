@@ -47,6 +47,8 @@ source_group(ModulesDialogs FILES ModulesEditDialog.cpp)
 source_group(ModulesDialogs FILES ModulesEditDialog.h)
 source_group(ModulesDialogs FILES ModulesSelectDialog.cpp)
 source_group(ModulesDialogs FILES ModulesSelectDialog.h)
+source_group(ModulesDialogs FILES ModuleSelectDialog.cpp)
+source_group(ModulesDialogs FILES ModuleSelectDialog.h)
 
 source_group(NoEdit         FILES ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
 source_group(NoEdit         FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_ResurceWin.cpp)

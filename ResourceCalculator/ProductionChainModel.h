@@ -9,6 +9,8 @@ class ProductionChainModel;
 
 class ProductionChainDataRow {
 
+private:
+
   KEY_RECIPE  _RecipeCurrent;
   KEY_FACTORY _FactoryCurrent;
 
@@ -42,20 +44,22 @@ public:
   bool ReInit(const ParamsCollection &PC);
   bool Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols, int InitColumb);
 
+  double GetSummProductivity(const ParamsCollection &PC) const;
+  double GetSummSpeed(const ParamsCollection &PC) const;
+
   DeclareAndDefinitionPropertyReadOnly(Factorys, std::vector <KEY_FACTORY>)
-    DeclareAndDefinitionPropertyReadOnly(FactoryCurrent, KEY_FACTORY)
-    DeclareAndDefinitionPropertyReadOnly(CurrentFactoryName, std::string)
-    DeclareAndDefinitionPropertyReadOnly(CurrentRecipeName, std::string)
-    DeclarePropertyReadOnly(SummProductivity, double)
-    DeclarePropertyReadOnly(SummSpeed, double)
-    DeclareAndDefinitionPropertyReadOnly(InitColumb, int)
-    DeclareAndDefinitionPropertyReadOnly(SpeedFactory, double)
-    DeclareAndDefinitionPropertyReadOnly(SecPerOneRecipe, double)
-    DeclareAndDefinitionPropertyReadOnly(RealTimeProductionOfOneItemPerSec, double)
-    DeclareAndDefinitionPropertyReadOnly(CountFactorys, double)
-    DeclareAndDefinitionRefReadOnly(CountItems, std::vector <double>)
-    DeclareAndDefinitionRefReadOnly(ItemsPerSec, std::vector <double>)
-    KEY_FACTORY GetFactoryIdFromIndex(int Index) const;
+  DeclareAndDefinitionPropertyReadOnly(FactoryCurrent, KEY_FACTORY)
+  DeclareAndDefinitionPropertyReadOnly(CurrentFactoryName, std::string)
+  DeclareAndDefinitionPropertyReadOnly(CurrentRecipeName, std::string)
+  DeclareAndDefinitionPropertyReadOnly(FM, FactoryModules)
+  DeclareAndDefinitionPropertyReadOnly(InitColumb, int)
+  DeclareAndDefinitionPropertyReadOnly(SpeedFactory, double)
+  DeclareAndDefinitionPropertyReadOnly(SecPerOneRecipe, double)
+  DeclareAndDefinitionPropertyReadOnly(RealTimeProductionOfOneItemPerSec, double)
+  DeclareAndDefinitionPropertyReadOnly(CountFactorys, double)
+  DeclareAndDefinitionRefReadOnly(CountItems, std::vector <double>)
+  DeclareAndDefinitionRefReadOnly(ItemsPerSec, std::vector <double>)
+  KEY_FACTORY GetFactoryIdFromIndex(int Index) const;
   void DeleteModules(const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel);
 
 };
@@ -98,7 +102,7 @@ public:
   bool SetCountFactores(int Row, double CountFactores);
 
   //Возвращают истину, когда нужно обновить всю модель
-  bool SetModules(int Row, const std::vector < KEY_MODULE > & Modules);
+  bool SetModules(int Row, const FactoryModules & Modules);
 
   int CountItems() const;
 
