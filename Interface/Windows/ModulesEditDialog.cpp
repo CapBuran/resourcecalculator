@@ -136,6 +136,7 @@ bool ModulesTypesEditModel::setData( const QModelIndex & index, const QVariant &
     const KEY_MODULE KeyModule = _listOfItemsId[index.row()].first;
     _ModulesToAdd.insert( KeyModule );
     bool IsOk = false;
+    double val = 0.0;
     switch ( index.column() ) {
     case 0:
       _listOfItemsId[index.row()].second.SetIconPath( value.toString().toStdString() );
@@ -145,24 +146,28 @@ bool ModulesTypesEditModel::setData( const QModelIndex & index, const QVariant &
         _listOfItemsId[index.row()].second.SetName( value.toString().toStdString() );
       break;
     case 2:
-      if ( value.toDouble( &IsOk ) > 0.0 )
-        if ( IsOk )
-          _listOfItemsId[index.row()].second.SetCoefficientPollution( value.toDouble() );
+      val = value.toDouble(&IsOk);
+      if (IsOk) {
+        _listOfItemsId[index.row()].second.SetCoefficientPollution(val);
+      }
       break;
     case 3:
-      if ( value.toDouble( &IsOk ) > 0.0 )
-        if ( IsOk )
-          _listOfItemsId[index.row()].second.SetCoefficientEffectiveness( value.toDouble() );
+      val = value.toDouble(&IsOk);
+      if (IsOk) {
+        _listOfItemsId[index.row()].second.SetCoefficientEffectiveness(val);
+      }
       break;
     case 4:
-      if ( value.toDouble( &IsOk ) > 0.0 )
-        if ( IsOk )
-          _listOfItemsId[index.row()].second.SetCoefficientSpeed( value.toDouble() );
+      val = value.toDouble(&IsOk);
+      if (IsOk) {
+        _listOfItemsId[index.row()].second.SetCoefficientSpeed(val);
+      }
       break;
     case 5:
-      if ( value.toDouble( &IsOk ) > 0.0 )
-        if ( IsOk )
-          _listOfItemsId[index.row()].second.SetCoefficientProductivity( value.toDouble() );
+      val = value.toDouble(&IsOk);
+      if (IsOk) {
+        _listOfItemsId[index.row()].second.SetCoefficientProductivity(val);
+      }
       break;
     default:
       return false;

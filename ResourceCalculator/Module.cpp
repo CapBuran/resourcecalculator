@@ -5,10 +5,10 @@ namespace ResourceCalculator {
 
   Module::Module(): 
     _Key(KEY_MODULE::ID_CleanSlot),
-    _CoefficientPollution(1.0),
-    _CoefficientEffectiveness(1.0),
-    _CoefficientSpeed(1.0),
-    _CoefficientProductivity(1.0)
+    _CoefficientPollution(0.0),
+    _CoefficientEffectiveness(0.0),
+    _CoefficientSpeed(0.0),
+    _CoefficientProductivity(0.0)
   {
   }
 
@@ -50,7 +50,7 @@ namespace ResourceCalculator {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
       const Module &module = MC.GetModule(moduleKey);
-      retval += module.GetCoefficientSpeed();
+      retval += module.GetCoefficientSpeed() / 100.0;
     }
     return retval;
   }
@@ -60,7 +60,7 @@ namespace ResourceCalculator {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
       const Module &module = MC.GetModule(moduleKey);
-      retval += module.GetCoefficientProductivity();
+      retval += module.GetCoefficientProductivity() / 100.0;
     }
     return retval;
   }
@@ -70,7 +70,7 @@ namespace ResourceCalculator {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
       const Module &module = MC.GetModule(moduleKey);
-      retval += module.GetCoefficientEffectiveness();
+      retval += module.GetCoefficientEffectiveness() / 100.0;
     }
     //TODO выставить такие ограничения в настройки
     if (retval > 1.8) retval = 1.8;
@@ -82,7 +82,7 @@ namespace ResourceCalculator {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
       const Module &module = MC.GetModule(moduleKey);
-      retval += module.GetCoefficientPollution();
+      retval += module.GetCoefficientPollution() / 100.0;
     }
     return retval;
   }

@@ -405,27 +405,27 @@
 <context>
     <name>ModulesEditDialog</name>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="288"/>
+        <location filename="../ModulesEditDialog.cpp" line="293"/>
         <source>OK</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="289"/>
+        <location filename="../ModulesEditDialog.cpp" line="294"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="290"/>
+        <location filename="../ModulesEditDialog.cpp" line="295"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="291"/>
+        <location filename="../ModulesEditDialog.cpp" line="296"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="315"/>
+        <location filename="../ModulesEditDialog.cpp" line="320"/>
         <source>Edit modules</source>
         <translation>Редактор модулей</translation>
     </message>
