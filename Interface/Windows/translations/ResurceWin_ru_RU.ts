@@ -635,27 +635,27 @@
 <context>
     <name>RecipesEditDialog</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="390"/>
+        <location filename="../RecipesEditDialog.cpp" line="404"/>
         <source>Ok</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="391"/>
+        <location filename="../RecipesEditDialog.cpp" line="405"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="392"/>
+        <location filename="../RecipesEditDialog.cpp" line="406"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="393"/>
+        <location filename="../RecipesEditDialog.cpp" line="407"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="421"/>
+        <location filename="../RecipesEditDialog.cpp" line="435"/>
         <source>Recipes Edit</source>
         <translation>Редактор рецептов</translation>
     </message>

@@ -1766,6 +1766,60 @@
             "en" : "English lang",
             "ru" : "Микросхема"
          }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fast-inserter.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 10,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Быстрый манипулятор"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/copper-cable.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 11,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Медный кабель"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fast-transport-belt.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 12,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Быстрый конвеер"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/transport-belt.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 13,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Конвеер"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/inserter.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 14,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Манипулятор"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/science-pack-2.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 15,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Исследовательский пакет 2"
+         }
       }
    ],
    "Modules" : [
@@ -1972,11 +2026,59 @@
          "TypeFactory" : 1
       },
       {
-         "IconPath" : "",
+         "IconPath" : "__base__/graphics/icons/electronic-circuit.png",
          "Key" : 7,
          "Name" : {
             "en" : "English lang",
-            "ru" : "Изготовление исследовательского пакета 1 1"
+            "ru" : "Изготовление микросхемы"
+         },
+         "Required" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 1
+            },
+            {
+               "Count" : 3.0,
+               "ItemId" : 11
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 9
+            }
+         ],
+         "Time" : 0.5,
+         "TypeFactory" : 1
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/copper-cable.png",
+         "Key" : 10,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Медный кабель Х2"
+         },
+         "Required" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 2
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 2.0,
+               "ItemId" : 11
+            }
+         ],
+         "Time" : 0.5,
+         "TypeFactory" : 1
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/transport-belt.png",
+         "Key" : 11,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Конвеер"
          },
          "Required" : [
             {
@@ -1985,20 +2087,72 @@
             },
             {
                "Count" : 1.0,
-               "ItemId" : 2
-            },
-            {
-               "Count" : 1.5,
                "ItemId" : 5
             }
          ],
          "Result" : [
             {
-               "Count" : 1.0,
-               "ItemId" : 6
+               "Count" : 2.0,
+               "ItemId" : 13
             }
          ],
-         "Time" : 3.0,
+         "Time" : 0.5,
+         "TypeFactory" : 1
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/inserter.png",
+         "Key" : 12,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Манипулятор"
+         },
+         "Required" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 1
+            },
+            {
+               "Count" : 1.0,
+               "ItemId" : 5
+            },
+            {
+               "Count" : 1.0,
+               "ItemId" : 9
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 14
+            }
+         ],
+         "Time" : 0.5,
+         "TypeFactory" : 1
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/science-pack-2.png",
+         "Key" : 13,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Исследовательский пакет 2"
+         },
+         "Required" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 13
+            },
+            {
+               "Count" : 1.0,
+               "ItemId" : 14
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 15
+            }
+         ],
+         "Time" : 6.0,
          "TypeFactory" : 1
       }
    ]

@@ -46,6 +46,7 @@ public:
   void setEditorData( QWidget *editor, const QModelIndex &index ) const override;
   void updateEditorGeometry( QWidget *editor, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
+  void setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const override;
 private:
   ResourceCalculator::ParamsCollection &_PC;
 };

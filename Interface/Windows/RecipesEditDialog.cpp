@@ -380,6 +380,20 @@ bool RecipesEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model
   return QStyledItemDelegate::editorEvent(event, model, option, index);
 }
 
+void RecipesEditDelegate::setModelData(QWidget * editor, QAbstractItemModel * model, const QModelIndex & index) const
+{
+  bool IsOk = false;
+  if (index.column() == 5) {
+    QComboBox *combobox = dynamic_cast< QComboBox * >(editor);
+    int value = combobox->currentIndex();
+    model->setData(index, value, Qt::EditRole);
+    IsOk = true;
+  }
+  if (!IsOk) {
+    QStyledItemDelegate::setModelData(editor, model, index);
+  }
+}
+
 #pragma endregion DELEGATE
 
 RecipesEditDialog::RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
