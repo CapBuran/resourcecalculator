@@ -42,7 +42,7 @@ public:
   bool FindCountFactorysForItemsCount(const ParamsCollection &PC, int Columb, double Count);
 
   bool ReInit(const ParamsCollection &PC);
-  bool Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols, int InitColumb);
+  bool Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols, int InitColumb = -1);
 
   double GetSummProductivity(const ParamsCollection &PC) const;
   double GetSummSpeed(const ParamsCollection &PC) const;

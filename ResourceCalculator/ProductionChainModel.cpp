@@ -97,6 +97,22 @@ namespace ResourceCalculator
 
   bool ProductionChainDataRow::Init( const ParamsCollection & PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM>&Cols, int InitColumb )
   {
+    if (InitColumb == -1){
+      const Recipe *recipe = PC.RC.GetRecipe(RecipeId);
+      assert(recipe != nullptr);
+      const std::set<CountsItem> &Result = recipe->GetResult();
+      for (size_t i = Cols.size() - 1; i >= 0; i--){
+        for (CountsItem it : Result) {
+          if (Cols[i] == it.ItemId) {
+            InitColumb = i;
+            break;
+          }
+        }
+        if (InitColumb >= 0) {
+          break;
+        }
+      }
+    }
     _InitColumb = InitColumb;
     _ColsItems = Cols;
     _RecipeCurrent = RecipeId;
@@ -261,7 +277,7 @@ namespace ResourceCalculator
 
     for ( size_t RecipeIdx = 0; RecipeIdx < CountsRecipes; RecipeIdx++, IT_Recipe++ ) {
       KEY_RECIPE RecipeId = *IT_Recipe;
-      _DataRows[RecipeIdx].Init( _PC, RecipeId, KEY_FACTORY::ID_ITEM_NoFind_Factory, _ColsItems, static_cast< int >( CountsItems - CountsRecipes + RecipeIdx ) );
+      _DataRows[RecipeIdx].Init(_PC, RecipeId, KEY_FACTORY::ID_ITEM_NoFind_Factory, _ColsItems);
     }
 
     _SummSpeeds.clear();

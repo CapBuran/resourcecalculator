@@ -3,26 +3,6 @@
 
 namespace ResourceCalculator {
 
-//inline bool operator < (const std::pair<int, KEY_ITEM>&L, const std::pair<int, KEY_ITEM>&R) noexcept
-//{
-//  return L.first < R.first;
-//}
-//
-//inline bool operator < (const std::pair<int, KEY_RECIPE>&L, const std::pair<int, KEY_RECIPE>&R) noexcept
-//{
-//  return L.first < R.first;
-//}
-
-//inline bool operator < (const KEY_ITEM L, KEY_ITEM R) noexcept
-//{
-//  return static_cast<size_t>(L) < static_cast<size_t>(R);
-//}
-//
-//inline bool operator < (const KEY_RECIPE L, KEY_RECIPE R) noexcept
-//{
-//  return static_cast<size_t>(L) < static_cast<size_t>(R);
-//}
-
 const std::map<KEY_RECIPE, RecipeResultTree> & ItemResultTree::GetResult() const
 {
   return _Result;
@@ -93,10 +73,6 @@ void RecipeCollection::Travelling(
   }
   ResultItems.AddLevel(FindItemKey, Nesting);
 }
-
-
-
-
 
 void RecipeCollection::Travelling(const RecipeResultTree &Tree, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer,
                                   std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const

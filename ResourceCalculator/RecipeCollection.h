@@ -64,12 +64,12 @@ namespace ResourceCalculator {
         if (IT.second > Max) Max = IT.second;
         if (IT.second < Min) Min = IT.second;
       }
-      for (int i = Min; i <= Max; i++) {
+      for (int i = Max; i >= Min; i--) {
         for (auto IT : _Levels) {
           if (i == IT.second) {
             auto F = std::find(Result.begin(), Result.end(), IT.first);
             if (F == Result.end()) {
-              Result.push_front(IT.first);
+              Result.push_back(IT.first);
             }
           }
         }
