@@ -87,8 +87,11 @@ QVariant ModulesTypesEditModel::headerData( int section, Qt::Orientation orienta
 
 Qt::ItemFlags ModulesTypesEditModel::flags( const QModelIndex & index ) const
 {
-  if ( !index.isValid() )
+  if (!index.isValid())
     return Qt::ItemIsEnabled;
+
+  if (index.row() == 0)
+    return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 
   return Qt::ItemIsSelectable | Qt::ItemIsEnabled | Qt::ItemIsEditable;
 }

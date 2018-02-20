@@ -48,7 +48,11 @@ QVariant ModulesSelectModel::data(const QModelIndex &index, int role) const
       return QString(module.GetIconPath().c_str());
       break;
     case 1:
-      return QString(module.GetName().c_str());
+      if (module.GetKey() == KEY_MODULE::ID_CleanSlot) {
+        return QString(tr("Empty slot"));
+      } else {
+        return QString(module.GetName().c_str());
+      }
       break;
     default:
       return QVariant();
@@ -80,7 +84,7 @@ Qt::ItemFlags ModulesSelectModel::flags(const QModelIndex &index) const
   if (!index.isValid())
     return Qt::ItemIsEnabled;
 
-  return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+  return Qt::ItemIsEnabled;
 }
 
 bool ModulesSelectModel::setData(const QModelIndex & index, const QVariant & value, int role)

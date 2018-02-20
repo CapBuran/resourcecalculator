@@ -42,7 +42,11 @@ QVariant ModuleSelectModel::data(const QModelIndex &index, int role) const
       return QString(module.GetIconPath().c_str());
       break;
     case 1:
-      return QString(module.GetName().c_str());
+      if (module.GetKey() == KEY_MODULE::ID_CleanSlot) {
+        return QString(tr("Empty slot"));
+      } else {
+        return QString(module.GetName().c_str());
+      }
       break;
     default:
       return QVariant();
@@ -151,7 +155,9 @@ ModuleSelectDialog::ModuleSelectDialog(const ResourceCalculator::ParamsCollectio
   QPushButton *okButton = new QPushButton(tr("OK"));
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));
   _tableView = new QTableView;
-  _tableView->setSelectionMode(QTableView::SelectionMode::NoSelection);
+  
+  _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
+  _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->setModel(&_Model);
   _tableView->setItemDelegate(new ModuleSelectDelegate(PC));
 

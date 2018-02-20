@@ -1824,6 +1824,18 @@
    ],
    "Modules" : [
       {
+         "CoefficientEffectiveness" : 0.0,
+         "CoefficientPollution" : 0.0,
+         "CoefficientProductivity" : 0.0,
+         "CoefficientSpeed" : 0.0,
+         "IconPath" : "__base__/graphics/icons/signal/shape_square.png",
+         "Key" : 0,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Пустой слот"
+         }
+      },
+      {
          "CoefficientEffectiveness" : 40.0,
          "CoefficientPollution" : 5.0,
          "CoefficientProductivity" : 4.0,

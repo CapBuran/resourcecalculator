@@ -29,6 +29,7 @@ namespace ResourceCalculator {
   int ModuleCollection::ReadFromJson(const Json::Value & jsonPr)
   {
     _Modules.clear();
+    _Modules[KEY_MODULE::ID_CleanSlot] = EmptyModule;
     for ( auto it : jsonPr ) {
       Module module;
       module.ReadFromJson( it );

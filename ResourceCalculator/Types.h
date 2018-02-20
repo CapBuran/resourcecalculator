@@ -80,12 +80,6 @@ namespace ResourceCalculator
     ID_Speed_3
   };
 
-  //typedef TYPE_KEY KEY_RECIPE;
-  //typedef TYPE_KEY KEY_ITEM;
-  //typedef TYPE_KEY KEY_FACTORY;
-  //typedef TYPE_KEY KEY_MODULE;
-  //typedef TYPE_KEY TYPE_FACTORY;  
-
 #define DeclareProperty(Name, Type) \
   Type Get##Name() const; \
   void Set##Name(Type);

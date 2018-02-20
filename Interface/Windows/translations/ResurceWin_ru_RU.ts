@@ -202,10 +202,6 @@
 <context>
     <name>ItemSelectedModel</name>
     <message>
-        <source>There should be an icon</source>
-        <translation type="vanished">Тут должна быть иконка</translation>
-    </message>
-    <message>
         <location filename="../ItemSelectedDialog.cpp" line="116"/>
         <source>Item Name</source>
         <translation>Имя предмета</translation>
@@ -374,58 +370,63 @@
 <context>
     <name>ModuleSelectDialog</name>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="151"/>
+        <location filename="../ModuleSelectDialog.cpp" line="155"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="152"/>
+        <location filename="../ModuleSelectDialog.cpp" line="156"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="170"/>
+        <location filename="../ModuleSelectDialog.cpp" line="176"/>
         <source>Select modules for factory</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберете модуль для одного слота фабрики</translation>
     </message>
 </context>
 <context>
     <name>ModuleSelectModel</name>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="69"/>
-        <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <location filename="../ModuleSelectDialog.cpp" line="46"/>
+        <source>Empty slot</source>
+        <translation>Пустой слот</translation>
     </message>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="71"/>
+        <location filename="../ModuleSelectDialog.cpp" line="73"/>
+        <source>Icon</source>
+        <translation>Иконка</translation>
+    </message>
+    <message>
+        <location filename="../ModuleSelectDialog.cpp" line="75"/>
         <source>Module name</source>
-        <translation type="unfinished">Название модуля</translation>
+        <translation>Название модуля</translation>
     </message>
 </context>
 <context>
     <name>ModulesEditDialog</name>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="293"/>
+        <location filename="../ModulesEditDialog.cpp" line="296"/>
         <source>OK</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="294"/>
+        <location filename="../ModulesEditDialog.cpp" line="297"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="295"/>
+        <location filename="../ModulesEditDialog.cpp" line="298"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="296"/>
+        <location filename="../ModulesEditDialog.cpp" line="299"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="320"/>
+        <location filename="../ModulesEditDialog.cpp" line="323"/>
         <source>Edit modules</source>
         <translation>Редактор модулей</translation>
     </message>
@@ -433,47 +434,44 @@
 <context>
     <name>ModulesSelectDialog</name>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="186"/>
-        <location filename="../ModulesSelectDialog.cpp" line="213"/>
+        <location filename="../ModulesSelectDialog.cpp" line="190"/>
+        <location filename="../ModulesSelectDialog.cpp" line="217"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="187"/>
-        <location filename="../ModulesSelectDialog.cpp" line="214"/>
+        <location filename="../ModulesSelectDialog.cpp" line="191"/>
+        <location filename="../ModulesSelectDialog.cpp" line="218"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="205"/>
-        <location filename="../ModulesSelectDialog.cpp" line="232"/>
+        <location filename="../ModulesSelectDialog.cpp" line="209"/>
+        <location filename="../ModulesSelectDialog.cpp" line="236"/>
         <source>Select modules for factory</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберете модули для фабрики</translation>
     </message>
 </context>
 <context>
     <name>ModulesSelectModel</name>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="68"/>
-        <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <location filename="../ModulesSelectDialog.cpp" line="52"/>
+        <source>Empty slot</source>
+        <translation>Пустой слот</translation>
     </message>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="70"/>
+        <location filename="../ModulesSelectDialog.cpp" line="72"/>
+        <source>Icon</source>
+        <translation>Иконка</translation>
+    </message>
+    <message>
+        <location filename="../ModulesSelectDialog.cpp" line="74"/>
         <source>Module name</source>
-        <translation type="unfinished">Название модуля</translation>
+        <translation>Название модуля</translation>
     </message>
 </context>
 <context>
     <name>ModulesTypesEditModel</name>
-    <message>
-        <source>New type factory</source>
-        <translation type="obsolete">Новая фабрика</translation>
-    </message>
-    <message>
-        <source>There should be an icon</source>
-        <translation type="obsolete">Тут должна быть иконка</translation>
-    </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="70"/>
         <source>Icon</source>
@@ -505,20 +503,9 @@
         <translation>Коэффициент продуктивности</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="103"/>
+        <location filename="../ModulesEditDialog.cpp" line="106"/>
         <source>New module</source>
         <translation>Новый модуль</translation>
-    </message>
-</context>
-<context>
-    <name>ProductionChainModelLeft</name>
-    <message>
-        <source>Name</source>
-        <translation type="vanished">Навание</translation>
-    </message>
-    <message>
-        <source>Address</source>
-        <translation type="vanished">Адрес</translation>
     </message>
 </context>
 <context>
@@ -579,10 +566,6 @@
 </context>
 <context>
     <name>RecipeListModel</name>
-    <message>
-        <source>Recipe Name</source>
-        <translation type="vanished">Имя рецепта</translation>
-    </message>
     <message>
         <location filename="../RecipesEditDialog.cpp" line="81"/>
         <source>Icon</source>

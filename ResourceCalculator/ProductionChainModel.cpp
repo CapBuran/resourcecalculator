@@ -104,7 +104,7 @@ namespace ResourceCalculator
       for (size_t i = Cols.size() - 1; i >= 0; i--){
         for (CountsItem it : Result) {
           if (Cols[i] == it.ItemId) {
-            InitColumb = i;
+            InitColumb = static_cast<int>(i);
             break;
           }
         }
