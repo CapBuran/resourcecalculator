@@ -5,7 +5,7 @@ add_executable(Test1 ${Program_SRCS} ${Program_HDRS})
 target_link_libraries(Test1 ResourceCalculator)
 
 if (WIN32)
-#configure_file( template.vcxproj.user_path_workdir ${CMAKE_CURRENT_BINARY_DIR}/QT_TABLE1.vcxproj.user)
+configure_file( ${CMAKE_SOURCE_DIR}/CMake/template.vcxproj.user_path_workdir ${CMAKE_CURRENT_BINARY_DIR}/Test1.vcxproj.user)
 endif (WIN32)
 
 set_property(TARGET Test1 PROPERTY FOLDER "TESTS")

@@ -695,6 +695,6 @@ void ProductionChainWidget::removeEntry()
 
 void ProductionChainWidget::setupTabs()
 {
-  AddTab( ResourceCalculator::KEY_ITEM::ID_ITEM_Paket1 );
+  AddTab( ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_1 );
   AddTab( ResourceCalculator::KEY_ITEM::ID_ITEM_Sherst );
 }

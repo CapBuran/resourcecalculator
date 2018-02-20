@@ -223,7 +223,7 @@ namespace ResourceCalculator
     std::list<KEY_ITEM> ListRequest;
     std::list<KEY_ITEM> ListRequestResourceOnly;
 
-    ItemResultTree IRT = _PC.RC.BuildTree( ItemKey, 8, ListRequest, ListRequestResourceOnly );
+    ItemResultTree IRT = _PC.RC.BuildTree( ItemKey, 1024, ListRequest, ListRequestResourceOnly );
 
     std::list <KEY_RECIPE> ResultRecipes;
     std::list <KEY_ITEM> ResultItems;

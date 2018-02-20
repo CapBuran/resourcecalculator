@@ -3,6 +3,26 @@
 
 namespace ResourceCalculator {
 
+//inline bool operator < (const std::pair<int, KEY_ITEM>&L, const std::pair<int, KEY_ITEM>&R) noexcept
+//{
+//  return L.first < R.first;
+//}
+//
+//inline bool operator < (const std::pair<int, KEY_RECIPE>&L, const std::pair<int, KEY_RECIPE>&R) noexcept
+//{
+//  return L.first < R.first;
+//}
+
+//inline bool operator < (const KEY_ITEM L, KEY_ITEM R) noexcept
+//{
+//  return static_cast<size_t>(L) < static_cast<size_t>(R);
+//}
+//
+//inline bool operator < (const KEY_RECIPE L, KEY_RECIPE R) noexcept
+//{
+//  return static_cast<size_t>(L) < static_cast<size_t>(R);
+//}
+
 const std::map<KEY_RECIPE, RecipeResultTree> & ItemResultTree::GetResult() const
 {
   return _Result;
@@ -37,6 +57,67 @@ RecipeResultTree RecipeCollection::BuildTree(KEY_RECIPE RecipeID, int NestingRes
   return RetVal;
 }
 
+void RecipeCollection::Travelling(
+  const RecipeResultTree & Tree, int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer,
+  ResultElement<KEY_RECIPE>& ResultRecipes, ResultElement<KEY_ITEM>& ResultItems) const
+{
+  const KEY_RECIPE FindRecipeKey = Tree.GetRecipeKey();
+  const std::map<KEY_ITEM, ItemResultTree> & ResultTree = Tree.GetResult();
+  for (auto &it : ResultTree) {
+    Travelling(it.second, Nesting + 1, Ansfer, ResultRecipes, ResultItems);
+  }
+  ResultRecipes.AddLevel(FindRecipeKey, Nesting);
+}
+
+void RecipeCollection::Travelling(
+  const ItemResultTree & Tree, int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer,
+  ResultElement<KEY_RECIPE>& ResultRecipes, ResultElement<KEY_ITEM>& ResultItems) const
+{
+  const KEY_ITEM FindItemKey = Tree.GetItemKey();
+  const std::map<KEY_RECIPE, RecipeResultTree> &ResultTree = Tree.GetResult();
+  if (ResultTree.size() > 0) {
+    auto FindAnsfer = Ansfer.find(FindItemKey);
+    if (FindAnsfer != Ansfer.end()) {
+      KEY_RECIPE RecipeKeyAnsfer = FindAnsfer->second;
+      if (RecipeKeyAnsfer != KEY_RECIPE::ID_RECIPE_PreviouslyProduced) {
+        auto FindRecipeTree = ResultTree.find(RecipeKeyAnsfer);
+        if (FindRecipeTree != ResultTree.end()) {
+          Travelling(FindRecipeTree->second, Nesting + 1, Ansfer, ResultRecipes, ResultItems);
+        }
+      }
+    } else {
+      if (ResultTree.begin()->second.GetRecipeKey() != KEY_RECIPE::ID_RECIPE_PreviouslyProduced) {
+        Travelling(ResultTree.begin()->second, Nesting + 1, Ansfer, ResultRecipes, ResultItems);
+      }
+    }
+  }
+  ResultItems.AddLevel(FindItemKey, Nesting);
+}
+
+
+
+
+
+void RecipeCollection::Travelling(const RecipeResultTree &Tree, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer,
+                                  std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const
+{
+  ResultElement<KEY_RECIPE> ResultRecipes1;
+  ResultElement<KEY_ITEM> ResultItems1;
+  Travelling(Tree, 1, Ansfer, ResultRecipes1, ResultItems1);
+  ResultRecipes = ResultRecipes1.GetList();
+  ResultItems = ResultItems1.GetList();
+}
+
+void RecipeCollection::Travelling(const ItemResultTree &Tree, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer,
+                                  std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const
+{
+  ResultElement<KEY_RECIPE> ResultRecipes1;
+  ResultElement<KEY_ITEM> ResultItems1;
+  Travelling(Tree, 1, Ansfer, ResultRecipes1, ResultItems1);
+  ResultRecipes = ResultRecipes1.GetList();
+  ResultItems = ResultItems1.GetList();
+}
+
 ItemResultTree RecipeCollection::BuildTree(KEY_ITEM ItemID, int NestingResults, std::list<KEY_ITEM> &ListRequest, std::list<KEY_ITEM> &ListRequestResourceOnly) const
 {
   ItemResultTree RetVal;
@@ -63,49 +144,6 @@ ItemResultTree RecipeCollection::BuildTree(KEY_ITEM ItemID, int NestingResults, 
     ListRequestResourceOnly.remove(it);
   }
   return RetVal;
-}
-
-
-void RecipeCollection::Travelling(const RecipeResultTree &Tree, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer,
-                                  std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const
-{
-  const KEY_RECIPE FindRecipeKey = Tree.GetRecipeKey();
-
-  const std::map<KEY_ITEM, ItemResultTree> & ResultTree = Tree.GetResult();
-
-  for (auto &it : ResultTree) {
-    Travelling(it.second, Ansfer, ResultRecipes, ResultItems);
-  }
-
-  ResultRecipes.remove(FindRecipeKey);
-  ResultRecipes.push_back(FindRecipeKey);
-
-}
-
-
-void RecipeCollection::Travelling(const ItemResultTree &Tree, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer,
-                                  std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const
-{
-  const KEY_ITEM FindItemKey = Tree.GetItemKey();
-  const std::map<KEY_RECIPE, RecipeResultTree> &ResultTree = Tree.GetResult();
-  if (ResultTree.size() > 0) {
-    auto FindAnsfer = Ansfer.find(FindItemKey);
-    if (FindAnsfer != Ansfer.end()) {
-      KEY_RECIPE RecipeKeyAnsfer = FindAnsfer->second;
-      if (RecipeKeyAnsfer != KEY_RECIPE::ID_RECIPE_PreviouslyProduced) {
-        auto FindRecipeTree = ResultTree.find(RecipeKeyAnsfer);
-        if (FindRecipeTree != ResultTree.end()) {
-          Travelling(FindRecipeTree->second, Ansfer, ResultRecipes, ResultItems);
-        }
-      }
-    } else {
-      if (ResultTree.begin()->second.GetRecipeKey() != KEY_RECIPE::ID_RECIPE_PreviouslyProduced) {
-        Travelling(ResultTree.begin()->second, Ansfer, ResultRecipes, ResultItems);
-      }
-    }
-  }
-  ResultItems.remove(FindItemKey);
-  ResultItems.push_back(FindItemKey);
 }
 
 void RecipeCollection::Build(KEY_ITEM ItemID, const std::map<KEY_ITEM, KEY_RECIPE> SelectRecipe,
