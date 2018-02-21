@@ -83,6 +83,8 @@ namespace ResourceCalculator {
   {
   public:
 
+    RecipeCollection();
+
     ItemResultTree   BuildTree(KEY_ITEM ItemID,     int NestingResults, 
       std::list<KEY_ITEM> &ListRequest, std::list<KEY_ITEM> &ListRequestResourceOnly ) const;
     RecipeResultTree BuildTree(KEY_RECIPE RecipeID, int NestingResults,
@@ -118,12 +120,12 @@ namespace ResourceCalculator {
     void Delete( const std::set<KEY_ITEM>& ItemsKeysToDel );
     void Delete( const std::set<KEY_RECIPE>& RecipsKeysToDel );
 
-    KEY_RECIPE GetUniqueRecipeKey() const;
+    KEY_RECIPE GetUniqueRecipeKey();
 
     void Add(const Recipe &);
 
   private:
-    
+    TYPE_KEY _LastGenGey;
     std::map<KEY_RECIPE, Recipe> _Recipes;
 
   };

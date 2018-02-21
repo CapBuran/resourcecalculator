@@ -5,7 +5,7 @@
 namespace ResourceCalculator {
 
   ItemCollection::ItemCollection( RecipeCollection &RC ):
-    _RC( RC )
+    _RC( RC ), _LastGenGey(0)
   {
   }
 
@@ -42,6 +42,8 @@ namespace ResourceCalculator {
     for (auto &it: jsonPr){
       Item ToAdd;
       ToAdd.ReadFromJson(it);
+      TYPE_KEY AddKey = static_cast<TYPE_KEY>(ToAdd.GetKey());
+      if (_LastGenGey < AddKey) _LastGenGey = AddKey;
       _Items[ToAdd.GetKey()] = ToAdd;
     }
     return 0;
@@ -63,15 +65,6 @@ namespace ResourceCalculator {
     return _Items;
   }
 
-  //Item * ItemCollection::GetItemForEdit(KEY_ITEM KeyRecipe)
-  //{
-  //  std::map<KEY_ITEM, Item>::iterator it = _Items.find(KeyRecipe);
-  //  if (it == _Items.end()) {
-  //    return nullptr;
-  //  }
-  //  return &it->second;
-  //}
-
   const Item * ItemCollection::GetItem(KEY_ITEM KeyRecipe) const
   {
     std::map<KEY_ITEM, Item>::const_iterator it = _Items.find(KeyRecipe);
@@ -81,14 +74,15 @@ namespace ResourceCalculator {
     return &it->second;
   }
 
-  KEY_ITEM ItemCollection::GetUniqueItemKey() const
+  KEY_ITEM ItemCollection::GetUniqueItemKey()
   {
-    TYPE_KEY retval = 0;
+    TYPE_KEY retval = _LastGenGey + 1;
     if (_Items.size() > 0) {
       while (_Items.find(static_cast<KEY_ITEM>(retval)) != _Items.end()) {
         retval++;
       }
     }
+    _LastGenGey = retval;
     return static_cast<KEY_ITEM>(retval);
   }
 

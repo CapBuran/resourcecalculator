@@ -94,6 +94,11 @@ void RecipeCollection::Travelling(const ItemResultTree &Tree, const std::map<KEY
   ResultItems = ResultItems1.GetList();
 }
 
+RecipeCollection::RecipeCollection():
+  _LastGenGey(0)
+{
+}
+
 ItemResultTree RecipeCollection::BuildTree(KEY_ITEM ItemID, int NestingResults, std::list<KEY_ITEM> &ListRequest, std::list<KEY_ITEM> &ListRequestResourceOnly) const
 {
   ItemResultTree RetVal;
@@ -158,6 +163,8 @@ int RecipeCollection::ReadFromJson(const Json::Value & jsonPr)
   for (auto it : jsonPr) {
     Recipe ToAdd;
     ToAdd.ReadFromJson(it);
+    TYPE_KEY AddKey = static_cast<TYPE_KEY>(ToAdd.GetKey());
+    if (_LastGenGey < AddKey) _LastGenGey = AddKey;
     Add(ToAdd);
   }
   return 0;
@@ -207,14 +214,15 @@ Recipe *RecipeCollection::GetRecipeForEdit(KEY_RECIPE KeyRecipe)
   return &it->second;
 }
 
-KEY_RECIPE RecipeCollection::GetUniqueRecipeKey() const
+KEY_RECIPE RecipeCollection::GetUniqueRecipeKey()
 {
-  unsigned int retval = 10;
+  TYPE_KEY retval = _LastGenGey + 1;
   if (_Recipes.size() > 0) {
     while (_Recipes.find(static_cast<KEY_RECIPE>(retval)) != _Recipes.end()) {
       retval++;
     }
   }
+  _LastGenGey = retval;
   return static_cast<KEY_RECIPE>(retval);
 }
 
