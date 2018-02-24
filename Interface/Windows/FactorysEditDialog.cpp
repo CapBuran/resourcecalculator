@@ -511,6 +511,7 @@ FactorysEditDialog::FactorysEditDialog( ResourceCalculator::ParamsCollection &PC
   _tableView->setSelectionMode( QTableView::SelectionMode::SingleSelection );
   _tableView->setSelectionBehavior( QTableView::SelectionBehavior::SelectRows );
   _tableView->setModel( _Model );
+  _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
   FactorysEditDialogDelegate *Delegate = new FactorysEditDialogDelegate(
     PC, *_modelForComboBox, *_Model, _tableView->selectionModel(), nullptr );

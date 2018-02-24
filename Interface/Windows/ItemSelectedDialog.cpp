@@ -289,6 +289,7 @@ ItemSelectedDialog::ItemSelectedDialog(const ResourceCalculator::ParamsCollectio
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->setModel(&_Model);
   _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
+  _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
   if (_Mode != ItemSelectedDialogMode::ForSelectOneItem) {
     using namespace ResourceCalculator;

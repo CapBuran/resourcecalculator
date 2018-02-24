@@ -303,6 +303,7 @@ ModulesEditDialog::ModulesEditDialog( ResourceCalculator::ParamsCollection &PC, 
   _tableView->setSelectionBehavior( QTableView::SelectionBehavior::SelectRows );
   _tableView->setModel( &_Model );
   _tableView->setItemDelegate( new ModulesEditDelegate( PC ) );
+  _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
   buttonLayout->addWidget( okButton );

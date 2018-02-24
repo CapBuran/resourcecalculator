@@ -5,29 +5,29 @@
 
 #include <QtWidgets>
 
-#include "ProductionChainWidget.h"
+#include "ProductionChainTabWidget.h"
 
 class MainWindow : public QMainWindow
 {
-    Q_OBJECT
-
+  Q_OBJECT
 public:
-    MainWindow(ResourceCalculator::ParamsCollection &PC);
+  MainWindow(ResourceCalculator::ParamsCollection &PC);
 private slots:
-    void openFile();
-    void saveFile();
-    void PushButtonClickedAddTab();
-    void PushButtonClickedRemoveTab();
-    void PushButtonClickedRecipesEditDialog();
-    void PushButtonClickedItemsEditDialog();
-    void PushButtonClickedFactorysEditDialog();
-    void PushButtonClickedModulesEditDialog();
-    void PushButtonClickedDebug();
+  void openFile();
+  void saveFile();
+  void PushButtonClickedAddTab();
+  void PushButtonClickedRemoveTab();
+  void PushButtonClickedRecipesEditDialog();
+  void PushButtonClickedItemsEditDialog();
+  void PushButtonClickedFactorysEditDialog();
+  void PushButtonClickedModulesEditDialog();
+  void PushButtonClickedDebug();
 
 private:
-    void createMenus();
-    ResourceCalculator::ParamsCollection &_PC;
-    QTabWidget *_PCW;
+  void _setupTabs();
+  void _createMenus();
+  ResourceCalculator::ParamsCollection &_PC;
+  ProductionChainTabWidget *_PCTW;
 };
 
 #endif // MAINWINDOW_H

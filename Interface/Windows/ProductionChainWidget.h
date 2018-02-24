@@ -112,34 +112,20 @@ private:
 
 };
 
-class ProductionChainWidget: public QTabWidget {
+class ProductionChainWidget: public QSplitter {
   Q_OBJECT
-
 public:
-  ProductionChainWidget( const ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0 );
-
-  void AddTab( ResourceCalculator::KEY_ITEM ItemKey );
-  void Update();
-
-public slots:
-  void showAddEntryDialog();
-  void addEntry( QString name, QString address );
-  void editEntry();
-  void removeEntry();
-  void PushButtonAutoFitQuantity();
-
-signals:
-  void selectionChanged( const QItemSelection &selected );
-
+  ProductionChainWidget( const ResourceCalculator::ParamsCollection &PC, ResourceCalculator::KEY_ITEM ItemKey, QWidget *parent = 0 );
 private:
-
   QTableView *tables[4];
-  
-  void setupTabs();
+  ProductionChainWidgetModel _Model;
   const ResourceCalculator::ParamsCollection &_PC;
-
-  std::map<QWidget*, ProductionChainWidgetModel*> _Tabs;
-
+  void _Init(ResourceCalculator::KEY_ITEM ItemKey);
+signals:
+  void selectionChanged(const QItemSelection &selected);
+private slots:
+  void OnResized(int logicalIndex, int oldSize, int newSize);
+  void _PushButtonAutoFitQuantity();
 };
 
 #endif// ProductionChainWidget_H

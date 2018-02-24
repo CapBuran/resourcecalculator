@@ -46,11 +46,11 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   h->addWidget( _ButtonFactoryOpen );
   h->addWidget( _ButtonModulesEdit );
 
-  _PCW = new ProductionChainWidget( _PC );
+  _PCTW = new ProductionChainTabWidget( _PC );
   QVBoxLayout *v = new QVBoxLayout();
   //  v->setMargin(5);
   //  v->setSpacing(5);
-  v->addWidget( _PCW );
+  v->addWidget(_PCTW);
   v->addLayout( h );
 
   QWidget *CentralWidget = new QWidget();
@@ -58,13 +58,21 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
 
   setCentralWidget( CentralWidget );
   
-  createMenus();
+  _createMenus();
 
   setWindowTitle(tr("Resurse calculator"));
 
+  _setupTabs();
 }
 
-void MainWindow::createMenus()
+void MainWindow::_setupTabs()
+{
+  _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_1);
+  _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_Sherst);
+  _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_2);
+}
+
+void MainWindow::_createMenus()
 {
   QMenu *fileMenu = menuBar()->addMenu(tr("&File"));
 
@@ -144,8 +152,7 @@ void MainWindow::PushButtonClickedRecipesEditDialog()
 {
   RecipesEditDialog _RecipesEditDialog(_PC);
   if (_RecipesEditDialog.exec()) {
-    ProductionChainWidget* PCW = dynamic_cast< ProductionChainWidget* >( _PCW );
-    PCW->Update();
+    _PCTW->Update();
   }
 }
 
@@ -153,8 +160,7 @@ void MainWindow::PushButtonClickedItemsEditDialog()
 {
   ItemsEditDialog _ItemsEditDialog(_PC);
   if (_ItemsEditDialog.exec()) {
-    ProductionChainWidget* PCW = dynamic_cast< ProductionChainWidget* >( _PCW );
-    PCW->Update();
+    _PCTW->Update();
   }
 }
 
@@ -162,14 +168,13 @@ void MainWindow::PushButtonClickedAddTab()
 {
   ItemSelectedDialog _ItemsSelectedDialog( _PC, ItemSelectedDialogMode::ForSelectOneItem );
   if ( _ItemsSelectedDialog.exec() ) {
-    ProductionChainWidget *PCW = dynamic_cast< ProductionChainWidget * >( _PCW );
-    PCW->AddTab( _ItemsSelectedDialog.GetResultOne() );
+    _PCTW->AddTab(_ItemsSelectedDialog.GetResultOne());
   }
 }
 
 void MainWindow::PushButtonClickedRemoveTab()
 {
-  dynamic_cast< ProductionChainWidget* >( _PCW )->removeEntry();
+  _PCTW->RemoveCurrentTab();
 }
 
 void MainWindow::PushButtonClickedFactorysEditDialog()

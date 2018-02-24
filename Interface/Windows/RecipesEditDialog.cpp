@@ -408,11 +408,10 @@ RecipesEditDialog::RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, Q
 
   _tableView = new QTableView();
   _tableView->setModel(&_Model);
-  //RecipesEditDelegate *Delegate = new RecipesEditDelegate(PC);
-  //_tableView->setItemDelegate(Delegate);
   _tableView->setItemDelegate(new RecipesEditDelegate(PC));
   _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
+  _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
   QHBoxLayout *buttonLayout = new QHBoxLayout();
   buttonLayout->addWidget(okButton);

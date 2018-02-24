@@ -241,6 +241,7 @@ FactoryTypesEditDialog::FactoryTypesEditDialog(ResourceCalculator::ParamsCollect
   _tableView->setSelectionBehavior( QTableView::SelectionBehavior::SelectRows );
   _tableView->setModel( _Model );
   _tableView->setItemDelegate( Delegate );
+  _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
   buttonLayout->addWidget( okButton );
@@ -258,7 +259,6 @@ FactoryTypesEditDialog::FactoryTypesEditDialog(ResourceCalculator::ParamsCollect
   connect( addButton, &QAbstractButton::clicked, this, &FactoryTypesEditDialog::add_item );
   connect( _remoteButton, &QAbstractButton::clicked, this, &FactoryTypesEditDialog::remove_item );
   connect( Delegate, &FactoryTypesEditDelegate::editorEventDelegate, this, &FactoryTypesEditDialog::editorEventDelegate );
-
 
   setWindowTitle( tr( "Editor types factory items" ) );
 }

@@ -220,6 +220,7 @@ ModulesSelectDialog::ModulesSelectDialog(const ResourceCalculator::ParamsCollect
   _tableView->setSelectionMode(QTableView::SelectionMode::NoSelection);
   _tableView->setModel(&_Model);
   _tableView->setItemDelegate(new ModulesSelectDelegate(PC));
+  _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
   buttonLayout->addWidget(okButton);
