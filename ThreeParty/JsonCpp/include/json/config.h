@@ -77,6 +77,7 @@
 #  endif
 
 #endif // defined(_MSC_VER)
+#include <stdint.h>
 
 // In c++11 the override keyword allows you to explicity define that a function
 // is intended to override the base-class version.  This makes the code more

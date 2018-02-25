@@ -1,4 +1,5 @@
 #include "base64.h"
+#include <stdint.h>
 
 static char encoding_table[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -88,7 +89,7 @@ void base64_decode(const std::vector<char> &input, std::vector<char> &output)
 
 }
 
-size_t base64_get_size_encode_data(size_t org_data_size)
+std::size_t base64_get_size_encode_data(std::size_t org_data_size)
 {
   return 4 * ((org_data_size + 2) / 3);
 }

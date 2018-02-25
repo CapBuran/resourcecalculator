@@ -277,7 +277,7 @@ ResourceCalculator::KEY_FACTORY FactorysEditDialogModel::GetDataRow(int Row) con
 const ResourceCalculator::Factory & FactorysEditDialogModel::GetCurrentFactory(int Row) const
 {
   ResourceCalculator::KEY_FACTORY kf = GetDataRow(Row);
-  auto & f = _FactorysKeyToAdd.find(kf);
+  const auto & f = _FactorysKeyToAdd.find(kf);
   if (f != _FactorysKeyToAdd.end()) {
     return f->second;
   }

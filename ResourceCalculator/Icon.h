@@ -24,4 +24,4 @@ namespace ResourceCalculator {
 
 }
 
-#endif ICON_H
+#endif// ICON_H

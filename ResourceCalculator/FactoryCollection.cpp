@@ -13,8 +13,8 @@ namespace ResourceCalculator
     _NoFindFactory.SetCountSlotsForModules( 0 );
     _NoFindFactory.SetCountSlotsForRecipes( 0 );
     _NoFindFactory.SetWear( 1.0 );
-    _NoFindFactory.SetPower( INFINITY );
-    _NoFindFactory.SetLevelOfPollution( INFINITY );
+    _NoFindFactory.SetPower( 2E200 );
+    _NoFindFactory.SetLevelOfPollution( 2E200 );
     _NoFindFactory.SetKey( KEY_FACTORY::ID_ITEM_NoFind_Factory );
     _NoFindFactory.SetKey( KEY_FACTORY::ID_ITEM_NoFind_Factory );
     _NoFindFactory.SetKey( KEY_FACTORY::ID_ITEM_NoFind_Factory );

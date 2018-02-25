@@ -2,6 +2,8 @@
 #define RecipeCollectionH
 
 #include <set>
+#include <map>
+#include <algorithm>
 
 #include "Recipe.h"
 
@@ -45,7 +47,7 @@ namespace ResourceCalculator {
     }
     inline void AddLevel(key_type Type, int Level)
     {
-      std::map <key_type, int>::iterator f = _Levels.find(Type);
+      auto f = _Levels.find(Type);
       if (f == _Levels.end()) {
         _Levels[Type] = Level;
       } else {

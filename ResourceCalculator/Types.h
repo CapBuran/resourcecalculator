@@ -1,6 +1,7 @@
 #ifndef FACTORIES_TYPES
 #define FACTORIES_TYPES
 
+#include <stdint.h>
 #include <string>
 #include <set>
 #include <list>
@@ -12,7 +13,8 @@ namespace ResourceCalculator
 
   typedef Json::LargestUInt KEY_TO_Json;
 
-  typedef KEY_TO_Json TYPE_KEY;
+  //typedef KEY_TO_Json TYPE_KEY;
+  typedef uint64_t TYPE_KEY;
 
   enum class KEY_RECIPE: TYPE_KEY {
     ID_RECIPE_NoFindRecipe = 0,

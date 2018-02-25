@@ -20,4 +20,4 @@ namespace ResourceCalculator {
 
 }
 
-#endif ItemH
+#endif// ItemH
