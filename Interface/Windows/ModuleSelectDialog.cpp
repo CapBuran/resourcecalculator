@@ -150,7 +150,7 @@ bool ModuleSelectDelegate::editorEvent(QEvent * event, QAbstractItemModel * mode
 ModuleSelectDialog::ModuleSelectDialog(const ResourceCalculator::ParamsCollection & PC, ResourceCalculator::KEY_MODULE OldResult, QWidget * parent)
   : QDialog(parent), _Model(PC, OldResult)
 {
-  setMinimumSize(400, 600);
+  setMinimumSize(600, 600);
 
   QPushButton *okButton = new QPushButton(tr("OK"));
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));

@@ -26,8 +26,13 @@ namespace ResourceCalculator
     ID_RECIPE_copper_cable = 10,
     ID_RECIPE_transport_belt = 11,
     ID_RECIPE_inserter = 12,
-    ID_RECIPE_science_pack_2 = 13
-  };
+    ID_RECIPE_science_pack_2 = 13,
+    ID_RECIPE_heavy_oil_cracking = 14,
+    ID_RECIPE_light_oil_cracking = 15,
+    ID_RECIPE_basic_oil_processing = 16,
+    ID_RECIPE_coal_liquefaction = 17,
+    ID_RECIPE_advanced_oil_processing = 18
+   };
 
   enum class KEY_ITEM: TYPE_KEY {
     ID_ITEM_NoFind_Item,
@@ -45,7 +50,12 @@ namespace ResourceCalculator
     ID_ITEM_fast_transport_belt,
     ID_ITEM_transport_belt,
     ID_ITEM_inserter,
-    ID_ITEM_science_pack_2
+    ID_ITEM_science_pack_2,
+    ID_ITEM_steam,
+    ID_ITEM_light_oil,
+    ID_ITEM_heavy_oil,
+    ID_ITEM_petroleum_gas,
+    ID_ITEM_coal
   };
 
   enum class KEY_TYPE_FACTORY: TYPE_KEY {

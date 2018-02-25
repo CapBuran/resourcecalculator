@@ -212,7 +212,7 @@ ModulesSelectDialog::ModulesSelectDialog(
 ModulesSelectDialog::ModulesSelectDialog(const ResourceCalculator::ParamsCollection & PC, const ResourceCalculator::FactoryModules & OldResult, QWidget * parent)
   : QDialog(parent), _PC(PC), _Model(PC, OldResult)
 {
-  setMinimumSize(400, 600);
+  setMinimumSize(600, 600);
 
   QPushButton *okButton = new QPushButton(tr("OK"));
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));

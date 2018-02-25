@@ -24,7 +24,7 @@
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../FactoryTypesEditDialog.cpp" line="264"/>
+        <location filename="../FactoryTypesEditDialog.cpp" line="263"/>
         <source>Editor types factory items</source>
         <translation>Название типа фабрики</translation>
     </message>
@@ -63,32 +63,32 @@
 <context>
     <name>FactorysEditDialog</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="501"/>
+        <location filename="../FactorysEditDialog.cpp" line="510"/>
         <source>OK</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="502"/>
+        <location filename="../FactorysEditDialog.cpp" line="511"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="503"/>
+        <location filename="../FactorysEditDialog.cpp" line="512"/>
         <source>Remote</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="504"/>
+        <location filename="../FactorysEditDialog.cpp" line="513"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="505"/>
+        <location filename="../FactorysEditDialog.cpp" line="514"/>
         <source>Factory types</source>
         <translation>Типы фабрик</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="542"/>
+        <location filename="../FactorysEditDialog.cpp" line="551"/>
         <source>Editor factorys</source>
         <translation>Редактор фабрик</translation>
     </message>
@@ -136,7 +136,7 @@
         <translation>Слотов для модулей</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="206"/>
+        <location filename="../FactorysEditDialog.cpp" line="207"/>
         <source>New factory</source>
         <translation>Новая фабрика</translation>
     </message>

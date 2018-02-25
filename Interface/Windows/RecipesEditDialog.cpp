@@ -399,7 +399,7 @@ void RecipesEditDelegate::setModelData(QWidget * editor, QAbstractItemModel * mo
 RecipesEditDialog::RecipesEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent)
   : QDialog(parent), _PC(PC), _Model(PC, parent)
 {
-  setMinimumSize(800, 600);
+  setMinimumSize(1000, 600);
 
   QPushButton *okButton = new QPushButton(tr("Ok"));
   QPushButton *addButton = new QPushButton(tr("Add"));

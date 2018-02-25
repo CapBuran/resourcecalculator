@@ -34,6 +34,11 @@
          "IconPath" : "__base__/graphics/icons/chemical-plant.png",
          "Key" : 6,
          "Name" : "Химический завод"
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/centrifuge.png",
+         "Key" : 7,
+         "Name" : "Центрифуги"
       }
    ],
    "Factorys" : [
@@ -131,6 +136,54 @@
          "Power" : 0.0,
          "Speed" : 2.0,
          "Type" : 4,
+         "Wear" : 0.0
+      },
+      {
+         "CountSlotsForModules" : 3,
+         "CountSlotsForRecipes" : 3,
+         "ElectricPeakPower" : 0.0,
+         "IconPath" : "__base__/graphics/icons/chemical-plant.png",
+         "Key" : 7,
+         "LevelOfPollution" : 0.0,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Химический завод"
+         },
+         "Power" : 0.0,
+         "Speed" : 1.25,
+         "Type" : 6,
+         "Wear" : 0.0
+      },
+      {
+         "CountSlotsForModules" : 3,
+         "CountSlotsForRecipes" : 3,
+         "ElectricPeakPower" : 0.0,
+         "IconPath" : "__base__/graphics/icons/oil-refinery.png",
+         "Key" : 8,
+         "LevelOfPollution" : 0.0,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Нефтеперерабатывающий завод"
+         },
+         "Power" : 0.0,
+         "Speed" : 1.0,
+         "Type" : 2,
+         "Wear" : 0.0
+      },
+      {
+         "CountSlotsForModules" : 2,
+         "CountSlotsForRecipes" : 2,
+         "ElectricPeakPower" : 0.0,
+         "IconPath" : "__base__/graphics/icons/centrifuge.png",
+         "Key" : 9,
+         "LevelOfPollution" : 0.0,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Центрифуга"
+         },
+         "Power" : 0.0,
+         "Speed" : 0.75,
+         "Type" : 7,
          "Wear" : 0.0
       }
    ],
@@ -1820,6 +1873,51 @@
             "en" : "English lang",
             "ru" : "Исследовательский пакет 2"
          }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fluid/steam.png",
+         "IsALiquidOrGas" : true,
+         "Key" : 16,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Пар"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fluid/light-oil.png",
+         "IsALiquidOrGas" : true,
+         "Key" : 17,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Дизель"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fluid/heavy-oil.png",
+         "IsALiquidOrGas" : true,
+         "Key" : 18,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Мазут"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fluid/petroleum-gas.png",
+         "IsALiquidOrGas" : true,
+         "Key" : 19,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Нефтяной газ"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/coal.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 20,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Уголь"
+         }
       }
    ],
    "Modules" : [
@@ -2166,6 +2264,160 @@
          ],
          "Time" : 6.0,
          "TypeFactory" : 1
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fluid/heavy-oil-cracking.png",
+         "Key" : 14,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Переработка мазута в дизельное топливо"
+         },
+         "Required" : [
+            {
+               "Count" : 30.0,
+               "ItemId" : 8
+            },
+            {
+               "Count" : 40.0,
+               "ItemId" : 18
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 30.0,
+               "ItemId" : 17
+            }
+         ],
+         "Time" : 3.0,
+         "TypeFactory" : 6
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fluid/light-oil-cracking.png",
+         "Key" : 15,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Переработа дизеля в нефтяной газ"
+         },
+         "Required" : [
+            {
+               "Count" : 30.0,
+               "ItemId" : 8
+            },
+            {
+               "Count" : 30.0,
+               "ItemId" : 17
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 20.0,
+               "ItemId" : 19
+            }
+         ],
+         "Time" : 3.0,
+         "TypeFactory" : 6
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fluid/basic-oil-processing.png",
+         "Key" : 16,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Базовая переработка нефти"
+         },
+         "Required" : [
+            {
+               "Count" : 100.0,
+               "ItemId" : 7
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 30.0,
+               "ItemId" : 17
+            },
+            {
+               "Count" : 30.0,
+               "ItemId" : 18
+            },
+            {
+               "Count" : 40.0,
+               "ItemId" : 19
+            }
+         ],
+         "Time" : 5.0,
+         "TypeFactory" : 2
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fluid/coal-liquefaction.png",
+         "Key" : 17,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Сжижение угля"
+         },
+         "Required" : [
+            {
+               "Count" : 50.0,
+               "ItemId" : 16
+            },
+            {
+               "Count" : 25.0,
+               "ItemId" : 18
+            },
+            {
+               "Count" : 10.0,
+               "ItemId" : 20
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 15.0,
+               "ItemId" : 17
+            },
+            {
+               "Count" : 35.0,
+               "ItemId" : 18
+            },
+            {
+               "Count" : 20.0,
+               "ItemId" : 19
+            }
+         ],
+         "Time" : 5.0,
+         "TypeFactory" : 2
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fluid/advanced-oil-processing.png",
+         "Key" : 18,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Продвинутая переработка нефти"
+         },
+         "Required" : [
+            {
+               "Count" : 100.0,
+               "ItemId" : 7
+            },
+            {
+               "Count" : 50.0,
+               "ItemId" : 8
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 45.0,
+               "ItemId" : 17
+            },
+            {
+               "Count" : 10.0,
+               "ItemId" : 18
+            },
+            {
+               "Count" : 55.0,
+               "ItemId" : 19
+            }
+         ],
+         "Time" : 5.0,
+         "TypeFactory" : 2
       }
    ]
 }

@@ -276,7 +276,7 @@ ItemSelectedDialog::ItemSelectedDialog(
 ItemSelectedDialog::ItemSelectedDialog(const ResourceCalculator::ParamsCollection & PC, ItemSelectedDialogMode Mode, const std::set<ResourceCalculator::CountsItem> &Result, QWidget * parent)
   : QDialog(parent), _PC(PC), _Mode(Mode), _Model(PC, _Mode, Result)
 {
-  setMinimumSize(400, 600);
+  setMinimumSize(700, 600);
 
   QPushButton *okButton = new QPushButton(tr("OK"));
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));

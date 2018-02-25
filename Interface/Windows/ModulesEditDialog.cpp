@@ -291,7 +291,7 @@ ModulesEditDialog::ModulesEditDialog( ResourceCalculator::ParamsCollection &PC, 
   _PC(PC), _Model( PC, parent )
 {
 
-  setMinimumSize( 400, 600 );
+  setMinimumSize( 1200, 600 );
 
   QPushButton *okButton = new QPushButton( tr( "OK" ) );
   QPushButton *AddButton = new QPushButton( tr( "Add" ) );
