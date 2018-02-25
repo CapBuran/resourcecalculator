@@ -27,14 +27,6 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Widgets finds its own dependencies.
 find_package(Qt5 REQUIRED Widgets LinguistTools)
 
-include(Tools)
-
-DETECT_X64()
-
-DISPATCH_OPTIONS()
-
-ADD_COMMON_DEFINITIONS()
-
 include(GiveMePath)
 
 GIVE_ME_PATH()
