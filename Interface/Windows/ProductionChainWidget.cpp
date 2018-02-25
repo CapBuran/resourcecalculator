@@ -59,7 +59,7 @@ QSize ProductionChainWidgetHeaderView::sectionSizeFromContents( int logicalIndex
   return QSize(fm.height(), fm.width(DisplayData));
 }
 
-ProductionChainWidgetDelegateBase::ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection & PC, ResourceCalculator::ProductionChainModel &PCM, QObject * parent ):
+ProductionChainWidgetDelegateBase::ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection & PC, const ResourceCalculator::ProductionChainModel &PCM, QObject * parent ):
   QStyledItemDelegate( parent ), _PC( PC ), _PCM( PCM )
 {
 }
@@ -74,7 +74,7 @@ QSize ProductionChainWidgetDelegateBase::sizeHint(
   return QSize( fm.width( optV4.text ) + fm.overlinePos(), fm.height() );
 }
 
-ProductionChainWidgetDelegate0::ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, ResourceCalculator::ProductionChainModel &PCM, QObject *parent):
+ProductionChainWidgetDelegate0::ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, const ResourceCalculator::ProductionChainModel &PCM, QObject *parent):
   ProductionChainWidgetDelegateBase( PC, PCM,  parent )
 {
 }
@@ -198,8 +198,8 @@ QString ToOut( double Value )
   return QString::number( Value, 'g', EpsilonToOut );
 }
 
-ProductionChainWidgetModel::ProductionChainWidgetModel( const ResourceCalculator::ParamsCollection &PC, QObject *parent )
-  : QAbstractTableModel( parent ), _PCM( PC )
+ProductionChainWidgetModel::ProductionChainWidgetModel(ResourceCalculator::ProductionChainModel &PCM, QObject *parent )
+  : QAbstractTableModel( parent ), _PCM(PCM)
 {
 }
 
@@ -353,7 +353,7 @@ bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVaria
   if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
     beginResetModel();
     ProductionChainDataRow& ROW = _PCM.GetRowEdit( index.row() );
-    ROW.FindCountFactorysForItemsCount( _PCM.GetPC(), index.column() - 8 - CI, value.toDouble() );
+    ROW.FindCountFactorysForItemsCount( index.column() - 8 - CI, value.toDouble() );
     _PCM.Optimize();
     endResetModel();
     emit( AllDataChanged() );
@@ -385,12 +385,7 @@ void ProductionChainWidgetModel::FitQuantity()
   emit( AllDataChanged() );
 }
 
-bool ProductionChainWidgetModel::SetItemKey( ResourceCalculator::KEY_ITEM ItemKey )
-{
-  return _PCM.SetItemKey( ItemKey );
-}
-
-ResourceCalculator::ProductionChainModel & ProductionChainWidgetModel::GetPCM()
+const ResourceCalculator::ProductionChainModel & ProductionChainWidgetModel::GetPCM() const
 {
   return _PCM;
 }
@@ -474,16 +469,20 @@ bool ProductionChainWidgetProxyModel3::filterAcceptsRow( int source_row, const Q
 
 #pragma endregion PROXYMODEL
 
-ProductionChainWidget::ProductionChainWidget( const ResourceCalculator::ParamsCollection &PC, ResourceCalculator::KEY_ITEM ItemKey, QWidget *parent )
-  : _PC(PC), QSplitter( parent ), _Model(PC, parent)
+ProductionChainWidget::ProductionChainWidget(ResourceCalculator::ProductionChainModel &PCM, QWidget *parent )
+  : _PC(PCM.GetPC()), QSplitter( parent ), _Model(PCM, parent), _PCM(PCM)
 {
-  _Init(ItemKey);
+  _Init();
 }
 
-void ProductionChainWidget::_Init( ResourceCalculator::KEY_ITEM ItemKey )
+ResourceCalculator::ProductionChainModel & ProductionChainWidget::GetPCM()
+{
+  return _PCM;
+}
+
+void ProductionChainWidget::_Init( )
 {
   QSortFilterProxyModel *Proxys[4];
-  _Model.SetItemKey( ItemKey );
 
   Proxys[0] = new ProductionChainWidgetProxyModel0( this );
   Proxys[1] = new ProductionChainWidgetProxyModel1( this );

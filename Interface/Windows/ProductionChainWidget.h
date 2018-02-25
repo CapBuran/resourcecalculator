@@ -21,9 +21,9 @@ class ProductionChainWidgetDelegateBase: public QStyledItemDelegate {
   Q_OBJECT
 protected:
   const ResourceCalculator::ParamsCollection &_PC;
-  ResourceCalculator::ProductionChainModel &_PCM;
+  const ResourceCalculator::ProductionChainModel &_PCM;
 public:
-  ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection &PC, ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
+  ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection &PC, const ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
   virtual QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
 };
 
@@ -31,7 +31,7 @@ public:
 class ProductionChainWidgetDelegate0: public ProductionChainWidgetDelegateBase {
   Q_OBJECT
 public:
-  ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
+  ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, const ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
   QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   QWidget *createEditor( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   void setEditorData( QWidget *editor, const QModelIndex &index ) const override;
@@ -82,7 +82,7 @@ class ProductionChainWidgetModel: public QAbstractTableModel {
   Q_OBJECT
 
 public:
-  ProductionChainWidgetModel( const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0 );
+  ProductionChainWidgetModel(ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
 
   int rowCount( const QModelIndex &parent ) const override;
   int columnCount( const QModelIndex &parent ) const override;
@@ -91,13 +91,9 @@ public:
   Qt::ItemFlags flags( const QModelIndex &index ) const override;
 
   void FitQuantity();
-  bool SetItemKey( ResourceCalculator::KEY_ITEM ItemKey);
 
   bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole ) override;
-
-  //int SetItemKey( ResourceCalculator::KEY_ITEM );
-
-  ResourceCalculator::ProductionChainModel& GetPCM();
+  const ResourceCalculator::ProductionChainModel& GetPCM() const;
 
 public slots:
 
@@ -108,19 +104,21 @@ Q_SIGNALS:
 
 private:
 
-  ResourceCalculator::ProductionChainModel _PCM;
+  ResourceCalculator::ProductionChainModel &_PCM;
 
 };
 
 class ProductionChainWidget: public QSplitter {
   Q_OBJECT
 public:
-  ProductionChainWidget( const ResourceCalculator::ParamsCollection &PC, ResourceCalculator::KEY_ITEM ItemKey, QWidget *parent = 0 );
+  ProductionChainWidget(ResourceCalculator::ProductionChainModel &PCM, QWidget *parent = 0 );
+  ResourceCalculator::ProductionChainModel &GetPCM();
 private:
   QTableView *tables[4];
   ProductionChainWidgetModel _Model;
+  ResourceCalculator::ProductionChainModel &_PCM;
   const ResourceCalculator::ParamsCollection &_PC;
-  void _Init(ResourceCalculator::KEY_ITEM ItemKey);
+  void _Init();
 signals:
   void selectionChanged(const QItemSelection &selected);
 private slots:

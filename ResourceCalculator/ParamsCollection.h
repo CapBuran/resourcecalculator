@@ -9,7 +9,7 @@
 #include "ProductionChainCollection.h"
 
 namespace ResourceCalculator {
-
+  
   class ParamsCollection: public Jsonable
   {
   public:
@@ -18,6 +18,7 @@ namespace ResourceCalculator {
     FactoryCollection FC;
     ModuleCollection  MC;
     IconCollection Icons;
+    ProductionChainCollection PCC;
 
     ParamsCollection();
     

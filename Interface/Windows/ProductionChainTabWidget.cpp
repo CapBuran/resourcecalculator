@@ -2,7 +2,7 @@
 #include "ProductionChainWidget.h"
 #include "ModulesSelectDialog.h"
 
-ProductionChainTabWidget::ProductionChainTabWidget(const ResourceCalculator::ParamsCollection &PC, QWidget *parent):
+ProductionChainTabWidget::ProductionChainTabWidget(ResourceCalculator::ParamsCollection &PC, QWidget *parent):
   _PC(PC), QTabWidget(parent)
 {
 
@@ -17,7 +17,9 @@ void ProductionChainTabWidget::Update()
 
 void ProductionChainTabWidget::AddTab(ResourceCalculator::KEY_ITEM ItemKey)
 {
-  addTab(new ProductionChainWidget(_PC, ItemKey, this), QString::fromStdString(_PC.IC.GetItem(ItemKey)->GetName()));
+  ResourceCalculator::ProductionChainModel *PCM = _PC.PCC.Add(ItemKey);
+  ProductionChainWidget *PCW = new ProductionChainWidget(*PCM, this);
+  addTab(PCW, QString::fromStdString(_PC.IC.GetItem(ItemKey)->GetName()));
 }
 
 void ProductionChainTabWidget::RemoveCurrentTab()
@@ -25,6 +27,18 @@ void ProductionChainTabWidget::RemoveCurrentTab()
   int CI = currentIndex();
   if (CI >= 0) {
     QWidget *W = currentWidget();
+    ProductionChainWidget *PCW = dynamic_cast<ProductionChainWidget*>(W);
+    ResourceCalculator::ProductionChainModel &PCM = PCW->GetPCM();
+    _PC.PCC.Remove(&PCM);
     removeTab(CI);
+  }
+}
+
+void ProductionChainTabWidget::AddTabs(std::set<ResourceCalculator::ProductionChainModel*>& ToADD)
+{
+  for (auto it : ToADD) {
+    ProductionChainWidget *PCW = new ProductionChainWidget(*it, this);
+    ResourceCalculator::KEY_ITEM ItemKey = it->GetItemKey();
+    addTab(PCW, QString::fromStdString(_PC.IC.GetItem(ItemKey)->GetName()));
   }
 }

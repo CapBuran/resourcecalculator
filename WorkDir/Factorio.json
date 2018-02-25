@@ -2042,6 +2042,123 @@
          }
       }
    ],
+   "ProductionChains" : [
+      {
+         "ItemKey" : 15,
+         "Rows" : [
+            {
+               "FactoresCount" : 7.875,
+               "FactoryID" : 5,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 28.875,
+               "FactoryID" : 5,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 1.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 2.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 24.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 6,
+         "Rows" : [
+            {
+               "FactoresCount" : 21.0,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 10.5,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 30.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            }
+         ]
+      },
+      {
+         "ItemKey" : 5,
+         "Rows" : [
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            }
+         ]
+      },
+      {
+         "ItemKey" : 19,
+         "Rows" : [
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 10.92,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 6.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 7.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            }
+         ]
+      }
+   ],
    "Recipes" : [
       {
          "IconPath" : "__base__/graphics/icons/iron-plate.png",

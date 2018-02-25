@@ -67,9 +67,14 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
 
 void MainWindow::_setupTabs()
 {
-  _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_1);
-  _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_Sherst);
-  _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_2);
+  std::set<ResourceCalculator::ProductionChainModel*>& ToADDs = _PC.PCC.GetReadingPCMs();
+  if (ToADDs.size() > 0) {
+    _PCTW->AddTabs(ToADDs);
+  } else {
+    _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_1);
+    _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_Sherst);
+    _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_2);
+  }
 }
 
 void MainWindow::_createMenus()

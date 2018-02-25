@@ -92,15 +92,11 @@ namespace ResourceCalculator {
     RecipeResultTree BuildTree(KEY_RECIPE RecipeID, int NestingResults,
       std::list<KEY_ITEM> &ListRequest, std::list<KEY_ITEM> &ListRequestResourceOnly ) const;
 
-    
-    
     void Travelling(const RecipeResultTree &Tree, int Nesting, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer,
                     ResultElement<KEY_RECIPE> &ResultRecipes, ResultElement<KEY_ITEM> &ResultItems) const;
 
     void Travelling(const ItemResultTree &Tree, int Nesting, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer,
                     ResultElement<KEY_RECIPE> &ResultRecipes, ResultElement<KEY_ITEM> &ResultItems) const;
-
-
 
     void Travelling(const RecipeResultTree &Tree, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer,
                     std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const;

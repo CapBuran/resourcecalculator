@@ -45,9 +45,7 @@ int main(int argc, char ** argv) {
 
   PC.RC.Travelling(IRT, Ansfer, ResultRecipes, ResultItems);
 
-  ProductionChainModel PCM(PC);
-  PCM.SetItemKey(KEY_ITEM::ID_ITEM_science_pack_1);
-
+  ProductionChainModel PCM(PC, KEY_ITEM::ID_ITEM_science_pack_1);
 
   return 0;
 

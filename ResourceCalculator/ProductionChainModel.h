@@ -1,13 +1,14 @@
 #ifndef ProductionChainModel_H
 #define ProductionChainModel_H
 
-#include "ParamsCollection.h"
+#include "Module.h"
 
 namespace ResourceCalculator {
 
 class ProductionChainModel;
+class ParamsCollection;
 
-class ProductionChainDataRow {
+class ProductionChainDataRow : public Jsonable {
 
 private:
 
@@ -32,16 +33,18 @@ private:
   std::vector <double> _CountItems;
   std::vector <double> _ItemsPerSec;
 
-  bool _Update(const ParamsCollection &PC);
+  const ParamsCollection *_PC;
+
+  bool _Update();
 
 public:
 
-  bool SetCountFactorys(const ParamsCollection &PC, double Count);
-  bool SetFactoryModules(const ParamsCollection &PC, const FactoryModules &FM);
-  bool SetFactoryCurrent(const ParamsCollection &PC, KEY_FACTORY);
-  bool FindCountFactorysForItemsCount(const ParamsCollection &PC, int Columb, double Count);
+  bool SetCountFactorys( double Count);
+  bool SetFactoryModules(const FactoryModules &FM);
+  bool SetFactoryCurrent(KEY_FACTORY);
+  bool FindCountFactorysForItemsCount(int Columb, double Count);
 
-  bool ReInit(const ParamsCollection &PC);
+  bool ReInit();
   bool Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols, int InitColumb = -1);
 
   double GetSummProductivity(const ParamsCollection &PC) const;
@@ -62,6 +65,8 @@ public:
   KEY_FACTORY GetFactoryIdFromIndex(int Index) const;
   void DeleteModules(const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel);
 
+  int ReadFromJson(const Json::Value & jsonPr) override;
+  int WriteToJson(Json::Value & jsonPr) const override;
 };
 
 class ProductionChainModel : public ItemBase
@@ -73,6 +78,9 @@ private:
   std::vector<KEY_ITEM> _ColsItems;
   std::vector <ProductionChainDataRow>  _DataRows;
   std::vector<double> _SummSpeeds;
+  
+  //Возвращают истину, когда нужно обновить всю модель
+  bool _SetItemKey(KEY_ITEM ItemKey);
 
 public:
 
@@ -81,14 +89,13 @@ public:
     return _PC;
   }
 
+  KEY_ITEM GetItemKey() const ;
+
   ProductionChainModel(const ParamsCollection &PC, KEY_ITEM ItemKey);
   ProductionChainModel(const ParamsCollection &PC);
   ~ProductionChainModel();
 
   void DeleteModules(const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel);
-
-  //Возвращают истину, когда нужно обновить всю модель
-  bool SetItemKey(KEY_ITEM ItemKey);
 
   //Возвращают истину, когда нужно обновить всю модель
   bool ReInit();
@@ -121,17 +128,9 @@ public:
   //Возвращают истину, когда нужно обновить всю модель
   bool Optimize();
 
-private:
+  int ReadFromJson(const Json::Value & jsonPr) override;
 
-  inline int ReadFromJson(const Json::Value & jsonPr) override
-  {
-    return 0;
-  }
-
-  inline int WriteToJson(Json::Value & jsonPr) const override
-  {
-    return 0;
-  }
+  int WriteToJson(Json::Value & jsonPr) const override;
 
 };
 
