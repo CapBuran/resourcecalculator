@@ -1,5 +1,4 @@
 #include "base64.h"
-#include <stdint.h>
 
 static char encoding_table[] = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H',
 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
@@ -22,14 +21,14 @@ void _build_decoding_table() {
 
 void base64_encode(const std::vector<char> &input, std::vector<char> &output)
 {
-  const size_t input_length = input.size();
+  const uint64_t input_length = input.size();
   output.clear();
 
   if (input_length == 0) return;
 
   const unsigned char *data = reinterpret_cast<const unsigned char *>(&input[0]);
 
-  const size_t output_length = 4 * ((input_length + 2) / 3);
+  const uint64_t output_length = 4 * ((input_length + 2) / 3);
   output.resize(output_length);
   char *encoded_data = &output[0];
 
@@ -55,11 +54,11 @@ void base64_decode(const std::vector<char> &input, std::vector<char> &output)
 
   if (!isBuild_decoding_table) _build_decoding_table();
 
-  const size_t input_length = input.size();
+  const uint64_t input_length = input.size();
 
   if (input_length % 4 != 0) return;
 
-  size_t output_length = input_length / 4 * 3;
+  uint64_t output_length = input_length / 4 * 3;
 
   const char * input_data = &input[0];
   
@@ -89,7 +88,7 @@ void base64_decode(const std::vector<char> &input, std::vector<char> &output)
 
 }
 
-std::size_t base64_get_size_encode_data(std::size_t org_data_size)
+uint64_t base64_get_size_encode_data(uint64_t org_data_size)
 {
   return 4 * ((org_data_size + 2) / 3);
 }

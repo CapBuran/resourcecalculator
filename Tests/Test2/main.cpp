@@ -1,15 +1,11 @@
-#include "..\..\ResourceCalculator\ParamsCollection.h"
 #include <fstream>
-#include "..\..\ThreeParty\Base64\base64.h"
 
-#include "..\..\ResourceCalculator\ProductionChainModel.h"
+#include "../../ThreeParty/Base64/base64.h"
+#include "../../ResourceCalculator/ParamsCollection.h"
 
 #define StandartTestFileJson "C:\\games\\Factorio.json"
 
-
 using namespace ResourceCalculator;
-
-
 
 int main(int argc, char ** argv) {
   using namespace std;

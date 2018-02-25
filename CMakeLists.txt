@@ -10,7 +10,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake" ${CMAKE_MODULE_PATH})
 
-#project(Factorio_QT C CXX)
 project(Factorio_QT CXX)
 
 # Tell CMake to run moc when necessary:
@@ -19,6 +18,10 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
 set(CMAKE_AUTORCC ON)
+
+if (UNIX)
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+endif (UNIX)
 
 # As moc files are generated in the binary dir, tell CMake
 # to always look for includes there:
