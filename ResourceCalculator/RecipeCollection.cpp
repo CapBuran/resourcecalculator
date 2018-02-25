@@ -66,8 +66,8 @@ void RecipeCollection::Travelling(
         }
       }
     } else {
-      if (ResultTree.begin()->second.GetRecipeKey() != KEY_RECIPE::ID_RECIPE_PreviouslyProduced) {
-        Travelling(ResultTree.begin()->second, Nesting + 1, Ansfer, ResultRecipes, ResultItems);
+      for (auto ResulltID : ResultTree) {
+        Travelling(ResulltID.second, Nesting + 1, Ansfer, ResultRecipes, ResultItems);
       }
     }
   }

@@ -35,7 +35,8 @@ int main(int argc, char ** argv) {
   std::list<KEY_ITEM> ListRequest;
   std::list<KEY_ITEM> ListRequestResourceOnly;
 
-  ItemResultTree IRT = PC.RC.BuildTree(static_cast<KEY_ITEM>(15), 16, ListRequest, ListRequestResourceOnly );
+  //ItemResultTree IRT = PC.RC.BuildTree(KEY_ITEM::ID_ITEM_science_pack_2, 16, ListRequest, ListRequestResourceOnly );
+  ItemResultTree IRT = PC.RC.BuildTree(KEY_ITEM::ID_ITEM_petroleum_gas, 16, ListRequest, ListRequestResourceOnly);
   
   std::list <KEY_RECIPE> ResultRecipes;
   std::list <KEY_ITEM> ResultItems;
