@@ -239,6 +239,7 @@ namespace ResourceCalculator
     for (auto &it : jsonPr["Rows"]) {
       _DataRows[i++].ReadFromJson(it);
     }
+    Optimize();
     return 0;
   }
 

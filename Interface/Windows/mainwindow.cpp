@@ -10,9 +10,6 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _PC(PC)
 {
 
-  QPushButton *_ButtonPropertyTableRecipeTab = new QPushButton(tr("Recipe Tab Property"));
-  connect(_ButtonPropertyTableRecipeTab, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
-
   QPushButton *_ButtonAddRecipeTab = new QPushButton(tr("Recipe tab add"));
   connect(_ButtonAddRecipeTab, SIGNAL(clicked()), SLOT( PushButtonClickedAddTab()));
 
@@ -30,16 +27,9 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
 
   QPushButton *_ButtonModulesEdit = new QPushButton( tr( "Modules editor" ) );
   connect( _ButtonModulesEdit, SIGNAL( clicked() ), SLOT( PushButtonClickedModulesEditDialog() ) );
-
-  QPushButton *_ButtonDebug = new QPushButton(tr("Debug button"));
-  connect(_ButtonDebug, SIGNAL(clicked()), SLOT(PushButtonClickedDebug()));
   
   QHBoxLayout *h = new QHBoxLayout();
-  //h->setMargin(5);
-  //h->setSpacing(5);
-  h->addWidget( _ButtonDebug );
   h->addWidget( _ButtonAddRecipeTab );
-  h->addWidget( _ButtonPropertyTableRecipeTab );
   h->addWidget( _ButtonDelRecipeTab );
   h->addWidget( _ButtonRecipesOpen );
   h->addWidget( _ButtonItemOpen );
@@ -48,8 +38,6 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
 
   _PCTW = new ProductionChainTabWidget( _PC );
   QVBoxLayout *v = new QVBoxLayout();
-  //  v->setMargin(5);
-  //  v->setSpacing(5);
   v->addWidget(_PCTW);
   v->addLayout( h );
 
@@ -194,14 +182,4 @@ void MainWindow::PushButtonClickedModulesEditDialog()
 {
   ModulesEditDialog MED( _PC );
   MED.exec();
-}
-
-void MainWindow::PushButtonClickedDebug()
-{
-  FactoryTypesEditDialog Dialog( _PC );
-  //FactorysEditDialog Dialog(_PC);
-  if ( Dialog.exec()) {
-    Dialog.Commit();
-  }
-
 }
