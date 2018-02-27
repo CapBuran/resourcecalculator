@@ -2,11 +2,6 @@
 #include "mainwindow.h"
 #include <fstream>
 
-//#include <QApplication>
-//#include <QtGui>
-//#include <QtCore>
-#include <QtWidgets>
-
 #define StandartTestFileJson "Factorio.json"
 
 int main(int argc, char *argv[])

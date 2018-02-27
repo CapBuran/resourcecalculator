@@ -29,8 +29,8 @@ void ProductionChainTabWidget::RemoveCurrentTab()
     QWidget *W = currentWidget();
     ProductionChainWidget *PCW = dynamic_cast<ProductionChainWidget*>(W);
     ResourceCalculator::ProductionChainModel &PCM = PCW->GetPCM();
-    _PC.PCC.Remove(&PCM);
     removeTab(CI);
+    _PC.PCC.Remove(&PCM);
   }
 }
 
