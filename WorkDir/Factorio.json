@@ -1918,6 +1918,15 @@
             "en" : "English lang",
             "ru" : "Уголь"
          }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/plastic-bar.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 21,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Пластмассовый брусок"
+         }
       }
    ],
    "Modules" : [
@@ -2044,47 +2053,12 @@
    ],
    "ProductionChains" : [
       {
-         "ItemKey" : 15,
+         "ItemKey" : 1,
          "Rows" : [
             {
-               "FactoresCount" : 7.875,
-               "FactoryID" : 5,
+               "FactoresCount" : 22.0,
+               "FactoryID" : 4,
                "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 3.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 28.875,
-               "FactoryID" : 5,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 3.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 3.0,
-               "FactoryID" : 1,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 1.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 2.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 24.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
             }
          ]
       },
@@ -2108,21 +2082,6 @@
             },
             {
                "FactoresCount" : 30.0,
-               "FactoryID" : 1,
-               "FactoryModules" : []
-            }
-         ]
-      },
-      {
-         "ItemKey" : 5,
-         "Rows" : [
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 4,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 0.0,
                "FactoryID" : 1,
                "FactoryModules" : []
             }
@@ -2155,6 +2114,126 @@
                "FactoresCount" : 7.0,
                "FactoryID" : 8,
                "FactoryModules" : [ 0, 0, 0 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 5,
+         "Rows" : [
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            }
+         ]
+      },
+      {
+         "ItemKey" : 15,
+         "Rows" : [
+            {
+               "FactoresCount" : 15.75,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 57.75,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 1.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 2.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 24.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 0,
+         "Rows" : [
+            {
+               "FactoresCount" : -0.0,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 28.0,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 70.0,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : -0.0,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 10.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : -1.7763568394002505e-15,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 8.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 20.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 3.1999999999999997,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 32.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
             }
          ]
       }
@@ -2535,6 +2614,66 @@
          ],
          "Time" : 5.0,
          "TypeFactory" : 2
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/plastic-bar.png",
+         "Key" : 19,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Пластмассовый брусок"
+         },
+         "Required" : [
+            {
+               "Count" : 0.0,
+               "ItemId" : 0
+            },
+            {
+               "Count" : 20.0,
+               "ItemId" : 19
+            },
+            {
+               "Count" : 1.0,
+               "ItemId" : 20
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 2.0,
+               "ItemId" : 21
+            }
+         ],
+         "Time" : 1.0,
+         "TypeFactory" : 6
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/advanced-circuit.png",
+         "Key" : 20,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Продвинутая микросхема"
+         },
+         "Required" : [
+            {
+               "Count" : 2.0,
+               "ItemId" : 9
+            },
+            {
+               "Count" : 4.0,
+               "ItemId" : 11
+            },
+            {
+               "Count" : 2.0,
+               "ItemId" : 21
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 0
+            }
+         ],
+         "Time" : 6.0,
+         "TypeFactory" : 1
       }
    ]
 }
