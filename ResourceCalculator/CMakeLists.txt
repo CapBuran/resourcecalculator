@@ -36,6 +36,8 @@ source_group(ProductionChain FILES ProductionChainModel.cpp)
 source_group(ProductionChain FILES ProductionChainModel.h)
 source_group(ProductionChain FILES ProductionChainCollection.cpp)
 source_group(ProductionChain FILES ProductionChainCollection.h)
+source_group(ProductionChain FILES ProductionChainTree.cpp)
+source_group(ProductionChain FILES ProductionChainTree.h)
 
 source_group(Other    FILES Serializer.h)
 

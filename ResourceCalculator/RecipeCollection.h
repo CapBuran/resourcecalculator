@@ -22,7 +22,6 @@ namespace ResourceCalculator {
     const std::map<KEY_RECIPE, RecipeResultTree> & GetResult() const;
     KEY_ITEM GetItemKey() const;
     friend RecipeCollection;
-    friend std::pair<const KEY_RECIPE, RecipeResultTree>;
   };
 
   struct RecipeResultTree
@@ -103,8 +102,6 @@ namespace ResourceCalculator {
 
     void Travelling(const ItemResultTree &Tree, const std::map<KEY_ITEM, KEY_RECIPE> &Ansfer,
                     std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const;
-
-    void Build(KEY_ITEM ItemID, const std::map<KEY_ITEM, KEY_RECIPE> SelectRecipe, std::list<KEY_RECIPE> &ResultRecipe, std::set<KEY_ITEM> &ResultItem);
 
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;

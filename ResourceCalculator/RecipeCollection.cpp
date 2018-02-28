@@ -127,32 +127,6 @@ ItemResultTree RecipeCollection::BuildTree(KEY_ITEM ItemID, int NestingResults, 
   return RetVal;
 }
 
-void RecipeCollection::Build(KEY_ITEM ItemID, const std::map<KEY_ITEM, KEY_RECIPE> SelectRecipe,
-                             std::list<KEY_RECIPE> &ResultRecipe, std::set<KEY_ITEM> &ResultItem)
-{
-  std::map<KEY_ITEM, KEY_RECIPE>::const_iterator SelectRecipeFind = SelectRecipe.find(ItemID);
-
-  if (SelectRecipeFind == SelectRecipe.end()) {
-    return;
-  }
-
-  KEY_RECIPE KR = SelectRecipeFind->second;
-
-  std::map<KEY_RECIPE, Recipe >::const_iterator  Recipe = _Recipes.find(KR);
-
-  if (Recipe == _Recipes.end()) {
-    return;
-  }
-
-  ResultRecipe.push_front(Recipe->second.GetKey());
-
-  for (auto &Item : Recipe->second.GetRequired()) {
-    ResultItem.insert(Item.ItemId);
-    Build(Item.ItemId, SelectRecipe, ResultRecipe, ResultItem);
-  }
-
-}
-
 void RecipeCollection::Add(const Recipe &recipe)
 {
   _Recipes[recipe.GetKey()] = recipe;
