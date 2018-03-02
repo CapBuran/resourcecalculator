@@ -3,7 +3,52 @@
 namespace ResourceCalculator
 {
 
-ItemResultTree2::ItemResultTree2(const ParamsCollection &_PC, KEY_ITEM _ItemID, KEY_RECIPE _Parent):
+template <typename key_type>
+class ResultElement
+{
+private:
+  std::map <key_type, int> _Levels;
+public:
+  inline ResultElement()
+  {
+  }
+  inline void AddLevel(key_type Type, int Level)
+  {
+    auto f = _Levels.find(Type);
+    if (f == _Levels.end()) {
+      _Levels[Type] = Level;
+    }
+    else {
+      if (f->second > Level) f->second = Level;
+    }
+  }
+  inline std::list <key_type> GetList() const
+  {
+    std::list <key_type> Result;
+    int Min = 0, Max = 0;
+    if (_Levels.size() > 0) {
+      Min = _Levels.begin()->second;
+      Max = Min;
+    }
+    for (auto IT : _Levels) {
+      if (IT.second > Max) Max = IT.second;
+      if (IT.second < Min) Min = IT.second;
+    }
+    for (int i = Min; i <= Max; i++) {
+      for (auto IT : _Levels) {
+        if (i == IT.second) {
+          auto F = std::find(Result.begin(), Result.end(), IT.first);
+          if (F == Result.end()) {
+            Result.push_back(IT.first);
+          }
+        }
+      }
+    }
+    return Result;
+  }
+};
+
+ItemResultTree::ItemResultTree(const ParamsCollection &_PC, KEY_ITEM _ItemID, KEY_RECIPE _Parent):
   PC(_PC), ItemID(_ItemID), Parent(_Parent)
 {
   const std::map<KEY_RECIPE, Recipe> & Recipes = PC.RC.GetData();
@@ -20,41 +65,41 @@ ItemResultTree2::ItemResultTree2(const ParamsCollection &_PC, KEY_ITEM _ItemID, 
   std::copy(result_all.begin(), result_all.end(), _Result.begin());
 }
 
-KEY_RECIPE ItemResultTree2::GetChildren(size_t ID) const
+KEY_RECIPE ItemResultTree::GetChildren(size_t ID) const
 {
   return _Result[ID];
 }
 
-size_t ItemResultTree2::GetCountChildrens() const
+size_t ItemResultTree::GetCountChildrens() const
 {
   return _Result.size();
 }
 
-void ItemResultTree2::Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer, std::list<KEY_RECIPE>& ResultRecipes, std::list<KEY_ITEM>& ResultItems) const
+void ItemResultTree::Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer, std::list<KEY_RECIPE>& ResultRecipes, std::list<KEY_ITEM>& ResultItems) const
 {
-  ResultElement2<KEY_RECIPE> ResultRecipes1;
-  ResultElement2<KEY_ITEM> ResultItems1;
+  ResultElement<KEY_RECIPE> ResultRecipes1;
+  ResultElement<KEY_ITEM> ResultItems1;
   _Travelling(Nesting, Ansfer, ResultRecipes1, ResultItems1);
   ResultRecipes = ResultRecipes1.GetList();
   ResultItems = ResultItems1.GetList();
 }
 
-void ItemResultTree2::_Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer, ResultElement2<KEY_RECIPE>& RetRecipes, ResultElement2<KEY_ITEM>& RetItems) const
+void ItemResultTree::_Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer, ResultElement<KEY_RECIPE>& RetRecipes, ResultElement<KEY_ITEM>& RetItems) const
 {
   if (Nesting <= 0) return;
   for (KEY_RECIPE RecipeID: _Result){
-    RecipeResultTree2 RRT(PC, RecipeID, ItemID);
+    RecipeResultTree RRT(PC, RecipeID, ItemID);
     RRT._Travelling(Nesting - 1, Ansfer, RetRecipes, RetItems);
   }
   RetItems.AddLevel(ItemID, Nesting);
 }
 
-RecipeResultTree2::RecipeResultTree2(const ParamsCollection & _PC, KEY_RECIPE _RecipeID, KEY_ITEM _Parent):
+RecipeResultTree::RecipeResultTree(const ParamsCollection & _PC, KEY_RECIPE _RecipeID, KEY_ITEM _Parent):
   PC(_PC), RecipeID(_RecipeID), Parent(_Parent)
 {
 }
 
-KEY_ITEM RecipeResultTree2::GetChildren(size_t ID) const
+KEY_ITEM RecipeResultTree::GetChildren(size_t ID) const
 {
   const Recipe* recipe = PC.RC.GetRecipe(RecipeID);
   if (recipe == nullptr) return KEY_ITEM::ID_ITEM_NoFind_Item;
@@ -65,31 +110,31 @@ KEY_ITEM RecipeResultTree2::GetChildren(size_t ID) const
   return it->ItemId;
 }
 
-size_t RecipeResultTree2::GetCountChildrens() const
+size_t RecipeResultTree::GetCountChildrens() const
 {
   const Recipe* recipe = PC.RC.GetRecipe(RecipeID);
   if (recipe == nullptr) return 0;
   return recipe->GetResult().size();
 }
 
-void RecipeResultTree2::Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer, std::list<KEY_RECIPE>& ResultRecipes, std::list<KEY_ITEM>& ResultItems) const
+void RecipeResultTree::Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer, std::list<KEY_RECIPE>& ResultRecipes, std::list<KEY_ITEM>& ResultItems) const
 {
-  ResultElement2<KEY_RECIPE> ResultRecipes1;
-  ResultElement2<KEY_ITEM> ResultItems1;
+  ResultElement<KEY_RECIPE> ResultRecipes1;
+  ResultElement<KEY_ITEM> ResultItems1;
   _Travelling(Nesting, Ansfer, ResultRecipes1, ResultItems1);
   ResultRecipes = ResultRecipes1.GetList();
   ResultItems = ResultItems1.GetList();
 }
 
-void RecipeResultTree2::_Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer,
-  ResultElement2<KEY_RECIPE>& RetRecipes, ResultElement2<KEY_ITEM>& RetItems) const
+void RecipeResultTree::_Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer,
+  ResultElement<KEY_RECIPE>& RetRecipes, ResultElement<KEY_ITEM>& RetItems) const
 {
   if (Nesting <= 0) return;
   const Recipe* recipe = PC.RC.GetRecipe(RecipeID);
   if (recipe == nullptr) return;
   const std::set<CountsItem> &RequiredItems = recipe->GetRequired();
   for (auto &it : RequiredItems) {
-    ItemResultTree2 IRT(PC, it.ItemId, RecipeID);
+    ItemResultTree IRT(PC, it.ItemId, RecipeID);
     IRT._Travelling(Nesting - 1, Ansfer, RetRecipes, RetItems);
   }
   RetRecipes.AddLevel(RecipeID, Nesting);

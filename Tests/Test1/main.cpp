@@ -38,20 +38,14 @@ int main(int argc, char ** argv) {
   //KEY_ITEM KeyFind = KEY_ITEM::ID_ITEM_science_pack_2;
   //KEY_ITEM KeyFind = KEY_ITEM::ID_ITEM_petroleum_gas;
 
-  ItemResultTree IRT = PC.RC.BuildTree(KeyFind, 16, ListRequest, ListRequestResourceOnly);
-  
   std::list <KEY_RECIPE> ResultRecipes;
   std::list <KEY_ITEM> ResultItems;
   std::map<KEY_ITEM, KEY_RECIPE> Ansfer;
 
-
-  PC.RC.Travelling(IRT, Ansfer, ResultRecipes, ResultItems);
-
-
   std::list <KEY_RECIPE> ResultRecipes2;
   std::list <KEY_ITEM>   ResultItems2;
 
-  ItemResultTree2 IRT2(PC, KeyFind);
+  ItemResultTree IRT2(PC, KeyFind);
 
   IRT2.Travelling(150, Ansfer, ResultRecipes2, ResultItems2);
 

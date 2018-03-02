@@ -2,6 +2,7 @@
 
 #include "../../ThreeParty/Base64/base64.h"
 #include "../../ResourceCalculator/ParamsCollection.h"
+#include "../../ResourceCalculator/ProductionChainTree.h"
 
 #define StandartTestFileJson "C:\\games\\Factorio.json"
 
@@ -152,15 +153,12 @@ int main(int argc, char ** argv) {
   std::list<KEY_ITEM> ListRequest;
   std::list<KEY_ITEM> ListRequestResourceOnly;
 
-  ItemResultTree IRT = PCRestore.RC.BuildTree(KEY_ITEM::ID_ITEM_science_pack_1, 8, ListRequest, ListRequestResourceOnly );
-  
   std::list <KEY_RECIPE> ResultRecipes;
   std::list <KEY_ITEM> ResultItems;
   std::map<KEY_ITEM, KEY_RECIPE> Ansfer;
 
-  //Ansfer[KEY_ITEM::ID_ITEM_Sherst] = KEY_RECIPE::ID_RECIPE_PreviouslyProduced;
-
-  PCRestore.RC.Travelling(IRT, Ansfer, ResultRecipes, ResultItems);
+  ItemResultTree IRT(PCRestore, KEY_ITEM::ID_ITEM_science_pack_1);
+  IRT.Travelling(8, Ansfer, ResultRecipes, ResultItems);
 
   std::string sss("Русские буквы");
 

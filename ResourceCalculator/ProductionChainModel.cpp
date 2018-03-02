@@ -2,6 +2,7 @@
 
 #include "ProductionChainModel.h"
 #include "ParamsCollection.h"
+#include "../ResourceCalculator/ProductionChainTree.h"
 
 namespace ResourceCalculator
 {
@@ -296,13 +297,12 @@ namespace ResourceCalculator
     std::list<KEY_ITEM> ListRequest;
     std::list<KEY_ITEM> ListRequestResourceOnly;
 
-    ItemResultTree IRT = _PC.RC.BuildTree( ItemKey, 100, ListRequest, ListRequestResourceOnly );
-
     std::list <KEY_RECIPE> ResultRecipes;
     std::list <KEY_ITEM> ResultItems;
     std::map<KEY_ITEM, KEY_RECIPE> Ansfer;
 
-    _PC.RC.Travelling( IRT, Ansfer, ResultRecipes, ResultItems );
+    ItemResultTree IRT(_PC, ItemKey);
+    IRT.Travelling(100, Ansfer, ResultRecipes, ResultItems);
 
     const Item &RootItem = _PC.IC.GetData().find( ItemKey )->second;
 
