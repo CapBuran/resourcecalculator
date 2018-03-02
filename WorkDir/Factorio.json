@@ -1731,15 +1731,6 @@
    ],
    "Items" : [
       {
-         "IconPath" : "__base__/graphics/icons/advanced-circuit.png",
-         "IsALiquidOrGas" : false,
-         "Key" : 0,
-         "Name" : {
-            "en" : "English lang",
-            "ru" : "Продвинутая микросхема"
-         }
-      },
-      {
          "IconPath" : "__base__/graphics/icons/iron-plate.png",
          "IsALiquidOrGas" : false,
          "Key" : 1,
@@ -1927,6 +1918,15 @@
             "en" : "English lang",
             "ru" : "Пластмассовый брусок"
          }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/advanced-circuit.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 22,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Продвинутая микросхема"
+         }
       }
    ],
    "Modules" : [
@@ -2053,185 +2053,60 @@
    ],
    "ProductionChains" : [
       {
-         "ItemKey" : 1,
+         "ItemKey" : 22,
          "Rows" : [
             {
-               "FactoresCount" : 22.0,
-               "FactoryID" : 4,
-               "FactoryModules" : []
-            }
-         ]
-      },
-      {
-         "ItemKey" : 6,
-         "Rows" : [
-            {
-               "FactoresCount" : 21.0,
-               "FactoryID" : 4,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 10.5,
-               "FactoryID" : 4,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 3.0,
-               "FactoryID" : 1,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 30.0,
-               "FactoryID" : 1,
-               "FactoryModules" : []
-            }
-         ]
-      },
-      {
-         "ItemKey" : 19,
-         "Rows" : [
-            {
-               "FactoresCount" : 3.0,
+               "FactoresCount" : -0.65454545454545454,
                "FactoryID" : 7,
                "FactoryModules" : [ 0, 0, 0 ]
             },
             {
-               "FactoresCount" : 10.92,
+               "FactoresCount" : 3.5,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 3.5,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : -0.0,
                "FactoryID" : 7,
                "FactoryModules" : [ 0, 0, 0 ]
             },
             {
-               "FactoresCount" : 6.0,
+               "FactoresCount" : -0.0,
                "FactoryID" : 8,
                "FactoryModules" : [ 0, 0, 0 ]
             },
             {
-               "FactoresCount" : 0.0,
+               "FactoresCount" : -0.0,
                "FactoryID" : 8,
                "FactoryModules" : [ 0, 0, 0 ]
             },
             {
-               "FactoresCount" : 7.0,
+               "FactoresCount" : 0.90909090909090906,
                "FactoryID" : 8,
                "FactoryModules" : [ 0, 0, 0 ]
-            }
-         ]
-      },
-      {
-         "ItemKey" : 5,
-         "Rows" : [
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 4,
-               "FactoryModules" : []
             },
             {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 1,
-               "FactoryModules" : []
-            }
-         ]
-      },
-      {
-         "ItemKey" : 15,
-         "Rows" : [
-            {
-               "FactoresCount" : 15.75,
-               "FactoryID" : 4,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 3.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 57.75,
-               "FactoryID" : 4,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 3.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 3.0,
+               "FactoresCount" : 1.0,
                "FactoryID" : 1,
                "FactoryModules" : []
             },
             {
                "FactoresCount" : 1.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 2.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 24.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            }
-         ]
-      },
-      {
-         "ItemKey" : 0,
-         "Rows" : [
-            {
-               "FactoresCount" : -0.0,
-               "FactoryID" : 7,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 28.0,
-               "FactoryID" : 4,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 70.0,
-               "FactoryID" : 4,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : -0.0,
-               "FactoryID" : 7,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 10.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : -1.7763568394002505e-15,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 8.0,
                "FactoryID" : 1,
                "FactoryModules" : []
             },
             {
-               "FactoresCount" : 20.0,
-               "FactoryID" : 1,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 3.1999999999999997,
+               "FactoresCount" : 0.40000000000000002,
                "FactoryID" : 7,
                "FactoryModules" : [ 0, 0, 0 ]
             },
             {
-               "FactoresCount" : 32.0,
+               "FactoresCount" : 4.0,
                "FactoryID" : 2,
                "FactoryModules" : [ 0, 0 ]
             }
@@ -2624,10 +2499,6 @@
          },
          "Required" : [
             {
-               "Count" : 0.0,
-               "ItemId" : 0
-            },
-            {
                "Count" : 20.0,
                "ItemId" : 19
             },
@@ -2669,7 +2540,7 @@
          "Result" : [
             {
                "Count" : 1.0,
-               "ItemId" : 0
+               "ItemId" : 22
             }
          ],
          "Time" : 6.0,

@@ -2,6 +2,7 @@
 
 #include "../../ThreeParty/Base64/base64.h"
 #include "../../ResourceCalculator/ParamsCollection.h"
+#include "../../ResourceCalculator/ProductionChainTree.h"
 
 #define StandartTestFileJson "Factorio.json"
 
@@ -32,8 +33,12 @@ int main(int argc, char ** argv) {
   std::list<KEY_ITEM> ListRequest;
   std::list<KEY_ITEM> ListRequestResourceOnly;
 
-  //ItemResultTree IRT = PC.RC.BuildTree(KEY_ITEM::ID_ITEM_science_pack_2, 16, ListRequest, ListRequestResourceOnly );
-  ItemResultTree IRT = PC.RC.BuildTree(KEY_ITEM::ID_ITEM_petroleum_gas, 16, ListRequest, ListRequestResourceOnly);
+
+  KEY_ITEM KeyFind = KEY_ITEM::ID_ITEM_advanced_circuit;
+  //KEY_ITEM KeyFind = KEY_ITEM::ID_ITEM_science_pack_2;
+  //KEY_ITEM KeyFind = KEY_ITEM::ID_ITEM_petroleum_gas;
+
+  ItemResultTree IRT = PC.RC.BuildTree(KeyFind, 16, ListRequest, ListRequestResourceOnly);
   
   std::list <KEY_RECIPE> ResultRecipes;
   std::list <KEY_ITEM> ResultItems;
@@ -41,6 +46,14 @@ int main(int argc, char ** argv) {
 
 
   PC.RC.Travelling(IRT, Ansfer, ResultRecipes, ResultItems);
+
+
+  std::list <KEY_RECIPE> ResultRecipes2;
+  std::list <KEY_ITEM>   ResultItems2;
+
+  ItemResultTree2 IRT2(PC, KeyFind);
+
+  IRT2.Travelling(150, Ansfer, ResultRecipes2, ResultItems2);
 
   ProductionChainModel PCM(PC, KEY_ITEM::ID_ITEM_science_pack_1);
 

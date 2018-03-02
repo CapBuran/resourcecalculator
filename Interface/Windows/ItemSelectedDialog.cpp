@@ -287,7 +287,11 @@ ItemSelectedDialog::ItemSelectedDialog(const ResourceCalculator::ParamsCollectio
     QTableView::SelectionMode::MultiSelection
   );
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
+  //QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel();
+  //proxyModel->setSourceModel(&_Model);
+  //_tableView->setModel(proxyModel);
   _tableView->setModel(&_Model);
+  _tableView->sortByColumn(1, Qt::AscendingOrder);
   _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 

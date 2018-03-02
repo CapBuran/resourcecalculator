@@ -188,13 +188,13 @@
     </message>
     <message>
         <location filename="../ItemSelectedDialog.cpp" line="269"/>
-        <location filename="../ItemSelectedDialog.cpp" line="317"/>
+        <location filename="../ItemSelectedDialog.cpp" line="321"/>
         <source>Select an item</source>
         <translation>Выберете предмет</translation>
     </message>
     <message>
         <location filename="../ItemSelectedDialog.cpp" line="271"/>
-        <location filename="../ItemSelectedDialog.cpp" line="319"/>
+        <location filename="../ItemSelectedDialog.cpp" line="323"/>
         <source>Select items</source>
         <translation>Выберете предметы</translation>
     </message>
@@ -240,7 +240,7 @@
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="292"/>
+        <location filename="../ItemsEditDialog.cpp" line="296"/>
         <source>Item Edit</source>
         <translation>Редактор предметов</translation>
     </message>

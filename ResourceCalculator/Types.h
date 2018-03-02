@@ -33,7 +33,9 @@ namespace ResourceCalculator
     ID_RECIPE_light_oil_cracking = 15,
     ID_RECIPE_basic_oil_processing = 16,
     ID_RECIPE_coal_liquefaction = 17,
-    ID_RECIPE_advanced_oil_processing = 18
+    ID_RECIPE_advanced_oil_processing = 18,
+    ID_RECIPE_plastic_bar = 19,
+    ID_RECIPE_advanced_circuit = 20
    };
 
   enum class KEY_ITEM: TYPE_KEY {
@@ -57,7 +59,9 @@ namespace ResourceCalculator
     ID_ITEM_light_oil,
     ID_ITEM_heavy_oil,
     ID_ITEM_petroleum_gas,
-    ID_ITEM_coal
+    ID_ITEM_coal,
+    ID_ITEM_plastic_bar,
+    ID_ITEM_advanced_circuit
   };
 
   enum class KEY_TYPE_FACTORY: TYPE_KEY {

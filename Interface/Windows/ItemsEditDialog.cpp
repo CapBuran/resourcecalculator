@@ -266,7 +266,11 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
 
   ItemEditDelegate *Delegate = new ItemEditDelegate(PC, this);
   _tableView = new QTableView;
+  //QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel();
+  //proxyModel->setSourceModel(&_Model);
+  //_tableView->setModel(proxyModel);
   _tableView->setModel(&_Model);
+  _tableView->sortByColumn(1, Qt::AscendingOrder);
   _tableView->setItemDelegate(Delegate);
   _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);

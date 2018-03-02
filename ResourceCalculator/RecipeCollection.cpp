@@ -37,6 +37,34 @@ RecipeResultTree RecipeCollection::BuildTree(KEY_RECIPE RecipeID, int NestingRes
   return RetVal;
 }
 
+ItemResultTree RecipeCollection::BuildTree(KEY_ITEM ItemID, int NestingResults, std::list<KEY_ITEM> &ListRequest, std::list<KEY_ITEM> &ListRequestResourceOnly) const
+{
+  ItemResultTree RetVal;
+  RetVal._ItemKey = ItemID;
+  if (NestingResults == 0) return RetVal;
+  bool IsFindOK = false;
+  for (auto &it : _Recipes) {
+    for (auto it2 : it.second.GetResult()) {
+      if (it2.ItemId == ItemID) {
+        RetVal._Result[it.second.GetKey()] = BuildTree(it.second.GetKey(), NestingResults - 1, ListRequest, ListRequestResourceOnly);
+        std::list<KEY_ITEM>::iterator findIter = std::find(ListRequest.begin(), ListRequest.end(), ItemID);
+        if (findIter == ListRequest.end()) {
+          ListRequest.push_back(ItemID);
+          IsFindOK = true;
+        }
+      }
+    }
+  }
+  std::list<KEY_ITEM>::iterator findIter = std::find(ListRequestResourceOnly.begin(), ListRequestResourceOnly.end(), ItemID);
+  if (!IsFindOK && findIter == ListRequestResourceOnly.end()) {
+    ListRequestResourceOnly.push_back(ItemID);
+  }
+  for (auto it : ListRequest) {
+    ListRequestResourceOnly.remove(it);
+  }
+  return RetVal;
+}
+
 void RecipeCollection::Travelling(
   const RecipeResultTree & Tree, int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer,
   ResultElement<KEY_RECIPE>& ResultRecipes, ResultElement<KEY_ITEM>& ResultItems) const
@@ -97,34 +125,6 @@ void RecipeCollection::Travelling(const ItemResultTree &Tree, const std::map<KEY
 RecipeCollection::RecipeCollection():
   _LastGenGey(0)
 {
-}
-
-ItemResultTree RecipeCollection::BuildTree(KEY_ITEM ItemID, int NestingResults, std::list<KEY_ITEM> &ListRequest, std::list<KEY_ITEM> &ListRequestResourceOnly) const
-{
-  ItemResultTree RetVal;
-  RetVal._ItemKey = ItemID;
-  if (NestingResults == 0) return RetVal;
-  bool IsFindOK = false;
-  for (auto &it : _Recipes) {
-    for (auto it2 : it.second.GetResult()) {
-      if (it2.ItemId == ItemID) {
-        RetVal._Result[it.second.GetKey()] = BuildTree(it.second.GetKey(), NestingResults - 1, ListRequest, ListRequestResourceOnly);
-        std::list<KEY_ITEM>::iterator findIter = std::find(ListRequest.begin(), ListRequest.end(), ItemID);
-        if (findIter == ListRequest.end()) {
-          ListRequest.push_back(ItemID);
-          IsFindOK = true;
-        }
-      }
-    }
-  }
-  std::list<KEY_ITEM>::iterator findIter = std::find(ListRequestResourceOnly.begin(), ListRequestResourceOnly.end(), ItemID);
-  if (!IsFindOK && findIter == ListRequestResourceOnly.end()) {
-    ListRequestResourceOnly.push_back(ItemID);
-  }
-  for (auto it : ListRequest) {
-    ListRequestResourceOnly.remove(it);
-  }
-  return RetVal;
 }
 
 void RecipeCollection::Add(const Recipe &recipe)
