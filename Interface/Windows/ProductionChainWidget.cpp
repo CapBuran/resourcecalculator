@@ -7,88 +7,21 @@ Q_DECLARE_METATYPE(ResourceCalculator::FactoryModules);
 
 #define EpsilonToOut 4
 
-ProductionChainWidgetHeaderView::ProductionChainWidgetHeaderView( Qt::Orientation orientation, QWidget * parent ):
-QHeaderView( orientation, parent )
-{
-  _MaxHeight = 0;
-  setFont( QFont( font().family(), 10 ) );
-}
-
-void ProductionChainWidgetHeaderView::paintSection( QPainter * painter, const QRect & rect, int logicalIndex ) const
-{
-  QString data = model()->headerData( logicalIndex, orientation() ).toString();
-  painter->rotate( -90 );
-  painter->setFont( font() );
-  painter->drawText( -rect.height() + 5, rect.left() + ( rect.width() ) / 2, data );
-}
-
-QSize ProductionChainWidgetHeaderView::sizeHint() const
-{
-  int count = model()->columnCount();
-  int MaxWidth = _MaxHeight;
-  int MaxHeight = 0;
-  for ( int columb = 0; columb < count; columb++ ) {
-    QString DisplayData = model()->headerData( columb, orientation() ).toString();
-    QFontMetrics fm( font() );
-    int width = fm.width( DisplayData ) + fm.overlinePos();
-    if ( width >  MaxWidth ) {
-      MaxWidth = width;
-      MaxHeight = fm.height();
-    }
-  }
-  return QSize( MaxHeight, MaxWidth );
-}
-
-int ProductionChainWidgetHeaderView::GetMaxHeight()
-{
-  if ( _MaxHeight == 0 ) {
-    _MaxHeight = sizeHint().height();
-  }
-  return _MaxHeight;
-}
-
-void ProductionChainWidgetHeaderView::SetMaxHeight( int MaxHeight )
-{
-  _MaxHeight = MaxHeight;
-}
-
-QSize ProductionChainWidgetHeaderView::sectionSizeFromContents( int logicalIndex ) const
-{
-  QString DisplayData = model()->headerData( logicalIndex, orientation() ).toString();
-  QFontMetrics fm( font() );
-  return QSize(fm.height(), fm.width(DisplayData));
-}
-
-ProductionChainWidgetDelegateBase::ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection & PC, const ResourceCalculator::ProductionChainModel &PCM, QObject * parent ):
-  QStyledItemDelegate( parent ), _PC( PC ), _PCM( PCM )
+ProductionChainDelegate0::ProductionChainDelegate0( const ResourceCalculator::ProductionChainModel &PCM, QObject *parent):
+  _PCM(PCM), ProductionChainDelegateBase(PCM.GetPC(), parent)
 {
 }
 
-QSize ProductionChainWidgetDelegateBase::sizeHint(
-  const QStyleOptionViewItem &option,
-  const QModelIndex &index ) const
+QSize ProductionChainDelegate0::sizeHint( const QStyleOptionViewItem & option, const QModelIndex & index ) const
 {
-  QStyleOptionViewItem optV4( option );
-  this->initStyleOption( &optV4, index );
-  QFontMetrics fm( optV4.fontMetrics );
-  return QSize( fm.width( optV4.text ) + fm.overlinePos(), fm.height() );
-}
-
-ProductionChainWidgetDelegate0::ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, const ResourceCalculator::ProductionChainModel &PCM, QObject *parent):
-  ProductionChainWidgetDelegateBase( PC, PCM,  parent )
-{
-}
-
-QSize ProductionChainWidgetDelegate0::sizeHint( const QStyleOptionViewItem & option, const QModelIndex & index ) const
-{
-  QSize RetValue = ProductionChainWidgetDelegateBase::sizeHint( option, index );
+  QSize RetValue = ProductionChainDelegateBase::sizeHint( option, index );
   if ( index.column() == 0 ) {
     RetValue.setWidth( RetValue.width() + 10 );
   }
   return RetValue;
 }
 
-QWidget *ProductionChainWidgetDelegate0::createEditor( QWidget *parent, const QStyleOptionViewItem &option,  const QModelIndex &index ) const
+QWidget *ProductionChainDelegate0::createEditor( QWidget *parent, const QStyleOptionViewItem &option,  const QModelIndex &index ) const
 {
   using namespace ResourceCalculator;
   if ( index.column() == 0 ) {
@@ -110,10 +43,10 @@ QWidget *ProductionChainWidgetDelegate0::createEditor( QWidget *parent, const QS
     combobox->setFrame( true );
     return combobox;
   }
-  return ProductionChainWidgetDelegateBase::createEditor( parent, option, index );
+  return ProductionChainDelegateBase::createEditor( parent, option, index );
 }
 
-void ProductionChainWidgetDelegate0::setEditorData( QWidget *editor, const QModelIndex &index ) const
+void ProductionChainDelegate0::setEditorData( QWidget *editor, const QModelIndex &index ) const
 {
   bool IsOk = false;
   if ( index.column() == 0 ) {
@@ -122,11 +55,11 @@ void ProductionChainWidgetDelegate0::setEditorData( QWidget *editor, const QMode
     IsOk = true;
   }
   if ( !IsOk ) {
-    ProductionChainWidgetDelegateBase::setEditorData( editor, index );
+    ProductionChainDelegateBase::setEditorData( editor, index );
   }
 }
 
-void ProductionChainWidgetDelegate0::setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const
+void ProductionChainDelegate0::setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const
 {
   bool IsOk = false;
   if ( index.column() == 0 ) {
@@ -136,17 +69,17 @@ void ProductionChainWidgetDelegate0::setModelData( QWidget *editor, QAbstractIte
     IsOk = true;
   }
   if ( !IsOk ) {
-    ProductionChainWidgetDelegateBase::setModelData( editor, model, index );
+    ProductionChainDelegateBase::setModelData( editor, model, index );
   }
 }
 
-void ProductionChainWidgetDelegate0::updateEditorGeometry( QWidget *editor,
+void ProductionChainDelegate0::updateEditorGeometry( QWidget *editor,
   const QStyleOptionViewItem &option, const QModelIndex &/* index */ ) const
 {
   editor->setGeometry( option.rect );
 }
 
-void ProductionChainWidgetDelegate0::paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
+void ProductionChainDelegate0::paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
 {
   using namespace ResourceCalculator;
   switch ( index.column() ) {
@@ -169,7 +102,7 @@ void ProductionChainWidgetDelegate0::paint( QPainter * painter, const QStyleOpti
   }
 }
 
-bool ProductionChainWidgetDelegate0::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
+bool ProductionChainDelegate0::editorEvent(QEvent * event, QAbstractItemModel * model, const QStyleOptionViewItem & option, const QModelIndex & index)
 {
   if (event->type() == QEvent::MouseButtonPress) {
     int column = index.column();
@@ -183,7 +116,7 @@ bool ProductionChainWidgetDelegate0::editorEvent(QEvent * event, QAbstractItemMo
       return true;
     }
   }
-  return ProductionChainWidgetDelegateBase::editorEvent(event, model, option, index);
+  return ProductionChainDelegateBase::editorEvent(event, model, option, index);
 }
 
 #pragma endregion DELEGATE
@@ -198,24 +131,24 @@ QString ToOut( double Value )
   return QString::number( Value, 'g', EpsilonToOut );
 }
 
-ProductionChainWidgetModel::ProductionChainWidgetModel(ResourceCalculator::ProductionChainModel &PCM, QObject *parent )
+ProductionChainModel::ProductionChainModel(ResourceCalculator::ProductionChainModel &PCM, QObject *parent )
   : QAbstractTableModel( parent ), _PCM(PCM)
 {
 }
 
-int ProductionChainWidgetModel::rowCount( const QModelIndex &parent ) const
+int ProductionChainModel::rowCount( const QModelIndex &parent ) const
 {
   Q_UNUSED( parent );
   return _PCM.CountRecipes() + 1;
 }
 
-int ProductionChainWidgetModel::columnCount( const QModelIndex &parent ) const
+int ProductionChainModel::columnCount( const QModelIndex &parent ) const
 {
   Q_UNUSED( parent );
   return _PCM.CountItems() * 2 + 8;
 }
 
-QVariant ProductionChainWidgetModel::data( const QModelIndex &index, int role ) const
+QVariant ProductionChainModel::data( const QModelIndex &index, int role ) const
 {
 
   using namespace ResourceCalculator;
@@ -285,7 +218,7 @@ QVariant ProductionChainWidgetModel::data( const QModelIndex &index, int role ) 
   return QVariant();
 }
 
-QVariant ProductionChainWidgetModel::headerData( int section, Qt::Orientation orientation, int role ) const
+QVariant ProductionChainModel::headerData( int section, Qt::Orientation orientation, int role ) const
 {
   if ( role != Qt::DisplayRole )
     return QVariant();
@@ -321,7 +254,7 @@ QVariant ProductionChainWidgetModel::headerData( int section, Qt::Orientation or
   return QVariant();
 }
 
-bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVariant &value, int role )
+bool ProductionChainModel::setData( const QModelIndex &index, const QVariant &value, int role )
 {
   using namespace ResourceCalculator;
   if ( !( index.isValid() && role == Qt::EditRole ) )return false;
@@ -362,7 +295,7 @@ bool ProductionChainWidgetModel::setData( const QModelIndex &index, const QVaria
   return false;
 }
 
-Qt::ItemFlags ProductionChainWidgetModel::flags( const QModelIndex &index ) const
+Qt::ItemFlags ProductionChainModel::flags( const QModelIndex &index ) const
 {
   if ( !index.isValid() )
     return Qt::ItemIsEnabled;
@@ -377,7 +310,7 @@ Qt::ItemFlags ProductionChainWidgetModel::flags( const QModelIndex &index ) cons
   return flags;
 }
 
-void ProductionChainWidgetModel::FitQuantity()
+void ProductionChainModel::FitQuantity()
 {
   _PCM.FitQuantity();
   _PCM.ReInit();
@@ -385,12 +318,12 @@ void ProductionChainWidgetModel::FitQuantity()
   emit( AllDataChanged() );
 }
 
-const ResourceCalculator::ProductionChainModel & ProductionChainWidgetModel::GetPCM() const
+const ResourceCalculator::ProductionChainModel & ProductionChainModel::GetPCM() const
 {
   return _PCM;
 }
 
-void ProductionChainWidgetModel::ModelAllChanged()
+void ProductionChainModel::ModelAllChanged()
 {
   beginResetModel();
   _PCM.Optimize();
@@ -401,76 +334,76 @@ void ProductionChainWidgetModel::ModelAllChanged()
 
 #pragma region PROXYMODEL
 
-ProductionChainWidgetProxyModel0::ProductionChainWidgetProxyModel0( QObject *parent ):
+ProductionChainProxyModel0::ProductionChainProxyModel0( QObject *parent ):
   QSortFilterProxyModel( parent )
 {
 }
 
-bool ProductionChainWidgetProxyModel0::filterAcceptsColumn( int source_column, const QModelIndex & sourceParent ) const
+bool ProductionChainProxyModel0::filterAcceptsColumn( int source_column, const QModelIndex & sourceParent ) const
 {
   return source_column < 8;
 }
 
-bool ProductionChainWidgetProxyModel0::filterAcceptsRow( int source_row, const QModelIndex & source_parent ) const
+bool ProductionChainProxyModel0::filterAcceptsRow( int source_row, const QModelIndex & source_parent ) const
 {
-  return dynamic_cast< ProductionChainWidgetModel* >( sourceModel() )->GetPCM().CountRecipes() > source_row;
+  return dynamic_cast< ProductionChainModel* >( sourceModel() )->GetPCM().CountRecipes() > source_row;
 }
 
 
-ProductionChainWidgetProxyModel1::ProductionChainWidgetProxyModel1( QObject *parent ):
+ProductionChainProxyModel1::ProductionChainProxyModel1( QObject *parent ):
   QSortFilterProxyModel( parent )
 {
 }
 
-bool ProductionChainWidgetProxyModel1::filterAcceptsColumn( int source_column, const QModelIndex & sourceParent ) const
+bool ProductionChainProxyModel1::filterAcceptsColumn( int source_column, const QModelIndex & sourceParent ) const
 {
-  int CI = dynamic_cast< ProductionChainWidgetModel* >( sourceModel() )->GetPCM().CountItems();
+  int CI = dynamic_cast< ProductionChainModel* >( sourceModel() )->GetPCM().CountItems();
   return 7 < source_column && source_column <= CI + 7;
 }
 
-bool ProductionChainWidgetProxyModel1::filterAcceptsRow( int source_row, const QModelIndex & source_parent ) const
+bool ProductionChainProxyModel1::filterAcceptsRow( int source_row, const QModelIndex & source_parent ) const
 {
-  return dynamic_cast< ProductionChainWidgetModel* >( sourceModel() )->GetPCM().CountRecipes() > source_row;
+  return dynamic_cast< ProductionChainModel* >( sourceModel() )->GetPCM().CountRecipes() > source_row;
 }
 
 
-ProductionChainWidgetProxyModel2::ProductionChainWidgetProxyModel2( QObject *parent ):
+ProductionChainProxyModel2::ProductionChainProxyModel2( QObject *parent ):
   QSortFilterProxyModel( parent )
 {
 }
 
-bool ProductionChainWidgetProxyModel2::filterAcceptsColumn( int source_column, const QModelIndex & sourceParent ) const
+bool ProductionChainProxyModel2::filterAcceptsColumn( int source_column, const QModelIndex & sourceParent ) const
 {
-  int CI = dynamic_cast< ProductionChainWidgetModel* >( sourceModel() )->GetPCM().CountItems();
+  int CI = dynamic_cast< ProductionChainModel* >( sourceModel() )->GetPCM().CountItems();
   return source_column > 7 + CI;
 }
 
-bool ProductionChainWidgetProxyModel2::filterAcceptsRow( int source_row, const QModelIndex & source_parent ) const
+bool ProductionChainProxyModel2::filterAcceptsRow( int source_row, const QModelIndex & source_parent ) const
 {
-  return dynamic_cast< ProductionChainWidgetModel* >( sourceModel() )->GetPCM().CountRecipes() > source_row;
+  return dynamic_cast< ProductionChainModel* >( sourceModel() )->GetPCM().CountRecipes() > source_row;
 }
 
 
-ProductionChainWidgetProxyModel3::ProductionChainWidgetProxyModel3( QObject *parent ):
+ProductionChainProxyModel3::ProductionChainProxyModel3( QObject *parent ):
   QSortFilterProxyModel( parent )
 {
 }
 
-bool ProductionChainWidgetProxyModel3::filterAcceptsColumn( int source_column, const QModelIndex & sourceParent ) const
+bool ProductionChainProxyModel3::filterAcceptsColumn( int source_column, const QModelIndex & sourceParent ) const
 {
-  int CI = dynamic_cast< ProductionChainWidgetModel* >( sourceModel() )->GetPCM().CountItems();
+  int CI = dynamic_cast< ProductionChainModel* >( sourceModel() )->GetPCM().CountItems();
   return source_column > 7 + CI;
 }
 
-bool ProductionChainWidgetProxyModel3::filterAcceptsRow( int source_row, const QModelIndex & source_parent ) const
+bool ProductionChainProxyModel3::filterAcceptsRow( int source_row, const QModelIndex & source_parent ) const
 {
-  return dynamic_cast< ProductionChainWidgetModel* >( sourceModel() )->GetPCM().CountRecipes() == source_row;
+  return dynamic_cast< ProductionChainModel* >( sourceModel() )->GetPCM().CountRecipes() == source_row;
 }
 
 #pragma endregion PROXYMODEL
 
 ProductionChainWidget::ProductionChainWidget(ResourceCalculator::ProductionChainModel &PCM, QWidget *parent )
-  : _PC(PCM.GetPC()), QSplitter( parent ), _Model(PCM, parent), _PCM(PCM)
+  : ProductionChainWidgetBase(_PC, parent), _Model(PCM, parent), _PCM(PCM)
 {
   _Init();
 }
@@ -480,14 +413,19 @@ ResourceCalculator::ProductionChainModel & ProductionChainWidget::GetPCM()
   return _PCM;
 }
 
+ProductionChainWidgetType ProductionChainWidget::GetType() const
+{
+  return ProductionChainWidgetType::ProductionChain;
+}
+
 void ProductionChainWidget::_Init( )
 {
   QSortFilterProxyModel *Proxys[4];
 
-  Proxys[0] = new ProductionChainWidgetProxyModel0( this );
-  Proxys[1] = new ProductionChainWidgetProxyModel1( this );
-  Proxys[2] = new ProductionChainWidgetProxyModel2( this );
-  Proxys[3] = new ProductionChainWidgetProxyModel3( this );
+  Proxys[0] = new ProductionChainProxyModel0( this );
+  Proxys[1] = new ProductionChainProxyModel1( this );
+  Proxys[2] = new ProductionChainProxyModel2( this );
+  Proxys[3] = new ProductionChainProxyModel3( this );
 
   int MaxHeight = 0;
 
@@ -498,21 +436,21 @@ void ProductionChainWidget::_Init( )
     tables[i]->setSelectionBehavior( QAbstractItemView::SelectRows );
     //tables[i]->setEditTriggers( QAbstractItemView::NoEditTriggers );
     tables[i]->setSelectionMode( QAbstractItemView::SingleSelection );
-    tables[i]->setHorizontalHeader( new ProductionChainWidgetHeaderView( Qt::Orientation::Horizontal, tables[i] ) );
+    tables[i]->setHorizontalHeader( new ProductionChainHeaderView( Qt::Orientation::Horizontal, tables[i] ) );
     if ( i == 0 ) {
-      tables[i]->setItemDelegate( new ProductionChainWidgetDelegate0( _PC, _Model.GetPCM(), tables[i] ) );
+      tables[i]->setItemDelegate( new ProductionChainDelegate0( _Model.GetPCM(), tables[i] ) );
     } else {
-      tables[i]->setItemDelegate( new ProductionChainWidgetDelegateBase( _PC, _Model.GetPCM(), tables[i] ) );
+      tables[i]->setItemDelegate( new ProductionChainDelegateBase( _PC, tables[i] ) );
       tables[i]->horizontalHeader()->setSectionResizeMode( QHeaderView::Fixed );
     }
     tables[i]->verticalHeader()->hide();
     tables[i]->setAlternatingRowColors( true );
     tables[i]->horizontalHeader()->setStretchLastSection( false );
-    int Height = dynamic_cast< ProductionChainWidgetHeaderView* >( tables[i]->horizontalHeader() )->GetMaxHeight();
+    int Height = dynamic_cast< ProductionChainHeaderView* >( tables[i]->horizontalHeader() )->GetMaxHeight();
     if ( Height > MaxHeight ) {
       MaxHeight = Height;
     }
-    dynamic_cast< ProductionChainWidgetHeaderView* >( tables[i]->horizontalHeader() )->SetMaxHeight( MaxHeight );
+    dynamic_cast< ProductionChainHeaderView* >( tables[i]->horizontalHeader() )->SetMaxHeight( MaxHeight );
   }
 
   for ( int i = 0; i < 4; i++ ) {

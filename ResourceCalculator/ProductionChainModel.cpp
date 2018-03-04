@@ -100,19 +100,21 @@ namespace ResourceCalculator
   bool ProductionChainDataRow::Init( const ParamsCollection & PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM>&Cols, int InitColumb )
   {
     _PC = &PC;
-    if (InitColumb == -1){
-      const Recipe *recipe = PC.RC.GetRecipe(RecipeId);
-      assert(recipe != nullptr);
-      const std::set<CountsItem> &Result = recipe->GetResult();
-      for (size_t i = Cols.size() - 1; i >= 0; i--){
-        for (CountsItem it : Result) {
-          if (Cols[i] == it.ItemId) {
-            InitColumb = static_cast<int>(i);
+    if (InitColumb == -1) {
+      if (Cols.size() > 0) {
+        const Recipe *recipe = PC.RC.GetRecipe(RecipeId);
+        assert(recipe != nullptr);
+        const std::set<CountsItem> &Result = recipe->GetResult();
+        for (size_t i = Cols.size() - 1; i >= 0; i--) {
+          for (CountsItem it : Result) {
+            if (Cols[i] == it.ItemId) {
+              InitColumb = static_cast<int>(i);
+              break;
+            }
+          }
+          if (InitColumb >= 0) {
             break;
           }
-        }
-        if (InitColumb >= 0) {
-          break;
         }
       }
     }
@@ -122,8 +124,8 @@ namespace ResourceCalculator
     _FactoryCurrent = FactoryId;
     _CountItems.clear();
     _ItemsPerSec.clear();
-    _CountItems.resize( _ColsItems.size(), 0.0 );
-    _ItemsPerSec.resize( _ColsItems.size(), 0.0 );
+    _CountItems.resize(_ColsItems.size(), 0.0);
+    _ItemsPerSec.resize(_ColsItems.size(), 0.0);
     _Update();
     return true;
   }
@@ -281,8 +283,6 @@ namespace ResourceCalculator
 
   ProductionChainModel::~ProductionChainModel()
   {
-    int ddd = 1;
-    ddd += 1;
   }
 
   void ProductionChainModel::DeleteModules( const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel )
@@ -380,7 +380,7 @@ namespace ResourceCalculator
   {
     const int CountRows = ( int ) _DataRows.size();
     const int CountCols = ( int ) _SummSpeeds.size();
-    if ( CountRows == 0 || CountRows == 0 ) return false;
+    if (CountCols == 0 || CountRows == 0) return false;
     const int Sub = ( CountCols - CountRows ) > 2 ? CountCols - CountRows : 0;
     for ( int ItemId = 0; ItemId < CountCols; ItemId++ ) {
       _SummSpeeds[ItemId] = _DataRows[CountRows-1].GetItemsPerSec()[ItemId];

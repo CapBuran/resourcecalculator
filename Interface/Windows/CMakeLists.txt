@@ -28,6 +28,8 @@ source_group(MainWindow     FILES ProductionChainWidget.h)
 source_group(MainWindow     FILES ProductionChainWidget.cpp)
 source_group(MainWindow     FILES ProductionChainTabWidget.h)
 source_group(MainWindow     FILES ProductionChainTabWidget.cpp)
+source_group(MainWindow     FILES ProductionChainWidgetBase.h)
+source_group(MainWindow     FILES ProductionChainWidgetBase.cpp)
 
 source_group(ItemsDialogs   FILES ItemsEditDialog.h)
 source_group(ItemsDialogs   FILES ItemsEditDialog.cpp)

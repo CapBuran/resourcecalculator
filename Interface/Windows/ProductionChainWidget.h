@@ -1,37 +1,16 @@
 #ifndef ProductionChainWidget_H
 #define ProductionChainWidget_H
 
-#include "../../ResourceCalculator/ParamsCollection.h"
-
 #include <QtWidgets>
 
-class ProductionChainWidgetHeaderView: public QHeaderView {
-private:
-  int _MaxHeight;
-public:
-  ProductionChainWidgetHeaderView( Qt::Orientation orientation, QWidget *parent = Q_NULLPTR );
-  void paintSection( QPainter *painter, const QRect &rect, int logicalIndex ) const override;
-  QSize sizeHint() const override;
-  int GetMaxHeight();
-  void SetMaxHeight( int MaxHeight );
-  virtual QSize sectionSizeFromContents( int logicalIndex ) const override;
-};
+#include "ProductionChainWidgetBase.h"
 
-class ProductionChainWidgetDelegateBase: public QStyledItemDelegate {
+class ProductionChainDelegate0: public ProductionChainDelegateBase {
   Q_OBJECT
-protected:
-  const ResourceCalculator::ParamsCollection &_PC;
+private:
   const ResourceCalculator::ProductionChainModel &_PCM;
 public:
-  ProductionChainWidgetDelegateBase( const ResourceCalculator::ParamsCollection &PC, const ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
-  virtual QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
-};
-
-
-class ProductionChainWidgetDelegate0: public ProductionChainWidgetDelegateBase {
-  Q_OBJECT
-public:
-  ProductionChainWidgetDelegate0( const ResourceCalculator::ParamsCollection &PC, const ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
+  ProductionChainDelegate0( const ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
   QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   QWidget *createEditor( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   void setEditorData( QWidget *editor, const QModelIndex &index ) const override;
@@ -41,48 +20,47 @@ public:
   bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 };
 
-
-class ProductionChainWidgetProxyModel0: public QSortFilterProxyModel {
+class ProductionChainProxyModel0: public QSortFilterProxyModel {
   Q_OBJECT
 public:
-  ProductionChainWidgetProxyModel0( QObject *parent = 0 );
+  ProductionChainProxyModel0( QObject *parent = 0 );
 protected:
   bool filterAcceptsColumn( int source_column, const QModelIndex &source_parent ) const override;
   bool filterAcceptsRow( int source_row, const QModelIndex &source_parent ) const override;
 };
 
-class ProductionChainWidgetProxyModel1: public QSortFilterProxyModel {
+class ProductionChainProxyModel1: public QSortFilterProxyModel {
   Q_OBJECT
 public:
-  ProductionChainWidgetProxyModel1( QObject *parent = 0 );
+  ProductionChainProxyModel1( QObject *parent = 0 );
 protected:
   bool filterAcceptsColumn( int source_column, const QModelIndex &source_parent ) const override;
   bool filterAcceptsRow( int source_row, const QModelIndex &source_parent ) const override;
 };
 
-class ProductionChainWidgetProxyModel2: public QSortFilterProxyModel {
+class ProductionChainProxyModel2: public QSortFilterProxyModel {
   Q_OBJECT
 public:
-  ProductionChainWidgetProxyModel2( QObject *parent = 0 );
+  ProductionChainProxyModel2( QObject *parent = 0 );
 protected:
   bool filterAcceptsColumn( int source_column, const QModelIndex &source_parent ) const override;
   bool filterAcceptsRow( int source_row, const QModelIndex &source_parent ) const override;
 };
 
-class ProductionChainWidgetProxyModel3: public QSortFilterProxyModel {
+class ProductionChainProxyModel3: public QSortFilterProxyModel {
   Q_OBJECT
 public:
-  ProductionChainWidgetProxyModel3( QObject *parent = 0 );
+  ProductionChainProxyModel3( QObject *parent = 0 );
 protected:
   bool filterAcceptsColumn( int source_column, const QModelIndex &source_parent ) const override;
   bool filterAcceptsRow( int source_row, const QModelIndex &source_parent ) const override;
 };
 
-class ProductionChainWidgetModel: public QAbstractTableModel {
+class ProductionChainModel: public QAbstractTableModel {
   Q_OBJECT
 
 public:
-  ProductionChainWidgetModel(ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
+  ProductionChainModel(ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
 
   int rowCount( const QModelIndex &parent ) const override;
   int columnCount( const QModelIndex &parent ) const override;
@@ -108,16 +86,16 @@ private:
 
 };
 
-class ProductionChainWidget: public QSplitter {
+class ProductionChainWidget: public ProductionChainWidgetBase {
   Q_OBJECT
 public:
   ProductionChainWidget(ResourceCalculator::ProductionChainModel &PCM, QWidget *parent = 0 );
   ResourceCalculator::ProductionChainModel &GetPCM();
+  ProductionChainWidgetType GetType() const override;
 private:
   QTableView *tables[4];
-  ProductionChainWidgetModel _Model;
+  ProductionChainModel _Model;
   ResourceCalculator::ProductionChainModel &_PCM;
-  const ResourceCalculator::ParamsCollection &_PC;
   void _Init();
 signals:
   void selectionChanged(const QItemSelection &selected);
