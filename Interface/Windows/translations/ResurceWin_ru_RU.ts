@@ -24,7 +24,7 @@
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../FactoryTypesEditDialog.cpp" line="263"/>
+        <location filename="../FactoryTypesEditDialog.cpp" line="265"/>
         <source>Editor types factory items</source>
         <translation>Название типа фабрики</translation>
     </message>
@@ -88,7 +88,7 @@
         <translation>Типы фабрик</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="551"/>
+        <location filename="../FactorysEditDialog.cpp" line="553"/>
         <source>Editor factorys</source>
         <translation>Редактор фабрик</translation>
     </message>
@@ -188,13 +188,13 @@
     </message>
     <message>
         <location filename="../ItemSelectedDialog.cpp" line="269"/>
-        <location filename="../ItemSelectedDialog.cpp" line="321"/>
+        <location filename="../ItemSelectedDialog.cpp" line="323"/>
         <source>Select an item</source>
         <translation>Выберете предмет</translation>
     </message>
     <message>
         <location filename="../ItemSelectedDialog.cpp" line="271"/>
-        <location filename="../ItemSelectedDialog.cpp" line="323"/>
+        <location filename="../ItemSelectedDialog.cpp" line="325"/>
         <source>Select items</source>
         <translation>Выберете предметы</translation>
     </message>
@@ -240,7 +240,7 @@
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="296"/>
+        <location filename="../ItemsEditDialog.cpp" line="302"/>
         <source>Item Edit</source>
         <translation>Редактор предметов</translation>
     </message>
@@ -347,7 +347,7 @@
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="113"/>
-        <location filename="../mainwindow.cpp" line="134"/>
+        <location filename="../mainwindow.cpp" line="135"/>
         <source>Unable to open file</source>
         <translation>Ошибка открытия файла</translation>
     </message>
@@ -370,7 +370,7 @@
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="177"/>
+        <location filename="../ModuleSelectDialog.cpp" line="179"/>
         <source>Select modules for factory</source>
         <translation>Выберете модуль для одного слота фабрики</translation>
     </message>
@@ -416,7 +416,7 @@
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="324"/>
+        <location filename="../ModulesEditDialog.cpp" line="326"/>
         <source>Edit modules</source>
         <translation>Редактор модулей</translation>
     </message>
@@ -437,7 +437,7 @@
     </message>
     <message>
         <location filename="../ModulesSelectDialog.cpp" line="209"/>
-        <location filename="../ModulesSelectDialog.cpp" line="237"/>
+        <location filename="../ModulesSelectDialog.cpp" line="239"/>
         <source>Select modules for factory</source>
         <translation>Выберете модули для фабрики</translation>
     </message>
@@ -542,16 +542,91 @@
     </message>
 </context>
 <context>
+    <name>ProductionChainModelSummProductionItems</name>
+    <message>
+        <source>Factory</source>
+        <translation type="obsolete">Фабрика</translation>
+    </message>
+    <message>
+        <source>Recipe</source>
+        <translation type="obsolete">Рецепт</translation>
+    </message>
+    <message>
+        <source>Modules productivity</source>
+        <translation type="obsolete">Модули продуктивности</translation>
+    </message>
+    <message>
+        <source>Modules speed</source>
+        <translation type="obsolete">Модули скорости</translation>
+    </message>
+    <message>
+        <source>Speed factory</source>
+        <translation type="obsolete">Скорость фабрики</translation>
+    </message>
+    <message>
+        <source>Time for recipe</source>
+        <translation type="obsolete">Время рецепта</translation>
+    </message>
+    <message>
+        <source>Real time for recipe</source>
+        <translation type="obsolete">Производство одной компоненты</translation>
+    </message>
+    <message>
+        <source>Count factorys</source>
+        <translation type="obsolete">Количество фабрик</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="103"/>
+        <source>Icon</source>
+        <translation type="unfinished">Иконка</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="93"/>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="111"/>
+        <source>Production chain is deleted!!!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="104"/>
+        <source>Summ by production chain</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Cancel</source>
+        <translation type="obsolete">Отмена</translation>
+    </message>
+</context>
+<context>
+    <name>ProductionChainTabWidget</name>
+    <message>
+        <location filename="../ProductionChainTabWidget.cpp" line="10"/>
+        <source>Summ production items</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
     <name>ProductionChainWidget</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="490"/>
+        <location filename="../ProductionChainWidget.cpp" line="502"/>
         <source>Auto-fit quantity items</source>
         <translation>Автоподбор</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="492"/>
+        <location filename="../ProductionChainWidget.cpp" line="504"/>
         <source>Summ results:  </source>
         <translation>Сумма результатов:  </translation>
+    </message>
+</context>
+<context>
+    <name>ProductionChainWidgetSummProductionItems</name>
+    <message>
+        <source>Cancel</source>
+        <translation type="obsolete">Отмена</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="222"/>
+        <source>Sum of all items produced</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -628,7 +703,7 @@
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="434"/>
+        <location filename="../RecipesEditDialog.cpp" line="436"/>
         <source>Recipes Edit</source>
         <translation>Редактор рецептов</translation>
     </message>

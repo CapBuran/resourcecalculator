@@ -115,6 +115,8 @@ public:
 
   int CountRecipes() const;
 
+  const std::vector<KEY_ITEM> &GetColsItems() const;
+
   const ProductionChainDataRow &GetRow(int Row) const;
 
   ProductionChainDataRow &GetRowEdit(int Row);

@@ -73,6 +73,8 @@ public:
   bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole ) override;
   const ResourceCalculator::ProductionChainModel& GetPCM() const;
 
+  void Update();
+
 public slots:
 
   void ModelAllChanged();
@@ -92,6 +94,7 @@ public:
   ProductionChainWidget(ResourceCalculator::ProductionChainModel &PCM, QWidget *parent = 0 );
   ResourceCalculator::ProductionChainModel &GetPCM();
   ProductionChainWidgetType GetType() const override;
+  void UpdateModel() override;
 private:
   QTableView *tables[4];
   ProductionChainModel _Model;

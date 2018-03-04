@@ -14,7 +14,9 @@ public:
   void Update();
   void AddTab(ResourceCalculator::KEY_ITEM ItemKey);
   void RemoveCurrentTab();
-  void AddTabs(std::set<ResourceCalculator::ProductionChainModel*>& ToADD);
+  void AddTabs(const std::set<ResourceCalculator::ProductionChainModel*>& ToADD);
+private slots:
+  void OncurrentChanged(int index);
 };
 
 #endif// ProductionChainTabWidget_H

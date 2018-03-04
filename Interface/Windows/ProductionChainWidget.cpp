@@ -330,6 +330,13 @@ void ProductionChainModel::ModelAllChanged()
   endResetModel();
 }
 
+void ProductionChainModel::Update()
+{
+  beginResetModel();
+  _PCM.ReInit();
+  endResetModel();
+}
+
 #pragma endregion MODEL
 
 #pragma region PROXYMODEL
@@ -403,7 +410,7 @@ bool ProductionChainProxyModel3::filterAcceptsRow( int source_row, const QModelI
 #pragma endregion PROXYMODEL
 
 ProductionChainWidget::ProductionChainWidget(ResourceCalculator::ProductionChainModel &PCM, QWidget *parent )
-  : ProductionChainWidgetBase(_PC, parent), _Model(PCM, parent), _PCM(PCM)
+  : ProductionChainWidgetBase(PCM.GetPC(), parent), _Model(PCM, parent), _PCM(PCM)
 {
   _Init();
 }
@@ -416,6 +423,11 @@ ResourceCalculator::ProductionChainModel & ProductionChainWidget::GetPCM()
 ProductionChainWidgetType ProductionChainWidget::GetType() const
 {
   return ProductionChainWidgetType::ProductionChain;
+}
+
+void ProductionChainWidget::UpdateModel()
+{
+  _Model.Update();
 }
 
 void ProductionChainWidget::_Init( )

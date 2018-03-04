@@ -294,6 +294,8 @@ ItemSelectedDialog::ItemSelectedDialog(const ResourceCalculator::ParamsCollectio
   _tableView->sortByColumn(1, Qt::AscendingOrder);
   _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+  _tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+  _tableView->setColumnWidth(0, 60);
 
   if (_Mode != ItemSelectedDialogMode::ForSelectOneItem) {
     using namespace ResourceCalculator;

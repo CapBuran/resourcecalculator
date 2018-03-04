@@ -275,6 +275,8 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+  _tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+  _tableView->setColumnWidth(0, 60);
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
   buttonLayout->addWidget(okButton);
@@ -287,8 +289,12 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ParamsCollection &PC, QWidg
   mainLayout->addLayout(buttonLayout);
   setLayout(mainLayout);
 
-  connect(okButton, SIGNAL(clicked()), SLOT(PushButtonOk()));
-  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
+  //QObject::connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+  QObject::connect(okButton, SIGNAL(clicked()), this, SLOT(PushButtonOk()));
+  QObject::connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+
+  //connect(okButton, SIGNAL(clicked()), SLOT(PushButtonOk()));
+  //connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
   connect(addButton, &QAbstractButton::clicked, this, &ItemsEditDialog::add_item);
   connect(_removeButton, &QAbstractButton::clicked, this, &ItemsEditDialog::remove_item);
   connect(Delegate, &ItemEditDelegate::editorEventDelegate, this, &ItemsEditDialog::editorEventDelegate);
@@ -324,6 +330,9 @@ void ItemsEditDialog::add_item()
 void ItemsEditDialog::PushButtonOk()
 {
   _Model.Commit();
+  //setResult(QDialog::Accepted);
+  //close();
+
   emit(&QDialog::accept);
   emit(close());
 }

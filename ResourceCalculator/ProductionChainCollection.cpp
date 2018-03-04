@@ -28,9 +28,17 @@ void ProductionChainCollection::Remove(ProductionChainModel * PCM)
   delete PCM;
 }
 
-std::set<ProductionChainModel*>& ProductionChainCollection::GetReadingPCMs()
+const std::set<ProductionChainModel*>& ProductionChainCollection::GetReadingPCMs() const
 {
   return _PCMs;
+}
+
+const ProductionChainModel* ProductionChainCollection::GetPCM(int IdPCM) const
+{
+  if (IdPCM >= static_cast<int>(_PCMs.size())) return nullptr;
+  std::set<ProductionChainModel*>::const_iterator it = _PCMs.begin();
+  for (int i = 0; i < IdPCM; i++, it++);
+  return *it;
 }
 
 int ProductionChainCollection::ReadFromJson(const Json::Value & jsonPr)

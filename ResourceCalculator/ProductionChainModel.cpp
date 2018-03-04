@@ -260,6 +260,12 @@ namespace ResourceCalculator
     return 0;
   }
 
+
+  const std::vector<KEY_ITEM>& ProductionChainModel::GetColsItems() const
+  {
+    return _ColsItems;
+  }
+
   const std::vector<double> ProductionChainModel::GetSummSpeeds() const
   {
     return _SummSpeeds;

@@ -55,7 +55,7 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
 
 void MainWindow::_setupTabs()
 {
-  std::set<ResourceCalculator::ProductionChainModel*>& ToADDs = _PC.PCC.GetReadingPCMs();
+  const std::set<ResourceCalculator::ProductionChainModel*>& ToADDs = _PC.PCC.GetReadingPCMs();
   if (ToADDs.size() > 0) {
     _PCTW->AddTabs(ToADDs);
   } else {
@@ -123,6 +123,7 @@ void MainWindow::openFile()
       return;
     }
   }
+  _PCTW->Update();
 }
 
 void MainWindow::saveFile()
@@ -143,18 +144,16 @@ void MainWindow::saveFile()
 
 void MainWindow::PushButtonClickedRecipesEditDialog()
 {
-  RecipesEditDialog _RecipesEditDialog(_PC);
-  if (_RecipesEditDialog.exec()) {
-    _PCTW->Update();
-  }
+  RecipesEditDialog Dialog(_PC);
+  Dialog.exec();
+  _PCTW->Update();
 }
 
 void MainWindow::PushButtonClickedItemsEditDialog()
 {
-  ItemsEditDialog _ItemsEditDialog(_PC);
-  if (_ItemsEditDialog.exec()) {
-    _PCTW->Update();
-  }
+  ItemsEditDialog Dialog(_PC);
+  Dialog.exec();
+  _PCTW->Update();
 }
 
 void MainWindow::PushButtonClickedAddTab()
@@ -172,14 +171,16 @@ void MainWindow::PushButtonClickedRemoveTab()
 
 void MainWindow::PushButtonClickedFactorysEditDialog()
 {
-  FactorysEditDialog _FactorysEditDialog( _PC );
-  if ( _FactorysEditDialog.exec() ) {
-    _FactorysEditDialog.Commit();
+  FactorysEditDialog Dialog( _PC );
+  if (Dialog.exec() ) {
+    Dialog.Commit();
+    _PCTW->Update();
   }
 }
 
 void MainWindow::PushButtonClickedModulesEditDialog()
 {
-  ModulesEditDialog MED( _PC );
-  MED.exec();
+  ModulesEditDialog Dialog( _PC );
+  Dialog.exec();
+ _PCTW->Update();
 }

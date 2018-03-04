@@ -15,7 +15,8 @@ public:
   ~ProductionChainCollection();
   ProductionChainModel *Add(KEY_ITEM itemID);
   void Remove(ProductionChainModel *PCM);
-  std::set<ProductionChainModel*> &GetReadingPCMs();
+  const std::set<ProductionChainModel*> &GetReadingPCMs() const;
+  const ProductionChainModel *GetPCM(int IdPCM) const;
   int ReadFromJson(const Json::Value &jsonPr) override;
   int WriteToJson(Json::Value &jsonPr) const override;
 };
