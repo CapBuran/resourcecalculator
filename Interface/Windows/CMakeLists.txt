@@ -33,6 +33,9 @@ source_group(MainWindow     FILES ProductionChainWidgetBase.cpp)
 source_group(MainWindow     FILES ProductionChainWidgetSummProductionItems.h)
 source_group(MainWindow     FILES ProductionChainWidgetSummProductionItems.cpp)
 
+source_group(Models         FILES ProductionChainTreeModel.h)
+source_group(Models         FILES ProductionChainTreeModel.cpp)
+
 source_group(ItemsDialogs   FILES ItemsEditDialog.h)
 source_group(ItemsDialogs   FILES ItemsEditDialog.cpp)
 
@@ -61,7 +64,7 @@ source_group(NoEdit         FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_ResurceWin.cpp
 source_group(NoEdit         FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_ResurceGui.cpp)
 source_group(NoEdit         FILES ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin_automoc.cpp)
                                                                                     
-source_group(Translation        FILES translations/ResurceWin_ru_RU.ts)
+source_group(Translation    FILES translations/ResurceWin_ru_RU.ts)
 
 add_executable(ResurceWin WIN32 ${Program_SRCS} ${Program_HDRS} ${Program_TRS} ${TS_FILES} ${Program_RES} ${Program_RES_GUI} )
 

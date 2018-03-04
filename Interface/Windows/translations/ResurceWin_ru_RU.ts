@@ -578,18 +578,18 @@
     <message>
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="103"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="93"/>
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="111"/>
         <source>Production chain is deleted!!!</source>
-        <translation type="unfinished"></translation>
+        <translation>Цепочка была удалена!!! </translation>
     </message>
     <message>
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="104"/>
         <source>Summ by production chain</source>
-        <translation type="unfinished"></translation>
+        <translation>Сумма по всем цепочкам</translation>
     </message>
     <message>
         <source>Cancel</source>
@@ -601,7 +601,20 @@
     <message>
         <location filename="../ProductionChainTabWidget.cpp" line="10"/>
         <source>Summ production items</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Сумма по всем предметам</translation>
+    </message>
+</context>
+<context>
+    <name>ProductionChainTreeModel</name>
+    <message>
+        <location filename="../ProductionChainTreeModel.cpp" line="85"/>
+        <source>Icon</source>
+        <translation>Иконка</translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainTreeModel.cpp" line="87"/>
+        <source>Name</source>
+        <translation>Имя предмета/рецепта</translation>
     </message>
 </context>
 <context>
@@ -624,9 +637,9 @@
         <translation type="obsolete">Отмена</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="222"/>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="219"/>
         <source>Sum of all items produced</source>
-        <translation type="unfinished"></translation>
+        <translation>Сумма всех производимых предметов</translation>
     </message>
 </context>
 <context>
