@@ -1927,6 +1927,51 @@
             "en" : "English lang",
             "ru" : "Продвинутая микросхема"
          }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/steel-plate.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 23,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Стальная балка"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/pipe.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 24,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Желещная труба"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/engine-unit.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 25,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Твердотопливный двигатель"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/electric-mining-drill.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 26,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Электрическиq бур"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/science-pack-3.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 27,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Исследовательский пакет 3"
+         }
       }
    ],
    "Modules" : [
@@ -2056,17 +2101,17 @@
          "ItemKey" : 22,
          "Rows" : [
             {
-               "FactoresCount" : -0.0,
+               "FactoresCount" : 0.0,
                "FactoryID" : 8,
                "FactoryModules" : [ 0, 0, 0 ]
             },
             {
-               "FactoresCount" : -0.0,
+               "FactoresCount" : 0.0,
                "FactoryID" : 8,
                "FactoryModules" : [ 0, 0, 0 ]
             },
             {
-               "FactoresCount" : -0.0,
+               "FactoresCount" : 0.0,
                "FactoryID" : 8,
                "FactoryModules" : [ 0, 0, 0 ]
             },
@@ -2113,36 +2158,6 @@
          ]
       },
       {
-         "ItemKey" : 19,
-         "Rows" : [
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : -0.27272727272727271,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.35999999999999999,
-               "FactoryID" : 7,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.35999999999999999,
-               "FactoryID" : 7,
-               "FactoryModules" : [ 0, 0, 0 ]
-            }
-         ]
-      },
-      {
          "ItemKey" : 15,
          "Rows" : [
             {
@@ -2182,6 +2197,156 @@
             },
             {
                "FactoresCount" : 24.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 19,
+         "Rows" : [
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : -0.27272727272727271,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.35999999999999999,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.35999999999999999,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 25,
+         "Rows" : [
+            {
+               "FactoresCount" : 94.5,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 52.5,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 6.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 40.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 27,
+         "Rows" : [
+            {
+               "FactoresCount" : -0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : -0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : -0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 41.5625,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 148.75,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 7.9166666666666661,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 7.5,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 4.166666666666667,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 1.0,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 10.9375,
+               "FactoryID" : 6,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 1.0,
+               "FactoryID" : 3,
+               "FactoryModules" : [ 0, 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 10.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 10.0,
+               "FactoryID" : 3,
+               "FactoryModules" : [ 0, 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 2.0,
+               "FactoryID" : 3,
+               "FactoryModules" : [ 0, 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 20.0,
                "FactoryID" : 2,
                "FactoryModules" : [ 0, 0 ]
             }
@@ -2334,7 +2499,7 @@
          "Key" : 11,
          "Name" : {
             "en" : "English lang",
-            "ru" : "Конвеер"
+            "ru" : "Изготовление конвеера"
          },
          "Required" : [
             {
@@ -2619,6 +2784,140 @@
             }
          ],
          "Time" : 6.0,
+         "TypeFactory" : 1
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/engine-unit.png",
+         "Key" : 21,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Твердотопливныйдвигатель"
+         },
+         "Required" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 5
+            },
+            {
+               "Count" : 1.0,
+               "ItemId" : 23
+            },
+            {
+               "Count" : 2.0,
+               "ItemId" : 24
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 25
+            }
+         ],
+         "Time" : 10.0,
+         "TypeFactory" : 1
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/steel-plate.png",
+         "Key" : 22,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Стальная балка"
+         },
+         "Required" : [
+            {
+               "Count" : 5.0,
+               "ItemId" : 1
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 23
+            }
+         ],
+         "Time" : 17.5,
+         "TypeFactory" : 4
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/pipe.png",
+         "Key" : 23,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Изготовление железной трубы"
+         },
+         "Required" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 1
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 24
+            }
+         ],
+         "Time" : 0.5,
+         "TypeFactory" : 1
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/electric-mining-drill.png",
+         "Key" : 24,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Электрический бур"
+         },
+         "Required" : [
+            {
+               "Count" : 10.0,
+               "ItemId" : 1
+            },
+            {
+               "Count" : 5.0,
+               "ItemId" : 5
+            },
+            {
+               "Count" : 3.0,
+               "ItemId" : 9
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 26
+            }
+         ],
+         "Time" : 2.0,
+         "TypeFactory" : 1
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/science-pack-3.png",
+         "Key" : 25,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Исследовательский пакет 3"
+         },
+         "Required" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 22
+            },
+            {
+               "Count" : 1.0,
+               "ItemId" : 25
+            },
+            {
+               "Count" : 1.0,
+               "ItemId" : 26
+            }
+         ],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 27
+            }
+         ],
+         "Time" : 12.0,
          "TypeFactory" : 1
       }
    ]
