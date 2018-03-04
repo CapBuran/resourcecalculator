@@ -294,9 +294,6 @@ namespace ResourceCalculator
 
   bool ProductionChainModel::_SetItemKey( KEY_ITEM ItemKey )
   {
-    std::list<KEY_ITEM> ListRequest;
-    std::list<KEY_ITEM> ListRequestResourceOnly;
-
     std::list <KEY_RECIPE> ResultRecipes;
     std::list <KEY_ITEM> ResultItems;
     std::map<KEY_ITEM, KEY_RECIPE> Ansfer;
@@ -313,22 +310,41 @@ namespace ResourceCalculator
     const size_t CountsItems = ResultItems.size();
     const size_t CountsRecipes = ResultRecipes.size();
 
-    assert( CountsRecipes < CountsItems );
+    std::list<KEY_ITEM> ListRequest;
+    std::list<KEY_ITEM> ListRequestResourceOnly;
 
-    _ColsItems.clear();
-    _ColsItems.resize( CountsItems );
-
-    if ( ListRequest.size() == CountsRecipes && ListRequestResourceOnly.size() + ListRequest.size() == CountsItems ) {
-      std::copy( ListRequestResourceOnly.begin(), ListRequestResourceOnly.end(), _ColsItems.begin() );
-      if ( ListRequest.size() > 0 ) {
-        std::copy( ListRequest.begin(), ListRequest.end(), &_ColsItems[ListRequestResourceOnly.size()] );
+    for (KEY_ITEM ItemID : ResultItems) {
+      bool IsFind = false;
+      for (KEY_RECIPE RecipeID : ResultRecipes) {
+        const Recipe *recipe = _PC.RC.GetRecipe(RecipeID);
+        if (recipe == nullptr) continue;
+        const std::set<CountsItem> &Required = recipe->GetResult();
+        for (const CountsItem &CI: Required) {
+          if (CI.ItemId == ItemID) {
+            IsFind = true;
+            break;
+          }
+        }
+        if (IsFind) break;
       }
-    } else {
-      std::copy( ResultItems.begin(), ResultItems.end(), _ColsItems.begin() );
+      if (IsFind) {
+        ListRequest.push_back(ItemID);
+      } else {
+        ListRequestResourceOnly.push_back(ItemID);
+      }
     }
 
+    _ColsItems.clear();
+    _ColsItems.reserve(CountsItems);
     _DataRows.clear();
-    _DataRows.resize( CountsRecipes );
+    _DataRows.resize(CountsRecipes);
+
+    for (KEY_ITEM ItemID : ListRequestResourceOnly) {
+      _ColsItems.push_back(ItemID);
+    }
+    for (KEY_ITEM ItemID : ListRequest) {
+      _ColsItems.push_back(ItemID);
+    }
 
     auto IT_Recipe = ResultRecipes.begin();
 
@@ -341,7 +357,6 @@ namespace ResourceCalculator
     _SummSpeeds.resize( CountsItems, 0.0 );
 
     return Optimize();
-
   }
 
   bool ProductionChainModel::ReInit()
