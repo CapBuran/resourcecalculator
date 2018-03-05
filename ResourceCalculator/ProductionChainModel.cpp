@@ -187,7 +187,10 @@ namespace ResourceCalculator
   bool ProductionChainDataRow::SetFactoryModules( const FactoryModules & FM )
   {
     _FM = FM;
+    double OldItemsCount = _ItemsPerSec[_InitColumb];
+    FindCountFactorysForItemsCount(_InitColumb, OldItemsCount);
     _Update();
+    FindCountFactorysForItemsCount(_InitColumb, OldItemsCount);
     return true;
   }
 
@@ -219,6 +222,7 @@ namespace ResourceCalculator
     return true;
   }
 
+  
   bool ProductionChainModel::Optimize()
   {
     for ( size_t ItemId = 0; ItemId < _SummSpeeds.size(); ItemId++ ) {
@@ -259,8 +263,7 @@ namespace ResourceCalculator
     jsonPr["Rows"] = jsonRows;
     return 0;
   }
-
-
+  
   const std::vector<KEY_ITEM>& ProductionChainModel::GetColsItems() const
   {
     return _ColsItems;
