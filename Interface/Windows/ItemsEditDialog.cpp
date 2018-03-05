@@ -23,7 +23,7 @@ int ItemsEditModel::rowCount(const QModelIndex &parent) const
 int ItemsEditModel::columnCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
-  return 3;
+  return 4;
 }
 
 QVariant ItemsEditModel::data(const QModelIndex &index, int role) const
@@ -45,6 +45,9 @@ QVariant ItemsEditModel::data(const QModelIndex &index, int role) const
     case 2:
       return QVariant(R.GetIsALiquidOrGas());
       break;
+    case 3:
+      return QVariant(R.GetMiningHardness());
+      break;
     default:
       return QVariant();
       break;
@@ -65,6 +68,8 @@ QVariant ItemsEditModel::headerData(int section, Qt::Orientation orientation, in
       return tr("Item Name");
     case 2:
       return tr("Is a liquid or gas");
+    case 3:
+      return tr("Mining hardness");
     default:
       return QVariant();
     }
@@ -77,7 +82,7 @@ Qt::ItemFlags ItemsEditModel::flags(const QModelIndex &index) const
   if (!index.isValid())
     return Qt::ItemIsEnabled;
   Qt::ItemFlags retval = QAbstractTableModel::flags(index);
-  if (index.column() == 1) {
+  if (index.column() == 1 || index.column() == 3) {
     retval |= Qt::ItemIsEditable;
   }
   return retval;
@@ -100,6 +105,9 @@ bool ItemsEditModel::setData(const QModelIndex &index, const QVariant &value, in
     }
     case 2:
       _listOfItemsId[index.row()].second.SetIsALiquidOrGas(value.toBool());
+      break;
+    case 3:
+      _listOfItemsId[index.row()].second.SetMiningHardness(value.toDouble());
       break;
     default:
       return false;

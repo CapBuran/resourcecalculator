@@ -162,12 +162,12 @@
 <context>
     <name>ItemEditDelegate</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="215"/>
+        <location filename="../ItemsEditDialog.cpp" line="223"/>
         <source>Yes</source>
         <translation>Да</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="215"/>
+        <location filename="../ItemsEditDialog.cpp" line="223"/>
         <source>No</source>
         <translation>Нет</translation>
     </message>
@@ -220,27 +220,27 @@
 <context>
     <name>ItemsEditDialog</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="262"/>
+        <location filename="../ItemsEditDialog.cpp" line="270"/>
         <source>OK</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="263"/>
+        <location filename="../ItemsEditDialog.cpp" line="271"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="264"/>
+        <location filename="../ItemsEditDialog.cpp" line="272"/>
         <source>ADD</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="265"/>
+        <location filename="../ItemsEditDialog.cpp" line="273"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="302"/>
+        <location filename="../ItemsEditDialog.cpp" line="310"/>
         <source>Item Edit</source>
         <translation>Редактор предметов</translation>
     </message>
@@ -248,22 +248,27 @@
 <context>
     <name>ItemsEditModel</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="65"/>
+        <location filename="../ItemsEditDialog.cpp" line="68"/>
         <source>Item Name</source>
         <translation>Имя предмета</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="63"/>
+        <location filename="../ItemsEditDialog.cpp" line="66"/>
         <source>Icon</source>
         <translation>Иконка</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="67"/>
+        <location filename="../ItemsEditDialog.cpp" line="70"/>
         <source>Is a liquid or gas</source>
         <translation>Является ли жидкостью?</translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="123"/>
+        <location filename="../ItemsEditDialog.cpp" line="72"/>
+        <source>Mining hardness</source>
+        <translation>Трудность добычи</translation>
+    </message>
+    <message>
+        <location filename="../ItemsEditDialog.cpp" line="131"/>
         <source>New item</source>
         <translation>Новый предмет</translation>
     </message>
@@ -545,35 +550,35 @@
     <name>ProductionChainModelSummProductionItems</name>
     <message>
         <source>Factory</source>
-        <translation type="obsolete">Фабрика</translation>
+        <translation>Фабрика</translation>
     </message>
     <message>
         <source>Recipe</source>
-        <translation type="obsolete">Рецепт</translation>
+        <translation>Рецепт</translation>
     </message>
     <message>
         <source>Modules productivity</source>
-        <translation type="obsolete">Модули продуктивности</translation>
+        <translation>Модули продуктивности</translation>
     </message>
     <message>
         <source>Modules speed</source>
-        <translation type="obsolete">Модули скорости</translation>
+        <translation>Модули скорости</translation>
     </message>
     <message>
         <source>Speed factory</source>
-        <translation type="obsolete">Скорость фабрики</translation>
+        <translation>Скорость фабрики</translation>
     </message>
     <message>
         <source>Time for recipe</source>
-        <translation type="obsolete">Время рецепта</translation>
+        <translation>Время рецепта</translation>
     </message>
     <message>
         <source>Real time for recipe</source>
-        <translation type="obsolete">Производство одной компоненты</translation>
+        <translation>Производство одной компоненты</translation>
     </message>
     <message>
         <source>Count factorys</source>
-        <translation type="obsolete">Количество фабрик</translation>
+        <translation>Количество фабрик</translation>
     </message>
     <message>
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="103"/>
@@ -593,15 +598,7 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation type="obsolete">Отмена</translation>
-    </message>
-</context>
-<context>
-    <name>ProductionChainTabWidget</name>
-    <message>
-        <location filename="../ProductionChainTabWidget.cpp" line="10"/>
-        <source>Summ production items</source>
-        <translation type="unfinished">Сумма по всем предметам</translation>
+        <translation>Отмена</translation>
     </message>
 </context>
 <context>
@@ -634,7 +631,7 @@
     <name>ProductionChainWidgetSummProductionItems</name>
     <message>
         <source>Cancel</source>
-        <translation type="obsolete">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="219"/>

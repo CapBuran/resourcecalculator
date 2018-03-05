@@ -1734,6 +1734,7 @@
          "IconPath" : "__base__/graphics/icons/iron-plate.png",
          "IsALiquidOrGas" : false,
          "Key" : 1,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Железная плита"
@@ -1743,6 +1744,7 @@
          "IconPath" : "__base__/graphics/icons/copper-plate.png",
          "IsALiquidOrGas" : false,
          "Key" : 2,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Медная плита"
@@ -1752,6 +1754,7 @@
          "IconPath" : "__base__/graphics/icons/icons-new/iron-ore.png",
          "IsALiquidOrGas" : false,
          "Key" : 3,
+         "MiningHardness" : 0.90000000000000002,
          "Name" : {
             "en" : "English lang",
             "ru" : "Железная руда"
@@ -1761,6 +1764,7 @@
          "IconPath" : "__base__/graphics/icons/icons-new/copper-ore.png",
          "IsALiquidOrGas" : false,
          "Key" : 4,
+         "MiningHardness" : 0.90000000000000002,
          "Name" : {
             "en" : "English lang",
             "ru" : "Медная руда"
@@ -1770,6 +1774,7 @@
          "IconPath" : "__base__/graphics/icons/iron-gear-wheel.png",
          "IsALiquidOrGas" : false,
          "Key" : 5,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Железная шестерня"
@@ -1779,6 +1784,7 @@
          "IconPath" : "__base__/graphics/icons/science-pack-1.png",
          "IsALiquidOrGas" : false,
          "Key" : 6,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Исследовательский пакет 1"
@@ -1788,6 +1794,7 @@
          "IconPath" : "__base__/graphics/icons/fluid/crude-oil.png",
          "IsALiquidOrGas" : true,
          "Key" : 7,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Сырая нефть"
@@ -1797,6 +1804,7 @@
          "IconPath" : "__base__/graphics/icons/icons/fluid/water.png",
          "IsALiquidOrGas" : true,
          "Key" : 8,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Вода"
@@ -1806,6 +1814,7 @@
          "IconPath" : "__base__/graphics/icons/electronic-circuit.png",
          "IsALiquidOrGas" : false,
          "Key" : 9,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Микросхема"
@@ -1815,6 +1824,7 @@
          "IconPath" : "__base__/graphics/icons/fast-inserter.png",
          "IsALiquidOrGas" : false,
          "Key" : 10,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Быстрый манипулятор"
@@ -1824,6 +1834,7 @@
          "IconPath" : "__base__/graphics/icons/copper-cable.png",
          "IsALiquidOrGas" : false,
          "Key" : 11,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Медный кабель"
@@ -1833,6 +1844,7 @@
          "IconPath" : "__base__/graphics/icons/fast-transport-belt.png",
          "IsALiquidOrGas" : false,
          "Key" : 12,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Быстрый конвеер"
@@ -1842,6 +1854,7 @@
          "IconPath" : "__base__/graphics/icons/transport-belt.png",
          "IsALiquidOrGas" : false,
          "Key" : 13,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Конвеер"
@@ -1851,6 +1864,7 @@
          "IconPath" : "__base__/graphics/icons/inserter.png",
          "IsALiquidOrGas" : false,
          "Key" : 14,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Манипулятор"
@@ -1860,6 +1874,7 @@
          "IconPath" : "__base__/graphics/icons/science-pack-2.png",
          "IsALiquidOrGas" : false,
          "Key" : 15,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Исследовательский пакет 2"
@@ -1869,6 +1884,7 @@
          "IconPath" : "__base__/graphics/icons/fluid/steam.png",
          "IsALiquidOrGas" : true,
          "Key" : 16,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Пар"
@@ -1878,6 +1894,7 @@
          "IconPath" : "__base__/graphics/icons/fluid/light-oil.png",
          "IsALiquidOrGas" : true,
          "Key" : 17,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Дизель"
@@ -1887,6 +1904,7 @@
          "IconPath" : "__base__/graphics/icons/fluid/heavy-oil.png",
          "IsALiquidOrGas" : true,
          "Key" : 18,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Мазут"
@@ -1896,6 +1914,7 @@
          "IconPath" : "__base__/graphics/icons/fluid/petroleum-gas.png",
          "IsALiquidOrGas" : true,
          "Key" : 19,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Нефтяной газ"
@@ -1905,6 +1924,7 @@
          "IconPath" : "__base__/graphics/icons/coal.png",
          "IsALiquidOrGas" : false,
          "Key" : 20,
+         "MiningHardness" : 0.90000000000000002,
          "Name" : {
             "en" : "English lang",
             "ru" : "Уголь"
@@ -1914,6 +1934,7 @@
          "IconPath" : "__base__/graphics/icons/plastic-bar.png",
          "IsALiquidOrGas" : false,
          "Key" : 21,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Пластмассовый брусок"
@@ -1923,6 +1944,7 @@
          "IconPath" : "__base__/graphics/icons/advanced-circuit.png",
          "IsALiquidOrGas" : false,
          "Key" : 22,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Продвинутая микросхема"
@@ -1932,6 +1954,7 @@
          "IconPath" : "__base__/graphics/icons/steel-plate.png",
          "IsALiquidOrGas" : false,
          "Key" : 23,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Стальная балка"
@@ -1941,6 +1964,7 @@
          "IconPath" : "__base__/graphics/icons/pipe.png",
          "IsALiquidOrGas" : false,
          "Key" : 24,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Желещная труба"
@@ -1950,6 +1974,7 @@
          "IconPath" : "__base__/graphics/icons/engine-unit.png",
          "IsALiquidOrGas" : false,
          "Key" : 25,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Твердотопливный двигатель"
@@ -1959,6 +1984,7 @@
          "IconPath" : "__base__/graphics/icons/electric-mining-drill.png",
          "IsALiquidOrGas" : false,
          "Key" : 26,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Электрическиq бур"
@@ -1968,9 +1994,30 @@
          "IconPath" : "__base__/graphics/icons/science-pack-3.png",
          "IsALiquidOrGas" : false,
          "Key" : 27,
+         "MiningHardness" : 0.0,
          "Name" : {
             "en" : "English lang",
             "ru" : "Исследовательский пакет 3"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/icons-new/stone.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 28,
+         "MiningHardness" : 0.40000000000000002,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Камень"
+         }
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/icons-new/uranium-ore.png",
+         "IsALiquidOrGas" : false,
+         "Key" : 29,
+         "MiningHardness" : 0.90000000000000002,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Урановая руда"
          }
       }
    ],
@@ -2158,6 +2205,36 @@
          ]
       },
       {
+         "ItemKey" : 19,
+         "Rows" : [
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : -0.27272727272727271,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.35999999999999999,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.35999999999999999,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            }
+         ]
+      },
+      {
          "ItemKey" : 15,
          "Rows" : [
             {
@@ -2203,80 +2280,20 @@
          ]
       },
       {
-         "ItemKey" : 19,
-         "Rows" : [
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : -0.27272727272727271,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.35999999999999999,
-               "FactoryID" : 7,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.35999999999999999,
-               "FactoryID" : 7,
-               "FactoryModules" : [ 0, 0, 0 ]
-            }
-         ]
-      },
-      {
-         "ItemKey" : 25,
-         "Rows" : [
-            {
-               "FactoresCount" : 94.5,
-               "FactoryID" : 4,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 3.0,
-               "FactoryID" : 1,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 52.5,
-               "FactoryID" : 4,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 6.0,
-               "FactoryID" : 1,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 40.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            }
-         ]
-      },
-      {
          "ItemKey" : 27,
          "Rows" : [
             {
-               "FactoresCount" : -0.0,
+               "FactoresCount" : 0.0,
                "FactoryID" : 8,
                "FactoryModules" : [ 0, 0, 0 ]
             },
             {
-               "FactoresCount" : -0.0,
+               "FactoresCount" : 0.0,
                "FactoryID" : 8,
                "FactoryModules" : [ 0, 0, 0 ]
             },
             {
-               "FactoresCount" : -0.0,
+               "FactoresCount" : 0.0,
                "FactoryID" : 8,
                "FactoryModules" : [ 0, 0, 0 ]
             },
@@ -2347,6 +2364,36 @@
             },
             {
                "FactoresCount" : 20.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 25,
+         "Rows" : [
+            {
+               "FactoresCount" : 94.5,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 52.5,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 6.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 40.0,
                "FactoryID" : 2,
                "FactoryModules" : [ 0, 0 ]
             }
