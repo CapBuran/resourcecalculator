@@ -550,35 +550,35 @@
     <name>ProductionChainModelSummProductionItems</name>
     <message>
         <source>Factory</source>
-        <translation>Фабрика</translation>
+        <translation type="vanished">Фабрика</translation>
     </message>
     <message>
         <source>Recipe</source>
-        <translation>Рецепт</translation>
+        <translation type="vanished">Рецепт</translation>
     </message>
     <message>
         <source>Modules productivity</source>
-        <translation>Модули продуктивности</translation>
+        <translation type="vanished">Модули продуктивности</translation>
     </message>
     <message>
         <source>Modules speed</source>
-        <translation>Модули скорости</translation>
+        <translation type="vanished">Модули скорости</translation>
     </message>
     <message>
         <source>Speed factory</source>
-        <translation>Скорость фабрики</translation>
+        <translation type="vanished">Скорость фабрики</translation>
     </message>
     <message>
         <source>Time for recipe</source>
-        <translation>Время рецепта</translation>
+        <translation type="vanished">Время рецепта</translation>
     </message>
     <message>
         <source>Real time for recipe</source>
-        <translation>Производство одной компоненты</translation>
+        <translation type="vanished">Производство одной компоненты</translation>
     </message>
     <message>
         <source>Count factorys</source>
-        <translation>Количество фабрик</translation>
+        <translation type="vanished">Количество фабрик</translation>
     </message>
     <message>
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="103"/>
@@ -598,7 +598,15 @@
     </message>
     <message>
         <source>Cancel</source>
-        <translation>Отмена</translation>
+        <translation type="vanished">Отмена</translation>
+    </message>
+</context>
+<context>
+    <name>ProductionChainTabWidget</name>
+    <message>
+        <location filename="../ProductionChainTabWidget.cpp" line="10"/>
+        <source>Summ production items</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -631,7 +639,7 @@
     <name>ProductionChainWidgetSummProductionItems</name>
     <message>
         <source>Cancel</source>
-        <translation>Отмена</translation>
+        <translation type="vanished">Отмена</translation>
     </message>
     <message>
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="219"/>

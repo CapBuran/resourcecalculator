@@ -3,8 +3,6 @@
 
 #include "Types.h"
 
-
-
 namespace ResourceCalculator {
   
   class Item: public ItemBase {

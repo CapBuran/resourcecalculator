@@ -23,6 +23,11 @@ if (UNIX)
 set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif (UNIX)
 
+if (MSVC)
+set (CMAKE_C_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP")
+endif (MSVC)
+
 # As moc files are generated in the binary dir, tell CMake
 # to always look for includes there:
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
