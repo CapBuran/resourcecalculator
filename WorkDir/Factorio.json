@@ -13,17 +13,17 @@
       {
          "IconPath" : "__base__/graphics/icons/oil-refinery.png",
          "Key" : 2,
-         "Name" : "Нефтебаза"
+         "Name" : "Нефтепереработка"
       },
       {
          "IconPath" : "__base__/graphics/icons/burner-mining-drill.png",
          "Key" : 3,
-         "Name" : "Бур"
+         "Name" : "Добыча руд"
       },
       {
          "IconPath" : "__base__/graphics/icons/stone-furnace.png",
          "Key" : 4,
-         "Name" : "Печь"
+         "Name" : "Выплавка"
       },
       {
          "IconPath" : "__base__/graphics/icons/offshore-pump.png",
@@ -33,12 +33,22 @@
       {
          "IconPath" : "__base__/graphics/icons/chemical-plant.png",
          "Key" : 6,
-         "Name" : "Химический завод"
+         "Name" : "Химическое производство"
       },
       {
          "IconPath" : "__base__/graphics/icons/centrifuge.png",
          "Key" : 7,
          "Name" : "Центрифуги"
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/offshore-pump.png",
+         "Key" : 8,
+         "Name" : "Добыча воды"
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/pumpjack.png",
+         "Key" : 9,
+         "Name" : "Добыча нефти"
       }
    ],
    "Factorys" : [
@@ -184,6 +194,70 @@
          "Power" : 0.0,
          "Speed" : 0.75,
          "Type" : 7,
+         "Wear" : 0.0
+      },
+      {
+         "CountSlotsForModules" : 0,
+         "CountSlotsForRecipes" : 0,
+         "ElectricPeakPower" : 0.0,
+         "IconPath" : "__base__/graphics/icons/pumpjack.png",
+         "Key" : 10,
+         "LevelOfPollution" : 0.0,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Нефтяная вышка"
+         },
+         "Power" : 0.0,
+         "Speed" : 1.0,
+         "Type" : 9,
+         "Wear" : 0.0
+      },
+      {
+         "CountSlotsForModules" : 0,
+         "CountSlotsForRecipes" : 0,
+         "ElectricPeakPower" : 0.0,
+         "IconPath" : "__base__/graphics/icons/offshore-pump.png",
+         "Key" : 11,
+         "LevelOfPollution" : 0.0,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Насос"
+         },
+         "Power" : 0.0,
+         "Speed" : 1.0,
+         "Type" : 8,
+         "Wear" : 0.0
+      },
+      {
+         "CountSlotsForModules" : 0,
+         "CountSlotsForRecipes" : 0,
+         "ElectricPeakPower" : 0.0,
+         "IconPath" : "__base__/graphics/icons/burner-mining-drill.png",
+         "Key" : 12,
+         "LevelOfPollution" : 0.0,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Твёрдотопливный бур"
+         },
+         "Power" : 3.0,
+         "Speed" : 0.5,
+         "Type" : 3,
+         "Wear" : 0.0
+      },
+      {
+         "CountSlotsForModules" : 0,
+         "CountSlotsForRecipes" : 0,
+         "ElectricPeakPower" : 0.0,
+         "IconPath" : "__base__/graphics/icons/electric-mining-drill.png",
+         "Key" : 13,
+         "LevelOfPollution" : 0.0,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Электрический бур"
+         },
+         "Power" : 2.5,
+         "Speed" : 0.34999999999999998,
+         "Type" : 3,
          "Wear" : 0.0
       }
    ],
@@ -1921,7 +1995,7 @@
          }
       },
       {
-         "IconPath" : "__base__/graphics/icons/coal.png",
+         "IconPath" : "__base__/graphics/icons/icons-new/coal.png",
          "IsALiquidOrGas" : false,
          "Key" : 20,
          "MiningHardness" : 0.90000000000000002,
@@ -2205,36 +2279,6 @@
          ]
       },
       {
-         "ItemKey" : 19,
-         "Rows" : [
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : -0.27272727272727271,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.35999999999999999,
-               "FactoryID" : 7,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.35999999999999999,
-               "FactoryID" : 7,
-               "FactoryModules" : [ 0, 0, 0 ]
-            }
-         ]
-      },
-      {
          "ItemKey" : 15,
          "Rows" : [
             {
@@ -2366,6 +2410,36 @@
                "FactoresCount" : 20.0,
                "FactoryID" : 2,
                "FactoryModules" : [ 0, 0 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 19,
+         "Rows" : [
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : -0.27272727272727271,
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.35999999999999999,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.35999999999999999,
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
             }
          ]
       },
@@ -2966,6 +3040,108 @@
          ],
          "Time" : 12.0,
          "TypeFactory" : 1
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/icons-new/iron-ore.png",
+         "Key" : 26,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Добыча железной руды"
+         },
+         "Required" : [],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 3
+            }
+         ],
+         "Time" : 4.0,
+         "TypeFactory" : 3
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/icons-new/copper-ore.png",
+         "Key" : 27,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Добыча медной руды"
+         },
+         "Required" : [],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 4
+            }
+         ],
+         "Time" : 4.0,
+         "TypeFactory" : 3
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/icons-new/coal.png",
+         "Key" : 28,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Добыча угля"
+         },
+         "Required" : [],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 20
+            }
+         ],
+         "Time" : 2.0,
+         "TypeFactory" : 3
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/icons-new/uranium-ore.png",
+         "Key" : 29,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Добыча урановой руды"
+         },
+         "Required" : [],
+         "Result" : [
+            {
+               "Count" : 1.0,
+               "ItemId" : 29
+            }
+         ],
+         "Time" : 4.0,
+         "TypeFactory" : 3
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/fluid/water.png",
+         "Key" : 30,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Добыча воды"
+         },
+         "Required" : [],
+         "Result" : [
+            {
+               "Count" : 1200.0,
+               "ItemId" : 8
+            }
+         ],
+         "Time" : 1.0,
+         "TypeFactory" : 8
+      },
+      {
+         "IconPath" : "__base__/graphics/icons/crude-oil.png",
+         "Key" : 31,
+         "Name" : {
+            "en" : "English lang",
+            "ru" : "Добыча нефти"
+         },
+         "Required" : [],
+         "Result" : [
+            {
+               "Count" : 10.0,
+               "ItemId" : 7
+            }
+         ],
+         "Time" : 1.0,
+         "TypeFactory" : 9
       }
    ]
 }
