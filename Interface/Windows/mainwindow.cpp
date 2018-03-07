@@ -73,13 +73,15 @@ void MainWindow::_createMenus()
   fileMenu->addAction(openAct);
   connect(openAct, &QAction::triggered, this, &MainWindow::openFile);
 
-  QAction *saveAsAct = new QAction(tr("&Save As..."), this);
-  fileMenu->addAction(saveAsAct);
-  connect(saveAsAct, &QAction::triggered, this, &MainWindow::saveAsFile);
+  fileMenu->addSeparator();
 
   QAction *saveAct = new QAction(tr("&Save..."), this);
   fileMenu->addAction(saveAct);
   connect(saveAct, &QAction::triggered, this, &MainWindow::saveFile);
+
+  QAction *saveAsAct = new QAction(tr("&Save As..."), this);
+  fileMenu->addAction(saveAsAct);
+  connect(saveAsAct, &QAction::triggered, this, &MainWindow::saveAsFile);
 
   fileMenu->addSeparator();
 
@@ -89,23 +91,36 @@ void MainWindow::_createMenus()
 
   QMenu *toolMenu = menuBar()->addMenu(tr("&Tools"));
 
-  QAction *addAct = new QAction(tr("&Add Entry..."), this);
-  toolMenu->addAction(addAct);
-//  connect(addAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::showAddEntryDialog);
+  QAction *Act1 = new QAction(tr("&Add tab..."), this);
+  toolMenu->addAction(Act1);
+  connect(Act1, &QAction::triggered, this, &MainWindow::PushButtonClickedAddTab);
 
-  QAction *editAct = new QAction(tr("&Edit Entry..."), this);
-  editAct->setEnabled(false);
-  toolMenu->addAction(editAct);
-//  connect(editAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::editEntry);
+  QAction *Act2 = new QAction(tr("&Remove current tab"), this);
+  toolMenu->addAction(Act2);
+  connect(Act2, &QAction::triggered, this, &MainWindow::PushButtonClickedRemoveTab);
 
-  toolMenu->addSeparator();
+  QAction *Act3 = new QAction(tr("&Recipes edit..."), this);
+  toolMenu->addAction(Act3);
+  connect(Act3, &QAction::triggered, this, &MainWindow::PushButtonClickedRecipesEditDialog);
 
-  QAction *removeAct = new QAction(tr("&Remove Entry"), this);
-  removeAct->setEnabled(false);
-  toolMenu->addAction(removeAct);
- // connect(removeAct, &QAction::triggered, _RecipeWidget, &RecipeWidget::removeEntry);
+  QAction *Act4 = new QAction(tr("&Items edit..."), this);
+  toolMenu->addAction(Act4);
+  connect(Act4, &QAction::triggered, this, &MainWindow::PushButtonClickedItemsEditDialog);
 
-//  connect(_RecipeWidget, &RecipeWidget::selectionChanged, this, &MainWindow::updateActions);
+  QAction *Act5 = new QAction(tr("&Factorys edit..."), this);
+  toolMenu->addAction(Act5);
+  connect(Act5, &QAction::triggered, this, &MainWindow::PushButtonClickedFactorysEditDialog);
+
+  QAction *Act6 = new QAction(tr("&Modules edit..."), this);
+  toolMenu->addAction(Act6);
+  connect(Act6, &QAction::triggered, this, &MainWindow::PushButtonClickedModulesEditDialog);
+
+  QMenu *HelpMenu = menuBar()->addMenu(tr("&Help"));
+  
+  QAction *aboutQtAct = new QAction(tr("About &Qt"), this);
+  HelpMenu->addAction(aboutQtAct);
+  connect(aboutQtAct, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+
 }
 
 void MainWindow::openFile()

@@ -321,49 +321,86 @@
         <translation>&amp;Отрыть ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="76"/>
+        <location filename="../mainwindow.cpp" line="82"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Сохранить как ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="80"/>
+        <location filename="../mainwindow.cpp" line="94"/>
+        <source>&amp;Add tab...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="98"/>
+        <source>&amp;Remove current tab</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="102"/>
+        <source>&amp;Recipes edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="106"/>
+        <source>&amp;Items edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="110"/>
+        <source>&amp;Factorys edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="114"/>
+        <source>&amp;Modules edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="118"/>
+        <source>&amp;Help</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="120"/>
+        <source>About &amp;Qt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="78"/>
         <source>&amp;Save...</source>
         <translation>&amp;Сохранить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="86"/>
+        <location filename="../mainwindow.cpp" line="88"/>
         <source>E&amp;xit</source>
         <translation>&amp;Выход</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="90"/>
+        <location filename="../mainwindow.cpp" line="92"/>
         <source>&amp;Tools</source>
         <translation>&amp;Инструменты</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="92"/>
         <source>&amp;Add Entry...</source>
-        <translation>&amp;Добавить цепочку</translation>
+        <translation type="vanished">&amp;Добавить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="96"/>
         <source>&amp;Edit Entry...</source>
-        <translation>&amp;Редактировать цепочку</translation>
+        <translation type="vanished">&amp;Редактировать цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="103"/>
         <source>&amp;Remove Entry</source>
-        <translation>&amp;Удалить цепочку</translation>
+        <translation type="vanished">&amp;Удалить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="117"/>
-        <location filename="../mainwindow.cpp" line="137"/>
+        <location filename="../mainwindow.cpp" line="132"/>
         <location filename="../mainwindow.cpp" line="152"/>
+        <location filename="../mainwindow.cpp" line="167"/>
         <source>Unable to open file</source>
         <translation>Ошибка открытия файла</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="126"/>
+        <location filename="../mainwindow.cpp" line="141"/>
         <source>Unable parse json file</source>
         <translation>Ошибка обработки файла</translation>
     </message>
