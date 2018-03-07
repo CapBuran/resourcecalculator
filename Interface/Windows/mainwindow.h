@@ -1,6 +1,8 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#define StandartTestFileJson "Factorio.json"
+
 #include "../../ResourceCalculator/ParamsCollection.h"
 
 #include <QtWidgets>
@@ -14,6 +16,7 @@ public:
   MainWindow(ResourceCalculator::ParamsCollection &PC);
 private slots:
   void openFile();
+  void saveAsFile();
   void saveFile();
   void PushButtonClickedAddTab();
   void PushButtonClickedRemoveTab();

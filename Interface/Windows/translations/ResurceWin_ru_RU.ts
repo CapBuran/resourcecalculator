@@ -318,46 +318,52 @@
     <message>
         <location filename="../mainwindow.cpp" line="72"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Отрыть</translation>
+        <translation>&amp;Отрыть ...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="76"/>
         <source>&amp;Save As...</source>
-        <translation>&amp;Сохранить как</translation>
+        <translation>&amp;Сохранить как ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="82"/>
+        <location filename="../mainwindow.cpp" line="80"/>
+        <source>&amp;Save...</source>
+        <translation>&amp;Сохранить</translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="86"/>
         <source>E&amp;xit</source>
         <translation>&amp;Выход</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="86"/>
+        <location filename="../mainwindow.cpp" line="90"/>
         <source>&amp;Tools</source>
         <translation>&amp;Инструменты</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="88"/>
+        <location filename="../mainwindow.cpp" line="92"/>
         <source>&amp;Add Entry...</source>
         <translation>&amp;Добавить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="92"/>
+        <location filename="../mainwindow.cpp" line="96"/>
         <source>&amp;Edit Entry...</source>
         <translation>&amp;Редактировать цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="99"/>
+        <location filename="../mainwindow.cpp" line="103"/>
         <source>&amp;Remove Entry</source>
         <translation>&amp;Удалить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="113"/>
-        <location filename="../mainwindow.cpp" line="135"/>
+        <location filename="../mainwindow.cpp" line="117"/>
+        <location filename="../mainwindow.cpp" line="137"/>
+        <location filename="../mainwindow.cpp" line="152"/>
         <source>Unable to open file</source>
         <translation>Ошибка открытия файла</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="122"/>
+        <location filename="../mainwindow.cpp" line="126"/>
         <source>Unable parse json file</source>
         <translation>Ошибка обработки файла</translation>
     </message>
@@ -589,7 +595,7 @@
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="93"/>
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="111"/>
         <source>Production chain is deleted!!!</source>
-        <translation>Цепочка была удалена!!! </translation>
+        <translation>Цепочка была удалена!!!</translation>
     </message>
     <message>
         <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="104"/>
@@ -605,8 +611,8 @@
     <name>ProductionChainTabWidget</name>
     <message>
         <location filename="../ProductionChainTabWidget.cpp" line="10"/>
-        <source>Summ production items</source>
-        <translation type="unfinished"></translation>
+        <source>Summ production items on all tabs</source>
+        <translation>Сумма предметов по всем вкладкам</translation>
     </message>
 </context>
 <context>

@@ -7,7 +7,7 @@ ProductionChainTabWidget::ProductionChainTabWidget(ResourceCalculator::ParamsCol
   _PC(PC), QTabWidget(parent)
 {
   ProductionChainWidgetSummProductionItems *PCWSPI = new ProductionChainWidgetSummProductionItems(PC, this);
-  addTab(PCWSPI, tr("Summ production items") );
+  addTab(PCWSPI, tr("Summ production items on all tabs") );
 
   connect(this, SIGNAL(currentChanged(int)), SLOT(OncurrentChanged(int)));
 }

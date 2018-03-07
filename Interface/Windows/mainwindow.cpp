@@ -73,7 +73,11 @@ void MainWindow::_createMenus()
   fileMenu->addAction(openAct);
   connect(openAct, &QAction::triggered, this, &MainWindow::openFile);
 
-  QAction *saveAct = new QAction(tr("&Save As..."), this);
+  QAction *saveAsAct = new QAction(tr("&Save As..."), this);
+  fileMenu->addAction(saveAsAct);
+  connect(saveAsAct, &QAction::triggered, this, &MainWindow::saveAsFile);
+
+  QAction *saveAct = new QAction(tr("&Save..."), this);
   fileMenu->addAction(saveAct);
   connect(saveAct, &QAction::triggered, this, &MainWindow::saveFile);
 
@@ -127,6 +131,19 @@ void MainWindow::openFile()
 }
 
 void MainWindow::saveFile()
+{
+  QFile file(StandartTestFileJson);
+  if (!file.open(QIODevice::WriteOnly)) {
+    QMessageBox::warning(this, tr("Unable to open file"), file.errorString());
+    return;
+  }
+  Json::Value jsonPr;
+  _PC.WriteToJson(jsonPr);
+  Json::StyledWriter styledWriter;
+  file.write(styledWriter.write(jsonPr).c_str());
+}
+
+void MainWindow::saveAsFile()
 {
   QString fileName = QFileDialog::getSaveFileName(this);
   if (!fileName.isEmpty()) {

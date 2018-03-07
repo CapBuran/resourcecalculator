@@ -2,8 +2,6 @@
 #include "mainwindow.h"
 #include <fstream>
 
-#define StandartTestFileJson "Factorio.json"
-
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
