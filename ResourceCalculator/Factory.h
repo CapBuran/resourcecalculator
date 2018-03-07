@@ -50,6 +50,8 @@ namespace ResourceCalculator
 
     bool IsAllowedProduction( const ParamsCollection & PC, KEY_RECIPE RecipeId ) const;
 
+    bool IsAllowedMining(const ParamsCollection & PC, KEY_ITEM ItemId) const;
+
     void FixFactoryModules( FactoryModules & ) const;
 
     int ReadFromJson( const Json::Value & jsonPr ) override;

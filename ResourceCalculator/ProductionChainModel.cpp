@@ -34,13 +34,21 @@ namespace ResourceCalculator
 
     bool IsIsFactoryOkOld = _PC->FC.GetFactory( _FactoryCurrent ).IsAllowedProduction( *_PC, _RecipeCurrent );
 
+    KEY_ITEM InitItemKey = KEY_ITEM::ID_ITEM_NoFind_Item;
+
+    if (CountsCols > 0 && _InitColumb >= 0) {
+      InitItemKey = _ColsItems[_InitColumb];
+      if (IsIsFactoryOkOld) {
+        IsIsFactoryOkOld = _PC->FC.GetFactory(_FactoryCurrent).IsAllowedMining(*_PC, InitItemKey);
+      }
+    }
+
     const std::map<KEY_FACTORY, Factory> &Factorys = _PC->FC.GetFactorys();
     for ( auto & it : Factorys ) {
-      bool IsFactoryOk = it.second.IsAllowedProduction( *_PC, _RecipeCurrent );
-      if ( it.second.IsAllowedProduction(*_PC, _RecipeCurrent ) ) {
-        if ( !IsFactoryOk ) {
-          _FactoryCurrent = it.first;
-        }
+      bool IsFactoryOk1 = it.second.IsAllowedProduction(*_PC, _RecipeCurrent);
+      bool IsFactoryOk2 = it.second.IsAllowedMining(*_PC, InitItemKey);
+      if (IsFactoryOk1 && IsFactoryOk2) {
+        if(!IsIsFactoryOkOld) _FactoryCurrent = it.first;
         _Factorys.push_back( it.first );
       }
     }
@@ -63,7 +71,19 @@ namespace ResourceCalculator
 
     factory.FixFactoryModules( _FM );
     _SecPerOneRecipe = recipe.GetTime();
-    _SpeedFactory = factory.GetSpeed() * _FM.GetSummSpeed(_PC->MC );
+    
+    double ImulForMining = 1.0;
+
+    if (factory.GetPower() > 0){
+      const Item &item = _PC->IC.GetData().find(InitItemKey)->second;
+      if (item.GetMiningHardness() > 0.0) {
+        ImulForMining = factory.GetPower() - item.GetMiningHardness();
+        assert(ImulForMining >= 0.0);
+      }
+    }
+
+    _SpeedFactory = factory.GetSpeed() * _FM.GetSummSpeed(_PC->MC) * ImulForMining;
+
     _RealTimeProductionOfOneItemPerSec = _SecPerOneRecipe / _SpeedFactory;
     double ProductionSpeedPerSecond = _FM.GetSummProductivity(_PC->MC );
 
@@ -241,10 +261,11 @@ namespace ResourceCalculator
     ItemBase::ReadFromJson(jsonPr);
     _ItemKey = static_cast<KEY_ITEM>(jsonPr["ItemKey"].asInt64());
     _SetItemKey(_ItemKey);
-    assert(jsonPr["Rows"].size() == _DataRows.size());
-    uint64_t i = 0;
-    for (auto &it : jsonPr["Rows"]) {
-      _DataRows[i++].ReadFromJson(it);
+    if (jsonPr["Rows"].size() == _DataRows.size()){
+      uint64_t i = 0;
+      for (auto &it : jsonPr["Rows"]) {
+        _DataRows[i++].ReadFromJson(it);
+      }
     }
     Optimize();
     return 0;

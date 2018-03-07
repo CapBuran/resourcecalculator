@@ -198,7 +198,7 @@
       },
       {
          "CountSlotsForModules" : 0,
-         "CountSlotsForRecipes" : 0,
+         "CountSlotsForRecipes" : 1,
          "ElectricPeakPower" : 0.0,
          "IconPath" : "__base__/graphics/icons/pumpjack.png",
          "Key" : 10,
@@ -214,7 +214,7 @@
       },
       {
          "CountSlotsForModules" : 0,
-         "CountSlotsForRecipes" : 0,
+         "CountSlotsForRecipes" : 1,
          "ElectricPeakPower" : 0.0,
          "IconPath" : "__base__/graphics/icons/offshore-pump.png",
          "Key" : 11,
@@ -230,7 +230,7 @@
       },
       {
          "CountSlotsForModules" : 0,
-         "CountSlotsForRecipes" : 0,
+         "CountSlotsForRecipes" : 1,
          "ElectricPeakPower" : 0.0,
          "IconPath" : "__base__/graphics/icons/burner-mining-drill.png",
          "Key" : 12,
@@ -239,14 +239,14 @@
             "en" : "English lang",
             "ru" : "Твёрдотопливный бур"
          },
-         "Power" : 3.0,
-         "Speed" : 0.5,
+         "Power" : 2.5,
+         "Speed" : 0.34999999999999998,
          "Type" : 3,
          "Wear" : 0.0
       },
       {
          "CountSlotsForModules" : 3,
-         "CountSlotsForRecipes" : 0,
+         "CountSlotsForRecipes" : 1,
          "ElectricPeakPower" : 0.0,
          "IconPath" : "__base__/graphics/icons/electric-mining-drill.png",
          "Key" : 13,
@@ -255,8 +255,8 @@
             "en" : "English lang",
             "ru" : "Электрический бур"
          },
-         "Power" : 2.5,
-         "Speed" : 0.34999999999999998,
+         "Power" : 3.0,
+         "Speed" : 0.5,
          "Type" : 3,
          "Wear" : 0.0
       }
@@ -2219,22 +2219,52 @@
    ],
    "ProductionChains" : [
       {
-         "ItemKey" : 19,
+         "ItemKey" : 25,
+         "Rows" : [
+            {
+               "FactoresCount" : 25.714285714285712,
+               "FactoryID" : 13,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 23.625,
+               "FactoryID" : 5,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 1.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 26.250000000000004,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 2.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 20.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 15,
          "Rows" : [
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
+               "FactoryID" : 12,
+               "FactoryModules" : []
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 8,
-               "FactoryModules" : [ 0, 0, 0 ]
+               "FactoryID" : 6,
+               "FactoryModules" : [ 0, 0 ]
             },
             {
                "FactoresCount" : 0.0,
@@ -2243,23 +2273,38 @@
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 11,
-               "FactoryModules" : []
+               "FactoryID" : 6,
+               "FactoryModules" : [ 0, 0 ]
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 10,
-               "FactoryModules" : []
+               "FactoryID" : 3,
+               "FactoryModules" : [ 0, 0, 0, 0 ]
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 7,
-               "FactoryModules" : [ 0, 0, 0 ]
+               "FactoryID" : 3,
+               "FactoryModules" : [ 0, 0, 0, 0 ]
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 7,
-               "FactoryModules" : [ 0, 0, 0 ]
+               "FactoryID" : 3,
+               "FactoryModules" : [ 0, 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 3,
+               "FactoryModules" : [ 0, 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 3,
+               "FactoryModules" : [ 0, 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 0.0,
+               "FactoryID" : 3,
+               "FactoryModules" : [ 0, 0, 0, 0 ]
             }
          ]
       },
@@ -2349,52 +2394,22 @@
          ]
       },
       {
-         "ItemKey" : 25,
+         "ItemKey" : 19,
          "Rows" : [
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 12,
-               "FactoryModules" : []
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 6,
-               "FactoryModules" : [ 0, 0 ]
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 3,
-               "FactoryModules" : [ 0, 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 6,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 3,
-               "FactoryModules" : [ 0, 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 3,
-               "FactoryModules" : [ 0, 0, 0, 0 ]
-            }
-         ]
-      },
-      {
-         "ItemKey" : 15,
-         "Rows" : [
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 12,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 6,
-               "FactoryModules" : [ 0, 0 ]
+               "FactoryID" : 8,
+               "FactoryModules" : [ 0, 0, 0 ]
             },
             {
                "FactoresCount" : 0.0,
@@ -2403,38 +2418,23 @@
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 6,
-               "FactoryModules" : [ 0, 0 ]
+               "FactoryID" : 11,
+               "FactoryModules" : []
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 3,
-               "FactoryModules" : [ 0, 0, 0, 0 ]
+               "FactoryID" : 10,
+               "FactoryModules" : []
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 3,
-               "FactoryModules" : [ 0, 0, 0, 0 ]
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
             },
             {
                "FactoresCount" : 0.0,
-               "FactoryID" : 3,
-               "FactoryModules" : [ 0, 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 3,
-               "FactoryModules" : [ 0, 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 3,
-               "FactoryModules" : [ 0, 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 0.0,
-               "FactoryID" : 3,
-               "FactoryModules" : [ 0, 0, 0, 0 ]
+               "FactoryID" : 7,
+               "FactoryModules" : [ 0, 0, 0 ]
             }
          ]
       },

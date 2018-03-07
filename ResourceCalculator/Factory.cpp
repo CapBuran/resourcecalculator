@@ -9,7 +9,7 @@ namespace ResourceCalculator
   {
     _Speed = 1.0;
     _CountSlotsForModules = 0;
-    _CountSlotsForRecipes = 0;
+    _CountSlotsForRecipes = 1;
     _Wear = 0.0;
     _Power = 0.0;
     _ElectricPeakPower = 0.0;
@@ -21,10 +21,23 @@ namespace ResourceCalculator
   bool Factory::IsAllowedProduction( const ParamsCollection & PC, KEY_RECIPE RecipeId ) const
   {
     if ( _Type == KEY_TYPE_FACTORY::Unknown ) return false;
-    const Recipe &recipe = PC.RC.GetData().find( RecipeId )->second;
+    const Recipe *recipePTR = PC.RC.GetRecipe(RecipeId);
+    if (recipePTR == nullptr) return false;
+    const Recipe &recipe = *recipePTR;
     if ( recipe.GetTypeFactory() != _Type ) return false;
+    if ( _CountSlotsForRecipes < recipe.GetResult().size() ) return false;
     if ( _CountSlotsForRecipes < recipe.GetRequired().size() ) return false;
-    if ( _CountSlotsForRecipes < recipe.GetRequired().size() ) return false;
+    return true;
+  }
+
+  bool Factory::IsAllowedMining(const ParamsCollection & PC, KEY_ITEM ItemId) const
+  {
+    if (_Type == KEY_TYPE_FACTORY::Unknown) return false;
+    const Item *itemPTR = PC.IC.GetItem(ItemId);
+    if (itemPTR == nullptr) return false;
+    const Item &item = *itemPTR;
+    if (item.GetMiningHardness() == 0 || _Power == 0) return true;
+    if (item.GetMiningHardness() >= _Power) return false;
     return true;
   }
 
