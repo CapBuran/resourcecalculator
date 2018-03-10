@@ -32,7 +32,7 @@ QVariant ProductionChainModelSummProductionItems::data( const QModelIndex &index
   if (index.column() >= 1) {
     if (_DATA.size() > index.row()) {
       if (_DATA[index.row()].size() > index.column() - 1) {
-        return QVariant(_DATA[index.row()][index.column() - 1]);
+        return QVariant(ToOut(_DATA[index.row()][index.column() - 1]));
       }
     }
   }

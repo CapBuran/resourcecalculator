@@ -2,6 +2,14 @@
 
 #pragma region DELEGATE
 
+QString ToOut(double Value)
+{
+  if (abs(Value) < 0.0001) {
+    Value = 0.0;
+  }
+  return QString::number(Value, 'g', EpsilonToOut);
+}
+
 ProductionChainHeaderView::ProductionChainHeaderView(Qt::Orientation orientation, QWidget * parent) :
   QHeaderView(orientation, parent)
 {

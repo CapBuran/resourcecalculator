@@ -5,8 +5,6 @@ Q_DECLARE_METATYPE(ResourceCalculator::FactoryModules);
 
 #pragma region DELEGATE
 
-#define EpsilonToOut 4
-
 ProductionChainDelegate0::ProductionChainDelegate0( const ResourceCalculator::ProductionChainModel &PCM, QObject *parent):
   _PCM(PCM), ProductionChainDelegateBase(PCM.GetPC(), parent)
 {
@@ -122,14 +120,6 @@ bool ProductionChainDelegate0::editorEvent(QEvent * event, QAbstractItemModel * 
 #pragma endregion DELEGATE
 
 #pragma region MODEL
-
-QString ToOut( double Value )
-{
-  if ( abs( Value ) < 0.0001 ) {
-    Value = 0.0;
-  }
-  return QString::number( Value, 'g', EpsilonToOut );
-}
 
 ProductionChainModel::ProductionChainModel(ResourceCalculator::ProductionChainModel &PCM, QObject *parent )
   : QAbstractTableModel( parent ), _PCM(PCM)

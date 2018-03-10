@@ -328,42 +328,42 @@
     <message>
         <location filename="../mainwindow.cpp" line="94"/>
         <source>&amp;Add tab...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Добавить вкладку</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="98"/>
         <source>&amp;Remove current tab</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Удалить текушую вкладку</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="102"/>
         <source>&amp;Recipes edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Редактирование рецептов</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="106"/>
         <source>&amp;Items edit...</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактирование предметов</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="110"/>
         <source>&amp;Factorys edit...</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактировани фабрик</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="114"/>
         <source>&amp;Modules edit...</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Редактирование модулей</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="118"/>
         <source>&amp;Help</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Помощь</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="120"/>
         <source>About &amp;Qt</source>
-        <translation type="unfinished"></translation>
+        <translation type="unfinished">Об QT</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="78"/>
@@ -549,42 +549,42 @@
 <context>
     <name>ProductionChainModel</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="229"/>
+        <location filename="../ProductionChainWidget.cpp" line="219"/>
         <source>Factory</source>
         <translation>Фабрика</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="231"/>
+        <location filename="../ProductionChainWidget.cpp" line="221"/>
         <source>Recipe</source>
         <translation>Рецепт</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="233"/>
+        <location filename="../ProductionChainWidget.cpp" line="223"/>
         <source>Modules productivity</source>
         <translation>Модули продуктивности</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="235"/>
+        <location filename="../ProductionChainWidget.cpp" line="225"/>
         <source>Modules speed</source>
         <translation>Модули скорости</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="237"/>
+        <location filename="../ProductionChainWidget.cpp" line="227"/>
         <source>Speed factory</source>
         <translation>Скорость фабрики</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="239"/>
+        <location filename="../ProductionChainWidget.cpp" line="229"/>
         <source>Time for recipe</source>
         <translation>Время рецепта</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="241"/>
+        <location filename="../ProductionChainWidget.cpp" line="231"/>
         <source>Real time for recipe</source>
         <translation>Производство одной компоненты</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="243"/>
+        <location filename="../ProductionChainWidget.cpp" line="233"/>
         <source>Count factorys</source>
         <translation>Количество фабрик</translation>
     </message>
@@ -668,12 +668,12 @@
 <context>
     <name>ProductionChainWidget</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="502"/>
+        <location filename="../ProductionChainWidget.cpp" line="492"/>
         <source>Auto-fit quantity items</source>
         <translation>Автоподбор</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="504"/>
+        <location filename="../ProductionChainWidget.cpp" line="494"/>
         <source>Summ results:  </source>
         <translation>Сумма результатов:  </translation>
     </message>

@@ -5,6 +5,10 @@
 
 #include <QtWidgets>
 
+#define EpsilonToOut 4
+
+QString ToOut(double Value);
+
 enum class ProductionChainWidgetType
 {
   Uncnown,
