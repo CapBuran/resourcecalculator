@@ -128,14 +128,10 @@ QModelIndex ProductionChainTreeModel::parent(const QModelIndex &index) const
 int ProductionChainTreeModel::rowCount(const QModelIndex &parent) const
 {
   ProductionChainTreeItem *parentItem = nullptr;
-  if (parent.column() > 0)
-    return 0;
-
   if (!parent.isValid())
     parentItem = rootItem;
   else
     parentItem = static_cast<ProductionChainTreeItem*>(parent.internalPointer());
-
   return parentItem == nullptr ? 0 : parentItem->childCount();
 }
 

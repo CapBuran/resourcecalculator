@@ -22,7 +22,7 @@ void ProductionChainHeaderView::paintSection(QPainter * painter, const QRect & r
   QString data = model()->headerData(logicalIndex, orientation()).toString();
   painter->rotate(-90);
   painter->setFont(font());
-  painter->drawText(-rect.height() + 5, rect.left() + (rect.width()) / 2, data);
+  painter->drawText(-rect.height() + 5, rect.left() + rect.width() / 2, data);
 }
 
 QSize ProductionChainHeaderView::sizeHint() const

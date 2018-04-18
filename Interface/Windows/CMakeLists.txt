@@ -41,8 +41,11 @@ source_group(ItemsDialogs   FILES ItemsEditDialog.cpp)
 
 source_group(ItemsDialogs   FILES ItemSelectedDialog.h)
 source_group(ItemsDialogs   FILES ItemSelectedDialog.cpp)
+
 source_group(IconsDialogs   FILES IconSelectedDialog.h)
 source_group(IconsDialogs   FILES IconSelectedDialog.cpp)
+source_group(IconsDialogs   FILES IconDispatcherDialog.h)
+source_group(IconsDialogs   FILES IconDispatcherDialog.cpp)
 
 source_group(RecipesDialogs FILES RecipesEditDialog.h)
 source_group(RecipesDialogs FILES RecipesEditDialog.cpp)
@@ -58,6 +61,9 @@ source_group(ModulesDialogs FILES ModulesSelectDialog.cpp)
 source_group(ModulesDialogs FILES ModulesSelectDialog.h)
 source_group(ModulesDialogs FILES ModuleSelectDialog.cpp)
 source_group(ModulesDialogs FILES ModuleSelectDialog.h)
+
+source_group(BeltsDialogs   FILES TransportBeltsEditDialog.cpp)
+source_group(BeltsDialogs   FILES TransportBeltsEditDialog.h)
 
 source_group(NoEdit         FILES ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.qrc)
 source_group(NoEdit         FILES ${CMAKE_CURRENT_BINARY_DIR}/qrc_ResurceWin.cpp)

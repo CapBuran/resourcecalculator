@@ -7,6 +7,7 @@
 #include "FactoryCollection.h"
 #include "IconCollection.h"
 #include "ProductionChainCollection.h"
+#include "TransportBeltCollection.h"
 
 namespace ResourceCalculator {
   
@@ -19,6 +20,7 @@ namespace ResourceCalculator {
     ModuleCollection  MC;
     IconCollection Icons;
     ProductionChainCollection PCC;
+    TransportBeltCollection TC;
 
     ParamsCollection();
     

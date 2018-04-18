@@ -24,6 +24,7 @@ private slots:
   void PushButtonClickedItemsEditDialog();
   void PushButtonClickedFactorysEditDialog();
   void PushButtonClickedModulesEditDialog();
+  void PushButtonClickedTransportBeltsEditDialog();
 private:
   void _setupTabs();
   void _createMenus();

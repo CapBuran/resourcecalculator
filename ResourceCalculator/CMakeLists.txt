@@ -21,6 +21,11 @@ source_group(Factory  FILES Factory.cpp)
 source_group(Factory  FILES FactoryCollection.h)
 source_group(Factory  FILES FactoryCollection.cpp)
 
+source_group(Belt     FILES TransportBelt.h)
+source_group(Belt     FILES TransportBelt.cpp)
+source_group(Belt     FILES TransportBeltCollection.h)
+source_group(Belt     FILES TransportBeltCollection.cpp)
+
 source_group(Base     FILES Types.h)
 source_group(Base     FILES Types.cpp)
 

@@ -91,6 +91,11 @@ private:
 class ProductionChainWidget: public ProductionChainWidgetBase {
   Q_OBJECT
 public:
+
+  ProductionChainModel* GetModel(){
+    return &_Model;
+  }
+
   ProductionChainWidget(ResourceCalculator::ProductionChainModel &PCM, QWidget *parent = 0 );
   ResourceCalculator::ProductionChainModel &GetPCM();
   ProductionChainWidgetType GetType() const override;

@@ -5,6 +5,7 @@
 #include "FactorysEditDialog.h"
 #include "ItemSelectedDialog.h"
 #include "ModulesEditDialog.h"
+#include "TransportBeltsEditDialog.h"
 
 MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   _PC(PC)
@@ -25,16 +26,20 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   QPushButton *_ButtonFactoryOpen = new QPushButton(tr("Factorys editor"));
   connect(_ButtonFactoryOpen, SIGNAL(clicked()), SLOT(PushButtonClickedFactorysEditDialog()));
 
-  QPushButton *_ButtonModulesEdit = new QPushButton( tr( "Modules editor" ) );
-  connect( _ButtonModulesEdit, SIGNAL( clicked() ), SLOT( PushButtonClickedModulesEditDialog() ) );
+  QPushButton *_ButtonModulesEdit = new QPushButton(tr("Modules editor"));
+  connect(_ButtonModulesEdit, SIGNAL(clicked()), SLOT(PushButtonClickedModulesEditDialog()));
   
+  QPushButton *_ButtonTransportBeltsEdit = new QPushButton(tr("Transport belts editor"));
+  connect(_ButtonTransportBeltsEdit, SIGNAL(clicked()), SLOT(PushButtonClickedTransportBeltsEditDialog()));
+
   QHBoxLayout *h = new QHBoxLayout();
   h->addWidget( _ButtonAddRecipeTab );
   h->addWidget( _ButtonDelRecipeTab );
   h->addWidget( _ButtonRecipesOpen );
   h->addWidget( _ButtonItemOpen );
   h->addWidget( _ButtonFactoryOpen );
-  h->addWidget( _ButtonModulesEdit );
+  h->addWidget( _ButtonModulesEdit);
+  h->addWidget( _ButtonTransportBeltsEdit);
 
   _PCTW = new ProductionChainTabWidget( _PC );
   QVBoxLayout *v = new QVBoxLayout();
@@ -114,6 +119,10 @@ void MainWindow::_createMenus()
   QAction *Act6 = new QAction(tr("&Modules edit..."), this);
   toolMenu->addAction(Act6);
   connect(Act6, &QAction::triggered, this, &MainWindow::PushButtonClickedModulesEditDialog);
+
+  QAction *Act7 = new QAction(tr("&Transport belts edit..."), this);
+  toolMenu->addAction(Act7);
+  connect(Act7, &QAction::triggered, this, &MainWindow::PushButtonClickedTransportBeltsEditDialog);
 
   QMenu *HelpMenu = menuBar()->addMenu(tr("&Help"));
   
@@ -215,4 +224,12 @@ void MainWindow::PushButtonClickedModulesEditDialog()
   ModulesEditDialog Dialog( _PC );
   Dialog.exec();
  _PCTW->Update();
+}
+
+void MainWindow::PushButtonClickedTransportBeltsEditDialog()
+{
+  TransportBeltsEditDialog Dialog(_PC);
+  if (Dialog.exec()) {
+    _PCTW->Update();
+  }
 }

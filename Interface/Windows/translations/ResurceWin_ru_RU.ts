@@ -142,6 +142,24 @@
     </message>
 </context>
 <context>
+    <name>IconDispatcherDialog</name>
+    <message>
+        <location filename="../IconDispatcherDialog.cpp" line="20"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../IconDispatcherDialog.cpp" line="21"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Отмена</translation>
+    </message>
+    <message>
+        <location filename="../IconDispatcherDialog.cpp" line="57"/>
+        <source>SelectedIcons</source>
+        <translation type="unfinished">Выберете иконку</translation>
+    </message>
+</context>
+<context>
     <name>IconSelectedDialog</name>
     <message>
         <location filename="../IconSelectedDialog.cpp" line="27"/>
@@ -276,107 +294,117 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="19"/>
+        <location filename="../mainwindow.cpp" line="20"/>
         <source>Items editor</source>
         <translation>Редактор предметов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="13"/>
+        <location filename="../mainwindow.cpp" line="14"/>
         <source>Recipe tab add</source>
         <translation>Добавить вкладку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="16"/>
+        <location filename="../mainwindow.cpp" line="17"/>
         <source>Recipe tab del</source>
         <translation>Удалить вкладку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="22"/>
+        <location filename="../mainwindow.cpp" line="23"/>
         <source>Recipes editor</source>
         <translation>Редактор рецептов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="25"/>
+        <location filename="../mainwindow.cpp" line="26"/>
         <source>Factorys editor</source>
         <translation>Редактор фабрик</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="28"/>
+        <location filename="../mainwindow.cpp" line="29"/>
         <source>Modules editor</source>
         <translation>Редактор модулей</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="51"/>
+        <location filename="../mainwindow.cpp" line="56"/>
         <source>Resurse calculator</source>
         <translation>Калькулятор производственных цепочек</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="70"/>
+        <location filename="../mainwindow.cpp" line="75"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="72"/>
+        <location filename="../mainwindow.cpp" line="77"/>
         <source>&amp;Open...</source>
         <translation>&amp;Отрыть ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="82"/>
+        <location filename="../mainwindow.cpp" line="87"/>
         <source>&amp;Save As...</source>
         <translation>&amp;Сохранить как ...</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="94"/>
+        <location filename="../mainwindow.cpp" line="99"/>
         <source>&amp;Add tab...</source>
         <translation type="unfinished">Добавить вкладку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="98"/>
+        <location filename="../mainwindow.cpp" line="103"/>
         <source>&amp;Remove current tab</source>
         <translation type="unfinished">Удалить текушую вкладку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="102"/>
+        <location filename="../mainwindow.cpp" line="107"/>
         <source>&amp;Recipes edit...</source>
         <translation type="unfinished">Редактирование рецептов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="106"/>
+        <location filename="../mainwindow.cpp" line="111"/>
         <source>&amp;Items edit...</source>
         <translation>Редактирование предметов</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="110"/>
+        <location filename="../mainwindow.cpp" line="115"/>
         <source>&amp;Factorys edit...</source>
         <translation>Редактировани фабрик</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="114"/>
+        <location filename="../mainwindow.cpp" line="119"/>
         <source>&amp;Modules edit...</source>
         <translation type="unfinished">Редактирование модулей</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="118"/>
+        <location filename="../mainwindow.cpp" line="123"/>
+        <source>&amp;Transport belts edit...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="127"/>
         <source>&amp;Help</source>
         <translation type="unfinished">Помощь</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="120"/>
+        <location filename="../mainwindow.cpp" line="129"/>
         <source>About &amp;Qt</source>
         <translation type="unfinished">Об QT</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="78"/>
+        <location filename="../mainwindow.cpp" line="83"/>
         <source>&amp;Save...</source>
         <translation>&amp;Сохранить</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="88"/>
+        <location filename="../mainwindow.cpp" line="32"/>
+        <source>Transport belts editor</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../mainwindow.cpp" line="93"/>
         <source>E&amp;xit</source>
         <translation>&amp;Выход</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="92"/>
+        <location filename="../mainwindow.cpp" line="97"/>
         <source>&amp;Tools</source>
         <translation>&amp;Инструменты</translation>
     </message>
@@ -393,14 +421,14 @@
         <translation type="vanished">&amp;Удалить цепочку</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="132"/>
-        <location filename="../mainwindow.cpp" line="152"/>
-        <location filename="../mainwindow.cpp" line="167"/>
+        <location filename="../mainwindow.cpp" line="141"/>
+        <location filename="../mainwindow.cpp" line="161"/>
+        <location filename="../mainwindow.cpp" line="176"/>
         <source>Unable to open file</source>
         <translation>Ошибка открытия файла</translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="141"/>
+        <location filename="../mainwindow.cpp" line="150"/>
         <source>Unable parse json file</source>
         <translation>Ошибка обработки файла</translation>
     </message>
@@ -767,6 +795,75 @@
         <location filename="../RecipesEditDialog.cpp" line="436"/>
         <source>Recipes Edit</source>
         <translation>Редактор рецептов</translation>
+    </message>
+</context>
+<context>
+    <name>TransportBeltsEditDialog</name>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="268"/>
+        <source>OK</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="269"/>
+        <source>Add</source>
+        <translation type="unfinished">Добавить</translation>
+    </message>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="270"/>
+        <source>Remove</source>
+        <translation type="unfinished">Удалить</translation>
+    </message>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="271"/>
+        <source>Cancel</source>
+        <translation type="unfinished">Отмена</translation>
+    </message>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="298"/>
+        <source>Edit transport belt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>Edit modules</source>
+        <translation type="obsolete">Редактор модулей</translation>
+    </message>
+</context>
+<context>
+    <name>TransportBeltsEditModel</name>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="66"/>
+        <source>Icon</source>
+        <translation type="unfinished">Иконка</translation>
+    </message>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="68"/>
+        <source>Transport belt name</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="70"/>
+        <source>Speed</source>
+        <translation type="unfinished">Скорость</translation>
+    </message>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="72"/>
+        <source>Max. density</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="74"/>
+        <source>Max throughput</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../TransportBeltsEditDialog.cpp" line="100"/>
+        <source>New transport belt</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <source>New module</source>
+        <translation type="obsolete">Новый модуль</translation>
     </message>
 </context>
 </TS>

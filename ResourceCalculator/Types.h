@@ -83,7 +83,7 @@ namespace ResourceCalculator
     ID_FACTORY_PechElectro1
   };
 
-  enum class KEY_MODULE: TYPE_KEY {
+  enum class KEY_MODULE : TYPE_KEY {
     ID_CleanSlot,
     ID_Productivity_1,
     ID_Productivity_2,
@@ -94,6 +94,13 @@ namespace ResourceCalculator
     ID_Speed_1,
     ID_Speed_2,
     ID_Speed_3
+  };
+
+  enum class KEY_TRANSPORT_BELT : TYPE_KEY {
+    Unknown,
+    ID_TransportBelt,
+    ID_FastTransportBelt,
+    ID_ExpressTransportBelt
   };
 
 #define DeclareProperty(Name, Type) \
