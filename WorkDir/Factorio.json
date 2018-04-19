@@ -2219,96 +2219,6 @@
    ],
    "ProductionChains" : [
       {
-         "ItemKey" : 25,
-         "Rows" : [
-            {
-               "FactoresCount" : 25.164835164835157,
-               "FactoryID" : 13,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 23.120192307692303,
-               "FactoryID" : 5,
-               "FactoryModules" : []
-            },
-            {
-               "FactoresCount" : 1.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 10.079323794454812,
-               "FactoryID" : 6,
-               "FactoryModules" : [ 1, 7 ]
-            },
-            {
-               "FactoresCount" : 2.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 20.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            }
-         ]
-      },
-      {
-         "ItemKey" : 15,
-         "Rows" : [
-            {
-               "FactoresCount" : 8.5714285714285712,
-               "FactoryID" : 13,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 7.875,
-               "FactoryID" : 6,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 31.428571428571427,
-               "FactoryID" : 13,
-               "FactoryModules" : [ 0, 0, 0 ]
-            },
-            {
-               "FactoresCount" : 28.875,
-               "FactoryID" : 6,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 3.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 3.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 2.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 1.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 2.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            },
-            {
-               "FactoresCount" : 24.0,
-               "FactoryID" : 2,
-               "FactoryModules" : [ 0, 0 ]
-            }
-         ]
-      },
-      {
          "ItemKey" : 27,
          "Rows" : [
             {
@@ -2424,6 +2334,96 @@
          ]
       },
       {
+         "ItemKey" : 25,
+         "Rows" : [
+            {
+               "FactoresCount" : 25.164835164835157,
+               "FactoryID" : 13,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 23.120192307692303,
+               "FactoryID" : 5,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 1.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 9.2301499949219892,
+               "FactoryID" : 6,
+               "FactoryModules" : [ 1, 7 ]
+            },
+            {
+               "FactoresCount" : 2.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 20.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 15,
+         "Rows" : [
+            {
+               "FactoresCount" : 8.5714285714285712,
+               "FactoryID" : 13,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 7.875,
+               "FactoryID" : 6,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 31.428571428571427,
+               "FactoryID" : 13,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 28.875,
+               "FactoryID" : 6,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 3.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 2.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 1.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 2.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 24.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            }
+         ]
+      },
+      {
          "ItemKey" : 19,
          "Rows" : [
             {
@@ -2432,12 +2432,12 @@
                "FactoryModules" : [ 9, 9, 9 ]
             },
             {
-               "FactoresCount" : 0.80000000000000004,
+               "FactoresCount" : 0.32000000000000006,
                "FactoryID" : 8,
                "FactoryModules" : [ 9, 9, 9 ]
             },
             {
-               "FactoresCount" : 0.80000000000000004,
+               "FactoresCount" : 0.32000000000000006,
                "FactoryID" : 8,
                "FactoryModules" : [ 9, 9, 9 ]
             },
@@ -2462,9 +2462,44 @@
                "FactoryModules" : [ 0, 0, 0 ]
             },
             {
-               "FactoresCount" : 0.95999999999999985,
+               "FactoresCount" : 0.3839999999999999,
                "FactoryID" : 7,
                "FactoryModules" : [ 9, 9, 9 ]
+            }
+         ]
+      },
+      {
+         "ItemKey" : 9,
+         "Rows" : [
+            {
+               "FactoresCount" : 17.142857142857142,
+               "FactoryID" : 13,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 31.5,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 11.428571428571427,
+               "FactoryID" : 13,
+               "FactoryModules" : [ 0, 0, 0 ]
+            },
+            {
+               "FactoresCount" : 21.0,
+               "FactoryID" : 4,
+               "FactoryModules" : []
+            },
+            {
+               "FactoresCount" : 6.0,
+               "FactoryID" : 2,
+               "FactoryModules" : [ 0, 0 ]
+            },
+            {
+               "FactoresCount" : 6.0,
+               "FactoryID" : 1,
+               "FactoryModules" : []
             }
          ]
       }

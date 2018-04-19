@@ -146,17 +146,17 @@
     <message>
         <location filename="../IconDispatcherDialog.cpp" line="20"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Ок</translation>
     </message>
     <message>
         <location filename="../IconDispatcherDialog.cpp" line="21"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <location filename="../IconDispatcherDialog.cpp" line="57"/>
         <source>SelectedIcons</source>
-        <translation type="unfinished">Выберете иконку</translation>
+        <translation>Выберете иконку</translation>
     </message>
 </context>
 <context>
@@ -336,57 +336,57 @@
     <message>
         <location filename="../mainwindow.cpp" line="77"/>
         <source>&amp;Open...</source>
-        <translation>&amp;Отрыть ...</translation>
+        <translation>&amp;Отрыть...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="87"/>
         <source>&amp;Save As...</source>
-        <translation>&amp;Сохранить как ...</translation>
+        <translation>&amp;Сохранить как...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="99"/>
         <source>&amp;Add tab...</source>
-        <translation type="unfinished">Добавить вкладку</translation>
+        <translation>Добавить вкладку...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="103"/>
         <source>&amp;Remove current tab</source>
-        <translation type="unfinished">Удалить текушую вкладку</translation>
+        <translation>Удалить текушую вкладку</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="107"/>
         <source>&amp;Recipes edit...</source>
-        <translation type="unfinished">Редактирование рецептов</translation>
+        <translation>Редактирование рецептов...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="111"/>
         <source>&amp;Items edit...</source>
-        <translation>Редактирование предметов</translation>
+        <translation>Редактирование предметов...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="115"/>
         <source>&amp;Factorys edit...</source>
-        <translation>Редактировани фабрик</translation>
+        <translation>Редактирование фабрик...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="119"/>
         <source>&amp;Modules edit...</source>
-        <translation type="unfinished">Редактирование модулей</translation>
+        <translation>Редактирование модулей...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="123"/>
         <source>&amp;Transport belts edit...</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор траспортных конвейеров...</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="127"/>
         <source>&amp;Help</source>
-        <translation type="unfinished">Помощь</translation>
+        <translation>Помощь</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="129"/>
         <source>About &amp;Qt</source>
-        <translation type="unfinished">Об QT</translation>
+        <translation>Об QT</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="83"/>
@@ -396,7 +396,7 @@
     <message>
         <location filename="../mainwindow.cpp" line="32"/>
         <source>Transport belts editor</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор траспортных конвейеров</translation>
     </message>
     <message>
         <location filename="../mainwindow.cpp" line="93"/>
@@ -802,27 +802,27 @@
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="268"/>
         <source>OK</source>
-        <translation type="unfinished"></translation>
+        <translation>Ок</translation>
     </message>
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="269"/>
         <source>Add</source>
-        <translation type="unfinished">Добавить</translation>
+        <translation>Добавить</translation>
     </message>
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="270"/>
         <source>Remove</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="271"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="298"/>
         <source>Edit transport belt</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор траспортных конвейеров</translation>
     </message>
     <message>
         <source>Edit modules</source>
@@ -834,32 +834,32 @@
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="66"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="68"/>
         <source>Transport belt name</source>
-        <translation type="unfinished"></translation>
+        <translation>Название траспортного конвейера</translation>
     </message>
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="70"/>
         <source>Speed</source>
-        <translation type="unfinished">Скорость</translation>
+        <translation>Скорость</translation>
     </message>
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="72"/>
         <source>Max. density</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальная плотность</translation>
     </message>
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="74"/>
         <source>Max throughput</source>
-        <translation type="unfinished"></translation>
+        <translation>Максимальная производительность</translation>
     </message>
     <message>
         <location filename="../TransportBeltsEditDialog.cpp" line="100"/>
         <source>New transport belt</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый траспортный конвейер</translation>
     </message>
     <message>
         <source>New module</source>
