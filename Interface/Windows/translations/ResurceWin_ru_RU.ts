@@ -193,26 +193,26 @@
 <context>
     <name>ItemSelectedDialog</name>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="229"/>
-        <location filename="../ItemSelectedDialog.cpp" line="281"/>
+        <location filename="../ItemSelectedDialog.cpp" line="238"/>
+        <location filename="../ItemSelectedDialog.cpp" line="293"/>
         <source>OK</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="230"/>
-        <location filename="../ItemSelectedDialog.cpp" line="282"/>
+        <location filename="../ItemSelectedDialog.cpp" line="239"/>
+        <location filename="../ItemSelectedDialog.cpp" line="294"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="269"/>
-        <location filename="../ItemSelectedDialog.cpp" line="323"/>
+        <location filename="../ItemSelectedDialog.cpp" line="281"/>
+        <location filename="../ItemSelectedDialog.cpp" line="335"/>
         <source>Select an item</source>
         <translation>Выберете предмет</translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="271"/>
-        <location filename="../ItemSelectedDialog.cpp" line="325"/>
+        <location filename="../ItemSelectedDialog.cpp" line="283"/>
+        <location filename="../ItemSelectedDialog.cpp" line="337"/>
         <source>Select items</source>
         <translation>Выберете предметы</translation>
     </message>
@@ -713,7 +713,7 @@
         <translation type="vanished">Отмена</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="219"/>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="225"/>
         <source>Sum of all items produced</source>
         <translation>Сумма всех производимых предметов</translation>
     </message>

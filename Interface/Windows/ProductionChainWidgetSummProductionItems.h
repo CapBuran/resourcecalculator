@@ -31,6 +31,7 @@ class ProductionChainDelegateSummProductionItems : public QStyledItemDelegate
 public:
   ProductionChainDelegateSummProductionItems(const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+  QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const override;
 };
 
 class ProductionChainWidgetSummProductionItems: public ProductionChainWidgetBase {

@@ -156,16 +156,15 @@ void ProductionChainDelegateSummProductionItems::paint(QPainter * painter, const
       pixmap.loadFromData((uchar*)&icon.GetRawData()[0], (uint)icon.GetRawData().size());
       const int MinCoord = std::min(option.rect.width(), option.rect.height());
       const int MaxCoord = std::max(option.rect.width(), option.rect.height());
-      const int Sub1 = (MaxCoord - MinCoord) / 2;
       QRect rect;
       if (MaxCoord == option.rect.width()) {
         rect.setCoords(
-          option.rect.left() + Sub1, option.rect.top(),
-          option.rect.left() + Sub1 + MinCoord, option.rect.bottom());
+          option.rect.left() + 2, option.rect.top(),
+          option.rect.left() + 2 + MinCoord, option.rect.bottom());
       } else {
         rect.setCoords(
-          option.rect.left(), option.rect.top() + Sub1,
-          option.rect.right(), option.rect.top() + Sub1 + MinCoord);
+          option.rect.left() + 2, option.rect.top(),
+          option.rect.right() + 2, option.rect.top() + MinCoord);
       }
       painter->drawPixmap(rect, pixmap);
     }
@@ -176,6 +175,15 @@ void ProductionChainDelegateSummProductionItems::paint(QPainter * painter, const
     return;
     break;
   }
+}
+
+QSize ProductionChainDelegateSummProductionItems::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
+{
+  if (index.column() == 0)
+  {
+    return QSize(20, option.rect.height());
+  }
+  return QStyledItemDelegate::sizeHint(option, index);
 }
 
 #pragma endregion DELEGATE
@@ -199,7 +207,7 @@ ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionIte
 
   tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-  tableView->setColumnWidth(0, 60);
+  tableView->setColumnWidth(0, 30);
 
   QTreeView *TreeView = new QTreeView();
   TreeView->setModel(&_ModelTree);
@@ -207,8 +215,6 @@ ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionIte
   TreeView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   TreeView->setItemDelegate(new ProductionChainDelegateSummProductionItems(PC));
   TreeView->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
-  //TreeView->header()->setSectionResizeMode(0, QHeaderView::Fixed);
-  //TreeView->setColumnWidth(0, 60);
 
   QItemSelectionModel *sm = tableView->selectionModel();
   connect(sm, SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this, SLOT(on_selectionChanged(QItemSelection, QItemSelection)));

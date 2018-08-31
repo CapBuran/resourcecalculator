@@ -52,6 +52,7 @@ class ItemSelectedDelegate : public QStyledItemDelegate
 public:
   ItemSelectedDelegate(const ResourceCalculator::ParamsCollection &PC, ItemSelectedDialogMode Mode, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+  QSize sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const override;
 };
 
 class ItemSelectedDialog : public QDialog

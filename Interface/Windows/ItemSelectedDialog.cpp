@@ -215,6 +215,15 @@ void ItemSelectedDelegate::paint(QPainter * painter, const QStyleOptionViewItem 
   }
 }
 
+QSize ItemSelectedDelegate::sizeHint(const QStyleOptionViewItem & option, const QModelIndex & index) const
+{
+  if (index.column() == 0)
+  {
+    return QSize(20, option.rect.height());
+  }
+  return QStyledItemDelegate::sizeHint(option, index);
+}
+
 #pragma endregion DELEGATE
 
 ItemSelectedDialog::ItemSelectedDialog(
@@ -237,6 +246,9 @@ ItemSelectedDialog::ItemSelectedDialog(
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->setModel(&_Model);
   _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
+  _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+  //_tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+  //_tableView->setColumnWidth(0, 60);
 
   if (_Mode != ItemSelectedDialogMode::ForSelectOneItem) {
     using namespace ResourceCalculator;
@@ -294,8 +306,8 @@ ItemSelectedDialog::ItemSelectedDialog(const ResourceCalculator::ParamsCollectio
   _tableView->sortByColumn(1, Qt::AscendingOrder);
   _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-  _tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-  _tableView->setColumnWidth(0, 60);
+  //_tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
+  //_tableView->setColumnWidth(0, 60);
 
   if (_Mode != ItemSelectedDialogMode::ForSelectOneItem) {
     using namespace ResourceCalculator;
