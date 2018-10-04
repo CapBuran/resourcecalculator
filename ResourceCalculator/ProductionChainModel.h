@@ -12,6 +12,7 @@ class ProductionChainDataRow : public Jsonable {
 
 private:
 
+  KEY_ITEM    _ItemCurrent;
   KEY_RECIPE  _RecipeCurrent;
   KEY_FACTORY _FactoryCurrent;
 
@@ -45,11 +46,13 @@ public:
   bool FindCountFactorysForItemsCount(int Columb, double Count);
 
   bool ReInit();
-  bool Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols, int InitColumb = -1);
+  bool Init(const ParamsCollection &PC, KEY_ITEM ItemId, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols, int InitColumb = -1);
 
   double GetSummProductivity(const ParamsCollection &PC) const;
   double GetSummSpeed(const ParamsCollection &PC) const;
-
+  
+  DeclareAndDefinitionPropertyReadOnly(ItemCurrent, KEY_ITEM)
+  DeclareAndDefinitionPropertyReadOnly(RecipeCurrent, KEY_RECIPE)
   DeclareAndDefinitionPropertyReadOnly(Factorys, std::vector <KEY_FACTORY>)
   DeclareAndDefinitionPropertyReadOnly(FactoryCurrent, KEY_FACTORY)
   DeclareAndDefinitionPropertyReadOnly(CurrentFactoryName, std::string)
@@ -62,6 +65,7 @@ public:
   DeclareAndDefinitionPropertyReadOnly(CountFactorys, double)
   DeclareAndDefinitionRefReadOnly(CountItems, std::vector <double>)
   DeclareAndDefinitionRefReadOnly(ItemsPerSec, std::vector <double>)
+  
   KEY_FACTORY GetFactoryIdFromIndex(int Index) const;
   void DeleteModules(const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel);
 
@@ -73,6 +77,7 @@ class ProductionChainModel : public ItemBase
 {
 private:
   KEY_ITEM _ItemKey;
+  std::map<KEY_ITEM, KEY_RECIPE> _AnsferItems;
   const ParamsCollection &_PC;
 
   std::vector<KEY_ITEM> _ColsItems;

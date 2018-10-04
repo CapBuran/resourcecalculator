@@ -117,7 +117,7 @@ namespace ResourceCalculator
     return true;
   }
 
-  bool ProductionChainDataRow::Init( const ParamsCollection & PC, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM>&Cols, int InitColumb )
+  bool ProductionChainDataRow::Init( const ParamsCollection & PC, KEY_ITEM ItemId, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM>&Cols, int InitColumb )
   {
     _PC = &PC;
     if (InitColumb == -1) {
@@ -140,6 +140,7 @@ namespace ResourceCalculator
     }
     _InitColumb = InitColumb;
     _ColsItems = Cols;
+    _ItemCurrent = ItemId;
     _RecipeCurrent = RecipeId;
     _FactoryCurrent = FactoryId;
     _CountItems.clear();
@@ -326,10 +327,13 @@ namespace ResourceCalculator
   {
     std::list <KEY_RECIPE> ResultRecipes;
     std::list <KEY_ITEM> ResultItems;
-    std::map<KEY_ITEM, KEY_RECIPE> Ansfer;
+   
+    std::map<KEY_RECIPE, KEY_ITEM> AnsferRecipes;
+
+    if (ItemKey != _ItemKey) _AnsferItems.clear();
 
     ItemResultTree IRT(_PC, ItemKey);
-    IRT.Travelling(100, Ansfer, ResultRecipes, ResultItems);
+    IRT.Travelling(100, _AnsferItems, AnsferRecipes, ResultRecipes, ResultItems);
 
     const Item &RootItem = _PC.IC.GetData().find( ItemKey )->second;
 
@@ -380,7 +384,7 @@ namespace ResourceCalculator
 
     for ( size_t RecipeIdx = 0; RecipeIdx < CountsRecipes; RecipeIdx++, IT_Recipe++ ) {
       KEY_RECIPE RecipeId = *IT_Recipe;
-      _DataRows[RecipeIdx].Init(_PC, RecipeId, KEY_FACTORY::ID_ITEM_NoFind_Factory, _ColsItems);
+      _DataRows[RecipeIdx].Init(_PC, AnsferRecipes[RecipeId], RecipeId, KEY_FACTORY::ID_ITEM_NoFind_Factory, _ColsItems);
     }
 
     _SummSpeeds.clear();
@@ -452,6 +456,11 @@ namespace ResourceCalculator
 
   bool ProductionChainModel::SetRecipe( int Row, KEY_RECIPE RecipeId )
   {
+    if (RecipeId == KEY_RECIPE::ID_RECIPE_FindRecipeROOT)
+    {
+      _AnsferItems[_DataRows[Row].GetItemCurrent()] = KEY_RECIPE::ID_RECIPE_FindRecipeROOT;
+      return _SetItemKey(_ItemKey);
+    }
     return false;
   }
 
@@ -462,7 +471,7 @@ namespace ResourceCalculator
 
   int ProductionChainModel::CountRecipes() const
   {
-    return static_cast<int>( _DataRows.size() );
+    return _DataRows.size();
   }
 
 }

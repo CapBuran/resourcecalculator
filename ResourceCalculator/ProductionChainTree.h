@@ -17,7 +17,9 @@ class ItemResultTree
 {
 private:
   std::vector<KEY_RECIPE> _Result;
-  void _Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer, ResultElement<KEY_RECIPE>& RetRecipes, ResultElement<KEY_ITEM>& RetItems) const;
+  void _Travelling(int Nesting,
+                   const std::map<KEY_ITEM, KEY_RECIPE>& AnsferItems, std::map<KEY_RECIPE, KEY_ITEM>& AnsferRecipes,
+                   ResultElement<KEY_RECIPE>& RetRecipes, ResultElement<KEY_ITEM>& RetItems) const;
 
 public:
   const KEY_RECIPE Parent;
@@ -26,14 +28,18 @@ public:
   ItemResultTree(const ParamsCollection &PC, KEY_ITEM ItemID, KEY_RECIPE Parent = KEY_RECIPE::ID_RECIPE_NoFindRecipe);
   KEY_RECIPE GetChildren(size_t ID) const;
   size_t GetCountChildrens() const;
-  void Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer, std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const;
+  void Travelling(int Nesting,
+                  const std::map<KEY_ITEM, KEY_RECIPE>& AnsferItems, std::map<KEY_RECIPE, KEY_ITEM>& AnsferRecipes,
+                  std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const;
   friend RecipeResultTree;
 };
 
 class RecipeResultTree
 {
 private:
-  void _Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer, ResultElement<KEY_RECIPE>& RetRecipes, ResultElement<KEY_ITEM>& RetItems) const;
+  void _Travelling(int Nesting,
+                   const std::map<KEY_ITEM, KEY_RECIPE>& AnsferItems, std::map<KEY_RECIPE, KEY_ITEM>& AnsferRecipes,
+                   ResultElement<KEY_RECIPE>& RetRecipes, ResultElement<KEY_ITEM>& RetItems) const;
 public:
   const KEY_ITEM   Parent;
   const KEY_RECIPE RecipeID;
@@ -41,7 +47,9 @@ public:
   RecipeResultTree(const ParamsCollection &PC, KEY_RECIPE RecipeID, KEY_ITEM Parent = KEY_ITEM::ID_ITEM_NoFind_Item);
   KEY_ITEM GetChildren(size_t ID) const;
   size_t GetCountChildrens() const;
-  void Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& Ansfer, std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const;
+  void Travelling(int Nesting,
+                  const std::map<KEY_ITEM, KEY_RECIPE>& AnsferItems, std::map<KEY_RECIPE, KEY_ITEM>& AnsferRecipes,
+                  std::list <KEY_RECIPE> &ResultRecipes, std::list <KEY_ITEM> &ResultItems) const;
   friend ItemResultTree;
 };
 

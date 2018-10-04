@@ -41,13 +41,31 @@ QWidget *ProductionChainDelegate0::createEditor( QWidget *parent, const QStyleOp
     combobox->setFrame( true );
     return combobox;
   }
+  if (index.column() == 1)
+  {
+    QComboBox *combobox = new QComboBox(parent);
+    combobox->addItem(tr("Item received earlier"));
+    KEY_RECIPE CurenRecipe = _PCM.GetRow(index.row()).GetRecipeCurrent();
+    const Recipe *recipe = _PC.RC.GetRecipe(CurenRecipe);
+    combobox->setCurrentIndex(0);
+    if (recipe != nullptr) {
+      combobox->addItem(QString::fromStdString(recipe->GetName()));
+      combobox->setCurrentIndex(1);
+    }
+    if (CurenRecipe == KEY_RECIPE::ID_RECIPE_FindRecipeROOT) {
+      combobox->setCurrentIndex(0);
+    }
+    combobox->setGeometry(option.rect);
+    combobox->setFrame(true);
+    return combobox;
+  }
   return ProductionChainDelegateBase::createEditor( parent, option, index );
 }
 
 void ProductionChainDelegate0::setEditorData( QWidget *editor, const QModelIndex &index ) const
 {
   bool IsOk = false;
-  if ( index.column() == 0 ) {
+  if ( index.column() == 0 || index.column() == 1) {
     QComboBox *combobox = dynamic_cast< QComboBox * >( editor );
     combobox->setCurrentText( index.model()->data( index, Qt::EditRole ).toString() );
     IsOk = true;
@@ -60,7 +78,7 @@ void ProductionChainDelegate0::setEditorData( QWidget *editor, const QModelIndex
 void ProductionChainDelegate0::setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const
 {
   bool IsOk = false;
-  if ( index.column() == 0 ) {
+  if ( index.column() == 0 || index.column() == 1) {
     QComboBox *combobox = dynamic_cast< QComboBox * >( editor );
     int value = combobox->currentIndex();
     model->setData( index, value, Qt::EditRole );
@@ -91,6 +109,23 @@ void ProductionChainDelegate0::paint( QPainter * painter, const QStyleOptionView
     comboBoxOption.state = QStyle::State_Enabled;
     QApplication::style()->drawComplexControl( QStyle::CC_ComboBox, &comboBoxOption, painter, 0 );
     QApplication::style()->drawControl( QStyle::CE_ComboBoxLabel, &comboBoxOption, painter, 0 );
+    break;
+  }
+  case 1: {
+    KEY_RECIPE CurenRecipe = _PCM.GetRow(index.row()).GetRecipeCurrent();
+    const Recipe *recipe = _PC.RC.GetRecipe(CurenRecipe);
+    if (recipe != nullptr)
+    {
+      QString Text = QString::fromStdString(recipe->GetName());
+      QStyleOptionComboBox comboBoxOption;
+      comboBoxOption.rect = option.rect;
+      comboBoxOption.currentText = Text;
+      comboBoxOption.state = QStyle::State_Enabled;
+      QApplication::style()->drawComplexControl(QStyle::CC_ComboBox, &comboBoxOption, painter, 0);
+      QApplication::style()->drawControl(QStyle::CE_ComboBoxLabel, &comboBoxOption, painter, 0);
+    } else {
+      QStyledItemDelegate::paint(painter, option, index);
+    }
     break;
   }
   default:
@@ -258,6 +293,17 @@ bool ProductionChainModel::setData( const QModelIndex &index, const QVariant &va
     emit( AllDataChanged() );
     return true;
   }
+  if (index.column() == 1)
+  {
+    beginResetModel();
+    if (value.toInt() == 0)
+    {
+      _PCM.SetRecipe(index.row(), KEY_RECIPE::ID_RECIPE_FindRecipeROOT);
+    }
+    endResetModel();
+    emit(AllDataChanged());
+    return true;
+  }
   if (index.column() == 2 || index.column() == 3) {
     beginResetModel();
     const ResourceCalculator::FactoryModules &FM = value.value<ResourceCalculator::FactoryModules>();
@@ -291,7 +337,7 @@ Qt::ItemFlags ProductionChainModel::flags( const QModelIndex &index ) const
     return Qt::ItemIsEnabled;
   int CI = _PCM.CountItems();
   Qt::ItemFlags flags = QAbstractTableModel::flags( index );
-  if ( index.column() == 0 || index.column() == 2 || index.column() == 3 || index.column() == 7 ) {
+  if ( index.column() == 0 || index.column() == 1 || index.column() == 2 || index.column() == 3 || index.column() == 7 ) {
     flags |= Qt::ItemIsEditable;
   }
   if ( index.column() > CI + 7 && index.row() < _PCM.CountRecipes() ) {

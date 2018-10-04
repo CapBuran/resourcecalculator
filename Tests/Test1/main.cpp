@@ -40,14 +40,15 @@ int main(int argc, char ** argv) {
 
   std::list <KEY_RECIPE> ResultRecipes;
   std::list <KEY_ITEM> ResultItems;
-  std::map<KEY_ITEM, KEY_RECIPE> Ansfer;
+  std::map<KEY_ITEM, KEY_RECIPE> AnsferItems;
+  std::map<KEY_RECIPE, KEY_ITEM> AnsferRecipes;
 
   std::list <KEY_RECIPE> ResultRecipes2;
   std::list <KEY_ITEM>   ResultItems2;
 
   ItemResultTree IRT2(PC, KeyFind);
 
-  IRT2.Travelling(150, Ansfer, ResultRecipes2, ResultItems2);
+  IRT2.Travelling(150, AnsferItems, AnsferRecipes, ResultRecipes2, ResultItems2);
 
   ProductionChainModel PCM(PC, KEY_ITEM::ID_ITEM_science_pack_1);
 

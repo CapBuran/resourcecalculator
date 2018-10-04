@@ -155,10 +155,11 @@ int main(int argc, char ** argv) {
 
   std::list <KEY_RECIPE> ResultRecipes;
   std::list <KEY_ITEM> ResultItems;
-  std::map<KEY_ITEM, KEY_RECIPE> Ansfer;
+  std::map<KEY_ITEM, KEY_RECIPE> AnsferItems;
+  std::map<KEY_RECIPE, KEY_ITEM> AnsferRecipes;
 
   ItemResultTree IRT(PCRestore, KEY_ITEM::ID_ITEM_science_pack_1);
-  IRT.Travelling(8, Ansfer, ResultRecipes, ResultItems);
+  IRT.Travelling(8, AnsferItems, AnsferRecipes, ResultRecipes, ResultItems);
 
   std::string sss("Русские буквы");
 
