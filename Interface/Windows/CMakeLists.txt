@@ -76,7 +76,10 @@ add_executable(ResurceWin WIN32 ${Program_SRCS} ${Program_HDRS} ${Program_TRS} $
 
 qt5_use_modules(ResurceWin Widgets)
 
-target_link_libraries(ResurceWin ResourceCalculator)
+target_include_directories(ResurceWin PRIVATE ${CMAKE_BINARY_DIR}/ThreeParty/External/zlib-1.2.11)
+target_include_directories(ResurceWin PRIVATE ${CMAKE_BINARY_DIR}/bin/ThreeParty/External/zlib-1.2.11)
+
+target_link_libraries(ResurceWin ResourceCalculator zlibstatic)
 
 add_dependencies(ResurceWin translations)
 
