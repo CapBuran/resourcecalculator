@@ -48,6 +48,9 @@ download_three_party_tar_gz( "https://zlib.net/zlib-1.2.11.tar.gz" "zlib-1.2.11.
 add_subdirectory(${CMAKE_BINARY_DIR}/ThreeParty/External/zlib-1.2.11)
 
 add_subdirectory(ThreeParty)
+
+set (ZLIB_INCLUDES ${CMAKE_BINARY_DIR}/ThreeParty/External/zlib-1.2.11 ${CMAKE_BINARY_DIR}/bin/ThreeParty/External/zlib-1.2.11)
+
 add_subdirectory(ResourceCalculator)
 add_subdirectory(Interface)
 add_subdirectory(Tests)
