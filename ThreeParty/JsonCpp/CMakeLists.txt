@@ -1,7 +1,7 @@
 file(GLOB JSON_HEADERS include/json/*.h)
 file(GLOB JSON_SOURCES src/*.cpp)
 
-ADD_LIBRARY(JsonCpp ${JSON_SOURCES} ${JSON_HEADERS})
+ADD_LIBRARY(JsonCpp STATIC ${JSON_SOURCES} ${JSON_HEADERS})
 
 set_property(TARGET JsonCpp PROPERTY FOLDER "Three Party")
 

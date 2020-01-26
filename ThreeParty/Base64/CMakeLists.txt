@@ -1,4 +1,4 @@
-add_library(Base64)
+add_library(Base64 STATIC)
 
 target_sources_local(Base64 PRIVATE base64.h base64.cpp)
 

@@ -11,6 +11,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/CMake" ${CMAKE_MODULE_PATH})
 include(GiveMePath)
 include(CMake/CMakeFunctions.cmake)
 include(CMake/CMakeDownload.cmake)
+include(DownloadProject)
 
 set(CMAKE_C_STANDARD 11)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -44,12 +45,32 @@ find_package(Qt5 REQUIRED Widgets LinguistTools)
 
 GIVE_ME_PATH()
 
-download_three_party_tar_gz( "https://zlib.net/zlib-1.2.11.tar.gz" "zlib-1.2.11.tar.gz")
-add_subdirectory(${CMAKE_BINARY_DIR}/ThreeParty/External/zlib-1.2.11)
+download_project(PROJ                libzip
+                 GIT_REPOSITORY      https://github.com/nih-at/libzip.git
+                 GIT_TAG             master
+                 UPDATE_DISCONNECTED 1
+)
+
+download_project(PROJ                zlib
+                 GIT_REPOSITORY      https://github.com/madler/zlib.git
+                 GIT_TAG             master
+                 UPDATE_DISCONNECTED 1
+)
+
+SET(ENABLE_GNUTLS OFF)
+SET(ENABLE_MBEDTLS OFF)
+SET(ENABLE_OPENSSL OFF)
+SET(ENABLE_WINDOWS_CRYPTO OFF)
+
+add_subdirectory(${zlib_SOURCE_DIR} ${zlib_BINARY_DIR})
+SET(ZLIB_INCLUDE_DIR ${zlib_SOURCE_DIR} ${zlib_BINARY_DIR})
+SET(ZLIB_LIBRARY zlibstatic)
+
+add_subdirectory(${libzip_SOURCE_DIR} ${libzip_BINARY_DIR})
+SET(ZIPLIB_INCLUDE_DIR ${libzip_SOURCE_DIR}/lib ${libzip_BINARY_DIR})
+SET(ZIPLIB_LIBRARY zip)
 
 add_subdirectory(ThreeParty)
-
-set (ZLIB_INCLUDES ${CMAKE_BINARY_DIR}/ThreeParty/External/zlib-1.2.11 ${CMAKE_BINARY_DIR}/bin/ThreeParty/External/zlib-1.2.11)
 
 add_subdirectory(ResourceCalculator)
 add_subdirectory(Interface)

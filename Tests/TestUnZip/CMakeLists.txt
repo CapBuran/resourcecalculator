@@ -3,8 +3,8 @@ file(GLOB Program_HDRS *.h  )
 
 add_executable(TestUnZip ${Program_SRCS} ${Program_HDRS})
 
-target_include_directories(TestUnZip PRIVATE ${ZLIB_INCLUDES})
-
-target_link_libraries(TestUnZip zlibstatic)
+target_include_directories(TestUnZip PRIVATE ${ZIPLIB_INCLUDE_DIR})
+#target_link_libraries(TestUnZip ${ZIPLIB_LIBRARY} ${ZLIB_LIBRARY})
+target_link_libraries(TestUnZip ${ZIPLIB_LIBRARY})
 
 set_property(TARGET TestUnZip PROPERTY FOLDER "TESTS")

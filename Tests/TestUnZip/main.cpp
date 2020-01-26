@@ -1,65 +1,29 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
+#include <zip.h>
 
-#include <zlib.h>
-
-#define TESTZIP "E:\\11\\resourcecalculator\\WorkDir\\VoidChestPlus_2.2.2.zip"
-#define CHUNK_SIZE 4096
-
-int main(int argc, char ** argv)
+int main(int argc, char **argv)
 {
-  FILE *src = fopen(TESTZIP, "rb");;
-  FILE *dst = fopen(TESTZIP "22", "wb"); ;
+  struct zip *zip_file; // дескриптор zip файла
+  int err; // переменая для возврата кодов ошибок
+  int files_total; // количество файлов в архиве
 
-  uint8_t inbuff[CHUNK_SIZE];
-  uint8_t outbuff[CHUNK_SIZE];
-  z_stream stream = { 0 };
+  if (argc < 2) {
+    fprintf(stderr, "usage: %s <zipfile>\n", argv[0]);
+    return -1;
+  };
 
-  int result = inflateInit(&stream);
-  if (result != Z_OK) {
-    fprintf(stderr, "inflateInit(...) failed!\n");
-    return false;
-  }
+  // открываем файл zip с именем переданным в качестве параметра
+  zip_file = zip_open(argv[1], 0, &err);
+  if (!zip_file) {
+    fprintf(stderr, "Error: can't open file %s\n", argv[1]);
+    return -1;
+  };
 
-  do {
-    stream.avail_in = fread(inbuff, 1, CHUNK_SIZE, src);
-    if (ferror(src)) {
-      fprintf(stderr, "fread(...) failed!\n");
-      inflateEnd(&stream);
-      return false;
-    }
+  files_total = zip_get_num_files(zip_file); // количество файлов в архиве
+  printf("Files in ZIP: %d\n", files_total);
 
-    if (stream.avail_in == 0)
-      break;
-
-    stream.next_in = inbuff;
-
-    do {
-      stream.avail_out = CHUNK_SIZE;
-      stream.next_out = outbuff;
-      result = inflate(&stream, Z_NO_FLUSH);
-      if (result == Z_NEED_DICT || result == Z_DATA_ERROR ||
-          result == Z_MEM_ERROR) {
-        fprintf(stderr, "inflate(...) failed: %d\n", result);
-        inflateEnd(&stream);
-        return false;
-      }
-
-      uint32_t nbytes = CHUNK_SIZE - stream.avail_out;
-
-      if (fwrite(outbuff, 1, nbytes, dst) != nbytes ||
-          ferror(dst)) {
-        fprintf(stderr, "fwrite(...) failed!\n");
-        inflateEnd(&stream);
-        return false;
-      }
-    } while (stream.avail_out == 0);
-  } while (result != Z_STREAM_END);
-
-  inflateEnd(&stream);
-  return result == Z_STREAM_END;
+  zip_close(zip_file);
 
   return 0;
 }

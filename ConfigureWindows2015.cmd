@@ -18,8 +18,8 @@ if exist "C:\Program Files\CMake\bin\cmake.exe" set CMAKE_EXE="C:\Program Files\
 if not exist "%REP%\bin" MKDIR "%REP%\bin"
 
 PUSHD "%REP%\bin"
-%CMAKE_EXE% -A x64 "%REP%"
-exit
+::%CMAKE_EXE% -A x64 "%REP%"
+::exit
 %CMAKE_EXE% -A x64 "%REP%" > "%REP%\cmake.log" 2>&1
 %CMAKE_EXE% --build . --config debug  > "%REP%\build_debug.log" 2>&1
 %CMAKE_EXE% --build . --config release  > "%REP%\build_release.log" 2>&1

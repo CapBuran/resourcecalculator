@@ -2,3 +2,5 @@
 /*.log
 /ThreeParty
 CMakeLists.txt.user
+/*.tar.xz
+/*.tar.gz
