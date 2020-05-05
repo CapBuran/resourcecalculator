@@ -10,12 +10,11 @@ namespace ResourceCalculator {
   {
   public:
 
-    void ADD(std::string KeyIcon, const std::vector<char> &rawdata);
-    void ADD(std::string KeyIcon, std::string fullpath);
-    void Delete(std::string KeyIcon);
+    void ADD(const Icon& icon);
+    void Delete(std::string keyIcon);
 
-    int ReadAll(const std::string &freffix_add, const std::string &freffix_delte, const std::list<std::string> &files, bool IsClean = false);
-    int ReadRawDataAsJson(const char* RawData);
+    //int ReadAll(const std::string &freffix_add, const std::string &freffix_delte, const std::list<std::string> &files, bool IsClean = false);
+    //int ReadRawDataAsJson(const char* RawData);
 
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;

@@ -242,7 +242,7 @@ bool ItemEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, c
       if (_IconSelectedDialog.exec()) {
         const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
         if (Icon != nullptr) {
-          model->setData(index, QString::fromStdString(Icon->GetIconPath()));
+          model->setData(index, QString::fromStdString(Icon->GetKeyPath()));
         }
       }
       return false;

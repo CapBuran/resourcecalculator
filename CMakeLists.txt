@@ -75,6 +75,7 @@ SET(ZIPLIB_LIBRARY zip)
 add_subdirectory(ThreeParty)
 
 add_subdirectory(ResourceCalculator)
+add_subdirectory(FactorioImport)
 add_subdirectory(Interface)
 add_subdirectory(Tests)
 add_subdirectory(Program)

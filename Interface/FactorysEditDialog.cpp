@@ -437,7 +437,7 @@ bool FactorysEditDialogDelegate::editorEvent(QEvent * event, QAbstractItemModel 
       if (_IconSelectedDialog.exec()) {
         const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
         if (Icon != nullptr) {
-          model->setData(index, QString::fromStdString(Icon->GetIconPath()), Qt::EditRole);
+          model->setData(index, QString::fromStdString(Icon->GetKeyPath()), Qt::EditRole);
         }
       }
       return false;

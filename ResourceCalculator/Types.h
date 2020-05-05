@@ -115,6 +115,9 @@ namespace ResourceCalculator
   Type ClassName::Get##Name() const { return _##Name; } \
   void ClassName::Set##Name(Type Name) { _##Name = Name; }
 
+#define DefinitionPropertyReadOnly(Name, Type, ClassName) \
+  Type ClassName::Get##Name() const { return _##Name; }
+
 #define DeclareAndDefinitionPropertyReadOnly(Name, Type) \
   inline Type Get##Name() const { return _##Name; }
 
@@ -144,7 +147,7 @@ namespace ResourceCalculator
   protected:
     std::string _Name;
     std::string _IconPath;
-
+    int         _IconSize;
     inline virtual ~ItemBase()
     {
     }
@@ -153,6 +156,7 @@ namespace ResourceCalculator
 
     DeclareAndDefinitionProperty( Name, std::string )
     DeclareAndDefinitionProperty( IconPath, std::string )
+    DeclareAndDefinitionProperty( IconSize, int )
 
     virtual int ReadFromJson( const Json::Value & jsonPr ) override;
     virtual int WriteToJson( Json::Value & jsonPr ) const override;

@@ -8,25 +8,34 @@
 namespace ResourceCalculator {
 
 
-  void IconCollection::ADD(std::string KeyIcon, const std::vector<char> &rawdata)
-  {
-    Icon AddIcon;
-    AddIcon.SetIconPath(KeyIcon);
-    AddIcon.SetRawData(rawdata.size(), &rawdata[0]);
-    _Icons[KeyIcon] = AddIcon;
-  }
+  //void IconCollection::ADD(std::string KeyIcon, const std::vector<char> &rawdata)
+  //{
+  //  Icon AddIcon;
+  //  AddIcon.SetIconPath(KeyIcon);
+  //  AddIcon.SetRawData(rawdata.size(), &rawdata[0]);
+  //  _Icons[KeyIcon] = AddIcon;
+  //}
 
-  void IconCollection::ADD(std::string KeyIcon, std::string fullpath)
+  //void IconCollection::ADD(std::string KeyIcon, const Icon& rawdata)
+  //{
+  //}
+
+  //void IconCollection::ADD(std::string KeyIcon, std::string fullpath)
+  //{
+  //  std::ifstream in(fullpath, std::ios::binary);
+  //  std::vector<char> contents;
+  //  in.seekg(0, std::ios::end);
+  //  contents.resize(in.tellg());
+  //  in.seekg(0, std::ios::beg);
+  //  in.read(&contents[0], contents.size());
+  //  in.close();
+  //  in.clear();
+  //  ADD(KeyIcon, contents);
+  //}
+
+  void IconCollection::ADD(const Icon& icon)
   {
-    std::ifstream in(fullpath, std::ios::binary);
-    std::vector<char> contents;
-    in.seekg(0, std::ios::end);
-    contents.resize(in.tellg());
-    in.seekg(0, std::ios::beg);
-    in.read(&contents[0], contents.size());
-    in.close();
-    in.clear();
-    ADD(KeyIcon, contents);
+    _Icons[icon.GetKeyPath()] = icon;
   }
 
   void IconCollection::Delete(std::string KeyIcon)
@@ -34,29 +43,29 @@ namespace ResourceCalculator {
     _Icons.erase(KeyIcon);
   }
 
-  int IconCollection::ReadAll(const std::string &freffix_add, const std::string &freffix_delte, const std::list<std::string> &files, bool IsClean)
-  {
-    if(IsClean) _Icons.clear();
-    for (auto & file: files){
-      std::string keyToAdd = file;
-      size_t p = keyToAdd.find(freffix_delte);
-      if (p != std::string::npos) {
-        keyToAdd.erase(p, freffix_delte.length());
-      }
-      keyToAdd = freffix_add + keyToAdd;
-      ADD(keyToAdd, file);
-    }
-    return 0;
-  }
+  //int IconCollection::ReadAll(const std::string &freffix_add, const std::string &freffix_delte, const std::list<std::string> &files, bool IsClean)
+  //{
+  //  if(IsClean) _Icons.clear();
+  //  for (auto & file: files){
+  //    std::string keyToAdd = file;
+  //    size_t p = keyToAdd.find(freffix_delte);
+  //    if (p != std::string::npos) {
+  //      keyToAdd.erase(p, freffix_delte.length());
+  //    }
+  //    keyToAdd = freffix_add + keyToAdd;
+  //    ADD(keyToAdd, file);
+  //  }
+  //  return 0;
+  //}
 
-  int IconCollection::ReadRawDataAsJson(const char* RawData)
-  {
-    Json::Value jsonPrRestore;
-    Json::Reader JsonReader;
-    bool parsingSuccessful = JsonReader.parse(RawData, jsonPrRestore);
-    ReadFromJson(jsonPrRestore["Icons"]);
-    return 0;
-  }
+  //int IconCollection::ReadRawDataAsJson(const char* RawData)
+  //{
+  //  Json::Value jsonPrRestore;
+  //  Json::Reader JsonReader;
+  //  bool parsingSuccessful = JsonReader.parse(RawData, jsonPrRestore);
+  //  ReadFromJson(jsonPrRestore["Icons"]);
+  //  return 0;
+  //}
 
   int IconCollection::ReadFromJson(const Json::Value & jsonPr)
   {
@@ -67,7 +76,7 @@ namespace ResourceCalculator {
       std::vector<char> Data;
       std::copy(DataBase64_.begin(), DataBase64_.end(), DataBase64.begin());
       base64_decode(DataBase64, Data);
-      ADD(keyToAdd, Data);
+      //ADD(keyToAdd, Data);
     }
     return 0;
   }

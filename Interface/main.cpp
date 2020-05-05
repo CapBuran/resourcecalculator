@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
     QFile file(":/Res/IconsDefault");
     if (file.open(QIODevice::ReadOnly)) {
       QByteArray RawData = file.readAll();
-      PC.Icons.ReadRawDataAsJson(RawData.constData());
+      //PC.Icons.ReadRawDataAsJson(RawData.constData());
     }
   }
 
