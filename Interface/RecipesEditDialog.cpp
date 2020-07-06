@@ -36,7 +36,7 @@ QVariant RecipeListModel::data(const QModelIndex &index, int role) const
     const Recipe &R = _listOfRecipesId[index.row()].second;
     switch (index.column()) {
     case 0://Icon
-      return QString::fromStdString(R.GetIconPath());
+      return QString::fromStdString(R.GetIconKey());
       break;
     case 1://Recipe name
       return QString::fromStdString(R.GetName());
@@ -112,7 +112,7 @@ bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, i
     switch (index.column()) {
     case 0://Icon
     {
-      R.SetIconPath(value.toString().toStdString());
+      R.SetIconKey(value.toString().toStdString());
       break;
     }
     case 1://Recipe name

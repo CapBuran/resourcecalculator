@@ -64,9 +64,9 @@ void MainWindow::_setupTabs()
   if (ToADDs.size() > 0) {
     _PCTW->AddTabs(ToADDs);
   } else {
-    _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_1);
-    _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_Sherst);
-    _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_2);
+   // _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_1);
+    //_PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_Sherst);
+    //_PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_2);
   }
 }
 

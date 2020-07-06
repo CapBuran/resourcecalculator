@@ -8,13 +8,13 @@
 namespace ResourceCalculator {
 
 
-  //void IconCollection::ADD(std::string KeyIcon, const std::vector<char> &rawdata)
-  //{
-  //  Icon AddIcon;
-  //  AddIcon.SetIconPath(KeyIcon);
-  //  AddIcon.SetRawData(rawdata.size(), &rawdata[0]);
-  //  _Icons[KeyIcon] = AddIcon;
-  //}
+  void IconCollection::ADD(std::string KeyIcon, const std::vector<char> &rawdata)
+  {
+    Icon AddIcon;
+    AddIcon.SetKeyPath(KeyIcon);
+    AddIcon.SetRawData(rawdata.size(), &rawdata[0]);
+    _Icons[KeyIcon] = AddIcon;
+  }
 
   //void IconCollection::ADD(std::string KeyIcon, const Icon& rawdata)
   //{
@@ -76,7 +76,7 @@ namespace ResourceCalculator {
       std::vector<char> Data;
       std::copy(DataBase64_.begin(), DataBase64_.end(), DataBase64.begin());
       base64_decode(DataBase64, Data);
-      //ADD(keyToAdd, Data);
+      ADD(keyToAdd, Data);
     }
     return 0;
   }

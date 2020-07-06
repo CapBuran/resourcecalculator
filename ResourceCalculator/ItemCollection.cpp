@@ -5,7 +5,7 @@
 namespace ResourceCalculator {
 
   ItemCollection::ItemCollection( RecipeCollection &RC ):
-    _RC( RC ), _LastGenGen(0)
+    _RC( RC ), _LastGenGen(10)
   {
   }
 

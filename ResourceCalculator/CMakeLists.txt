@@ -50,6 +50,8 @@ source_group(Other    FILES Serializer.h)
 
 add_library(ResourceCalculator STATIC ${ResourceCalculator_HEADERS} ${ResourceCalculator_SOURCES} )
 
+target_include_directories(ResourceCalculator PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+
 target_link_libraries(ResourceCalculator PUBLIC Base64 JsonCpp)
 
-set_property(TARGET ResourceCalculator PROPERTY FOLDER "Calculator")
+set_target_properties(ResourceCalculator PROPERTIES FOLDER "ResourceCalculator")

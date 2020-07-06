@@ -293,7 +293,7 @@ bool FactorysEditDialogModel::setData(const QModelIndex & index, const QVariant 
       QString str = value.toString();
       std::string d = str.toStdString();
       if (str.size() > 0) {
-        _listOfItemsId[index.row()].second.SetIconPath(str.toStdString());
+        _listOfItemsId[index.row()].second.SetIconKey(str.toStdString());
       }
       break;
     }
@@ -386,7 +386,7 @@ void FactorysEditDialogDelegate::paint(QPainter * painter, const QStyleOptionVie
   {
     using namespace ResourceCalculator;
     const Factory &factory = _Model.GetCurrentFactory(index.row());
-    const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon(factory.GetIconPath());
+    const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon(factory.GetIconKey());
     if (icon.GetRawData().size() > 0) {
       QPixmap pixmap;
       bool dd = pixmap.loadFromData((uchar*)&icon.GetRawData()[0], (uint)icon.GetRawData().size());

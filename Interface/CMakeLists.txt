@@ -83,8 +83,9 @@ target_link_libraries(ResurceWin ResourceCalculator zlibstatic)
 
 add_dependencies(ResurceWin translations)
 
+set_target_properties(ResurceWin PROPERTIES FOLDER "ResourceCalculator")
+set_target_properties(translations PROPERTIES FOLDER "ResourceCalculator")
+
 if (WIN32)
-configure_file( ${CMAKE_SOURCE_DIR}/CMake/template.vcxproj.user_path_workdir ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.vcxproj.user)
-set_property(TARGET ResurceWin PROPERTY FOLDER "Interface")
-set_property(TARGET translations PROPERTY FOLDER "Interface")
+  configure_file( ${CMAKE_SOURCE_DIR}/CMake/template.vcxproj.user_path_workdir ${CMAKE_CURRENT_BINARY_DIR}/ResurceWin.vcxproj.user)
 endif (WIN32)

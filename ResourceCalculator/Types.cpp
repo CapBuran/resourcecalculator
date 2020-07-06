@@ -5,7 +5,7 @@ namespace ResourceCalculator {
   int ItemBase::ReadFromJson(const Json::Value & jsonPr)
   {
     _Name = jsonPr["Name"]["ru"].asString();
-    _IconPath = jsonPr["IconPath"].asString();
+    _IconKey = jsonPr["IconPath"].asString();
     return 0;
   }
 
@@ -13,7 +13,7 @@ namespace ResourceCalculator {
   {
     jsonPr["Name"]["ru"] = _Name;
     jsonPr["Name"]["en"] = "English lang";
-    jsonPr["IconPath"] = _IconPath;
+    jsonPr["IconPath"] = _IconKey;
     return 0;
   }
 

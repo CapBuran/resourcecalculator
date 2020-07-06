@@ -16,6 +16,7 @@ namespace ResourceCalculator {
     ~FactoryCollection();
 
     void ADD(const Factory);
+    void ADD(KEY_TYPE_FACTORY type, const FactoryType factoryType);
 
     const Factory& GetFactory( KEY_FACTORY Key ) const;
     const FactoryType& GetFactoryType( KEY_FACTORY Key ) const;

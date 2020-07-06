@@ -867,4 +867,20 @@ inline void swap(Json::Value& a, Json::Value& b) { a.swap(b); }
 #pragma warning(pop)
 #endif // if defined(JSONCPP_DISABLE_DLL_INTERFACE_WARNING)
 
+class Jsonable {
+protected:
+  inline bool JsonCheckIsEmptyField(const Json::Value& obj_json, std::string obj_path = "", bool critical = false) const
+  {
+    if (obj_json.empty()) {
+      if (critical)
+        throw ("\"" + obj_path + "\" field is empty.\n");
+      return true;
+    }
+    return false;
+  }
+public:
+  virtual int ReadFromJson(const Json::Value& jsonPr) = 0;
+  virtual int WriteToJson(Json::Value& jsonPr) const = 0;
+};
+
 #endif // CPPTL_JSON_H_INCLUDED

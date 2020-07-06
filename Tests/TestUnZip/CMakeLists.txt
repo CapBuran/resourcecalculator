@@ -7,4 +7,4 @@ target_include_directories(TestUnZip PRIVATE ${ZIPLIB_INCLUDE_DIR})
 #target_link_libraries(TestUnZip ${ZIPLIB_LIBRARY} ${ZLIB_LIBRARY})
 target_link_libraries(TestUnZip ${ZIPLIB_LIBRARY})
 
-set_property(TARGET TestUnZip PROPERTY FOLDER "TESTS")
+set_target_properties(TestUnZip PROPERTIES FOLDER "TESTS")

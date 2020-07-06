@@ -33,7 +33,7 @@ QVariant TransportBeltsEditModel::data( const QModelIndex & index, int role ) co
   if ( role == Qt::DisplayRole ) {
     switch ( index.column() ) {
     case 0:
-      return QString::fromStdString( _listOfItemsId[index.row()].second.GetIconPath() );
+      return QString::fromStdString( _listOfItemsId[index.row()].second.GetIconKey() );
       break;
     case 1:
       return QString::fromStdString( _listOfItemsId[index.row()].second.GetName() );
@@ -131,7 +131,7 @@ bool TransportBeltsEditModel::setData( const QModelIndex & index, const QVariant
     double val = 0.0;
     switch ( index.column() ) {
     case 0:
-      _listOfItemsId[index.row()].second.SetIconPath( value.toString().toStdString() );
+      _listOfItemsId[index.row()].second.SetIconKey( value.toString().toStdString() );
       break;
     case 1:
       if(value.toString().length() > 0)

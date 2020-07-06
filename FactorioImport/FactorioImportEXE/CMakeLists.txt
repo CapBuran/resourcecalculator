@@ -8,4 +8,8 @@ target_link_libraries(FactorioImportEXE FactorioImport)
 #configure_file( ${CMAKE_SOURCE_DIR}/CMake/template.vcxproj.user_path_workdir ${CMAKE_CURRENT_BINARY_DIR}/Test1.vcxproj.user)
 #endif (WIN32)
 
-set_property(TARGET FactorioImportEXE PROPERTY FOLDER "Imports")
+set_target_properties(FactorioImportEXE PROPERTIES FOLDER "Factorio")
+
+if (WIN32)
+  configure_file( ${CMAKE_SOURCE_DIR}/CMake/template.vcxproj.user_path_workdir ${CMAKE_CURRENT_BINARY_DIR}/FactorioImportEXE.vcxproj.user)
+endif (WIN32)

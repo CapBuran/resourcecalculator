@@ -6,7 +6,7 @@
 #include <set>
 #include <list>
 #include <map>
-#include "json/json.h"
+#include <json/json.h>
 
 namespace ResourceCalculator
 {
@@ -127,27 +127,10 @@ namespace ResourceCalculator
 #define DeclarePropertyReadOnly(Name, Type) \
   Type Get##Name() const;
 
-  class Jsonable {
-  protected:
-    inline bool JsonCheckIsEmptyField( const Json::Value &obj_json, std::string obj_path = "", bool critical = false ) const
-    {
-      if ( obj_json.empty() ) {
-        if ( critical )
-          throw ( "\"" + obj_path + "\" field is empty.\n" );
-        return true;
-      }
-      return false;
-    }
-  public:
-    virtual int ReadFromJson( const Json::Value & jsonPr ) = 0;
-    virtual int WriteToJson( Json::Value & jsonPr ) const = 0;
-  };
-
   class ItemBase: public Jsonable {
   protected:
     std::string _Name;
-    std::string _IconPath;
-    int         _IconSize;
+    std::string _IconKey;
     inline virtual ~ItemBase()
     {
     }
@@ -155,8 +138,7 @@ namespace ResourceCalculator
   public:
 
     DeclareAndDefinitionProperty( Name, std::string )
-    DeclareAndDefinitionProperty( IconPath, std::string )
-    DeclareAndDefinitionProperty( IconSize, int )
+    DeclareAndDefinitionProperty( IconKey, std::string )
 
     virtual int ReadFromJson( const Json::Value & jsonPr ) override;
     virtual int WriteToJson( Json::Value & jsonPr ) const override;

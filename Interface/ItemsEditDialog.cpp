@@ -37,7 +37,7 @@ QVariant ItemsEditModel::data(const QModelIndex &index, int role) const
     const Item &R = _listOfItemsId.at(index.row()).second;
     switch (index.column()) {
     case 0:
-      return QString::fromStdString(R.GetIconPath());
+      return QString::fromStdString(R.GetIconKey());
       break;
     case 1:
       return QString::fromUtf8(R.GetName().c_str());
@@ -93,7 +93,7 @@ bool ItemsEditModel::setData(const QModelIndex &index, const QVariant &value, in
   if (index.isValid() && role == Qt::EditRole) {
     switch (index.column()) {
     case 0: {
-      _listOfItemsId[index.row()].second.SetIconPath(value.toString().toStdString());
+      _listOfItemsId[index.row()].second.SetIconKey(value.toString().toStdString());
       break;
     }
     case 1: {

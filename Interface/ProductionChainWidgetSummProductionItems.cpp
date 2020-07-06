@@ -40,7 +40,7 @@ QVariant ProductionChainModelSummProductionItems::data( const QModelIndex &index
   if (index.column() == 0) {
     const Item *item = _PC.IC.GetItemByID(index.row());
     if (item != nullptr) {
-      return QString::fromStdString(item->GetIconPath());
+      return QString::fromStdString(item->GetIconKey());
     }
   }
   

@@ -1,700 +1,692 @@
-   0.001 2020-05-05 15:56:43; Factorio 0.18.22 (build 51330, win64, steam)
-   0.001 Operating system: Windows 10 (version 1903) 
-   0.001 Program arguments: "E:\SteamLibrary\steamapps\common\Factorio\bin\x64\Factorio.exe" 
-   0.001 Read data path: E:/SteamLibrary/steamapps/common/Factorio/data
-   0.001 Write data path: C:/Users/Vasiliy/AppData/Roaming/Factorio [168951/456378MB]
-   0.002 Binaries path: E:/SteamLibrary/steamapps/common/Factorio/bin
-   0.020 System info: [CPU:        Intel(R) Xeon(R) CPU E5-2640 0 @ 2.50GHz, 12 cores, RAM: 11334/131003 MB, page: 13220/141243 MB, virtual: 4328/134217727 MB, extended virtual: 0 MB]
-   0.021 Display options: [FullScreen: 0] [VSync: 1] [UIScale: automatic (100.0%)] [Native DPI: 1] [Screen: 255] [Special: lmw] [Lang: ru]
-   0.032 Available displays: 2
-   0.032  [0]: \\.\DISPLAY1 - NVIDIA GeForce GTX 970 {0x05, [0,0], 1600x1200, 32bit, 60Hz}
-   0.033  [1]: \\.\DISPLAY2 - NVIDIA GeForce GTX 970 {0x01, [1600,10], 1600x1200, 32bit, 60Hz}
-   0.155 [Direct3D11] Display: 0, Output: 0, DisplayAdapter: 0, RenderingAdapter: 0; d3dcompiler_47.dll
-   0.308 Initialised Direct3D[0]: NVIDIA GeForce GTX 970; id: 10de-13c2; driver: nvldumdx.dll 26.21.14.3200
-   0.308   D3D Feature Level: 11.1, DXGI 1.5+, SwapChain: 3,flip-discard,-,-,-,none
-   0.308   [Local Video Memory] Budget: 3436MB, CurrentUsage: 2MB, Reservation: 0/1819MB
-   0.308   [Non-Local Vid.Mem.] Budget: 58951MB, CurrentUsage: 0MB, Reservation: 0/31113MB
-   0.309   Tiled resources: Tier 2
-   0.309   Unified Memory Architecture: No
-   0.309   BGR 565 Supported: Yes
-   0.309   MaximumFrameLatency: 3, GPUThreadPriority: 0
-   0.309 Graphics settings preset: very-high
-   0.309   Dedicated video memory size 4043 MB
-   0.369 Desktop composition is active.
-   0.369 Graphics options: [Graphics quality: high] [Video memory usage: high] [Light scale: 100%] [DXT: high-quality] [Color: 32bit]
-   0.369                   [Max threads (load/render): 32/12] [Max texture size: 0] [Tex.Stream.: 1] [Rotation quality: normal] [Other: STDC] [B:0,C:0,S:100]
-   0.434 DSound: Starting _dsound_update thread
-   0.434 DSound: Enter _dsound_update; tid=9372
-   0.616 Loading mod settings recipelister 2.6.1 (settings.lua)
-   0.619 Loading mod core 0.0.0 (data.lua)
-   0.777 Loading mod base 0.18.22 (data.lua)
-   1.234 Loading mod base 0.18.22 (data-updates.lua)
-   1.458 Loading mod recipelister 2.6.1 (data-final-fixes.lua)
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{copper-plate}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{iron-plate}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{stone-brick}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{steel-plate}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{wooden-chest}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{iron-stick}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{stone-furnace}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{boiler}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{steam-engine}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{iron-gear-wheel}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{electronic-circuit}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{transport-belt}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{electric-mining-drill}}
-   1.462 Script @__recipelister__/data-final-fixes.lua:56: {recipe{burner-mining-drill}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{inserter}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fast-inserter}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{long-handed-inserter}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{burner-inserter}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{pipe}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{offshore-pump}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{copper-cable}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{small-electric-pole}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{pistol}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{submachine-gun}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{firearm-magazine}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{light-armor}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{radar}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{small-lamp}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{pipe-to-ground}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{assembling-machine-1}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{repair-pack}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{automation-science-pack}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-science-pack}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{lab}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{stone-wall}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{assembling-machine-2}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{splitter}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{underground-belt}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{loader}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{car}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{engine-unit}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{iron-chest}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{big-electric-pole}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{medium-electric-pole}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{shotgun}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{shotgun-shell}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{piercing-rounds-magazine}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{grenade}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{steel-furnace}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{gate}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{gun-turret}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{uranium-rounds-magazine}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{explosive-rocket}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{atomic-bomb}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{piercing-shotgun-shell}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{railgun-dart}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{cannon-shell}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{explosive-cannon-shell}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{uranium-cannon-shell}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{explosive-uranium-cannon-shell}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{artillery-shell}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{flamethrower-ammo}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{poison-capsule}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{slowdown-capsule}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{cluster-grenade}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{defender-capsule}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{distractor-capsule}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{destroyer-capsule}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{discharge-defense-remote}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{cliff-explosives}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{artillery-targeting-remote}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{night-vision-equipment}}
-   1.463 Script @__recipelister__/data-final-fixes.lua:56: {recipe{belt-immunity-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{energy-shield-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{energy-shield-mk2-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{battery-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{battery-mk2-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{solar-panel-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fusion-reactor-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{personal-laser-defense-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{discharge-defense-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{exoskeleton-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{personal-roboport-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{personal-roboport-mk2-equipment}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{basic-oil-processing}{{__base__/graphics/icons/fluid/basic-oil-processing.png:64}}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{advanced-oil-processing}{{__base__/graphics/icons/fluid/advanced-oil-processing.png:64}}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{coal-liquefaction}{{__base__/graphics/icons/fluid/coal-liquefaction.png:64}}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{heavy-oil-cracking}{{__base__/graphics/icons/fluid/heavy-oil-cracking.png:64}}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{light-oil-cracking}{{__base__/graphics/icons/fluid/light-oil-cracking.png:64}}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{sulfuric-acid}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{plastic-bar}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{solid-fuel-from-light-oil}{{__base__/graphics/icons/solid-fuel-from-light-oil.png:64}}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{solid-fuel-from-petroleum-gas}{{__base__/graphics/icons/solid-fuel-from-petroleum-gas.png:64}}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{solid-fuel-from-heavy-oil}{{__base__/graphics/icons/solid-fuel-from-heavy-oil.png:64}}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{sulfur}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{lubricant}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-barrel}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{filter-inserter}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{stack-inserter}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{stack-filter-inserter}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{speed-module}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{speed-module-2}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{speed-module-3}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{productivity-module}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{productivity-module-2}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{productivity-module-3}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{effectivity-module}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{effectivity-module-2}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{effectivity-module-3}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{player-port}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fast-transport-belt}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{express-transport-belt}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{solar-panel}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{assembling-machine-3}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{tank}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rail}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{locomotive}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{cargo-wagon}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fluid-wagon}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{artillery-wagon}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{train-stop}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rail-signal}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rail-chain-signal}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{heavy-armor}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{modular-armor}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{power-armor}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{power-armor-mk2}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{steel-chest}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{flamethrower}}
-   1.464 Script @__recipelister__/data-final-fixes.lua:56: {recipe{land-mine}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket-launcher}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{combat-shotgun}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{railgun}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{chemical-science-pack}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{military-science-pack}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{production-science-pack}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{utility-science-pack}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{red-wire}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{green-wire}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fast-underground-belt}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{express-underground-belt}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fast-loader}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{express-loader}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fast-splitter}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{express-splitter}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{advanced-circuit}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{processing-unit}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-robot}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{construction-robot}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-chest-passive-provider}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-chest-active-provider}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-chest-storage}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-chest-buffer}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-chest-requester}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket-silo}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{roboport}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{substation}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{accumulator}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{electric-furnace}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{beacon}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{pumpjack}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{oil-refinery}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{electric-engine-unit}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{flying-robot-frame}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{explosives}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{battery}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{storage-tank}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{pump}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{chemical-plant}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{small-plane}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{arithmetic-combinator}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{decider-combinator}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{constant-combinator}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{power-switch}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{programmable-speaker}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{low-density-structure}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket-fuel}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket-control-unit}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket-part}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{satellite}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{concrete}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{hazard-concrete}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{refined-concrete}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{refined-hazard-concrete}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{landfill}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{electric-energy-interface}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{nuclear-reactor}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{centrifuge}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{uranium-processing}{{__base__/graphics/icons/uranium-processing.png:64}}}
-   1.465 Script @__recipelister__/data-final-fixes.lua:56: {recipe{kovarex-enrichment-process}{{__base__/graphics/icons/kovarex-enrichment-process.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{nuclear-fuel}{{__base__/graphics/icons/nuclear-fuel.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{nuclear-fuel-reprocessing}{{__base__/graphics/icons/nuclear-fuel-reprocessing.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{uranium-fuel-cell}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{heat-exchanger}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{heat-pipe}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{steam-turbine}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{laser-turret}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{flamethrower-turret}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{artillery-turret}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-water-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/water.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-water-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/water.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-sulfuric-acid-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/sulfuric-acid.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-sulfuric-acid-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/sulfuric-acid.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-crude-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/crude-oil.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-crude-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/crude-oil.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-heavy-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/heavy-oil.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-heavy-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/heavy-oil.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-light-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/light-oil.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-light-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/light-oil.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-petroleum-gas-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/petroleum-gas.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-petroleum-gas-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/petroleum-gas.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-lubricant-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/lubricant.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-lubricant-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/lubricant.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {inserter{inserter}{{__base__/graphics/icons/inserter.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {inserter{fast-inserter}{{__base__/graphics/icons/fast-inserter.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {inserter{long-handed-inserter}{{__base__/graphics/icons/long-handed-inserter.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {inserter{burner-inserter}{{__base__/graphics/icons/burner-inserter.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {inserter{stack-inserter}{{__base__/graphics/icons/stack-inserter.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {inserter{stack-filter-inserter}{{__base__/graphics/icons/stack-filter-inserter.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {inserter{filter-inserter}{{__base__/graphics/icons/filter-inserter.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {resource{iron-ore}{{__base__/graphics/icons/iron-ore.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {resource{copper-ore}{{__base__/graphics/icons/copper-ore.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {resource{coal}{{__base__/graphics/icons/coal.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {resource{stone}{{__base__/graphics/icons/stone.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {resource{crude-oil}{{__base__/graphics/icons/crude-oil-resource.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {resource{uranium-ore}{{__base__/graphics/icons/uranium-ore.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {item{stone-brick}{{__base__/graphics/icons/stone-brick.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {item{wood}{{__base__/graphics/icons/wood.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {item{coal}{{__base__/graphics/icons/coal.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {item{stone}{{__base__/graphics/icons/stone.png:64}}}
-   1.466 Script @__recipelister__/data-final-fixes.lua:56: {item{iron-ore}{{__base__/graphics/icons/iron-ore.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{copper-ore}{{__base__/graphics/icons/copper-ore.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{iron-plate}{{__base__/graphics/icons/iron-plate.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{copper-plate}{{__base__/graphics/icons/copper-plate.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{copper-cable}{{__base__/graphics/icons/copper-cable.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{iron-stick}{{__base__/graphics/icons/iron-stick.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{iron-gear-wheel}{{__base__/graphics/icons/iron-gear-wheel.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{electronic-circuit}{{__base__/graphics/icons/electronic-circuit.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{wooden-chest}{{__base__/graphics/icons/wooden-chest.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{stone-furnace}{{__base__/graphics/icons/stone-furnace.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{burner-mining-drill}{{__base__/graphics/icons/burner-mining-drill.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{electric-mining-drill}{{__base__/graphics/icons/electric-mining-drill.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{transport-belt}{{__base__/graphics/icons/transport-belt.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{burner-inserter}{{__base__/graphics/icons/burner-inserter.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{inserter}{{__base__/graphics/icons/inserter.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{fast-inserter}{{__base__/graphics/icons/fast-inserter.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{long-handed-inserter}{{__base__/graphics/icons/long-handed-inserter.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{offshore-pump}{{__base__/graphics/icons/offshore-pump.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{pipe}{{__base__/graphics/icons/pipe.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{boiler}{{__base__/graphics/icons/boiler.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{steam-engine}{{__base__/graphics/icons/steam-engine.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{small-electric-pole}{{__base__/graphics/icons/small-electric-pole.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{radar}{{__base__/graphics/icons/radar.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{computer}{{__base__/graphics/icons/computer.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{small-plane}{{__base__/graphics/icons/small-plane.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{small-lamp}{{__base__/graphics/icons/small-lamp.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{pipe-to-ground}{{__base__/graphics/icons/pipe-to-ground.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{assembling-machine-1}{{__base__/graphics/icons/assembling-machine-1.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{assembling-machine-2}{{__base__/graphics/icons/assembling-machine-2.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{red-wire}{{__base__/graphics/icons/red-wire.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{green-wire}{{__base__/graphics/icons/green-wire.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{stone-wall}{{__base__/graphics/icons/wall.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{lab}{{__base__/graphics/icons/lab.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{steel-plate}{{__base__/graphics/icons/steel-plate.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{splitter}{{__base__/graphics/icons/splitter.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{underground-belt}{{__base__/graphics/icons/underground-belt.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{loader}{{__base__/graphics/icons/loader.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{engine-unit}{{__base__/graphics/icons/engine-unit.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{electric-furnace}{{__base__/graphics/icons/electric-furnace.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{solid-fuel}{{__base__/graphics/icons/solid-fuel.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{rocket-fuel}{{__base__/graphics/icons/rocket-fuel.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{iron-chest}{{__base__/graphics/icons/iron-chest.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{big-electric-pole}{{__base__/graphics/icons/big-electric-pole.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{medium-electric-pole}{{__base__/graphics/icons/medium-electric-pole.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{steel-furnace}{{__base__/graphics/icons/steel-furnace.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{gate}{{__base__/graphics/icons/gate.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-lab-broken}{{__base__/graphics/icons/crash-site-lab-broken.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-lab-repaired}{{__base__/graphics/icons/crash-site-lab-repaired.png:64}}}
-   1.467 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-assembling-machine-1-broken}{{__base__/graphics/icons/crash-site-assembling-machine-1-broken.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-assembling-machine-1-repaired}{{__base__/graphics/icons/crash-site-assembling-machine-1-repaired.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-assembling-machine-2-broken}{{__base__/graphics/icons/crash-site-assembling-machine-2-broken.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-assembling-machine-2-repaired}{{__base__/graphics/icons/crash-site-assembling-machine-2-repaired.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-electric-pole}{{__base__/graphics/icons/crash-site-electric-pole.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-generator}{{__base__/graphics/icons/crash-site-generator.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-chest-1}{{__base__/graphics/icons/crash-site-chest.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-chest-2}{{__base__/graphics/icons/crash-site-chest.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{gun-turret}{{__base__/graphics/icons/gun-turret.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{solar-panel-equipment}{{__base__/graphics/icons/solar-panel-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{fusion-reactor-equipment}{{__base__/graphics/icons/fusion-reactor-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{energy-shield-equipment}{{__base__/graphics/icons/energy-shield-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{energy-shield-mk2-equipment}{{__base__/graphics/icons/energy-shield-mk2-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{battery-equipment}{{__base__/graphics/icons/battery-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{battery-mk2-equipment}{{__base__/graphics/icons/battery-mk2-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{personal-laser-defense-equipment}{{__base__/graphics/icons/personal-laser-defense-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{discharge-defense-equipment}{{__base__/graphics/icons/discharge-defense-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{belt-immunity-equipment}{{__base__/graphics/icons/belt-immunity-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{exoskeleton-equipment}{{__base__/graphics/icons/exoskeleton-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{personal-roboport-equipment}{{__base__/graphics/icons/personal-roboport-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{personal-roboport-mk2-equipment}{{__base__/graphics/icons/personal-roboport-mk2-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{night-vision-equipment}{{__base__/graphics/icons/night-vision-equipment.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{land-mine}{{__base__/graphics/icons/land-mine.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{steel-chest}{{__base__/graphics/icons/steel-chest.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{fast-transport-belt}{{__base__/graphics/icons/fast-transport-belt.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{express-transport-belt}{{__base__/graphics/icons/express-transport-belt.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{filter-inserter}{{__base__/graphics/icons/filter-inserter.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{stack-inserter}{{__base__/graphics/icons/stack-inserter.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{stack-filter-inserter}{{__base__/graphics/icons/stack-filter-inserter.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{assembling-machine-3}{{__base__/graphics/icons/assembling-machine-3.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{solar-panel}{{__base__/graphics/icons/solar-panel.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{player-port}{{__base__/graphics/icons/player-port.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{train-stop}{{__base__/graphics/icons/train-stop.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{rail-signal}{{__base__/graphics/icons/rail-signal.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{rail-chain-signal}{{__base__/graphics/icons/rail-chain-signal.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{fast-underground-belt}{{__base__/graphics/icons/fast-underground-belt.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{express-underground-belt}{{__base__/graphics/icons/express-underground-belt.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{fast-splitter}{{__base__/graphics/icons/fast-splitter.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{express-splitter}{{__base__/graphics/icons/express-splitter.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{fast-loader}{{__base__/graphics/icons/fast-loader.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{express-loader}{{__base__/graphics/icons/express-loader.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{advanced-circuit}{{__base__/graphics/icons/advanced-circuit.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{processing-unit}{{__base__/graphics/icons/processing-unit.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-robot}{{__base__/graphics/icons/logistic-robot.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{construction-robot}{{__base__/graphics/icons/construction-robot.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-chest-passive-provider}{{__base__/graphics/icons/logistic-chest-passive-provider.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-chest-active-provider}{{__base__/graphics/icons/logistic-chest-active-provider.png:64}}}
-   1.468 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-chest-storage}{{__base__/graphics/icons/logistic-chest-storage.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-chest-buffer}{{__base__/graphics/icons/logistic-chest-buffer.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-chest-requester}{{__base__/graphics/icons/logistic-chest-requester.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{rocket-silo}{{__base__/graphics/icons/rocket-silo.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{roboport}{{__base__/graphics/icons/roboport.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{coin}{{__base__/graphics/icons/coin.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{substation}{{__base__/graphics/icons/substation.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{accumulator}{{__base__/graphics/icons/accumulator.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{beacon}{{__base__/graphics/icons/beacon.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{storage-tank}{{__base__/graphics/icons/storage-tank.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{pump}{{__base__/graphics/icons/pump.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{pumpjack}{{__base__/graphics/icons/pumpjack.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{oil-refinery}{{__base__/graphics/icons/oil-refinery.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{chemical-plant}{{__base__/graphics/icons/chemical-plant.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{sulfur}{{__base__/graphics/icons/sulfur.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{empty-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{plastic-bar}{{__base__/graphics/icons/plastic-bar.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{electric-engine-unit}{{__base__/graphics/icons/electric-engine-unit.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{explosives}{{__base__/graphics/icons/explosives.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{battery}{{__base__/graphics/icons/battery.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{flying-robot-frame}{{__base__/graphics/icons/flying-robot-frame.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{arithmetic-combinator}{{__base__/graphics/icons/arithmetic-combinator.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{decider-combinator}{{__base__/graphics/icons/decider-combinator.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{constant-combinator}{{__base__/graphics/icons/constant-combinator.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{power-switch}{{__base__/graphics/icons/power-switch.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{programmable-speaker}{{__base__/graphics/icons/programmable-speaker.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{low-density-structure}{{__base__/graphics/icons/low-density-structure.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{nuclear-fuel}{{__base__/graphics/icons/nuclear-fuel.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{rocket-control-unit}{{__base__/graphics/icons/rocket-control-unit.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{rocket-part}{{__base__/graphics/icons/rocket-part.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{satellite}{{__base__/graphics/icons/satellite.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{concrete}{{__base__/graphics/icons/concrete.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{refined-concrete}{{__base__/graphics/icons/refined-concrete.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{hazard-concrete}{{__base__/graphics/icons/hazard-concrete.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{refined-hazard-concrete}{{__base__/graphics/icons/refined-hazard-concrete.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{landfill}{{__base__/graphics/icons/landfill.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{electric-energy-interface}{{__base__/graphics/icons/accumulator.png:nil}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{heat-interface}{{__base__/graphics/icons/heat-interface.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{uranium-ore}{{__base__/graphics/icons/uranium-ore.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{nuclear-reactor}{{__base__/graphics/icons/nuclear-reactor.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{uranium-235}{{__base__/graphics/icons/uranium-235.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{uranium-238}{{__base__/graphics/icons/uranium-238.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{centrifuge}{{__base__/graphics/icons/centrifuge.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{uranium-fuel-cell}{{__base__/graphics/icons/uranium-fuel-cell.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{used-up-uranium-fuel-cell}{{__base__/graphics/icons/used-up-uranium-fuel-cell.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{heat-exchanger}{{__base__/graphics/icons/heat-boiler.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{steam-turbine}{{__base__/graphics/icons/steam-turbine.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{heat-pipe}{{__base__/graphics/icons/heat-pipe.png:64}}}
-   1.469 Script @__recipelister__/data-final-fixes.lua:56: {item{simple-entity-with-force}{{__base__/graphics/icons/steel-chest.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{simple-entity-with-owner}{{__base__/graphics/icons/wooden-chest.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{infinity-chest}{{__base__/graphics/icons/infinity-chest.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{infinity-pipe}{{__base__/graphics/icons/pipe.png:nil}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{burner-generator}{{__base__/graphics/icons/steam-engine.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{laser-turret}{{__base__/graphics/icons/laser-turret.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{flamethrower-turret}{{__base__/graphics/icons/flamethrower-turret.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{artillery-turret}{{__base__/graphics/icons/artillery-turret.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{water-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{sulfuric-acid-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{crude-oil-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{heavy-oil-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{light-oil-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{petroleum-gas-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {item{lubricant-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {fluid{water}{{__base__/graphics/icons/fluid/water.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {fluid{steam}{{__base__/graphics/icons/fluid/steam.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {fluid{sulfuric-acid}{{__base__/graphics/icons/fluid/sulfuric-acid.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {fluid{crude-oil}{{__base__/graphics/icons/fluid/crude-oil.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {fluid{heavy-oil}{{__base__/graphics/icons/fluid/heavy-oil.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {fluid{light-oil}{{__base__/graphics/icons/fluid/light-oil.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {fluid{petroleum-gas}{{__base__/graphics/icons/fluid/petroleum-gas.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {fluid{lubricant}{{__base__/graphics/icons/fluid/lubricant.png:64}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-1}{{__base__/graphics/technology/physical-projectile-damage-1.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-2}{{__base__/graphics/technology/physical-projectile-damage-1.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-3}{{__base__/graphics/technology/physical-projectile-damage-1.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-4}{{__base__/graphics/technology/physical-projectile-damage-1.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-5}{{__base__/graphics/technology/physical-projectile-damage-2.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-6}{{__base__/graphics/technology/physical-projectile-damage-2.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-7}{{__base__/graphics/technology/physical-projectile-damage-2.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-1}{{__base__/graphics/technology/stronger-explosives-1.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-2}{{__base__/graphics/technology/stronger-explosives-2.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-3}{{__base__/graphics/technology/stronger-explosives-3.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-4}{{__base__/graphics/technology/stronger-explosives-3.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-5}{{__base__/graphics/technology/stronger-explosives-3.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-6}{{__base__/graphics/technology/stronger-explosives-3.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-7}{{__base__/graphics/technology/stronger-explosives-3.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-1}{{__base__/graphics/technology/refined-flammables.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-2}{{__base__/graphics/technology/refined-flammables.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-3}{{__base__/graphics/technology/refined-flammables.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-4}{{__base__/graphics/technology/refined-flammables.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-5}{{__base__/graphics/technology/refined-flammables.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-6}{{__base__/graphics/technology/refined-flammables.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-7}{{__base__/graphics/technology/refined-flammables.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-1}{{__base__/graphics/technology/energy-weapons-damage-1.png:128}}}
-   1.470 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-2}{{__base__/graphics/technology/energy-weapons-damage-1.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-3}{{__base__/graphics/technology/energy-weapons-damage-1.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-4}{{__base__/graphics/technology/energy-weapons-damage-2.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-5}{{__base__/graphics/technology/energy-weapons-damage-3.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-6}{{__base__/graphics/technology/energy-weapons-damage-3.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-7}{{__base__/graphics/technology/energy-weapons-damage-3.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-1}{{__base__/graphics/technology/weapon-shooting-speed-1.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-2}{{__base__/graphics/technology/weapon-shooting-speed-1.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-3}{{__base__/graphics/technology/weapon-shooting-speed-2.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-4}{{__base__/graphics/technology/weapon-shooting-speed-2.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-5}{{__base__/graphics/technology/weapon-shooting-speed-3.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-6}{{__base__/graphics/technology/weapon-shooting-speed-3.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-1}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-2}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-3}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-4}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-5}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-6}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-7}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{artillery-shell-range-1}{{__base__/graphics/technology/artillery-range.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{artillery-shell-speed-1}{{__base__/graphics/technology/artillery-speed.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-1}{{__base__/graphics/technology/follower-robots.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-2}{{__base__/graphics/technology/follower-robots.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-3}{{__base__/graphics/technology/follower-robots.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-4}{{__base__/graphics/technology/follower-robots.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-5}{{__base__/graphics/technology/follower-robots.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-6}{{__base__/graphics/technology/follower-robots.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-7}{{__base__/graphics/technology/follower-robots.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistic-science-pack}{{__base__/graphics/technology/logistic-science-pack.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{chemical-science-pack}{{__base__/graphics/technology/chemical-science-pack.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{military-science-pack}{{__base__/graphics/technology/military-science-pack.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{production-science-pack}{{__base__/graphics/technology/production-science-pack.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{utility-science-pack}{{__base__/graphics/technology/utility-science-pack.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{space-science-pack}{{__base__/graphics/technology/space-science-pack.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{steel-processing}{{__base__/graphics/technology/steel-processing.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{steel-axe}{{__base__/graphics/icons/steel-axe.png:64}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{military}{{__base__/graphics/technology/military.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{military-2}{{__base__/graphics/technology/military.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{military-3}{{__base__/graphics/technology/military.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{military-4}{{__base__/graphics/technology/military.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{uranium-ammo}{{__base__/graphics/technology/uranium-ammo.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{atomic-bomb}{{__base__/graphics/technology/atomic-bomb.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{automation}{{__base__/graphics/technology/automation.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{electronics}{{__base__/graphics/technology/electronics.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{fast-inserter}{{__base__/graphics/technology/fast-inserter.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{automation-2}{{__base__/graphics/technology/automation.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{automation-3}{{__base__/graphics/technology/automation.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{explosives}{{__base__/graphics/technology/explosives.png:128}}}
-   1.471 Script @__recipelister__/data-final-fixes.lua:56: {technology{cliff-explosives}{{__base__/graphics/technology/cliff-explosives.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{flammables}{{__base__/graphics/technology/flammables.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{land-mine}{{__base__/graphics/technology/land-mine.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{flamethrower}{{__base__/graphics/technology/flamethrower.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{circuit-network}{{__base__/graphics/technology/circuit-network.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{advanced-electronics}{{__base__/graphics/technology/advanced-electronics.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{advanced-electronics-2}{{__base__/graphics/technology/advanced-electronics-2.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistics}{{__base__/graphics/technology/logistics.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{railway}{{__base__/graphics/technology/railway.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{fluid-wagon}{{__base__/graphics/technology/fluid-wagon.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{automated-rail-transportation}{{__base__/graphics/technology/automated-rail-transportation.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{rail-signals}{{__base__/graphics/technology/rail-signals.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-1}{{__base__/graphics/technology/braking-force.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-2}{{__base__/graphics/technology/braking-force.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-3}{{__base__/graphics/technology/braking-force.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-4}{{__base__/graphics/technology/braking-force.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-5}{{__base__/graphics/technology/braking-force.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-6}{{__base__/graphics/technology/braking-force.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-7}{{__base__/graphics/technology/braking-force.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{automobilism}{{__base__/graphics/technology/automobilism.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{tanks}{{__base__/graphics/technology/tanks.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistics-2}{{__base__/graphics/technology/logistics.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistics-3}{{__base__/graphics/technology/logistics.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{optics}{{__base__/graphics/technology/optics.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{solar-energy}{{__base__/graphics/technology/solar-energy.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser}{{__base__/graphics/technology/laser.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{rocketry}{{__base__/graphics/technology/rocketry.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{explosive-rocketry}{{__base__/graphics/technology/explosive-rocketry.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{heavy-armor}{{__base__/graphics/technology/armor-making.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{modular-armor}{{__base__/graphics/technology/armor-making.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{power-armor}{{__base__/graphics/technology/power-armor.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{power-armor-mk2}{{__base__/graphics/technology/power-armor-mk2.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{turrets}{{__base__/graphics/technology/turrets.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turrets}{{__base__/graphics/technology/laser-turrets.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{stone-walls}{{__base__/graphics/technology/stone-walls.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{gates}{{__base__/graphics/technology/gates.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{robotics}{{__base__/graphics/technology/robotics.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{rocket-fuel}{{__base__/graphics/technology/rocket-fuel.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{low-density-structure}{{__base__/graphics/technology/low-density-structure.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{rocket-control-unit}{{__base__/graphics/technology/rocket-control-unit.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{rocket-silo}{{__base__/graphics/technology/rocket-silo.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-1}{{__base__/graphics/technology/research-speed.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-2}{{__base__/graphics/technology/research-speed.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-3}{{__base__/graphics/technology/research-speed.png:128}}}
-   1.472 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-4}{{__base__/graphics/technology/research-speed.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-5}{{__base__/graphics/technology/research-speed.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-6}{{__base__/graphics/technology/research-speed.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{electric-energy-distribution-1}{{__base__/graphics/technology/electric-energy-distribution.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{electric-energy-distribution-2}{{__base__/graphics/technology/electric-energy-distribution.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{electric-energy-accumulators}{{__base__/graphics/technology/electric-energy-acumulators.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{advanced-material-processing}{{__base__/graphics/technology/advanced-material-processing.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{advanced-material-processing-2}{{__base__/graphics/technology/advanced-material-processing.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{concrete}{{__base__/graphics/technology/concrete.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{effect-transmission}{{__base__/graphics/technology/effect-transmission.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{toolbelt}{{__base__/graphics/technology/toolbelt.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{engine}{{__base__/graphics/technology/engine.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{lubricant}{{__base__/graphics/technology/lubricant.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{electric-engine}{{__base__/graphics/technology/electric-engine.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{battery}{{__base__/graphics/technology/battery.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{landfill}{{__base__/graphics/technology/landfill.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{construction-robotics}{{__base__/graphics/technology/construction-robotics.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistic-robotics}{{__base__/graphics/technology/logistic-robotics.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistic-system}{{__base__/graphics/technology/logistic-system.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-1}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-2}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-3}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-4}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-5}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-6}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-storage-1}{{__base__/graphics/technology/worker-robots-storage.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-storage-2}{{__base__/graphics/technology/worker-robots-storage.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-storage-3}{{__base__/graphics/technology/worker-robots-storage.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-shield-equipment}{{__base__/graphics/technology/energy-shield-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{night-vision-equipment}{{__base__/graphics/technology/night-vision-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{belt-immunity-equipment}{{__base__/graphics/technology/belt-immunity-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-shield-mk2-equipment}{{__base__/graphics/technology/energy-shield-mk2-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{battery-equipment}{{__base__/graphics/technology/battery-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{battery-mk2-equipment}{{__base__/graphics/technology/battery-mk2-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{solar-panel-equipment}{{__base__/graphics/technology/solar-panel-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{personal-laser-defense-equipment}{{__base__/graphics/technology/personal-laser-defense-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{discharge-defense-equipment}{{__base__/graphics/technology/discharge-defense-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{fusion-reactor-equipment}{{__base__/graphics/technology/fusion-reactor-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{exoskeleton-equipment}{{__base__/graphics/technology/exoskeleton-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{personal-roboport-equipment}{{__base__/graphics/technology/personal-roboport-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{personal-roboport-mk2-equipment}{{__base__/graphics/technology/personal-roboport-mk2-equipment.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{fluid-handling}{{__base__/graphics/technology/fluid-handling.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{oil-processing}{{__base__/graphics/technology/oil-gathering.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{advanced-oil-processing}{{__base__/graphics/technology/oil-processing.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{coal-liquefaction}{{__base__/graphics/technology/coal-liquefaction.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{sulfur-processing}{{__base__/graphics/technology/sulfur-processing.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{plastics}{{__base__/graphics/technology/plastics.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{modules}{{__base__/graphics/technology/module.png:128}}}
-   1.473 Script @__recipelister__/data-final-fixes.lua:56: {technology{speed-module}{{__base__/graphics/technology/speed-module.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{speed-module-2}{{__base__/graphics/technology/speed-module.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{speed-module-3}{{__base__/graphics/technology/speed-module.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{productivity-module}{{__base__/graphics/technology/productivity-module.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{productivity-module-2}{{__base__/graphics/technology/productivity-module.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{productivity-module-3}{{__base__/graphics/technology/productivity-module.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{effectivity-module}{{__base__/graphics/technology/effectivity-module.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{effectivity-module-2}{{__base__/graphics/technology/effectivity-module.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{effectivity-module-3}{{__base__/graphics/technology/effectivity-module.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{combat-robotics}{{__base__/graphics/technology/combat-robotics.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{combat-robotics-2}{{__base__/graphics/technology/combat-robotics.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{combat-robotics-3}{{__base__/graphics/technology/combat-robotics.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{uranium-processing}{{__base__/graphics/technology/uranium-processing.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{nuclear-power}{{__base__/graphics/technology/nuclear-power.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{kovarex-enrichment-process}{{__base__/graphics/technology/kovarex-enrichment-process.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{nuclear-fuel-reprocessing}{{__base__/graphics/technology/nuclear-fuel-reprocessing.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{mining-productivity-1}{{__base__/graphics/technology/mining-productivity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{mining-productivity-2}{{__base__/graphics/technology/mining-productivity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{mining-productivity-3}{{__base__/graphics/technology/mining-productivity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{mining-productivity-4}{{__base__/graphics/technology/mining-productivity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{artillery}{{__base__/graphics/technology/artillery.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{radar}{{__base__/graphics/technology/radar.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{stack-inserter}{{__base__/graphics/technology/stack-inserter.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-1}{{__base__/graphics/technology/inserter-capacity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-2}{{__base__/graphics/technology/inserter-capacity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-3}{{__base__/graphics/technology/inserter-capacity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-4}{{__base__/graphics/technology/inserter-capacity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-5}{{__base__/graphics/technology/inserter-capacity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-6}{{__base__/graphics/technology/inserter-capacity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-7}{{__base__/graphics/technology/inserter-capacity.png:128}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {boiler{boiler}{{__base__/graphics/icons/boiler.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {boiler{heat-exchanger}{{__base__/graphics/icons/heat-boiler.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {generator{steam-engine}{{__base__/graphics/icons/steam-engine.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {generator{steam-turbine}{{__base__/graphics/icons/steam-turbine.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {reactor{nuclear-reactor}{{__base__/graphics/icons/nuclear-reactor.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {lab{lab}{{__base__/graphics/icons/lab.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {lab{crash-site-lab-repaired}{{__base__/graphics/icons/crash-site-lab-repaired.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{assembling-machine-1}{{__base__/graphics/icons/assembling-machine-1.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{assembling-machine-2}{{__base__/graphics/icons/assembling-machine-2.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{crash-site-assembling-machine-1-repaired}{{__base__/graphics/icons/crash-site-assembling-machine-1-repaired.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{crash-site-assembling-machine-2-repaired}{{__base__/graphics/icons/crash-site-assembling-machine-2-repaired.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{assembling-machine-3}{{__base__/graphics/icons/assembling-machine-3.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{oil-refinery}{{__base__/graphics/icons/oil-refinery.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{chemical-plant}{{__base__/graphics/icons/chemical-plant.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{centrifuge}{{__base__/graphics/icons/centrifuge.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {furnace{stone-furnace}{{__base__/graphics/icons/stone-furnace.png:64}}}
-   1.474 Script @__recipelister__/data-final-fixes.lua:56: {furnace{electric-furnace}{{__base__/graphics/icons/electric-furnace.png:64}}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {furnace{steel-furnace}{{__base__/graphics/icons/steel-furnace.png:64}}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {mining-drill{electric-mining-drill}{{__base__/graphics/icons/electric-mining-drill.png:64}}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {mining-drill{burner-mining-drill}{{__base__/graphics/icons/burner-mining-drill.png:64}}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {mining-drill{pumpjack}{{__base__/graphics/icons/pumpjack.png:64}}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {transport-belt{transport-belt}{{__base__/graphics/icons/transport-belt.png:64}}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {transport-belt{fast-transport-belt}{{__base__/graphics/icons/fast-transport-belt.png:64}}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {transport-belt{express-transport-belt}{{__base__/graphics/icons/express-transport-belt.png:64}}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {solar-panel{solar-panel}{{__base__/graphics/icons/solar-panel.png:64}}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {equipment-grid{small-equipment-grid}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {equipment-grid{medium-equipment-grid}}
-   1.475 Script @__recipelister__/data-final-fixes.lua:56: {equipment-grid{large-equipment-grid}}
-   1.698 Checksum for core: 3371497937
-   1.698 Checksum of base: 703431642
-   1.698 Checksum of recipelister: 2473541013
-   2.016 Prototype list checksum: 3693507024
-   2.079 Loading sounds...
-   2.194 Info PlayerData.cpp:70: Local player-data.json unavailable
-   2.194 Info PlayerData.cpp:73: Cloud player-data.json available, timestamp 1588365408
-   2.433 Initial atlas bitmap size is 16384
-   2.492 Created atlas bitmap 16384x16376 [none]
-   2.495 Created atlas bitmap 16384x5772 [none]
-   2.496 Created atlas bitmap 8192x3696 [decal]
-   2.499 Created atlas bitmap 16384x5152 [low-object]
-   2.501 Created atlas bitmap 8192x3744 [mipmap, linear-minification, linear-magnification, linear-mip-level]
-   2.503 Created atlas bitmap 16384x5776 [terrain, mipmap, linear-minification, linear-mip-level]
-   2.504 Created atlas bitmap 4096x2848 [terrain-effect-map, mipmap, linear-minification, linear-mip-level]
-   2.504 Created atlas bitmap 4096x1600 [smoke, mipmap, linear-minification, linear-magnification]
-   2.505 Created atlas bitmap 4096x3104 [mipmap]
-   2.507 Created atlas bitmap 4096x2112 [icon, not-compressed, mipmap, linear-minification, linear-magnification, linear-mip-level]
-   2.507 Created atlas bitmap 2048x192 [icon-background, not-compressed, mipmap, linear-minification, linear-magnification, linear-mip-level, ]
-   2.508 Created atlas bitmap 4096x2652 [alpha-mask]
-   2.514 Created atlas bitmap 16384x15380 [shadow, linear-magnification, alpha-mask]
-   2.515 Created atlas bitmap 8192x2352 [shadow, mipmap, linear-magnification, alpha-mask]
-   2.612 Created virtual atlas pages 4096x4096x7
-   2.622 Texture processor created (2048). GPU accelerated compression Supported: yes, Enabled: yes/yes. Test passed. YCoCgDXT PSNR: 35.83, BC3 PSNR: 33.82
-   3.444 Parallel Sprite Loader initialized (threads: 11)
-  12.934 Sprites loaded
-  12.947 Generated mipmaps (4) for atlas [3] of size 16384x5152   
-  12.958 Generated mipmaps (3) for atlas [4] of size 8192x3744   
-  12.969 Generated mipmaps (3) for atlas [5] of size 16384x5776   
-  12.980 Generated mipmaps (3) for atlas [6] of size 4096x2848   
-  12.991 Generated mipmaps (3) for atlas [7] of size 4096x1600   
-  13.043 Generated mipmaps (3) for atlas [8] of size 4096x3104   
-  13.055 Generated mipmaps (5) for atlas [9] of size 4096x2112   
-  13.067 Generated mipmaps (3) for atlas [13] of size 8192x2352   
-  13.083 Custom mipmaps uploaded.
-  13.241 Generated mipmaps for virtual atlas of size 8192x16384
-  13.359 Factorio initialised
-  22.464 Quitting: user-quit.
-  22.584 DSound: Stopping voice
-  22.584 DSound: Joining thread
-  22.587 DSound: Exit _dsound_update; tid=9372
-  22.587 DSound: Waiting for voice to stop ... signaled
-  22.588 DSound: Joined thread
-  22.588 DSound: Destroying thread
-  22.588 DSound: Thread destroyed
-  22.588 DSound: Releasing buffer
-  22.588 DSound: Voice stopped
-  22.588 DSound: Deallocating voice
-  22.588 DSound: Deallocated voice
-  22.722 Steam API shutdown.
-  22.729 Goodbye
+   0.002 2020-07-03 03:31:25; Factorio 0.18.34 (build 52900, win64, steam)
+   0.002 Operating system: Windows 10 (version 1903) 
+   0.003 Program arguments: "E:\SteamLibrary\steamapps\common\Factorio\bin\x64\Factorio.exe" 
+   0.003 Read data path: E:/SteamLibrary/steamapps/common/Factorio/data
+   0.003 Write data path: C:/Users/Vasiliy/AppData/Roaming/Factorio [172647/456378MB]
+   0.003 Binaries path: E:/SteamLibrary/steamapps/common/Factorio/bin
+   0.121 System info: [CPU:        Intel(R) Xeon(R) CPU E5-2640 0 @ 2.50GHz, 12 cores, RAM: 7267/131003 MB, page: 7599/141243 MB, virtual: 4331/134217727 MB, extended virtual: 0 MB]
+   0.122 Display options: [FullScreen: 0] [VSync: 1] [UIScale: automatic (100.0%)] [Native DPI: 1] [Screen: 255] [Special: lmw] [Lang: ru]
+   0.175 Available displays: 2
+   0.175  [0]: \\.\DISPLAY1 - NVIDIA GeForce GTX 970 {0x05, [0,0], 1600x1200, 32bit, 60Hz}
+   0.177  [1]: \\.\DISPLAY2 - NVIDIA GeForce GTX 970 {0x01, [1600,10], 1600x1200, 32bit, 60Hz}
+   0.287 [Direct3D11] Display: 0, Output: 0, DisplayAdapter: 0, RenderingAdapter: 0; d3dcompiler_47.dll
+   0.603 Initialised Direct3D[0]: NVIDIA GeForce GTX 970; id: 10de-13c2; driver: nvldumdx.dll 26.21.14.3200
+   0.603   D3D Feature Level: 11.1, DXGI 1.5+, SwapChain: 3,flip-discard,-,-,-,none
+   0.604   [Local Video Memory] Budget: 3436MB, CurrentUsage: 2MB, Reservation: 0/1819MB
+   0.604   [Non-Local Vid.Mem.] Budget: 58951MB, CurrentUsage: 0MB, Reservation: 0/31113MB
+   0.604   Tiled resources: Tier 2
+   0.604   Unified Memory Architecture: No
+   0.604   BGR 565 Supported: Yes
+   0.604   MaximumFrameLatency: 3, GPUThreadPriority: 0
+   0.604 Graphics settings preset: very-high
+   0.604   Dedicated video memory size 4043 MB
+   0.811 Desktop composition is active.
+   0.811 Graphics options: [Graphics quality: high] [Video memory usage: high] [Light scale: 100%] [DXT: high-quality] [Color: 32bit]
+   0.811                   [Max threads (load/render): 32/12] [Max texture size: 0] [Tex.Stream.: 1] [Rotation quality: normal] [Other: STDCWT] [B:0,C:0,S:100]
+   0.928 DSound: Starting _dsound_update thread
+   0.928 DSound: Enter _dsound_update; tid=6436
+   2.574 Loading mod settings recipelister 2.6.1 (settings.lua)
+   2.616 Loading mod core 0.0.0 (data.lua)
+   3.005 Loading mod base 0.18.34 (data.lua)
+   5.716 Loading mod base 0.18.34 (data-updates.lua)
+   5.968 Loading mod recipelister 2.6.1 (data-final-fixes.lua)
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{copper-plate}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{iron-plate}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{stone-brick}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{steel-plate}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{wooden-chest}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{iron-stick}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{stone-furnace}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{boiler}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{steam-engine}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{iron-gear-wheel}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{electronic-circuit}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{transport-belt}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{electric-mining-drill}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{burner-mining-drill}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{inserter}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fast-inserter}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{filter-inserter}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{long-handed-inserter}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{burner-inserter}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{pipe}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{offshore-pump}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{copper-cable}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{small-electric-pole}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{pistol}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{submachine-gun}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{firearm-magazine}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{light-armor}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{radar}}
+   5.985 Script @__recipelister__/data-final-fixes.lua:56: {recipe{small-lamp}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{pipe-to-ground}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{assembling-machine-1}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{repair-pack}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{automation-science-pack}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-science-pack}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{lab}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{stone-wall}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{assembling-machine-2}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{splitter}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{underground-belt}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{loader}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{car}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{engine-unit}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{iron-chest}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{big-electric-pole}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{medium-electric-pole}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{shotgun}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{shotgun-shell}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{piercing-rounds-magazine}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{grenade}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{steel-furnace}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{gate}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{heavy-armor}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{steel-chest}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fast-underground-belt}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fast-splitter}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{concrete}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{hazard-concrete}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{refined-concrete}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{refined-hazard-concrete}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{landfill}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fast-transport-belt}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{solar-panel}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rail}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{locomotive}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{cargo-wagon}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rail-signal}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rail-chain-signal}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{train-stop}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{gun-turret}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{uranium-rounds-magazine}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket}}
+   5.986 Script @__recipelister__/data-final-fixes.lua:56: {recipe{explosive-rocket}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{atomic-bomb}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{piercing-shotgun-shell}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{railgun-dart}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{cannon-shell}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{explosive-cannon-shell}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{uranium-cannon-shell}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{explosive-uranium-cannon-shell}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{artillery-shell}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{flamethrower-ammo}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{poison-capsule}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{slowdown-capsule}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{cluster-grenade}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{defender-capsule}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{distractor-capsule}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{destroyer-capsule}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{discharge-defense-remote}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{cliff-explosives}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{artillery-targeting-remote}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{night-vision-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{belt-immunity-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{energy-shield-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{energy-shield-mk2-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{battery-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{battery-mk2-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{solar-panel-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fusion-reactor-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{personal-laser-defense-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{discharge-defense-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{exoskeleton-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{personal-roboport-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{personal-roboport-mk2-equipment}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{basic-oil-processing}{{__base__/graphics/icons/fluid/basic-oil-processing.png:64}}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{advanced-oil-processing}{{__base__/graphics/icons/fluid/advanced-oil-processing.png:64}}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{coal-liquefaction}{{__base__/graphics/icons/fluid/coal-liquefaction.png:64}}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{heavy-oil-cracking}{{__base__/graphics/icons/fluid/heavy-oil-cracking.png:64}}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{light-oil-cracking}{{__base__/graphics/icons/fluid/light-oil-cracking.png:64}}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{sulfuric-acid}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{plastic-bar}}
+   5.987 Script @__recipelister__/data-final-fixes.lua:56: {recipe{solid-fuel-from-light-oil}{{__base__/graphics/icons/solid-fuel-from-light-oil.png:64}}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{solid-fuel-from-petroleum-gas}{{__base__/graphics/icons/solid-fuel-from-petroleum-gas.png:64}}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{solid-fuel-from-heavy-oil}{{__base__/graphics/icons/solid-fuel-from-heavy-oil.png:64}}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{sulfur}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{lubricant}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-barrel}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{stack-inserter}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{stack-filter-inserter}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{speed-module}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{speed-module-2}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{speed-module-3}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{productivity-module}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{productivity-module-2}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{productivity-module-3}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{effectivity-module}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{effectivity-module-2}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{effectivity-module-3}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{player-port}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{express-transport-belt}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{assembling-machine-3}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{tank}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fluid-wagon}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{artillery-wagon}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{modular-armor}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{power-armor}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{power-armor-mk2}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{flamethrower}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{land-mine}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket-launcher}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{combat-shotgun}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{railgun}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{chemical-science-pack}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{military-science-pack}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{production-science-pack}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{utility-science-pack}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{express-underground-belt}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fast-loader}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{express-loader}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{express-splitter}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{advanced-circuit}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{processing-unit}}
+   5.988 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-robot}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{construction-robot}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-chest-passive-provider}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-chest-active-provider}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-chest-storage}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-chest-buffer}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{logistic-chest-requester}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket-silo}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{roboport}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{substation}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{accumulator}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{electric-furnace}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{beacon}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{pumpjack}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{oil-refinery}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{electric-engine-unit}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{flying-robot-frame}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{explosives}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{battery}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{storage-tank}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{pump}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{chemical-plant}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{small-plane}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{low-density-structure}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket-fuel}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket-control-unit}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{rocket-part}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{satellite}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{electric-energy-interface}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{nuclear-reactor}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{centrifuge}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{uranium-processing}{{__base__/graphics/icons/uranium-processing.png:64}}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{kovarex-enrichment-process}{{__base__/graphics/icons/kovarex-enrichment-process.png:64}}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{nuclear-fuel}{{__base__/graphics/icons/nuclear-fuel.png:64}}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{nuclear-fuel-reprocessing}{{__base__/graphics/icons/nuclear-fuel-reprocessing.png:64}}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{uranium-fuel-cell}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{heat-exchanger}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{heat-pipe}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{steam-turbine}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{laser-turret}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{flamethrower-turret}}
+   5.989 Script @__recipelister__/data-final-fixes.lua:56: {recipe{artillery-turret}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{arithmetic-combinator}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{decider-combinator}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{constant-combinator}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{power-switch}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{programmable-speaker}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{red-wire}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{green-wire}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-water-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/water.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-water-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/water.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-sulfuric-acid-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/sulfuric-acid.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-sulfuric-acid-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/sulfuric-acid.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-crude-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/crude-oil.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-crude-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/crude-oil.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-heavy-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/heavy-oil.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-heavy-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/heavy-oil.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-light-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/light-oil.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-light-oil-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/light-oil.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-petroleum-gas-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/petroleum-gas.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-petroleum-gas-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/petroleum-gas.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{fill-lubricant-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-fill.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-fill-top-mask.png:64}{__base__/graphics/icons/fluid/lubricant.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {recipe{empty-lubricant-barrel}{{__base__/graphics/icons/fluid/barreling/barrel-empty.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-empty-top-mask.png:64}{__base__/graphics/icons/fluid/lubricant.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {inserter{inserter}{{__base__/graphics/icons/inserter.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {inserter{fast-inserter}{{__base__/graphics/icons/fast-inserter.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {inserter{filter-inserter}{{__base__/graphics/icons/filter-inserter.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {inserter{long-handed-inserter}{{__base__/graphics/icons/long-handed-inserter.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {inserter{burner-inserter}{{__base__/graphics/icons/burner-inserter.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {inserter{stack-inserter}{{__base__/graphics/icons/stack-inserter.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {inserter{stack-filter-inserter}{{__base__/graphics/icons/stack-filter-inserter.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {resource{iron-ore}{{__base__/graphics/icons/iron-ore.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {resource{copper-ore}{{__base__/graphics/icons/copper-ore.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {resource{coal}{{__base__/graphics/icons/coal.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {resource{stone}{{__base__/graphics/icons/stone.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {resource{uranium-ore}{{__base__/graphics/icons/uranium-ore.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {resource{crude-oil}{{__base__/graphics/icons/crude-oil-resource.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {item{stone-brick}{{__base__/graphics/icons/stone-brick.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {item{wood}{{__base__/graphics/icons/wood.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {item{coal}{{__base__/graphics/icons/coal.png:64}}}
+   5.990 Script @__recipelister__/data-final-fixes.lua:56: {item{stone}{{__base__/graphics/icons/stone.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{iron-ore}{{__base__/graphics/icons/iron-ore.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{copper-ore}{{__base__/graphics/icons/copper-ore.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{iron-plate}{{__base__/graphics/icons/iron-plate.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{copper-plate}{{__base__/graphics/icons/copper-plate.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{copper-cable}{{__base__/graphics/icons/copper-cable.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{iron-stick}{{__base__/graphics/icons/iron-stick.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{iron-gear-wheel}{{__base__/graphics/icons/iron-gear-wheel.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{electronic-circuit}{{__base__/graphics/icons/electronic-circuit.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{wooden-chest}{{__base__/graphics/icons/wooden-chest.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{stone-furnace}{{__base__/graphics/icons/stone-furnace.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{burner-mining-drill}{{__base__/graphics/icons/burner-mining-drill.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{electric-mining-drill}{{__base__/graphics/icons/electric-mining-drill.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{transport-belt}{{__base__/graphics/icons/transport-belt.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{burner-inserter}{{__base__/graphics/icons/burner-inserter.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{inserter}{{__base__/graphics/icons/inserter.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{fast-inserter}{{__base__/graphics/icons/fast-inserter.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{filter-inserter}{{__base__/graphics/icons/filter-inserter.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{long-handed-inserter}{{__base__/graphics/icons/long-handed-inserter.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{offshore-pump}{{__base__/graphics/icons/offshore-pump.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{pipe}{{__base__/graphics/icons/pipe.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{boiler}{{__base__/graphics/icons/boiler.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{steam-engine}{{__base__/graphics/icons/steam-engine.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{small-electric-pole}{{__base__/graphics/icons/small-electric-pole.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{radar}{{__base__/graphics/icons/radar.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{computer}{{__base__/graphics/icons/computer.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{small-plane}{{__base__/graphics/icons/small-plane.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{small-lamp}{{__base__/graphics/icons/small-lamp.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{pipe-to-ground}{{__base__/graphics/icons/pipe-to-ground.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{assembling-machine-1}{{__base__/graphics/icons/assembling-machine-1.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{assembling-machine-2}{{__base__/graphics/icons/assembling-machine-2.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{red-wire}{{__base__/graphics/icons/red-wire.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{green-wire}{{__base__/graphics/icons/green-wire.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{stone-wall}{{__base__/graphics/icons/wall.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{lab}{{__base__/graphics/icons/lab.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{steel-plate}{{__base__/graphics/icons/steel-plate.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{splitter}{{__base__/graphics/icons/splitter.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{underground-belt}{{__base__/graphics/icons/underground-belt.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{loader}{{__base__/graphics/icons/loader.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{engine-unit}{{__base__/graphics/icons/engine-unit.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{electric-furnace}{{__base__/graphics/icons/electric-furnace.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{solid-fuel}{{__base__/graphics/icons/solid-fuel.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{rocket-fuel}{{__base__/graphics/icons/rocket-fuel.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{iron-chest}{{__base__/graphics/icons/iron-chest.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{big-electric-pole}{{__base__/graphics/icons/big-electric-pole.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{medium-electric-pole}{{__base__/graphics/icons/medium-electric-pole.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{steel-furnace}{{__base__/graphics/icons/steel-furnace.png:64}}}
+   5.991 Script @__recipelister__/data-final-fixes.lua:56: {item{gate}{{__base__/graphics/icons/gate.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{steel-chest}{{__base__/graphics/icons/steel-chest.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{fast-transport-belt}{{__base__/graphics/icons/fast-transport-belt.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{solar-panel}{{__base__/graphics/icons/solar-panel.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{train-stop}{{__base__/graphics/icons/train-stop.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{rail-signal}{{__base__/graphics/icons/rail-signal.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{rail-chain-signal}{{__base__/graphics/icons/rail-chain-signal.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{fast-underground-belt}{{__base__/graphics/icons/fast-underground-belt.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{concrete}{{__base__/graphics/icons/concrete.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{refined-concrete}{{__base__/graphics/icons/refined-concrete.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{hazard-concrete}{{__base__/graphics/icons/hazard-concrete.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{refined-hazard-concrete}{{__base__/graphics/icons/refined-hazard-concrete.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{landfill}{{__base__/graphics/icons/landfill.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{fast-splitter}{{__base__/graphics/icons/fast-splitter.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{accumulator}{{__base__/graphics/icons/accumulator.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{uranium-ore}{{__base__/graphics/icons/uranium-ore.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-lab-broken}{{__base__/graphics/icons/crash-site-lab-broken.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-lab-repaired}{{__base__/graphics/icons/crash-site-lab-repaired.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-assembling-machine-1-broken}{{__base__/graphics/icons/crash-site-assembling-machine-1-broken.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-assembling-machine-1-repaired}{{__base__/graphics/icons/crash-site-assembling-machine-1-repaired.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-assembling-machine-2-broken}{{__base__/graphics/icons/crash-site-assembling-machine-2-broken.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-assembling-machine-2-repaired}{{__base__/graphics/icons/crash-site-assembling-machine-2-repaired.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-electric-pole}{{__base__/graphics/icons/crash-site-electric-pole.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-generator}{{__base__/graphics/icons/crash-site-generator.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-chest-1}{{__base__/graphics/icons/crash-site-chest.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{crash-site-chest-2}{{__base__/graphics/icons/crash-site-chest.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{gun-turret}{{__base__/graphics/icons/gun-turret.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{laser-turret}{{__base__/graphics/icons/laser-turret.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{solar-panel-equipment}{{__base__/graphics/icons/solar-panel-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{fusion-reactor-equipment}{{__base__/graphics/icons/fusion-reactor-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{energy-shield-equipment}{{__base__/graphics/icons/energy-shield-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{energy-shield-mk2-equipment}{{__base__/graphics/icons/energy-shield-mk2-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{battery-equipment}{{__base__/graphics/icons/battery-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{battery-mk2-equipment}{{__base__/graphics/icons/battery-mk2-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{personal-laser-defense-equipment}{{__base__/graphics/icons/personal-laser-defense-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{discharge-defense-equipment}{{__base__/graphics/icons/discharge-defense-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{belt-immunity-equipment}{{__base__/graphics/icons/belt-immunity-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{exoskeleton-equipment}{{__base__/graphics/icons/exoskeleton-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{personal-roboport-equipment}{{__base__/graphics/icons/personal-roboport-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{personal-roboport-mk2-equipment}{{__base__/graphics/icons/personal-roboport-mk2-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{night-vision-equipment}{{__base__/graphics/icons/night-vision-equipment.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{land-mine}{{__base__/graphics/icons/land-mine.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{express-transport-belt}{{__base__/graphics/icons/express-transport-belt.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{stack-inserter}{{__base__/graphics/icons/stack-inserter.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{stack-filter-inserter}{{__base__/graphics/icons/stack-filter-inserter.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{assembling-machine-3}{{__base__/graphics/icons/assembling-machine-3.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{player-port}{{__base__/graphics/icons/player-port.png:64}}}
+   5.992 Script @__recipelister__/data-final-fixes.lua:56: {item{express-underground-belt}{{__base__/graphics/icons/express-underground-belt.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{express-splitter}{{__base__/graphics/icons/express-splitter.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{fast-loader}{{__base__/graphics/icons/fast-loader.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{express-loader}{{__base__/graphics/icons/express-loader.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{advanced-circuit}{{__base__/graphics/icons/advanced-circuit.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{processing-unit}{{__base__/graphics/icons/processing-unit.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-robot}{{__base__/graphics/icons/logistic-robot.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{construction-robot}{{__base__/graphics/icons/construction-robot.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-chest-passive-provider}{{__base__/graphics/icons/logistic-chest-passive-provider.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-chest-active-provider}{{__base__/graphics/icons/logistic-chest-active-provider.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-chest-storage}{{__base__/graphics/icons/logistic-chest-storage.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-chest-buffer}{{__base__/graphics/icons/logistic-chest-buffer.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{logistic-chest-requester}{{__base__/graphics/icons/logistic-chest-requester.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{rocket-silo}{{__base__/graphics/icons/rocket-silo.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{roboport}{{__base__/graphics/icons/roboport.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{coin}{{__base__/graphics/icons/coin.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{substation}{{__base__/graphics/icons/substation.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{beacon}{{__base__/graphics/icons/beacon.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{storage-tank}{{__base__/graphics/icons/storage-tank.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{pump}{{__base__/graphics/icons/pump.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{pumpjack}{{__base__/graphics/icons/pumpjack.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{oil-refinery}{{__base__/graphics/icons/oil-refinery.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{chemical-plant}{{__base__/graphics/icons/chemical-plant.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{sulfur}{{__base__/graphics/icons/sulfur.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{empty-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{plastic-bar}{{__base__/graphics/icons/plastic-bar.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{electric-engine-unit}{{__base__/graphics/icons/electric-engine-unit.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{explosives}{{__base__/graphics/icons/explosives.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{battery}{{__base__/graphics/icons/battery.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{flying-robot-frame}{{__base__/graphics/icons/flying-robot-frame.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{low-density-structure}{{__base__/graphics/icons/low-density-structure.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{nuclear-fuel}{{__base__/graphics/icons/nuclear-fuel.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{rocket-control-unit}{{__base__/graphics/icons/rocket-control-unit.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{rocket-part}{{__base__/graphics/icons/rocket-part.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{satellite}{{__base__/graphics/icons/satellite.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{electric-energy-interface}{{__base__/graphics/icons/accumulator.png:nil}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{heat-interface}{{__base__/graphics/icons/heat-interface.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{nuclear-reactor}{{__base__/graphics/icons/nuclear-reactor.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{uranium-235}{{__base__/graphics/icons/uranium-235.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{uranium-238}{{__base__/graphics/icons/uranium-238.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{centrifuge}{{__base__/graphics/icons/centrifuge.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{uranium-fuel-cell}{{__base__/graphics/icons/uranium-fuel-cell.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{used-up-uranium-fuel-cell}{{__base__/graphics/icons/used-up-uranium-fuel-cell.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{heat-exchanger}{{__base__/graphics/icons/heat-boiler.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{steam-turbine}{{__base__/graphics/icons/steam-turbine.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{heat-pipe}{{__base__/graphics/icons/heat-pipe.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{simple-entity-with-force}{{__base__/graphics/icons/steel-chest.png:64}}}
+   5.993 Script @__recipelister__/data-final-fixes.lua:56: {item{simple-entity-with-owner}{{__base__/graphics/icons/wooden-chest.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{infinity-chest}{{__base__/graphics/icons/infinity-chest.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{infinity-pipe}{{__base__/graphics/icons/pipe.png:nil}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{burner-generator}{{__base__/graphics/icons/steam-engine.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{flamethrower-turret}{{__base__/graphics/icons/flamethrower-turret.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{artillery-turret}{{__base__/graphics/icons/artillery-turret.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{arithmetic-combinator}{{__base__/graphics/icons/arithmetic-combinator.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{decider-combinator}{{__base__/graphics/icons/decider-combinator.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{constant-combinator}{{__base__/graphics/icons/constant-combinator.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{power-switch}{{__base__/graphics/icons/power-switch.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{programmable-speaker}{{__base__/graphics/icons/programmable-speaker.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{water-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{sulfuric-acid-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{crude-oil-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{heavy-oil-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{light-oil-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{petroleum-gas-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {item{lubricant-barrel}{{__base__/graphics/icons/fluid/barreling/empty-barrel.png:64}{__base__/graphics/icons/fluid/barreling/barrel-side-mask.png:64}{__base__/graphics/icons/fluid/barreling/barrel-hoop-top-mask.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {fluid{water}{{__base__/graphics/icons/fluid/water.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {fluid{steam}{{__base__/graphics/icons/fluid/steam.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {fluid{sulfuric-acid}{{__base__/graphics/icons/fluid/sulfuric-acid.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {fluid{crude-oil}{{__base__/graphics/icons/fluid/crude-oil.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {fluid{heavy-oil}{{__base__/graphics/icons/fluid/heavy-oil.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {fluid{light-oil}{{__base__/graphics/icons/fluid/light-oil.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {fluid{petroleum-gas}{{__base__/graphics/icons/fluid/petroleum-gas.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {fluid{lubricant}{{__base__/graphics/icons/fluid/lubricant.png:64}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{automation}{{__base__/graphics/technology/automation.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{automation-2}{{__base__/graphics/technology/automation.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{electronics}{{__base__/graphics/technology/electronics.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistic-science-pack}{{__base__/graphics/technology/logistic-science-pack.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{steel-processing}{{__base__/graphics/technology/steel-processing.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{steel-axe}{{__base__/graphics/technology/steel-axe.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{military}{{__base__/graphics/technology/military.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{military-2}{{__base__/graphics/technology/military.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{fast-inserter}{{__base__/graphics/technology/fast-inserter.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistics}{{__base__/graphics/technology/logistics.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{railway}{{__base__/graphics/technology/railway.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{automated-rail-transportation}{{__base__/graphics/technology/automated-rail-transportation.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{rail-signals}{{__base__/graphics/technology/rail-signals.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{automobilism}{{__base__/graphics/technology/automobilism.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{optics}{{__base__/graphics/technology/optics.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{solar-energy}{{__base__/graphics/technology/solar-energy.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{heavy-armor}{{__base__/graphics/technology/armor-making.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{turrets}{{__base__/graphics/technology/turrets.png:128}}}
+   5.994 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-1}{{__base__/graphics/technology/research-speed.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-2}{{__base__/graphics/technology/research-speed.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{electric-energy-distribution-1}{{__base__/graphics/technology/electric-energy-distribution.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{advanced-material-processing}{{__base__/graphics/technology/advanced-material-processing.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{concrete}{{__base__/graphics/technology/concrete.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{engine}{{__base__/graphics/technology/engine.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{landfill}{{__base__/graphics/technology/landfill.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistics-2}{{__base__/graphics/technology/logistics.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{toolbelt}{{__base__/graphics/technology/toolbelt.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{stone-walls}{{__base__/graphics/technology/stone-walls.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{gates}{{__base__/graphics/technology/gates.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-1}{{__base__/graphics/technology/physical-projectile-damage-1.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-2}{{__base__/graphics/technology/physical-projectile-damage-1.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-1}{{__base__/graphics/technology/weapon-shooting-speed-1.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-2}{{__base__/graphics/technology/weapon-shooting-speed-1.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-1}{{__base__/graphics/technology/stronger-explosives-1.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-3}{{__base__/graphics/technology/physical-projectile-damage-1.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-4}{{__base__/graphics/technology/physical-projectile-damage-1.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-5}{{__base__/graphics/technology/physical-projectile-damage-2.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-6}{{__base__/graphics/technology/physical-projectile-damage-2.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{physical-projectile-damage-7}{{__base__/graphics/technology/physical-projectile-damage-2.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-2}{{__base__/graphics/technology/stronger-explosives-2.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-3}{{__base__/graphics/technology/stronger-explosives-3.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-4}{{__base__/graphics/technology/stronger-explosives-3.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-5}{{__base__/graphics/technology/stronger-explosives-3.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-6}{{__base__/graphics/technology/stronger-explosives-3.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{stronger-explosives-7}{{__base__/graphics/technology/stronger-explosives-3.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-1}{{__base__/graphics/technology/refined-flammables.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-2}{{__base__/graphics/technology/refined-flammables.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-3}{{__base__/graphics/technology/refined-flammables.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-4}{{__base__/graphics/technology/refined-flammables.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-5}{{__base__/graphics/technology/refined-flammables.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-6}{{__base__/graphics/technology/refined-flammables.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{refined-flammables-7}{{__base__/graphics/technology/refined-flammables.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-1}{{__base__/graphics/technology/energy-weapons-damage-1.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-2}{{__base__/graphics/technology/energy-weapons-damage-1.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-3}{{__base__/graphics/technology/energy-weapons-damage-1.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-4}{{__base__/graphics/technology/energy-weapons-damage-2.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-5}{{__base__/graphics/technology/energy-weapons-damage-3.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-6}{{__base__/graphics/technology/energy-weapons-damage-3.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-weapons-damage-7}{{__base__/graphics/technology/energy-weapons-damage-3.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-3}{{__base__/graphics/technology/weapon-shooting-speed-2.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-4}{{__base__/graphics/technology/weapon-shooting-speed-2.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-5}{{__base__/graphics/technology/weapon-shooting-speed-3.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{weapon-shooting-speed-6}{{__base__/graphics/technology/weapon-shooting-speed-3.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-1}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-2}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
+   5.995 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-3}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-4}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-5}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-6}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turret-speed-7}{{__base__/graphics/technology/laser-turret-speed.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{artillery-shell-range-1}{{__base__/graphics/technology/artillery-range.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{artillery-shell-speed-1}{{__base__/graphics/technology/artillery-speed.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-1}{{__base__/graphics/technology/follower-robots.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-2}{{__base__/graphics/technology/follower-robots.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-3}{{__base__/graphics/technology/follower-robots.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-4}{{__base__/graphics/technology/follower-robots.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-5}{{__base__/graphics/technology/follower-robots.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-6}{{__base__/graphics/technology/follower-robots.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{follower-robot-count-7}{{__base__/graphics/technology/follower-robots.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{chemical-science-pack}{{__base__/graphics/technology/chemical-science-pack.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{military-science-pack}{{__base__/graphics/technology/military-science-pack.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{production-science-pack}{{__base__/graphics/technology/production-science-pack.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{utility-science-pack}{{__base__/graphics/technology/utility-science-pack.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{space-science-pack}{{__base__/graphics/technology/space-science-pack.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{military-3}{{__base__/graphics/technology/military.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{military-4}{{__base__/graphics/technology/military.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{uranium-ammo}{{__base__/graphics/technology/uranium-ammo.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{atomic-bomb}{{__base__/graphics/technology/atomic-bomb.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{automation-3}{{__base__/graphics/technology/automation.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{explosives}{{__base__/graphics/technology/explosives.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{cliff-explosives}{{__base__/graphics/technology/cliff-explosives.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{flammables}{{__base__/graphics/technology/flammables.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{land-mine}{{__base__/graphics/technology/land-mine.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{flamethrower}{{__base__/graphics/technology/flamethrower.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{advanced-electronics}{{__base__/graphics/technology/advanced-electronics.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{advanced-electronics-2}{{__base__/graphics/technology/advanced-electronics-2.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{fluid-wagon}{{__base__/graphics/technology/fluid-wagon.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-1}{{__base__/graphics/technology/braking-force.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-2}{{__base__/graphics/technology/braking-force.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-3}{{__base__/graphics/technology/braking-force.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-4}{{__base__/graphics/technology/braking-force.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-5}{{__base__/graphics/technology/braking-force.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-6}{{__base__/graphics/technology/braking-force.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{braking-force-7}{{__base__/graphics/technology/braking-force.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{tanks}{{__base__/graphics/technology/tanks.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistics-3}{{__base__/graphics/technology/logistics.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser}{{__base__/graphics/technology/laser.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{rocketry}{{__base__/graphics/technology/rocketry.png:128}}}
+   5.996 Script @__recipelister__/data-final-fixes.lua:56: {technology{explosive-rocketry}{{__base__/graphics/technology/explosive-rocketry.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{modular-armor}{{__base__/graphics/technology/armor-making.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{power-armor}{{__base__/graphics/technology/power-armor.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{power-armor-mk2}{{__base__/graphics/technology/power-armor-mk2.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{laser-turrets}{{__base__/graphics/technology/laser-turrets.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{robotics}{{__base__/graphics/technology/robotics.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{rocket-fuel}{{__base__/graphics/technology/rocket-fuel.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{low-density-structure}{{__base__/graphics/technology/low-density-structure.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{rocket-control-unit}{{__base__/graphics/technology/rocket-control-unit.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{rocket-silo}{{__base__/graphics/technology/rocket-silo.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-3}{{__base__/graphics/technology/research-speed.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-4}{{__base__/graphics/technology/research-speed.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-5}{{__base__/graphics/technology/research-speed.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{research-speed-6}{{__base__/graphics/technology/research-speed.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{electric-energy-distribution-2}{{__base__/graphics/technology/electric-energy-distribution.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{electric-energy-accumulators}{{__base__/graphics/technology/electric-energy-acumulators.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{advanced-material-processing-2}{{__base__/graphics/technology/advanced-material-processing.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{effect-transmission}{{__base__/graphics/technology/effect-transmission.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{lubricant}{{__base__/graphics/technology/lubricant.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{electric-engine}{{__base__/graphics/technology/electric-engine.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{battery}{{__base__/graphics/technology/battery.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{construction-robotics}{{__base__/graphics/technology/construction-robotics.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistic-robotics}{{__base__/graphics/technology/logistic-robotics.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{logistic-system}{{__base__/graphics/technology/logistic-system.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-1}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-2}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-3}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-4}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-5}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-speed-6}{{__base__/graphics/technology/worker-robots-speed.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-storage-1}{{__base__/graphics/technology/worker-robots-storage.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-storage-2}{{__base__/graphics/technology/worker-robots-storage.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{worker-robots-storage-3}{{__base__/graphics/technology/worker-robots-storage.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-shield-equipment}{{__base__/graphics/technology/energy-shield-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{night-vision-equipment}{{__base__/graphics/technology/night-vision-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{belt-immunity-equipment}{{__base__/graphics/technology/belt-immunity-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{energy-shield-mk2-equipment}{{__base__/graphics/technology/energy-shield-mk2-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{battery-equipment}{{__base__/graphics/technology/battery-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{battery-mk2-equipment}{{__base__/graphics/technology/battery-mk2-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{solar-panel-equipment}{{__base__/graphics/technology/solar-panel-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{personal-laser-defense-equipment}{{__base__/graphics/technology/personal-laser-defense-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{discharge-defense-equipment}{{__base__/graphics/technology/discharge-defense-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{fusion-reactor-equipment}{{__base__/graphics/technology/fusion-reactor-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{exoskeleton-equipment}{{__base__/graphics/technology/exoskeleton-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{personal-roboport-equipment}{{__base__/graphics/technology/personal-roboport-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{personal-roboport-mk2-equipment}{{__base__/graphics/technology/personal-roboport-mk2-equipment.png:128}}}
+   5.997 Script @__recipelister__/data-final-fixes.lua:56: {technology{fluid-handling}{{__base__/graphics/technology/fluid-handling.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{oil-processing}{{__base__/graphics/technology/oil-gathering.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{advanced-oil-processing}{{__base__/graphics/technology/oil-processing.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{coal-liquefaction}{{__base__/graphics/technology/coal-liquefaction.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{sulfur-processing}{{__base__/graphics/technology/sulfur-processing.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{plastics}{{__base__/graphics/technology/plastics.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{modules}{{__base__/graphics/technology/module.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{speed-module}{{__base__/graphics/technology/speed-module.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{speed-module-2}{{__base__/graphics/technology/speed-module.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{speed-module-3}{{__base__/graphics/technology/speed-module.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{productivity-module}{{__base__/graphics/technology/productivity-module.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{productivity-module-2}{{__base__/graphics/technology/productivity-module.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{productivity-module-3}{{__base__/graphics/technology/productivity-module.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{effectivity-module}{{__base__/graphics/technology/effectivity-module.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{effectivity-module-2}{{__base__/graphics/technology/effectivity-module.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{effectivity-module-3}{{__base__/graphics/technology/effectivity-module.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{combat-robotics}{{__base__/graphics/technology/combat-robotics.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{combat-robotics-2}{{__base__/graphics/technology/combat-robotics.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{combat-robotics-3}{{__base__/graphics/technology/combat-robotics.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{uranium-processing}{{__base__/graphics/technology/uranium-processing.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{nuclear-power}{{__base__/graphics/technology/nuclear-power.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{kovarex-enrichment-process}{{__base__/graphics/technology/kovarex-enrichment-process.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{nuclear-fuel-reprocessing}{{__base__/graphics/technology/nuclear-fuel-reprocessing.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{mining-productivity-1}{{__base__/graphics/technology/mining-productivity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{mining-productivity-2}{{__base__/graphics/technology/mining-productivity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{mining-productivity-3}{{__base__/graphics/technology/mining-productivity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{mining-productivity-4}{{__base__/graphics/technology/mining-productivity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{artillery}{{__base__/graphics/technology/artillery.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{circuit-network}{{__base__/graphics/technology/circuit-network.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{stack-inserter}{{__base__/graphics/technology/stack-inserter.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-1}{{__base__/graphics/technology/inserter-capacity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-2}{{__base__/graphics/technology/inserter-capacity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-3}{{__base__/graphics/technology/inserter-capacity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-4}{{__base__/graphics/technology/inserter-capacity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-5}{{__base__/graphics/technology/inserter-capacity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-6}{{__base__/graphics/technology/inserter-capacity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {technology{inserter-capacity-bonus-7}{{__base__/graphics/technology/inserter-capacity.png:128}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {boiler{boiler}{{__base__/graphics/icons/boiler.png:64}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {boiler{heat-exchanger}{{__base__/graphics/icons/heat-boiler.png:64}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {generator{steam-engine}{{__base__/graphics/icons/steam-engine.png:64}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {generator{steam-turbine}{{__base__/graphics/icons/steam-turbine.png:64}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {reactor{nuclear-reactor}{{__base__/graphics/icons/nuclear-reactor.png:64}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {lab{lab}{{__base__/graphics/icons/lab.png:64}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {lab{crash-site-lab-repaired}{{__base__/graphics/icons/crash-site-lab-repaired.png:64}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{assembling-machine-1}{{__base__/graphics/icons/assembling-machine-1.png:64}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{assembling-machine-2}{{__base__/graphics/icons/assembling-machine-2.png:64}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{crash-site-assembling-machine-1-repaired}{{__base__/graphics/icons/crash-site-assembling-machine-1-repaired.png:64}}}
+   5.998 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{crash-site-assembling-machine-2-repaired}{{__base__/graphics/icons/crash-site-assembling-machine-2-repaired.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{assembling-machine-3}{{__base__/graphics/icons/assembling-machine-3.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{oil-refinery}{{__base__/graphics/icons/oil-refinery.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{chemical-plant}{{__base__/graphics/icons/chemical-plant.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {assembling-machine{centrifuge}{{__base__/graphics/icons/centrifuge.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {furnace{stone-furnace}{{__base__/graphics/icons/stone-furnace.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {furnace{electric-furnace}{{__base__/graphics/icons/electric-furnace.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {furnace{steel-furnace}{{__base__/graphics/icons/steel-furnace.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {mining-drill{electric-mining-drill}{{__base__/graphics/icons/electric-mining-drill.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {mining-drill{burner-mining-drill}{{__base__/graphics/icons/burner-mining-drill.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {mining-drill{pumpjack}{{__base__/graphics/icons/pumpjack.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {transport-belt{transport-belt}{{__base__/graphics/icons/transport-belt.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {transport-belt{fast-transport-belt}{{__base__/graphics/icons/fast-transport-belt.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {transport-belt{express-transport-belt}{{__base__/graphics/icons/express-transport-belt.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {solar-panel{solar-panel}{{__base__/graphics/icons/solar-panel.png:64}}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {equipment-grid{small-equipment-grid}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {equipment-grid{medium-equipment-grid}}
+   5.999 Script @__recipelister__/data-final-fixes.lua:56: {equipment-grid{large-equipment-grid}}
+   6.316 Checksum for core: 1364678029
+   6.316 Checksum of base: 1055569517
+   6.316 Checksum of recipelister: 2473541013
+   7.504 Prototype list checksum: 2696559477
+   7.578 Loading sounds...
+  21.188 Info PlayerData.cpp:70: Local player-data.json unavailable
+  21.189 Info PlayerData.cpp:73: Cloud player-data.json available, timestamp 1593173555
+  21.782 Initial atlas bitmap size is 16384
+  21.847 Created atlas bitmap 16384x16368 [none]
+  21.850 Created atlas bitmap 16384x4632 [none]
+  21.851 Created atlas bitmap 8192x3736 [decal]
+  21.855 Created atlas bitmap 16384x5248 [low-object, linear-minification]
+  21.857 Created atlas bitmap 8192x3760 [mipmap, linear-minification, linear-magnification, linear-mip-level]
+  21.858 Created atlas bitmap 16384x5776 [terrain, mipmap, linear-minification, linear-mip-level]
+  21.859 Created atlas bitmap 4096x2848 [terrain-effect-map, mipmap, linear-minification, linear-mip-level]
+  21.860 Created atlas bitmap 4096x1600 [smoke, mipmap, linear-minification, linear-magnification]
+  21.861 Created atlas bitmap 4096x3104 [mipmap]
+  21.862 Created atlas bitmap 4096x2144 [icon, not-compressed, mipmap, linear-minification, linear-magnification, linear-mip-level]
+  21.863 Created atlas bitmap 2048x192 [icon-background, not-compressed, mipmap, linear-minification, linear-magnification, linear-mip-level, ]
+  21.864 Created atlas bitmap 4096x2652 [alpha-mask]
+  21.870 Created atlas bitmap 16384x14748 [shadow, linear-magnification, alpha-mask]
+  21.871 Created atlas bitmap 8192x2352 [shadow, mipmap, linear-magnification, alpha-mask]
+  21.970 Created virtual atlas pages 4096x4096x7
+  21.984 Texture processor created (2048). GPU accelerated compression Supported: yes, Enabled: yes/yes. Test passed. YCoCgDXT PSNR: 35.83, BC3 PSNR: 33.82
+  62.358 Parallel Sprite Loader initialized (threads: 11)
+  72.251 Sprites loaded
+  72.265 Generated mipmaps (4) for atlas [3] of size 16384x5248   
+  72.277 Generated mipmaps (3) for atlas [4] of size 8192x3760   
+  72.289 Generated mipmaps (3) for atlas [5] of size 16384x5776   
+  72.301 Generated mipmaps (3) for atlas [6] of size 4096x2848   
+  72.313 Generated mipmaps (3) for atlas [7] of size 4096x1600   
+  72.361 Generated mipmaps (3) for atlas [8] of size 4096x3104   
+  72.373 Generated mipmaps (5) for atlas [9] of size 4096x2144   
+  72.385 Generated mipmaps (3) for atlas [13] of size 8192x2352   
+  72.405 Custom mipmaps uploaded.
+  72.582 Generated mipmaps for virtual atlas of size 8192x16384
+  72.950 Factorio initialised
+ 134.549 Loading map C:\Users\Vasiliy\AppData\Roaming\Factorio\saves\1.zip: 15417593 bytes.
+ 134.832 Loading level.dat: 40624516 bytes.
+ 134.846 Info Scenario.cpp:187: Map version 0.18.34-2
+ 136.036 Loading blueprint storage: Local timestamp 1580573815, Cloud timestamp 1592909494
+ 136.049 Loading script.dat: 377 bytes.
+ 136.115 Checksum for script C:/Users/Vasiliy/AppData/Roaming/Factorio/temp/currently-playing/control.lua: 4108740459
+ 136.141 Checksum for script __recipelister__/control.lua: 2015246291

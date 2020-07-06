@@ -27,9 +27,14 @@ namespace ResourceCalculator
   {
   }
 
-  void FactoryCollection::ADD( const Factory factory )
+  void FactoryCollection::ADD(const Factory factory)
   {
     _Factorys[factory.GetKey()] = factory;
+  }
+
+  void FactoryCollection::ADD(KEY_TYPE_FACTORY type, const FactoryType factoryType)
+  {
+    _TypesFactory[type] = factoryType;
   }
 
   const Factory & FactoryCollection::GetFactory( KEY_FACTORY Key ) const

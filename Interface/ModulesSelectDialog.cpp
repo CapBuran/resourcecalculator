@@ -45,7 +45,7 @@ QVariant ModulesSelectModel::data(const QModelIndex &index, int role) const
     const Module &module = _PC.MC.GetModule(key);
     switch (index.column()) {
     case 0:
-      return QString(module.GetIconPath().c_str());
+      return QString(module.GetIconKey().c_str());
       break;
     case 1:
       if (module.GetKey() == KEY_MODULE::ID_CleanSlot) {

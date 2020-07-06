@@ -8,4 +8,4 @@ if (WIN32)
 configure_file( ${CMAKE_SOURCE_DIR}/CMake/template.vcxproj.user_path_workdir ${CMAKE_CURRENT_BINARY_DIR}/Test1.vcxproj.user)
 endif (WIN32)
 
-set_property(TARGET Test1 PROPERTY FOLDER "TESTS")
+set_target_properties(Test1 PROPERTIES FOLDER "TESTS")

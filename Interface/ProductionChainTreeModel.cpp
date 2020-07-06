@@ -215,7 +215,7 @@ QVariant ProductionChainTreeItem::data(int column) const
     if (item != nullptr) {
       switch (column) {
       case 0:
-        return QString::fromStdString(item->GetIconPath());
+        return QString::fromStdString(item->GetIconKey());
         break;
       case 1:
         return QString::fromStdString(item->GetName());
@@ -232,7 +232,7 @@ QVariant ProductionChainTreeItem::data(int column) const
     if (recipe != nullptr) {
       switch (column) {
       case 0:
-        return QString::fromStdString(recipe->GetIconPath());
+        return QString::fromStdString(recipe->GetIconKey());
         break;
       case 1:
         return QString::fromStdString(recipe->GetName());

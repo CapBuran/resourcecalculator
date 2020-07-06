@@ -34,7 +34,7 @@ QVariant ModulesTypesEditModel::data( const QModelIndex & index, int role ) cons
     switch ( index.column() ) {
     case 0:
       //return QVariant( tr( "There should be an icon" ) );
-      return QString::fromStdString( _listOfItemsId[index.row()].second.GetIconPath() );
+      return QString::fromStdString( _listOfItemsId[index.row()].second.GetIconKey() );
       break;
     case 1:
       return QString::fromStdString( _listOfItemsId[index.row()].second.GetName() );
@@ -142,7 +142,7 @@ bool ModulesTypesEditModel::setData( const QModelIndex & index, const QVariant &
     double val = 0.0;
     switch ( index.column() ) {
     case 0:
-      _listOfItemsId[index.row()].second.SetIconPath( value.toString().toStdString() );
+      _listOfItemsId[index.row()].second.SetIconKey( value.toString().toStdString() );
       break;
     case 1:
       if(value.toString().length() > 0)
@@ -215,7 +215,7 @@ void ModulesTypesEditModel::Select()
 void ModulesTypesEditModel::SetKeyPathForItem( int Row, const std::string & KeyPath )
 {
   _ModulesToAdd.insert( _listOfItemsId[Row].first );
-  _listOfItemsId[Row].second.SetIconPath( KeyPath );
+  _listOfItemsId[Row].second.SetIconKey( KeyPath );
 }
 
 #pragma endregion MODEL

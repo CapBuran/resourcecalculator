@@ -87,7 +87,7 @@ QVariant ItemSelectedModel::data(const QModelIndex &index, int role) const
     switch (index.column())
     {
     case 0:
-      return QString( R->GetIconPath().c_str() );
+      return QString( R->GetIconKey().c_str() );
       break;
     case 1:
       return QString( R->GetName().c_str() );

@@ -7,14 +7,14 @@ namespace ResourceCalculator
   DefinitionProperty(Entry, std::string, Icon)
   DefinitionProperty(Name, std::string, Icon)
   DefinitionProperty(KeyPath, std::string, Icon)
-  DefinitionPropertyReadOnly(Size, int, Icon)
+  DefinitionProperty(Size, int, Icon)
 
   const std::vector<char>& Icon::GetRawData() const
   {
     return _data;
   }
 
-  void Icon::SetRawData(size_t len, const char * data)
+  void Icon::SetRawData(size_t len, const char* data)
   {
     _data.clear();
     _data.resize(len);
@@ -26,11 +26,10 @@ namespace ResourceCalculator
     std::ifstream in(FullPath, std::ios::binary);
     if (in.is_open())
     {
-      std::vector<char> contents;
       in.seekg(0, std::ios::end);
-      contents.resize(in.tellg());
+      _data.resize(in.tellg());
       in.seekg(0, std::ios::beg);
-      in.read(&contents[0], contents.size());
+      in.read(&_data[0], _data.size());
       in.close();
       in.clear();
     }
