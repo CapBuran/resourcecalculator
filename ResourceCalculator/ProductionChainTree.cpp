@@ -3,151 +3,146 @@
 namespace ResourceCalculator
 {
 
-template <typename key_type>
-class ResultElement
+FullItemTree::FullItemTree(const ParamsCollection& PC)
+  : _PC(PC)
+  , _noFoundItem(KEY_ITEM::ID_ITEM_NoFind_Item, KEY_RECIPE::ID_RECIPE_NoFindRecipe, {}, TreeBaseType::ITEM)
+  , _noFoundRecipe(KEY_RECIPE::ID_RECIPE_NoFindRecipe, KEY_ITEM::ID_ITEM_NoFind_Item, {}, TreeBaseType::RECIPE)
 {
-private:
-  std::map <key_type, int> _Levels;
-public:
-  inline ResultElement()
-  {
-  }
-  inline void AddLevel(key_type Type, int Level)
-  {
-    auto f = _Levels.find(Type);
-    if (f == _Levels.end()) {
-      _Levels[Type] = Level;
-    }
-    else {
-      if (f->second > Level) f->second = Level;
-    }
-  }
-  inline std::list <key_type> GetList() const
-  {
-    std::list <key_type> Result;
-    int Min = 0, Max = 0;
-    if (_Levels.size() > 0) {
-      Min = _Levels.begin()->second;
-      Max = Min;
-    }
-    for (auto IT : _Levels) {
-      if (IT.second > Max) Max = IT.second;
-      if (IT.second < Min) Min = IT.second;
-    }
-    for (int i = Min; i <= Max; i++) {
-      for (auto IT : _Levels) {
-        if (i == IT.second) {
-          auto F = std::find(Result.begin(), Result.end(), IT.first);
-          if (F == Result.end()) {
-            Result.push_back(IT.first);
-          }
-        }
-      }
-    }
-    return Result;
-  }
-};
+  Rebuild();
+}
 
-ItemResultTree::ItemResultTree(const ParamsCollection &_PC, KEY_ITEM _ItemID, KEY_RECIPE _Parent):
-  PC(_PC), ItemID(_ItemID), Parent(_Parent)
+ItemResultTree* FullItemTree::FactoryItemTree(KEY_ITEM id, KEY_RECIPE parent) const
 {
-  const std::map<KEY_RECIPE, Recipe> & Recipes = PC.RC.GetData();
-  std::set<KEY_RECIPE> result_all;
-  for (auto &r: Recipes){
-    const std::set<CountsItem> &result = r.second.GetResult();
-    for (auto &c: result){
-      if (c.ItemId == ItemID) {
-        result_all.insert(r.first);
+  auto found = _itemKeyToKeyIndex.find(id);
+  if (found != _itemKeyToKeyIndex.end())
+  {
+    int index = found->second;
+    if (0 <= index && index < _items.size())
+    {
+      if (_items[index])
+      {
+        const ItemResultTree& F = *_items[index];
+        return new ItemResultTree(F, parent);
+      }
+      else
+      {
+        return nullptr;
       }
     }
   }
-  _Result.resize(result_all.size());
-  std::copy(result_all.begin(), result_all.end(), _Result.begin());
+
+  return nullptr;
 }
 
-KEY_RECIPE ItemResultTree::GetChildren(size_t ID) const
+RecipeResultTree* FullItemTree::FactoryRecipeTree(KEY_RECIPE id, KEY_ITEM parent) const
 {
-  return _Result[ID];
-}
-
-size_t ItemResultTree::GetCountChildrens() const
-{
-  return _Result.size();
-}
-
-void ItemResultTree::Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& AnsferItems, std::map<KEY_RECIPE, KEY_ITEM>& AnsferRecipes, std::list<KEY_RECIPE>& ResultRecipes, std::list<KEY_ITEM>& ResultItems) const
-{
-  ResultElement<KEY_RECIPE> ResultRecipes1;
-  ResultElement<KEY_ITEM> ResultItems1;
-  _Travelling(Nesting, AnsferItems, AnsferRecipes, ResultRecipes1, ResultItems1);
-  ResultRecipes = ResultRecipes1.GetList();
-  ResultItems = ResultItems1.GetList();
-}
-
-void ItemResultTree::_Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& AnsferItems, std::map<KEY_RECIPE, KEY_ITEM>& AnsferRecipes, ResultElement<KEY_RECIPE>& RetRecipes, ResultElement<KEY_ITEM>& RetItems) const
-{
-  if (Nesting <= 0) return;
-  for (KEY_RECIPE RecipeID: _Result){
-    AnsferRecipes[RecipeID] = ItemID;
-    auto &IT = AnsferItems.find(ItemID);
-    if (IT != AnsferItems.end()) {
-      if (IT->second == KEY_RECIPE::ID_RECIPE_FindRecipeROOT) {
-        //RetItems.AddLevel(ItemID, 1);
-        //continue;
-        Nesting = 2;
+  auto found = _recipeKeyToKeyIndex.find(id);
+  if (found != _recipeKeyToKeyIndex.end())
+  {
+    int index = found->second;
+    if (0 <= index && index < _items.size())
+    {
+      if (_items[index])
+      {
+        const RecipeResultTree& F = *_recipes[index];
+        return new RecipeResultTree(F, parent);
+      }
+      else
+      {
+        return nullptr;
       }
     }
-    RecipeResultTree RRT(PC, RecipeID, ItemID);
-    RRT._Travelling(Nesting - 1, AnsferItems, AnsferRecipes, RetRecipes, RetItems);
   }
-  RetItems.AddLevel(ItemID, Nesting);
+
+  return nullptr;
 }
 
-RecipeResultTree::RecipeResultTree(const ParamsCollection & _PC, KEY_RECIPE _RecipeID, KEY_ITEM _Parent):
-  PC(_PC), RecipeID(_RecipeID), Parent(_Parent)
+const ItemResultTree& FullItemTree::GetRootItemTree(KEY_ITEM id) const
 {
-}
-
-KEY_ITEM RecipeResultTree::GetChildren(size_t ID) const
-{
-  const Recipe* recipe = PC.RC.GetRecipe(RecipeID);
-  if (recipe == nullptr) return KEY_ITEM::ID_ITEM_NoFind_Item;
-  const std::set<CountsItem> &ResultItems = recipe->GetResult();
-  if (ResultItems.size() <= ID) return KEY_ITEM::ID_ITEM_NoFind_Item;
-  std::set<CountsItem>::const_iterator it = ResultItems.begin();
-  for (size_t i = 0; i < ID; i++, it++);
-  return it->ItemId;
-}
-
-size_t RecipeResultTree::GetCountChildrens() const
-{
-  const Recipe* recipe = PC.RC.GetRecipe(RecipeID);
-  if (recipe == nullptr) return 0;
-  return recipe->GetResult().size();
-}
-
-void RecipeResultTree::Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& AnsferItems, std::map<KEY_RECIPE, KEY_ITEM>& AnsferRecipes, std::list<KEY_RECIPE>& ResultRecipes, std::list<KEY_ITEM>& ResultItems) const
-{
-  ResultElement<KEY_RECIPE> ResultRecipes1;
-  ResultElement<KEY_ITEM> ResultItems1;
-  _Travelling(Nesting, AnsferItems, AnsferRecipes, ResultRecipes1, ResultItems1);
-  ResultRecipes = ResultRecipes1.GetList();
-  ResultItems = ResultItems1.GetList();
-}
-
-void RecipeResultTree::_Travelling(int Nesting, const std::map<KEY_ITEM, KEY_RECIPE>& AnsferItems, std::map<KEY_RECIPE, KEY_ITEM>& AnsferRecipes, ResultElement<KEY_RECIPE>& RetRecipes, ResultElement<KEY_ITEM>& RetItems) const
-{
-  if (Nesting <= 0) return;
-  const Recipe* recipe = PC.RC.GetRecipe(RecipeID);
-  if (recipe == nullptr) return;
-  const std::set<CountsItem> &RequiredItems = recipe->GetRequired();
-  for (auto &it : RequiredItems) {
-    ItemResultTree IRT(PC, it.ItemId, RecipeID);
-    IRT._Travelling(Nesting - 1, AnsferItems, AnsferRecipes, RetRecipes, RetItems);
+  auto found = _itemKeyToKeyIndex.find(id);
+  if (found != _itemKeyToKeyIndex.end())
+  {
+    int index = found->second;
+    if (0 <= index && index < _items.size())
+    {
+      if (_items[index])
+      {
+        return *_items[index];
+      }
+      else
+      {
+        return _noFoundItem;
+      }
+    }
   }
-  RetRecipes.AddLevel(RecipeID, Nesting);
+
+  return _noFoundItem;
 }
 
+const RecipeResultTree& FullItemTree::GetRootRecipeTree(KEY_RECIPE id) const
+{
+  auto found = _recipeKeyToKeyIndex.find(id);
+  if (found != _recipeKeyToKeyIndex.end())
+  {
+    int index = found->second;
+    if (0 <= index && index < _recipes.size())
+    {
+      if (_recipes[index])
+      {
+        return *_recipes[index];
+      }
+      else
+      {
+        return _noFoundRecipe;
+      }
+    }
+  }
+  return _noFoundRecipe;
+}
+
+void FullItemTree::Rebuild()
+{
+  _itemKeyToKeyIndex.clear();
+  _recipeKeyToKeyIndex.clear();
+  _childrensItems.clear();
+  _childrensRecipes.clear();
+  _items.clear();
+  _recipes.clear();
+
+  int index = 0;
+
+  const std::map<KEY_RECIPE, Recipe>& recipes = _PC.RC.GetData();
+  const std::map<KEY_ITEM, Item>& items = _PC.IC.GetData();
+
+  _items.resize(items.size());
+  _childrensItems.resize(items.size());
+  _recipes.resize(recipes.size());
+  _childrensRecipes.resize(recipes.size());
+
+  for (const auto& item : items)
+  {
+    _itemKeyToKeyIndex[item.first] = index;
+    _items[index].reset(new ItemResultTree(item.first, KEY_RECIPE::ID_RECIPE_NoFindRecipe, _childrensItems[index], TreeBaseType::ITEM));
+    index++;
+  }
+
+  index = 0;
+
+  for (const auto& recipe: recipes)
+  {
+    _recipeKeyToKeyIndex[recipe.first] = index;
+    auto& results = recipe.second.GetRequired();
+    auto& required = recipe.second.GetResult();
+    _childrensRecipes[index].resize(results.size());
+    std::copy(results.begin(), results.end(), _childrensRecipes[index].begin());
+    for (auto item_counter: required)
+    {
+      _childrensItems[_itemKeyToKeyIndex[item_counter]].push_back(recipe.first);
+    }
+    _recipes[index].reset(new RecipeResultTree(recipe.first, KEY_ITEM::ID_ITEM_NoFind_Item, _childrensRecipes[index], TreeBaseType::RECIPE));
+    index++;
+  }
+}
 
 }
 

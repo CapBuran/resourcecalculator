@@ -14,9 +14,7 @@ ItemSelectedModel::ItemSelectedModel(
   std::set<CountsItem> _ResultOld;
 
   if (
-    recipe_key != ResourceCalculator::KEY_RECIPE::ID_RECIPE_PreviouslyProduced &&
-    recipe_key != ResourceCalculator::KEY_RECIPE::ID_RECIPE_NoFindRecipe &&
-    recipe_key != ResourceCalculator::KEY_RECIPE::ID_RECIPE_FindRecipeROOT
+    recipe_key != ResourceCalculator::KEY_RECIPE::ID_RECIPE_NoFindRecipe
   ){
     const Recipe * recipe = PC.RC.GetRecipe(recipe_key);
     if (recipe != nullptr) {

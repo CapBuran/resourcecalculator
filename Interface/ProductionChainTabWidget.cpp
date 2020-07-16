@@ -3,12 +3,11 @@
 #include "ModulesSelectDialog.h"
 #include "ProductionChainWidgetSummProductionItems.h"
 
-ProductionChainTabWidget::ProductionChainTabWidget(ResourceCalculator::ParamsCollection &PC, QWidget *parent):
-  _PC(PC), QTabWidget(parent)
+ProductionChainTabWidget::ProductionChainTabWidget(ResourceCalculator::FullItemTree& tree, QWidget* parent):
+  Tree_(tree), QTabWidget(parent)
 {
-  ProductionChainWidgetSummProductionItems *PCWSPI = new ProductionChainWidgetSummProductionItems(PC, this);
+  ProductionChainWidgetSummProductionItems *PCWSPI = new ProductionChainWidgetSummProductionItems(Tree_.GetPC(), this);
   addTab(PCWSPI, tr("Summ production items on all tabs") );
-
   connect(this, SIGNAL(currentChanged(int)), SLOT(OncurrentChanged(int)));
 }
 
@@ -26,9 +25,8 @@ void ProductionChainTabWidget::Update()
 
 void ProductionChainTabWidget::AddTab(ResourceCalculator::KEY_ITEM ItemKey)
 {
-  ResourceCalculator::ProductionChainModel *PCM = _PC.PCC.Add(ItemKey);
-  ProductionChainWidget *PCW = new ProductionChainWidget(*PCM, this);
-  addTab(PCW, QString::fromStdString(_PC.IC.GetItem(ItemKey)->GetName()));
+  ProductionChainWidget *PCW = new ProductionChainWidget(Tree_, ItemKey, this);
+  addTab(PCW, QString::fromStdString(Tree_.GetPC().IC.GetItem(ItemKey)->GetName()));
   Update();
 }
 
@@ -40,17 +38,14 @@ void ProductionChainTabWidget::RemoveCurrentTab()
     ProductionChainWidget *PCW = dynamic_cast<ProductionChainWidget*>(W);
     ResourceCalculator::ProductionChainModel &PCM = PCW->GetPCM();
     removeTab(CI);
-    _PC.PCC.Remove(&PCM);
   }
   Update();
 }
 
-void ProductionChainTabWidget::AddTabs(const std::set<ResourceCalculator::ProductionChainModel*>& ToADD)
+void ProductionChainTabWidget::AddTabs(const std::list<ResourceCalculator::KEY_ITEM>& ToADD)
 {
   for (auto it : ToADD) {
-    ProductionChainWidget *PCW = new ProductionChainWidget(*it, this);
-    ResourceCalculator::KEY_ITEM ItemKey = it->GetItemKey();
-    addTab(PCW, QString::fromStdString(_PC.IC.GetItem(ItemKey)->GetName()));
+    AddTab(it);
   }
 }
 

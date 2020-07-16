@@ -1,18 +1,16 @@
 #ifndef ProductionChainModel_H
 #define ProductionChainModel_H
 
-#include "Module.h"
+#include <Module.h>
+#include <ProductionChainTree.h>
 
 namespace ResourceCalculator {
 
 class ProductionChainModel;
-class ParamsCollection;
 
 class ProductionChainDataRow : public Jsonable {
 
 private:
-
-  KEY_ITEM    _ItemCurrent;
   KEY_RECIPE  _RecipeCurrent;
   KEY_FACTORY _FactoryCurrent;
 
@@ -46,12 +44,11 @@ public:
   bool FindCountFactorysForItemsCount(int Columb, double Count);
 
   bool ReInit();
-  bool Init(const ParamsCollection &PC, KEY_ITEM ItemId, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM> &Cols, int InitColumb = -1);
+  bool Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, const std::vector<KEY_ITEM> &Cols);
 
   double GetSummProductivity(const ParamsCollection &PC) const;
   double GetSummSpeed(const ParamsCollection &PC) const;
   
-  DeclareAndDefinitionPropertyReadOnly(ItemCurrent, KEY_ITEM)
   DeclareAndDefinitionPropertyReadOnly(RecipeCurrent, KEY_RECIPE)
   DeclareAndDefinitionPropertyReadOnly(Factorys, std::vector <KEY_FACTORY>)
   DeclareAndDefinitionPropertyReadOnly(FactoryCurrent, KEY_FACTORY)
@@ -77,27 +74,27 @@ class ProductionChainModel : public ItemBase
 {
 private:
   KEY_ITEM _ItemKey;
-  std::map<KEY_ITEM, KEY_RECIPE> _AnsferItems;
   const ParamsCollection &_PC;
 
   std::vector<KEY_ITEM> _ColsItems;
-  std::vector <ProductionChainDataRow>  _DataRows;
+  std::vector<ProductionChainDataRow>  _DataRows;
   std::vector<double> _SummSpeeds;
   
   //Возвращают истину, когда нужно обновить всю модель
   bool _SetItemKey(KEY_ITEM ItemKey);
-
+ 
+  FullItemTree& _tree;
 public:
 
-  inline const ParamsCollection &GetPC() const
+  const ParamsCollection &GetPC() const
   {
     return _PC;
   }
 
   KEY_ITEM GetItemKey() const ;
 
-  ProductionChainModel(const ParamsCollection &PC, KEY_ITEM ItemKey);
-  ProductionChainModel(const ParamsCollection &PC);
+  ProductionChainModel(FullItemTree& tree, KEY_ITEM ItemKey);
+  ProductionChainModel(FullItemTree& tree);
   ~ProductionChainModel();
 
   void DeleteModules(const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel);
@@ -106,15 +103,12 @@ public:
   bool ReInit();
 
   //Возвращают истину, когда нужно обновить всю модель
-  bool SetRecipe(int Row, KEY_RECIPE RecipeId);
-
-  //Возвращают истину, когда нужно обновить всю модель
   bool SetFactory(int Row, KEY_FACTORY FactoryId);
 
   bool SetCountFactores(int Row, double CountFactores);
 
   //Возвращают истину, когда нужно обновить всю модель
-  bool SetModules(int Row, const FactoryModules & Modules);
+  bool SetModules(int Row, const FactoryModules& Modules);
 
   int CountItems() const;
 

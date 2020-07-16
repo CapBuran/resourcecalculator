@@ -307,12 +307,12 @@ bool FactorysEditDialogModel::setData(const QModelIndex & index, const QVariant 
     }
     case 2:
     {
-      int d = value.toInt();
-      if (d >= 0) {
-        _listOfItemsId[index.row()].second.SetType(
-          static_cast< ResourceCalculator::KEY_TYPE_FACTORY >(d)
-        );
-      }
+      //int d = value.toInt();
+      //if (d >= 0) {
+      //  _listOfItemsId[index.row()].second.SetType(
+      //    static_cast< ResourceCalculator::KEY_TYPE_FACTORY >(d)
+      //  );
+      //}
     }
     break;
     case 3:
@@ -409,15 +409,15 @@ void FactorysEditDialogDelegate::paint(QPainter * painter, const QStyleOptionVie
   }
   case 2:
   {
-    const ResourceCalculator::Factory &factory = _Model.GetCurrentFactory(index.row());
-    int RowInModel = _modelForComboBox.GetRowFromFactoryType(factory.GetType());
-    QString Text = QString::fromStdString(_modelForComboBox.GetDataRow(RowInModel).second.Name);
-    QStyleOptionComboBox comboBoxOption;
-    comboBoxOption.rect = option.rect;
-    comboBoxOption.currentText = Text;
-    comboBoxOption.state = QStyle::State_Enabled;
-    QApplication::style()->drawComplexControl(QStyle::CC_ComboBox, &comboBoxOption, painter, 0);
-    QApplication::style()->drawControl(QStyle::CE_ComboBoxLabel, &comboBoxOption, painter, 0);
+    //const ResourceCalculator::Factory &factory = _Model.GetCurrentFactory(index.row());
+    //int RowInModel = _modelForComboBox.GetRowFromFactoryType(factory.GetType());
+    //QString Text = QString::fromStdString(_modelForComboBox.GetDataRow(RowInModel).second.Name);
+    //QStyleOptionComboBox comboBoxOption;
+    //comboBoxOption.rect = option.rect;
+    //comboBoxOption.currentText = Text;
+    //comboBoxOption.state = QStyle::State_Enabled;
+    //QApplication::style()->drawComplexControl(QStyle::CC_ComboBox, &comboBoxOption, painter, 0);
+    //QApplication::style()->drawControl(QStyle::CE_ComboBoxLabel, &comboBoxOption, painter, 0);
     break;
   }
   default:
@@ -453,17 +453,17 @@ bool FactorysEditDialogDelegate::editorEvent(QEvent * event, QAbstractItemModel 
 
 QWidget * FactorysEditDialogDelegate::createEditor(QWidget * parent, const QStyleOptionViewItem &option, const QModelIndex & index) const
 {
-  if (index.column() == 2) {
-    const ResourceCalculator::Factory &factory = _Model.GetCurrentFactory(index.row());
-    QComboBox * combobox = new QComboBox(parent);
-    FactoryTypesViewModel *modelForComboBox = new FactoryTypesViewModel(_PC);
-    int SetCurentRow = modelForComboBox->GetRowFromFactoryType(factory.GetType());
-    combobox->setModel(modelForComboBox);
-    combobox->setCurrentIndex(SetCurentRow);
-    //combobox->setGeometry(option.rect);//TODO: No work =(
-    //combobox->showPopup();
-    return combobox;
-  }
+  //if (index.column() == 2) {
+  //  const ResourceCalculator::Factory &factory = _Model.GetCurrentFactory(index.row());
+  //  QComboBox * combobox = new QComboBox(parent);
+  //  FactoryTypesViewModel *modelForComboBox = new FactoryTypesViewModel(_PC);
+  //  int SetCurentRow = modelForComboBox->GetRowFromFactoryType(factory.GetType());
+  //  combobox->setModel(modelForComboBox);
+  //  combobox->setCurrentIndex(SetCurentRow);
+  //  combobox->setGeometry(option.rect);//TODO: No work =(
+  //  combobox->showPopup();
+  //  return combobox;
+  //}
   return QStyledItemDelegate::createEditor(parent, option, index);
 }
 

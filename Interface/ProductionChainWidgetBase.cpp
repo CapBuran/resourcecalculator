@@ -79,7 +79,8 @@ QSize ProductionChainDelegateBase::sizeHint(
 
 #pragma endregion DELEGATE
 
-ProductionChainWidgetBase::ProductionChainWidgetBase(const ResourceCalculator::ParamsCollection &PC, QWidget *parent):
-  _PC(PC), QSplitter(parent)
+ProductionChainWidgetBase::ProductionChainWidgetBase(const ResourceCalculator::FullItemTree& tree, QWidget* parent)
+  : _PC(tree.GetPC())
+  , QSplitter(parent)
 {
 }

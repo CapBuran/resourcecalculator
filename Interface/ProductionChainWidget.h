@@ -3,6 +3,8 @@
 
 #include <QtWidgets>
 
+#include <ProductionChainModel.h>
+
 #include "ProductionChainWidgetBase.h"
 
 class ProductionChainDelegate0: public ProductionChainDelegateBase {
@@ -96,14 +98,14 @@ public:
     return &_Model;
   }
 
-  ProductionChainWidget(ResourceCalculator::ProductionChainModel &PCM, QWidget *parent = 0 );
+  ProductionChainWidget(ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_ITEM keyItem, QWidget* parent = 0);
   ResourceCalculator::ProductionChainModel &GetPCM();
   ProductionChainWidgetType GetType() const override;
   void UpdateModel() override;
 private:
   QTableView *tables[4];
+  ResourceCalculator::ProductionChainModel _PCM;
   ProductionChainModel _Model;
-  ResourceCalculator::ProductionChainModel &_PCM;
   void _Init();
 signals:
   void selectionChanged(const QItemSelection &selected);

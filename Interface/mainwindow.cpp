@@ -7,8 +7,9 @@
 #include "ModulesEditDialog.h"
 #include "TransportBeltsEditDialog.h"
 
-MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
-  _PC(PC)
+MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC)
+  : _PC(PC)
+  , _tree(PC)
 {
 
   QPushButton *_ButtonAddRecipeTab = new QPushButton(tr("Recipe tab add"));
@@ -41,7 +42,7 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
   h->addWidget( _ButtonModulesEdit);
   h->addWidget( _ButtonTransportBeltsEdit);
 
-  _PCTW = new ProductionChainTabWidget( _PC );
+  _PCTW = new ProductionChainTabWidget( _tree, this );
   QVBoxLayout *v = new QVBoxLayout();
   v->addWidget(_PCTW);
   v->addLayout( h );
@@ -60,14 +61,14 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC):
 
 void MainWindow::_setupTabs()
 {
-  const std::set<ResourceCalculator::ProductionChainModel*>& ToADDs = _PC.PCC.GetReadingPCMs();
-  if (ToADDs.size() > 0) {
-    _PCTW->AddTabs(ToADDs);
-  } else {
+  //const std::set<ResourceCalculator::ProductionChainModel*>& ToADDs = _PC.PCC.GetReadingPCMs();
+  //if (ToADDs.size() > 0) {
+    //_PCTW->AddTabs(ToADDs);
+  //} else {
    // _PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_1);
     //_PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_Sherst);
     //_PCTW->AddTab(ResourceCalculator::KEY_ITEM::ID_ITEM_science_pack_2);
-  }
+  //}
 }
 
 void MainWindow::_createMenus()

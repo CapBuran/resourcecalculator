@@ -1,7 +1,7 @@
 #ifndef ProductionChainWidgetBase_H
 #define ProductionChainWidgetBase_H
 
-#include "../../ResourceCalculator/ParamsCollection.h"
+#include <ProductionChainTree.h>
 
 #include <QtWidgets>
 
@@ -42,7 +42,7 @@ class ProductionChainWidgetBase: public QSplitter {
   Q_OBJECT
 public:
   virtual ProductionChainWidgetType GetType() const = 0;
-  ProductionChainWidgetBase(const ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0 );
+  ProductionChainWidgetBase(const ResourceCalculator::FullItemTree& tree, QWidget *parent = 0 );
   virtual void UpdateModel() = 0;
 protected:
   const ResourceCalculator::ParamsCollection &_PC;

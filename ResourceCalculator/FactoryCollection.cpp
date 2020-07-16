@@ -44,13 +44,18 @@ namespace ResourceCalculator
     return F == _Factorys.end() ? _NoFindFactory : F->second;
   }
 
-  const FactoryType &FactoryCollection::GetFactoryType( KEY_FACTORY Key ) const
+  const FactoryType& FactoryCollection::GetFactoryType( KEY_FACTORY Key ) const
   {
-    const Factory & facory = GetFactory( Key );
-    
-    auto f = _TypesFactory.find( facory.GetType() );
-    if ( f != _TypesFactory.end() ) {
-      return f->second;
+    const Factory& facory = GetFactory( Key );
+    const auto types = facory.GetTypes();
+
+    if (!types.empty())
+    {
+      const KEY_TYPE_FACTORY type = *types.begin();
+      auto f = _TypesFactory.find(type);
+      if ( f != _TypesFactory.end() ) {
+        return f->second;
+      }
     }
 
     return _UNKNOWN_FactoryType;
@@ -83,9 +88,9 @@ namespace ResourceCalculator
   {
     for ( auto & it : FactoryTypesKey ) {
       for ( auto &itf : _Factorys ) {
-        if ( it == itf.second.GetType() ) {
-          itf.second.SetType( KEY_TYPE_FACTORY::Unknown );
-        }
+        std::set<KEY_TYPE_FACTORY> types = itf.second.GetTypes();
+        types.erase(FactoryTypesKey.begin(), FactoryTypesKey.end());
+        itf.second.SetTypes(types);
       }
       if ( it != KEY_TYPE_FACTORY::Unknown ) {
         _TypesFactory.erase( it );

@@ -7,3 +7,4 @@ target_include_directories(TestZLib PRIVATE ${ZLIB_INCLUDE_DIR})
 target_link_libraries(TestZLib ${ZLIB_LIBRARY})
 
 set_target_properties(TestZLib PROPERTIES FOLDER "TESTS")
+

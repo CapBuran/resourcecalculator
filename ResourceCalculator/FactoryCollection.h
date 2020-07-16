@@ -46,7 +46,7 @@ namespace ResourceCalculator {
     KEY_TYPE_FACTORY _LastRetvalUniqueFactoryTypeKey;
 
     std::map<KEY_FACTORY, Factory> _Factorys;
-    std::map<KEY_TYPE_FACTORY, FactoryType > _TypesFactory;
+    std::map<KEY_TYPE_FACTORY, FactoryType> _TypesFactory;
     Factory _NoFindFactory;
     FactoryType _UNKNOWN_FactoryType;
   };

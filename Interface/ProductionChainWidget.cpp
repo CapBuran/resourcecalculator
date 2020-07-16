@@ -52,9 +52,6 @@ QWidget *ProductionChainDelegate0::createEditor( QWidget *parent, const QStyleOp
       combobox->addItem(QString::fromStdString(recipe->GetName()));
       combobox->setCurrentIndex(1);
     }
-    if (CurenRecipe == KEY_RECIPE::ID_RECIPE_FindRecipeROOT) {
-      combobox->setCurrentIndex(0);
-    }
     combobox->setGeometry(option.rect);
     combobox->setFrame(true);
     return combobox;
@@ -295,13 +292,13 @@ bool ProductionChainModel::setData( const QModelIndex &index, const QVariant &va
   }
   if (index.column() == 1)
   {
-    beginResetModel();
-    if (value.toInt() == 0)
-    {
-      _PCM.SetRecipe(index.row(), KEY_RECIPE::ID_RECIPE_FindRecipeROOT);
-    }
-    endResetModel();
-    emit(AllDataChanged());
+    //beginResetModel();
+    //if (value.toInt() == 0)
+    //{
+      //_PCM.SetRecipe(index.row(), KEY_RECIPE::ID_RECIPE_FindRecipeROOT);
+    //}
+    //endResetModel();
+    //emit(AllDataChanged());
     return true;
   }
   if (index.column() == 2 || index.column() == 3) {
@@ -445,8 +442,10 @@ bool ProductionChainProxyModel3::filterAcceptsRow( int source_row, const QModelI
 
 #pragma endregion PROXYMODEL
 
-ProductionChainWidget::ProductionChainWidget(ResourceCalculator::ProductionChainModel &PCM, QWidget *parent )
-  : ProductionChainWidgetBase(PCM.GetPC(), parent), _Model(PCM, parent), _PCM(PCM)
+ProductionChainWidget::ProductionChainWidget(ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_ITEM keyItem, QWidget* parent)
+  : ProductionChainWidgetBase(tree, parent)
+  , _PCM(tree, keyItem)
+  , _Model(_PCM, parent)
 {
   _Init();
 }
@@ -516,6 +515,17 @@ void ProductionChainWidget::_Init( )
   tables[1]->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
   tables[2]->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
+  int VerticalMaxSizeHeader = 0;
+
+  for (int i = 0; i < 3; i++) {
+    if (VerticalMaxSizeHeader < tables[i]->horizontalHeader()->sizeHint().height())
+      VerticalMaxSizeHeader = tables[i]->horizontalHeader()->sizeHint().height();
+  }
+
+  for (int i = 0; i < 3; i++) {
+    tables[i]->horizontalHeader()->setFixedHeight(VerticalMaxSizeHeader);
+  }
 
   tables[3]->setFixedHeight( VerticalSizeResult );
   tables[3]->horizontalHeader()->hide();

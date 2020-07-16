@@ -126,9 +126,7 @@ namespace FactorioImport
       F.SetWear(0.0);//TODO
       F.SetPower(it.second.energy_usage);
       F.SetLevelOfPollution(0.0);//TODO
-      F.SetType(ResourceCalculator::KEY_TYPE_FACTORY::Unknown);
       F.SetTypes(keys);
-      if (!keys.empty()) F.SetType(*keys.begin());
 
       pc.FC.ADD(F);
     }
@@ -151,9 +149,7 @@ namespace FactorioImport
       F.SetWear(0.0);//TODO
       F.SetPower(it.second.energy_usage);
       F.SetLevelOfPollution(0.0);//TODO
-      F.SetType(ResourceCalculator::KEY_TYPE_FACTORY::Unknown);
       F.SetTypes(keys);
-      if (!keys.empty()) F.SetType(*keys.begin());
 
       pc.FC.ADD(F);
     }

@@ -5,14 +5,15 @@
 
 namespace ResourceCalculator
 {
-
-  struct CountsItem {
+  struct CountsItem
+  {
     KEY_ITEM ItemId;
     double   Count;
-    CountsItem( KEY_ITEM item_id = KEY_ITEM::ID_ITEM_NoFind_Item, double count = 0.0 ):
-      ItemId( item_id ), Count( count )
-    {
-    }
+    CountsItem( KEY_ITEM item_id = KEY_ITEM::ID_ITEM_NoFind_Item, double count = 0.0 )
+      : ItemId( item_id )
+      , Count( count )
+    {}
+    operator KEY_ITEM() const { return ItemId; }
   };
 
   inline bool operator<( const CountsItem& lhs, const CountsItem& rhs )
@@ -20,7 +21,8 @@ namespace ResourceCalculator
     return lhs.ItemId < rhs.ItemId;
   }
 
-  class Recipe: public ItemBase {
+  class Recipe: public ItemBase
+  {
   private:
     double      _Time;
     KEY_RECIPE  _Key;

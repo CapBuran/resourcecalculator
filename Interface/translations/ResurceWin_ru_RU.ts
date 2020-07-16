@@ -193,26 +193,26 @@
 <context>
     <name>ItemSelectedDialog</name>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="238"/>
-        <location filename="../ItemSelectedDialog.cpp" line="293"/>
+        <location filename="../ItemSelectedDialog.cpp" line="236"/>
+        <location filename="../ItemSelectedDialog.cpp" line="291"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="239"/>
-        <location filename="../ItemSelectedDialog.cpp" line="294"/>
+        <location filename="../ItemSelectedDialog.cpp" line="237"/>
+        <location filename="../ItemSelectedDialog.cpp" line="292"/>
         <source>Cancel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ItemSelectedDialog.cpp" line="279"/>
+        <location filename="../ItemSelectedDialog.cpp" line="333"/>
+        <source>Select an item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="../ItemSelectedDialog.cpp" line="281"/>
         <location filename="../ItemSelectedDialog.cpp" line="335"/>
-        <source>Select an item</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ItemSelectedDialog.cpp" line="283"/>
-        <location filename="../ItemSelectedDialog.cpp" line="337"/>
         <source>Select items</source>
         <translation type="unfinished"></translation>
     </message>
@@ -220,17 +220,17 @@
 <context>
     <name>ItemSelectedModel</name>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="114"/>
+        <location filename="../ItemSelectedDialog.cpp" line="112"/>
         <source>Icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="116"/>
+        <location filename="../ItemSelectedDialog.cpp" line="114"/>
         <source>Item Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="118"/>
+        <location filename="../ItemSelectedDialog.cpp" line="116"/>
         <source>Number of items</source>
         <translation type="unfinished"></translation>
     </message>
@@ -294,129 +294,129 @@
 <context>
     <name>MainWindow</name>
     <message>
-        <location filename="../mainwindow.cpp" line="14"/>
+        <location filename="../mainwindow.cpp" line="15"/>
         <source>Recipe tab add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="17"/>
+        <location filename="../mainwindow.cpp" line="18"/>
         <source>Recipe tab del</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="20"/>
+        <location filename="../mainwindow.cpp" line="21"/>
         <source>Items editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="23"/>
+        <location filename="../mainwindow.cpp" line="24"/>
         <source>Recipes editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="26"/>
+        <location filename="../mainwindow.cpp" line="27"/>
         <source>Factorys editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="29"/>
+        <location filename="../mainwindow.cpp" line="30"/>
         <source>Modules editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="32"/>
+        <location filename="../mainwindow.cpp" line="33"/>
         <source>Transport belts editor</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="56"/>
+        <location filename="../mainwindow.cpp" line="57"/>
         <source>Resurse calculator</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="75"/>
+        <location filename="../mainwindow.cpp" line="76"/>
         <source>&amp;File</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="77"/>
+        <location filename="../mainwindow.cpp" line="78"/>
         <source>&amp;Open...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="83"/>
+        <location filename="../mainwindow.cpp" line="84"/>
         <source>&amp;Save...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="87"/>
+        <location filename="../mainwindow.cpp" line="88"/>
         <source>&amp;Save As...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="93"/>
+        <location filename="../mainwindow.cpp" line="94"/>
         <source>E&amp;xit</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="97"/>
+        <location filename="../mainwindow.cpp" line="98"/>
         <source>&amp;Tools</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="99"/>
+        <location filename="../mainwindow.cpp" line="100"/>
         <source>&amp;Add tab...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="103"/>
+        <location filename="../mainwindow.cpp" line="104"/>
         <source>&amp;Remove current tab</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="107"/>
+        <location filename="../mainwindow.cpp" line="108"/>
         <source>&amp;Recipes edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="111"/>
+        <location filename="../mainwindow.cpp" line="112"/>
         <source>&amp;Items edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="115"/>
+        <location filename="../mainwindow.cpp" line="116"/>
         <source>&amp;Factorys edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="119"/>
+        <location filename="../mainwindow.cpp" line="120"/>
         <source>&amp;Modules edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="123"/>
+        <location filename="../mainwindow.cpp" line="124"/>
         <source>&amp;Transport belts edit...</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="127"/>
+        <location filename="../mainwindow.cpp" line="128"/>
         <source>&amp;Help</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="129"/>
+        <location filename="../mainwindow.cpp" line="130"/>
         <source>About &amp;Qt</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="141"/>
-        <location filename="../mainwindow.cpp" line="161"/>
-        <location filename="../mainwindow.cpp" line="176"/>
+        <location filename="../mainwindow.cpp" line="142"/>
+        <location filename="../mainwindow.cpp" line="162"/>
+        <location filename="../mainwindow.cpp" line="177"/>
         <source>Unable to open file</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../mainwindow.cpp" line="150"/>
+        <location filename="../mainwindow.cpp" line="151"/>
         <source>Unable parse json file</source>
         <translation type="unfinished"></translation>
     </message>
@@ -573,42 +573,42 @@
 <context>
     <name>ProductionChainModel</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="254"/>
+        <location filename="../ProductionChainWidget.cpp" line="251"/>
         <source>Factory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="256"/>
+        <location filename="../ProductionChainWidget.cpp" line="253"/>
         <source>Recipe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="258"/>
+        <location filename="../ProductionChainWidget.cpp" line="255"/>
         <source>Modules productivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="260"/>
+        <location filename="../ProductionChainWidget.cpp" line="257"/>
         <source>Modules speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="262"/>
+        <location filename="../ProductionChainWidget.cpp" line="259"/>
         <source>Speed factory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="264"/>
+        <location filename="../ProductionChainWidget.cpp" line="261"/>
         <source>Time for recipe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="266"/>
+        <location filename="../ProductionChainWidget.cpp" line="263"/>
         <source>Real time for recipe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="268"/>
+        <location filename="../ProductionChainWidget.cpp" line="265"/>
         <source>Count factorys</source>
         <translation type="unfinished"></translation>
     </message>
@@ -616,18 +616,17 @@
 <context>
     <name>ProductionChainModelSummProductionItems</name>
     <message>
-        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="93"/>
-        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="111"/>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="95"/>
         <source>Production chain is deleted!!!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="103"/>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="105"/>
         <source>Icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="104"/>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="106"/>
         <source>Summ by production chain</source>
         <translation type="unfinished"></translation>
     </message>
@@ -643,12 +642,12 @@
 <context>
     <name>ProductionChainTreeModel</name>
     <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="85"/>
+        <location filename="../ProductionChainTreeModel.cpp" line="78"/>
         <source>Icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="87"/>
+        <location filename="../ProductionChainTreeModel.cpp" line="80"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -656,12 +655,12 @@
 <context>
     <name>ProductionChainWidget</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="538"/>
+        <location filename="../ProductionChainWidget.cpp" line="548"/>
         <source>Auto-fit quantity items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="540"/>
+        <location filename="../ProductionChainWidget.cpp" line="550"/>
         <source>Summ results:  </source>
         <translation type="unfinished"></translation>
     </message>
@@ -669,7 +668,7 @@
 <context>
     <name>ProductionChainWidgetSummProductionItems</name>
     <message>
-        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="225"/>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="227"/>
         <source>Sum of all items produced</source>
         <translation type="unfinished"></translation>
     </message>

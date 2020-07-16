@@ -1,8 +1,7 @@
 #include <fstream>
 
 #include "../../ThreeParty/Base64/base64.h"
-#include "../../ResourceCalculator/ParamsCollection.h"
-#include "../../ResourceCalculator/ProductionChainTree.h"
+#include "../../ResourceCalculator/ProductionChainModel.h"
 
 #define StandartTestFileJson "Factorio.json"
 
@@ -46,11 +45,13 @@ int main(int argc, char ** argv) {
   std::list <KEY_RECIPE> ResultRecipes2;
   std::list <KEY_ITEM>   ResultItems2;
 
-  ItemResultTree IRT2(PC, KeyFind);
+  FullItemTree tree(PC);
 
-  IRT2.Travelling(150, AnsferItems, AnsferRecipes, ResultRecipes2, ResultItems2);
+//  ItemResultTree IRT2(PC, KeyFind);
 
-  ProductionChainModel PCM(PC, KEY_ITEM::ID_ITEM_science_pack_1);
+//  IRT2.Travelling(150, AnsferItems, AnsferRecipes, ResultRecipes2, ResultItems2);
+
+  ProductionChainModel PCM(tree, KEY_ITEM::ID_ITEM_science_pack_1);
 
   return 0;
 

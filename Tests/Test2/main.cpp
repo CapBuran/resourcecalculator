@@ -1,8 +1,7 @@
 #include <fstream>
 
 #include "../../ThreeParty/Base64/base64.h"
-#include "../../ResourceCalculator/ParamsCollection.h"
-#include "../../ResourceCalculator/ProductionChainTree.h"
+#include "../../ResourceCalculator/ProductionChainModel.h"
 
 #define StandartTestFileJson "C:\\games\\Factorio.json"
 
@@ -12,26 +11,34 @@ int main(int argc, char ** argv) {
   using namespace std;
 
   ParamsCollection PC;
-  ItemCollection &IC = PC.IC;
-  RecipeCollection &RC = PC.RC;
-
-  //{
-  //  Item To;
-  //  To.SetName("Железная плита");            To.SetKey(KEY_ITEM::ID_ITEM_Iron_Plate);
-  //  IC.ADD(To);
-  //  To.SetName("Медная плита");              To.SetKey(KEY_ITEM::ID_ITEM_Cuprum_Plate);
-  //  IC.ADD(To);
-  //  To.SetName("Железная шестерня");         To.SetKey(KEY_ITEM::ID_ITEM_Sherst);
-  //  IC.ADD(To);
-  //  To.SetName("Исследовательский пакет 1"); To.SetKey(KEY_ITEM::ID_ITEM_science_pack_1);
-  //  IC.ADD(To);
-  //  To.SetName("Железная руда");             To.SetKey(KEY_ITEM::ID_ITEM_Iron_Ruda);
-  //  IC.ADD(To);
-  //  To.SetName("Медная руда");               To.SetKey(KEY_ITEM::ID_ITEM_Cuprum_Ruda);
-  //  IC.ADD(To);
-  //}
 
   {
+    std::map<KEY_ITEM, Item> Items;
+    
+    Items[KEY_ITEM::ID_ITEM_Iron_Ruda].SetName("Железная руда");
+    Items[KEY_ITEM::ID_ITEM_Iron_Ruda].SetKey(KEY_ITEM::ID_ITEM_Iron_Ruda);
+
+    Items[KEY_ITEM::ID_ITEM_Cuprum_Ruda].SetName("Медная руда");
+    Items[KEY_ITEM::ID_ITEM_Cuprum_Ruda].SetKey(KEY_ITEM::ID_ITEM_Cuprum_Ruda);
+
+    Items[KEY_ITEM::ID_ITEM_Iron_Plate].SetName("Железная плита");
+    Items[KEY_ITEM::ID_ITEM_Iron_Plate].SetKey(KEY_ITEM::ID_ITEM_Iron_Plate);
+
+    Items[KEY_ITEM::ID_ITEM_Cuprum_Plate].SetName("Медная плита");
+    Items[KEY_ITEM::ID_ITEM_Cuprum_Plate].SetKey(KEY_ITEM::ID_ITEM_Cuprum_Plate);
+
+    Items[KEY_ITEM::ID_ITEM_Sherst].SetName("Железная шестерня");
+    Items[KEY_ITEM::ID_ITEM_Sherst].SetKey(KEY_ITEM::ID_ITEM_Sherst);
+
+    Items[KEY_ITEM::ID_ITEM_science_pack_1].SetName("Исследовательский пакет 1");
+    Items[KEY_ITEM::ID_ITEM_science_pack_1].SetKey(KEY_ITEM::ID_ITEM_science_pack_1);
+
+    PC.IC.Add(Items);
+  }
+
+  {
+    RecipeCollection& RC = PC.RC;
+
     std::list<CountsItem> Required, Result;
     Recipe recipe;
     recipe.SetKey(KEY_RECIPE::ID_RECIPE_Cuprum_Plate);
@@ -62,7 +69,6 @@ int main(int argc, char ** argv) {
     recipe.SetRequired({ { KEY_ITEM::ID_ITEM_Cuprum_Plate, 1.0 }, { KEY_ITEM::ID_ITEM_Sherst, 1.0 } });
     recipe.SetResult({ { KEY_ITEM::ID_ITEM_science_pack_1, 1 } });
     RC.Add(recipe);
-
   }
 
   {
@@ -76,7 +82,7 @@ int main(int argc, char ** argv) {
     factory.SetLevelOfPollution(0.01);
     factory.SetPower(0.0);
     factory.SetSpeed(1.0);
-    factory.SetType(KEY_TYPE_FACTORY::Furnace);
+    factory.SetTypes({ KEY_TYPE_FACTORY::Furnace });
     factory.SetWear(0.0);
     PC.FC.ADD(factory);
 
@@ -94,7 +100,7 @@ int main(int argc, char ** argv) {
 
     factory.SetName("Сборочный автомат");
     factory.SetSpeed(0.50);
-    factory.SetType(KEY_TYPE_FACTORY::Assembly);
+    factory.SetTypes({ KEY_TYPE_FACTORY::Assembly });
     factory.SetKey(KEY_FACTORY::ID_FACTORY_Assembly1);
     factory.SetCountSlotsForModules(0);
     factory.SetCountSlotsForRecipes(2);
@@ -113,21 +119,18 @@ int main(int argc, char ** argv) {
     factory.SetCountSlotsForModules(4);
     factory.SetCountSlotsForRecipes(4);
     PC.FC.ADD(factory);
-
   }
 
+  {
+    std::ofstream out;
+    out.open(StandartTestFileJson);
 
-  std::ofstream out;
-  out.open(StandartTestFileJson);
-  
-  Json::Value jsonPr;
-  PC.WriteToJson(jsonPr);
-  Json::StyledWriter styledWriter;
-  out << styledWriter.write(jsonPr);
-  out.close();
-
-
-  
+    Json::Value jsonPr;
+    PC.WriteToJson(jsonPr);
+    Json::StyledWriter styledWriter;
+    out << styledWriter.write(jsonPr);
+    out.close();
+  }
 
   ParamsCollection PCRestore;
 
@@ -158,9 +161,6 @@ int main(int argc, char ** argv) {
   std::map<KEY_ITEM, KEY_RECIPE> AnsferItems;
   std::map<KEY_RECIPE, KEY_ITEM> AnsferRecipes;
 
-  ItemResultTree IRT(PCRestore, KEY_ITEM::ID_ITEM_science_pack_1);
-  IRT.Travelling(8, AnsferItems, AnsferRecipes, ResultRecipes, ResultItems);
-
   std::string sss("Русские буквы");
 
   std::vector<char> d(sss.size() + 1);
@@ -185,8 +185,10 @@ int main(int argc, char ** argv) {
   sss[2] = '5';
   bool b2 = sss2 == sss;
 
-  ProductionChainModel PCM(PC, KEY_ITEM::ID_ITEM_science_pack_1);
+  FullItemTree tree(PC);
 
+  ProductionChainModel PCM(tree, KEY_ITEM::ID_ITEM_science_pack_1);
+  
   return 0;
 
 }

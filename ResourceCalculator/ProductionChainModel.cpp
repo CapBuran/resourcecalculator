@@ -72,17 +72,7 @@ namespace ResourceCalculator
     factory.FixFactoryModules( _FM );
     _SecPerOneRecipe = recipe.GetTime();
     
-    double ImulForMining = 1.0;
-
-    if (factory.GetPower() > 0){
-      const Item &item = _PC->IC.GetData().find(InitItemKey)->second;
-      if (item.GetMiningHardness() > 0.0) {
-        ImulForMining = factory.GetPower() - item.GetMiningHardness();
-        assert(ImulForMining >= 0.0);
-      }
-    }
-
-    _SpeedFactory = factory.GetSpeed() * _FM.GetSummSpeed(_PC->MC) * ImulForMining;
+    _SpeedFactory = factory.GetSpeed() * _FM.GetSummSpeed(_PC->MC);
 
     _RealTimeProductionOfOneItemPerSec = _SecPerOneRecipe / _SpeedFactory;
     double ProductionSpeedPerSecond = _FM.GetSummProductivity(_PC->MC );
@@ -117,32 +107,32 @@ namespace ResourceCalculator
     return true;
   }
 
-  bool ProductionChainDataRow::Init( const ParamsCollection & PC, KEY_ITEM ItemId, KEY_RECIPE RecipeId, KEY_FACTORY FactoryId, const std::vector<KEY_ITEM>&Cols, int InitColumb )
+  bool ProductionChainDataRow::Init( const ParamsCollection & PC, KEY_RECIPE RecipeId, const std::vector<KEY_ITEM>&Cols )
   {
     _PC = &PC;
-    if (InitColumb == -1) {
-      if (Cols.size() > 0) {
-        const Recipe *recipe = PC.RC.GetRecipe(RecipeId);
-        assert(recipe != nullptr);
-        const std::set<CountsItem> &Result = recipe->GetResult();
-        for (size_t i = Cols.size() - 1; i >= 0; i--) {
-          for (CountsItem it : Result) {
-            if (Cols[i] == it.ItemId) {
-              InitColumb = static_cast<int>(i);
-              break;
-            }
-          }
-          if (InitColumb >= 0) {
+    int InitColumb = -1;
+
+    if (Cols.size() > 0) {
+      const Recipe *recipe = PC.RC.GetRecipe(RecipeId);
+      assert(recipe != nullptr);
+      const std::set<CountsItem> &Result = recipe->GetResult();
+      for (size_t i = Cols.size() - 1; i >= 0; i--) {
+      //for (size_t i = 0; i < Cols.size(); i++) {
+        for (CountsItem it : Result) {
+          if (Cols[i] == it.ItemId) {
+            InitColumb = static_cast<int>(i);
             break;
           }
         }
+        if (InitColumb >= 0) {
+          break;
+        }
       }
     }
+
     _InitColumb = InitColumb;
     _ColsItems = Cols;
-    _ItemCurrent = ItemId;
     _RecipeCurrent = RecipeId;
-    _FactoryCurrent = FactoryId;
     _CountItems.clear();
     _ItemsPerSec.clear();
     _CountItems.resize(_ColsItems.size(), 0.0);
@@ -243,7 +233,6 @@ namespace ResourceCalculator
     return true;
   }
 
-  
   bool ProductionChainModel::Optimize()
   {
     for ( size_t ItemId = 0; ItemId < _SummSpeeds.size(); ItemId++ ) {
@@ -296,8 +285,10 @@ namespace ResourceCalculator
     return _SummSpeeds;
   }
 
-  ProductionChainModel::ProductionChainModel(const ParamsCollection &PC):
-    _ItemKey(KEY_ITEM::ID_ITEM_NoFind_Item), _PC(PC)
+  ProductionChainModel::ProductionChainModel(FullItemTree& tree)
+    : _tree(tree)
+    , _ItemKey(KEY_ITEM::ID_ITEM_NoFind_Item)
+    , _PC(tree.GetPC())
   {
   }
 
@@ -306,8 +297,10 @@ namespace ResourceCalculator
     return _ItemKey;
   }
 
-  ProductionChainModel::ProductionChainModel( const ParamsCollection &PC, KEY_ITEM ItemKey ):
-    _ItemKey( ItemKey ), _PC( PC )
+  ProductionChainModel::ProductionChainModel(FullItemTree& tree, KEY_ITEM ItemKey)
+    : _tree(tree)
+    , _ItemKey( ItemKey )
+    , _PC(tree.GetPC())
   {
     _SetItemKey( ItemKey );
   }
@@ -323,74 +316,129 @@ namespace ResourceCalculator
     }
   }
 
+  struct ItemIndex
+  {
+    KEY_ITEM key;
+    int index;
+  };
+
+  struct RecipeIndex
+  {
+    KEY_RECIPE key;
+    int index;
+  };
+
+  void RecursiveSurvey(
+    int treeCounter,
+    int treeMaxCounter,
+    const FullItemTree& tree,
+    KEY_ITEM key_item,
+    std::set<KEY_ITEM>& keys_items_set,
+    std::set<KEY_ITEM>& keys_items_no_childrens_set,
+    std::set<KEY_RECIPE>& keys_recipes_set,
+    std::list<ItemIndex>& keys_items_list,
+    std::list<RecipeIndex>& keys_recipes_list
+  )
+  {
+    treeCounter++;
+
+    if (treeCounter < treeMaxCounter)
+    {
+      const ItemResultTree& tree_item = tree.GetRootItemTree(key_item);
+      const std::vector<KEY_RECIPE>& recipesIds = tree_item.Childrens;
+      if (recipesIds.empty())
+      {
+        keys_items_no_childrens_set.insert(key_item);
+        if (keys_items_set.count(key_item) == 0)
+        {
+          keys_items_set.insert(key_item);
+          keys_items_list.push_back({ key_item, 0 });
+        }
+      }
+      else
+      {
+        if (treeCounter == 1 && keys_items_set.count(key_item) == 0)
+        {
+          keys_items_set.insert(key_item);
+          keys_items_list.push_back({ key_item, 0 });
+        }
+        for (KEY_RECIPE k_recipe : recipesIds)
+        {
+          if (keys_recipes_set.count(k_recipe) == 0)
+          {
+            keys_recipes_set.insert(k_recipe);
+            keys_recipes_list.push_front({ k_recipe, treeCounter });
+            const RecipeResultTree& tree_recipe = tree.GetRootRecipeTree(k_recipe);
+            const std::vector<KEY_ITEM>& recipesIds = tree_recipe.Childrens;
+            for (KEY_ITEM k_item : recipesIds)
+            {
+              if (keys_items_set.count(k_item) == 0)
+              {
+                keys_items_set.insert(k_item);
+                keys_items_list.push_back({ k_item, treeCounter });
+                RecursiveSurvey(treeCounter, treeMaxCounter, tree, k_item, keys_items_set, keys_items_no_childrens_set, keys_recipes_set, keys_items_list, keys_recipes_list);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
   bool ProductionChainModel::_SetItemKey( KEY_ITEM ItemKey )
   {
-    std::list <KEY_RECIPE> ResultRecipes;
-    std::list <KEY_ITEM> ResultItems;
-   
-    std::map<KEY_RECIPE, KEY_ITEM> AnsferRecipes;
-
-    if (ItemKey != _ItemKey) _AnsferItems.clear();
-
-    ItemResultTree IRT(_PC, ItemKey);
-    IRT.Travelling(100, _AnsferItems, AnsferRecipes, ResultRecipes, ResultItems);
-
-    const Item &RootItem = _PC.IC.GetData().find( ItemKey )->second;
-
-    _Name = "Production Chain " + RootItem.GetName();
+    int MaxRecursive = 100;
 
     _ItemKey = ItemKey;
 
-    const size_t CountsItems = ResultItems.size();
-    const size_t CountsRecipes = ResultRecipes.size();
+    const ItemResultTree& tree = _tree.GetRootItemTree(_ItemKey);
 
-    std::list<KEY_ITEM> ListRequest;
-    std::list<KEY_ITEM> ListRequestResourceOnly;
+    std::set<KEY_ITEM> keys_items_set;
+    std::set<KEY_RECIPE> keys_recipes_set;
 
-    for (KEY_ITEM ItemID : ResultItems) {
-      bool IsFind = false;
-      for (KEY_RECIPE RecipeID : ResultRecipes) {
-        const Recipe *recipe = _PC.RC.GetRecipe(RecipeID);
-        if (recipe == nullptr) continue;
-        const std::set<CountsItem> &Required = recipe->GetResult();
-        for (const CountsItem &CI: Required) {
-          if (CI.ItemId == ItemID) {
-            IsFind = true;
-            break;
+    std::list<ItemIndex> keys_items_list;
+    std::list<RecipeIndex> keys_recipes_list;
+
+    std::set<KEY_ITEM> keys_items_no_childrens_set;
+
+    int treeCounter = 0;
+
+    RecursiveSurvey(treeCounter, MaxRecursive, _tree, _ItemKey, keys_items_set, keys_items_no_childrens_set, keys_recipes_set, keys_items_list, keys_recipes_list);
+
+    _ColsItems.resize(keys_items_set.size());
+    _DataRows.resize(keys_recipes_set.size());
+    _SummSpeeds.resize(_ColsItems.size());
+
+    {
+      size_t posColItems = _ColsItems.size();
+      for (int i = 0; i < MaxRecursive; i++)
+      {
+        bool found = false;
+        for (const auto& it : keys_items_list)
+        {
+          if (it.index == i && keys_items_no_childrens_set.count(it.key) == 0)
+          {
+            _ColsItems[--posColItems] = it.key;
+            found = true;
           }
         }
-        if (IsFind) break;
+        if (!found) break;
       }
-      if (IsFind) {
-        ListRequest.push_back(ItemID);
-      } else {
-        ListRequestResourceOnly.push_back(ItemID);
+      for (KEY_ITEM key : keys_items_no_childrens_set)
+      {
+        _ColsItems[--posColItems] = key;
       }
     }
 
-    _ColsItems.clear();
-    _ColsItems.reserve(CountsItems);
-    _DataRows.clear();
-    _DataRows.resize(CountsRecipes);
-
-    for (KEY_ITEM ItemID : ListRequestResourceOnly) {
-      _ColsItems.push_back(ItemID);
+    {
+      int CounterRecipes = 0;
+      for (const auto& r: keys_recipes_list)
+      {
+        _DataRows[CounterRecipes++].Init(_PC, r.key, _ColsItems);
+      }
     }
-    for (KEY_ITEM ItemID : ListRequest) {
-      _ColsItems.push_back(ItemID);
-    }
-
-    auto IT_Recipe = ResultRecipes.begin();
-
-    for ( size_t RecipeIdx = 0; RecipeIdx < CountsRecipes; RecipeIdx++, IT_Recipe++ ) {
-      KEY_RECIPE RecipeId = *IT_Recipe;
-      _DataRows[RecipeIdx].Init(_PC, AnsferRecipes[RecipeId], RecipeId, KEY_FACTORY::ID_ITEM_NoFind_Factory, _ColsItems);
-    }
-
-    _SummSpeeds.clear();
-    _SummSpeeds.resize( CountsItems, 0.0 );
-
-    return Optimize();
+    
+    return ReInit();
   }
 
   bool ProductionChainModel::ReInit()
@@ -454,16 +502,6 @@ namespace ResourceCalculator
     return true;
   }
 
-  bool ProductionChainModel::SetRecipe( int Row, KEY_RECIPE RecipeId )
-  {
-    if (RecipeId == KEY_RECIPE::ID_RECIPE_FindRecipeROOT)
-    {
-      _AnsferItems[_DataRows[Row].GetItemCurrent()] = KEY_RECIPE::ID_RECIPE_FindRecipeROOT;
-      return _SetItemKey(_ItemKey);
-    }
-    return false;
-  }
-
   int ProductionChainModel::CountItems() const
   {
     return static_cast<int>( _ColsItems.size() );
@@ -471,7 +509,7 @@ namespace ResourceCalculator
 
   int ProductionChainModel::CountRecipes() const
   {
-    return _DataRows.size();
+    return static_cast<int>(_DataRows.size());
   }
 
 }

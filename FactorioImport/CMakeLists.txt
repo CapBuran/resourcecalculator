@@ -14,8 +14,6 @@ add_library(FactorioImport STATIC ${FactorioImport_HEADERS} ${FactorioImport_SOU
 
 target_link_libraries(FactorioImport PUBLIC Base64 JsonCpp ResourceCalculator)
 
-set_property(TARGET FactorioImport PROPERTY FOLDER "Imports")
-
 target_include_directories(FactorioImport PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
 add_subdirectory(FactorioImportEXE)

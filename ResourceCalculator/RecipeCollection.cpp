@@ -4,7 +4,7 @@
 namespace ResourceCalculator {
 
 RecipeCollection::RecipeCollection():
-  _LastGenGey(10)
+  _LastGenGey(0)
 {
 }
 

@@ -33,7 +33,6 @@ namespace ResourceCalculator
 
     KEY_FACTORY _Key;
 
-    KEY_TYPE_FACTORY _Type;
     std::set<KEY_TYPE_FACTORY> _Types;
 
   public:
@@ -47,7 +46,6 @@ namespace ResourceCalculator
     DeclareAndDefinitionProperty( Power, double )
     DeclareAndDefinitionProperty( LevelOfPollution, double )
     DeclareAndDefinitionProperty( Key, KEY_FACTORY )
-    DeclareAndDefinitionProperty( Type, KEY_TYPE_FACTORY)
     DeclareAndDefinitionProperty( Types, std::set<KEY_TYPE_FACTORY>)
 
     bool IsAllowedProduction( const ParamsCollection & PC, KEY_RECIPE RecipeId ) const;

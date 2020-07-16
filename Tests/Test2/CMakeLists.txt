@@ -9,3 +9,4 @@ if (WIN32)
 endif (WIN32)
 
 set_target_properties(Test2 PROPERTIES FOLDER "TESTS")
+

@@ -15,16 +15,15 @@ namespace ResourceCalculator
     _ElectricPeakPower = 0.0;
     _LevelOfPollution = 0.0;
     _Key = KEY_FACTORY::ID_ITEM_NoFind_Factory;
-    _Type = KEY_TYPE_FACTORY::Unknown;
   }
 
   bool Factory::IsAllowedProduction( const ParamsCollection & PC, KEY_RECIPE RecipeId ) const
   {
-    if ( _Type == KEY_TYPE_FACTORY::Unknown ) return false;
+    if (_Types.size() == 0) return false;
     const Recipe *recipePTR = PC.RC.GetRecipe(RecipeId);
     if (recipePTR == nullptr) return false;
     const Recipe &recipe = *recipePTR;
-    if ( recipe.GetTypeFactory() != _Type ) return false;
+    if ( _Types.count(recipe.GetTypeFactory()) == 0 ) return false;
     if ( _CountSlotsForRecipes < recipe.GetResult().size() ) return false;
     if ( _CountSlotsForRecipes < recipe.GetRequired().size() ) return false;
     return true;
@@ -32,7 +31,7 @@ namespace ResourceCalculator
 
   bool Factory::IsAllowedMining(const ParamsCollection & PC, KEY_ITEM ItemId) const
   {
-    if (_Type == KEY_TYPE_FACTORY::Unknown) return false;
+    if (_Types.size() == 0) return false;
     const Item *itemPTR = PC.IC.GetItem(ItemId);
     if (itemPTR == nullptr) return false;
     const Item &item = *itemPTR;
@@ -48,6 +47,7 @@ namespace ResourceCalculator
 
   int Factory::ReadFromJson( const Json::Value & jsonPr )
   {
+    _Types.clear();
     ItemBase::ReadFromJson( jsonPr );
     _Speed = jsonPr["Speed"].asDouble();
     _CountSlotsForModules = jsonPr["CountSlotsForModules"].asInt();
@@ -57,7 +57,11 @@ namespace ResourceCalculator
     _ElectricPeakPower = jsonPr["ElectricPeakPower"].asDouble();
     _LevelOfPollution = jsonPr["LevelOfPollution"].asDouble();
     _Key = static_cast<KEY_FACTORY>( jsonPr["Key"].asInt64() );
-    _Type = static_cast<KEY_TYPE_FACTORY>( jsonPr["Type"].asInt64() );
+    Json::Value jsonPrArray = jsonPr["Types"];
+    for (auto& it : jsonPrArray) {
+      auto ToAdd = static_cast<KEY_TYPE_FACTORY>(jsonPr["Type"].asInt64());
+      _Types.insert(ToAdd);
+    }
     return 0;
   }
 
@@ -72,7 +76,13 @@ namespace ResourceCalculator
     jsonPr["ElectricPeakPower"] = _ElectricPeakPower;
     jsonPr["LevelOfPollution"] = _LevelOfPollution;
     jsonPr["Key"] = static_cast<KEY_TO_Json>( _Key );
-    jsonPr["Type"] = static_cast<KEY_TO_Json>( _Type );
+    Json::Value jsonPrArray = Json::Value(Json::arrayValue);
+    for (auto& it : _Types) {
+      Json::Value newVal;
+      newVal = static_cast<KEY_TO_Json>(it);
+      jsonPrArray.append(newVal);
+    }
+    jsonPr["Types"] = jsonPrArray;
     return 0;
   }
 

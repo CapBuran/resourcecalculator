@@ -1,7 +1,7 @@
 #ifndef ProductionChainCollection_H
 #define ProductionChainCollection_H
 
-#include "ProductionChainModel.h"
+#include <ProductionChainModel.h>
 
 namespace ResourceCalculator {
 
@@ -10,8 +10,9 @@ class ProductionChainCollection : public Jsonable
 private:
   std::set<ProductionChainModel*> _PCMs;
   const ParamsCollection &_PC;
+  FullItemTree& _tree;
 public:
-  ProductionChainCollection(const ParamsCollection &PC);
+  ProductionChainCollection(FullItemTree& tree);
   ~ProductionChainCollection();
   ProductionChainModel *Add(KEY_ITEM itemID);
   void Remove(ProductionChainModel *PCM);

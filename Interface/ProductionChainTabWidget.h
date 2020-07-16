@@ -1,20 +1,20 @@
 #ifndef ProductionChainTabWidget_H
 #define ProductionChainTabWidget_H
 
-#include "../../ResourceCalculator/ParamsCollection.h"
+#include <ProductionChainModel.h>
 
 #include <QtWidgets>
 
 class ProductionChainTabWidget : public QTabWidget {
   Q_OBJECT
 private:
-  ResourceCalculator::ParamsCollection &_PC;
+  ResourceCalculator::FullItemTree& Tree_;
 public:
-  ProductionChainTabWidget(ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0);
+  ProductionChainTabWidget(ResourceCalculator::FullItemTree& tree, QWidget *parent = 0);
   void Update();
   void AddTab(ResourceCalculator::KEY_ITEM ItemKey);
+  void AddTabs(const std::list<ResourceCalculator::KEY_ITEM>& ToADD);
   void RemoveCurrentTab();
-  void AddTabs(const std::set<ResourceCalculator::ProductionChainModel*>& ToADD);
 private slots:
   void OncurrentChanged(int index);
 };

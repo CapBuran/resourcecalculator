@@ -3,8 +3,6 @@
 
 #define StandartTestFileJson "Factorio.json"
 
-#include "../../ResourceCalculator/ParamsCollection.h"
-
 #include <QtWidgets>
 
 #include "ProductionChainTabWidget.h"
@@ -29,6 +27,8 @@ private:
   void _setupTabs();
   void _createMenus();
   ResourceCalculator::ParamsCollection &_PC;
+  ResourceCalculator::FullItemTree _tree;
+
   ProductionChainTabWidget *_PCTW;
 };
 

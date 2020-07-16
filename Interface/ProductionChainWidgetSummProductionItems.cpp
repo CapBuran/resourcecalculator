@@ -16,7 +16,8 @@ int ProductionChainModelSummProductionItems::rowCount( const QModelIndex &parent
 int ProductionChainModelSummProductionItems::columnCount( const QModelIndex &parent ) const
 {
   Q_UNUSED( parent );
-  return static_cast<int>(_PC.PCC.GetReadingPCMs().size() + 2);
+  //return static_cast<int>(_PC.PCC.GetReadingPCMs().size() + 2);
+  return 2;//TODO
 }
 
 QVariant ProductionChainModelSummProductionItems::data( const QModelIndex &index, int role ) const
@@ -77,7 +78,8 @@ void ProductionChainModelSummProductionItems::Update()
   using namespace ResourceCalculator;
   beginResetModel();
   const int CountItems = static_cast<int>(_PC.IC.GetData().size());
-  const int CountChain = static_cast<int>(_PC.PCC.GetReadingPCMs().size());
+  //const int CountChain = static_cast<int>(_PC.PCC.GetReadingPCMs().size());
+  const int CountChain = 0;
 
   _HorizontalHeader.clear();
   _VerticalHeader.clear();
@@ -103,25 +105,25 @@ void ProductionChainModelSummProductionItems::Update()
   _HorizontalHeader[0] = tr("Icon");
   _HorizontalHeader[CountChain+1] = tr("Summ by production chain");
   for (int col = 0; col < CountChain; col++) {
-    const ProductionChainModel* PCM = _PC.PCC.GetPCM(col);
-    const Item * item = _PC.IC.GetItem(PCM->GetItemKey());
-    if (item != nullptr) {
-      _HorizontalHeader[col + 1] = QString::fromStdString(item->GetName());
-    } else {
-      _HorizontalHeader[col + 1] = tr("Production chain is deleted!!!");
-    }
-    double SummByChain = 0.0;
-    const std::vector<KEY_ITEM>& ColsItems = PCM->GetColsItems();
-    for (size_t ItemIDFind = 0; ItemIDFind < ColsItems.size(); ItemIDFind++) {
-      KEY_ITEM KeyFind = ColsItems[ItemIDFind];
-      int row = _PC.IC.GetItemIdByKey(KeyFind);
-      KEY_ITEM KeyFind2 = _PC.IC.GetItemByID(row)->GetKey();
-      if (KeyFind == KeyFind2) {
-        QVector<double> &RowData = _DATA[row];
-        const std::vector<double> &SummSpeeds = PCM->GetSummSpeeds();
-        _DATA[row][col] = SummSpeeds[ItemIDFind];
-      }
-    }
+    //const ProductionChainModel* PCM = _PC.PCC.GetPCM(col);
+    //const Item * item = _PC.IC.GetItem(PCM->GetItemKey());
+    //if (item != nullptr) {
+    //  _HorizontalHeader[col + 1] = QString::fromStdString(item->GetName());
+    //} else {
+    //  _HorizontalHeader[col + 1] = tr("Production chain is deleted!!!");
+    //}
+    //double SummByChain = 0.0;
+    //const std::vector<KEY_ITEM>& ColsItems = PCM->GetColsItems();
+    //for (size_t ItemIDFind = 0; ItemIDFind < ColsItems.size(); ItemIDFind++) {
+    //  KEY_ITEM KeyFind = ColsItems[ItemIDFind];
+    //  int row = _PC.IC.GetItemIdByKey(KeyFind);
+    //  KEY_ITEM KeyFind2 = _PC.IC.GetItemByID(row)->GetKey();
+    //  if (KeyFind == KeyFind2) {
+    //    QVector<double> &RowData = _DATA[row];
+    //    const std::vector<double> &SummSpeeds = PCM->GetSummSpeeds();
+    //    _DATA[row][col] = SummSpeeds[ItemIDFind];
+    //  }
+    //}
   }
   for (int row = 0; row < CountItems; row++) {
     QVector<double> &RowData = _DATA[row];

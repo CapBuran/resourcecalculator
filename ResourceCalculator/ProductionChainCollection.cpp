@@ -2,8 +2,9 @@
 #include "ProductionChainCollection.h"
 
 namespace ResourceCalculator {
-ProductionChainCollection::ProductionChainCollection(const ParamsCollection & PC):
-  _PC(PC)
+ProductionChainCollection::ProductionChainCollection(FullItemTree& tree)
+  : _PC(tree.GetPC())
+  , _tree(tree)
 {
 }
 
@@ -14,9 +15,9 @@ ProductionChainCollection::~ProductionChainCollection()
   }
 }
 
-ProductionChainModel * ProductionChainCollection::Add(KEY_ITEM itemID)
+ProductionChainModel* ProductionChainCollection::Add(KEY_ITEM itemID)
 {
-  ProductionChainModel *RetVal = new ProductionChainModel(_PC, itemID);
+  ProductionChainModel *RetVal = new ProductionChainModel(_tree, itemID);
   _PCMs.insert(RetVal);
   return RetVal;
 }
@@ -48,7 +49,7 @@ int ProductionChainCollection::ReadFromJson(const Json::Value & jsonPr)
   }
   _PCMs.clear();
   for (auto &it : jsonPr) {
-    ProductionChainModel *ToAdd = new ProductionChainModel(_PC);
+    ProductionChainModel *ToAdd = new ProductionChainModel(_tree);
     ToAdd->ReadFromJson(it);
     _PCMs.insert(ToAdd);
   }

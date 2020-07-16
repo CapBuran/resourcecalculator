@@ -1,11 +1,14 @@
 #ifndef FACTORIES_TYPES
 #define FACTORIES_TYPES
 
-#include <stdint.h>
+#include <cstdint>
 #include <string>
 #include <set>
 #include <list>
+#include <vector>
 #include <map>
+#include <memory>
+
 #include <json/json.h>
 
 namespace ResourceCalculator
@@ -18,12 +21,12 @@ namespace ResourceCalculator
 
   enum class KEY_RECIPE: TYPE_KEY {
     ID_RECIPE_NoFindRecipe = 0,
-    ID_RECIPE_PreviouslyProduced = 1,
-    ID_RECIPE_FindRecipeROOT = 2,
-    ID_RECIPE_Iron_Plate = 3,
-    ID_RECIPE_Cuprum_Plate = 4,
-    ID_RECIPE_Sherst = 5,
-    ID_RECIPE_science_pack_1 = 6,
+//    ID_RECIPE_PreviouslyProduced = 10000001,
+//    ID_RECIPE_FindRecipeROOT = 1000000,
+    ID_RECIPE_Iron_Plate = 1,
+    ID_RECIPE_Cuprum_Plate = 2,
+    ID_RECIPE_Sherst = 3,
+    ID_RECIPE_science_pack_1 = 4,
     ID_RECIPE_electronic_circuit = 7,
     ID_RECIPE_copper_cable = 10,
     ID_RECIPE_transport_belt = 11,
@@ -40,12 +43,12 @@ namespace ResourceCalculator
 
   enum class KEY_ITEM: TYPE_KEY {
     ID_ITEM_NoFind_Item,
+    ID_ITEM_science_pack_1,
     ID_ITEM_Iron_Plate,
     ID_ITEM_Cuprum_Plate,
+    ID_ITEM_Sherst,
     ID_ITEM_Iron_Ruda,
     ID_ITEM_Cuprum_Ruda,
-    ID_ITEM_Sherst,
-    ID_ITEM_science_pack_1,
     ID_ITEM_Oil,
     ID_ITEM_Water,
     ID_ITEM_electronic_circuit,
