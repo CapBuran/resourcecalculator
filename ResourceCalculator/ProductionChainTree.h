@@ -58,8 +58,10 @@ class FullItemTree
 {
 public:
   FullItemTree(const ParamsCollection& PC);
-  ItemResultTree* FactoryItemTree(KEY_ITEM id, KEY_RECIPE parent = KEY_RECIPE::ID_RECIPE_NoFindRecipe) const;
-  RecipeResultTree* FactoryRecipeTree(KEY_RECIPE id, KEY_ITEM parent = KEY_ITEM::ID_ITEM_NoFind_Item) const;
+  ~FullItemTree();
+
+  ItemResultTree* FactoryItemTree(KEY_ITEM id, KEY_RECIPE parent) const;
+  RecipeResultTree* FactoryRecipeTree(KEY_RECIPE id, KEY_ITEM parent) const;
   const ItemResultTree& GetRootItemTree(KEY_ITEM id) const;
   const RecipeResultTree& GetRootRecipeTree(KEY_RECIPE id) const;
   void Rebuild();

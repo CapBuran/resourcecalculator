@@ -98,7 +98,7 @@ public:
     return &_Model;
   }
 
-  ProductionChainWidget(ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_ITEM keyItem, QWidget* parent = 0);
+  ProductionChainWidget(const ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_ITEM keyItem, QWidget* parent = 0);
   ResourceCalculator::ProductionChainModel &GetPCM();
   ProductionChainWidgetType GetType() const override;
   void UpdateModel() override;

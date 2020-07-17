@@ -285,7 +285,7 @@ namespace ResourceCalculator
     return _SummSpeeds;
   }
 
-  ProductionChainModel::ProductionChainModel(FullItemTree& tree)
+  ProductionChainModel::ProductionChainModel(const FullItemTree& tree)
     : _tree(tree)
     , _ItemKey(KEY_ITEM::ID_ITEM_NoFind_Item)
     , _PC(tree.GetPC())
@@ -297,7 +297,7 @@ namespace ResourceCalculator
     return _ItemKey;
   }
 
-  ProductionChainModel::ProductionChainModel(FullItemTree& tree, KEY_ITEM ItemKey)
+  ProductionChainModel::ProductionChainModel(const FullItemTree& tree, KEY_ITEM ItemKey)
     : _tree(tree)
     , _ItemKey( ItemKey )
     , _PC(tree.GetPC())

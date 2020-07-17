@@ -442,7 +442,7 @@ bool ProductionChainProxyModel3::filterAcceptsRow( int source_row, const QModelI
 
 #pragma endregion PROXYMODEL
 
-ProductionChainWidget::ProductionChainWidget(ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_ITEM keyItem, QWidget* parent)
+ProductionChainWidget::ProductionChainWidget(const ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_ITEM keyItem, QWidget* parent)
   : ProductionChainWidgetBase(tree, parent)
   , _PCM(tree, keyItem)
   , _Model(_PCM, parent)

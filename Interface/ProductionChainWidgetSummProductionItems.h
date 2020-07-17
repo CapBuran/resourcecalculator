@@ -1,7 +1,7 @@
 #ifndef ProductionChainWidgetSummProductionItems_H
 #define ProductionChainWidgetSummProductionItems_H
 
-#include "ProductionChainTreeModel.h"
+#include <ProductionChainTreeModel.h>
 
 #include <QtWidgets>
 
@@ -37,7 +37,7 @@ public:
 class ProductionChainWidgetSummProductionItems: public ProductionChainWidgetBase {
   Q_OBJECT
 public:
-  ProductionChainWidgetSummProductionItems(const ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0 );
+  ProductionChainWidgetSummProductionItems(const ResourceCalculator::FullItemTree& tree, QWidget *parent = 0 );
   ProductionChainWidgetType GetType() const override;
   void UpdateModel() override;
 private:

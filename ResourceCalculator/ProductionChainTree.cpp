@@ -11,7 +11,11 @@ FullItemTree::FullItemTree(const ParamsCollection& PC)
   Rebuild();
 }
 
-ItemResultTree* FullItemTree::FactoryItemTree(KEY_ITEM id, KEY_RECIPE parent) const
+FullItemTree::~FullItemTree()
+{
+}
+
+ItemResultTree* FullItemTree::FactoryItemTree(KEY_ITEM id, KEY_RECIPE parent ) const
 {
   auto found = _itemKeyToKeyIndex.find(id);
   if (found != _itemKeyToKeyIndex.end())

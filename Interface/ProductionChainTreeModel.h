@@ -1,7 +1,7 @@
 #ifndef ProductionChainTreeModel_H
 #define ProductionChainTreeModel_H
 
-#include "../../ResourceCalculator/ProductionChainTree.h"
+#include <ProductionChainTree.h>
 
 #include <QtWidgets>
 class ProductionChainTreeItem;

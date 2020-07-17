@@ -83,7 +83,7 @@ private:
   //Возвращают истину, когда нужно обновить всю модель
   bool _SetItemKey(KEY_ITEM ItemKey);
  
-  FullItemTree& _tree;
+  const FullItemTree& _tree;
 public:
 
   const ParamsCollection &GetPC() const
@@ -93,8 +93,8 @@ public:
 
   KEY_ITEM GetItemKey() const ;
 
-  ProductionChainModel(FullItemTree& tree, KEY_ITEM ItemKey);
-  ProductionChainModel(FullItemTree& tree);
+  ProductionChainModel(const FullItemTree& tree, KEY_ITEM ItemKey);
+  ProductionChainModel(const FullItemTree& tree);
   ~ProductionChainModel();
 
   void DeleteModules(const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel);

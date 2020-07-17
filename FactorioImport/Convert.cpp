@@ -194,29 +194,100 @@ namespace FactorioImport
         RecipeToAdd.SetName(recipe.second.localised_name);
         RecipeToAdd.SetIconKey(recipe.second.icon_key);
 
+        size_t IsNameEdit = recipe.second.localised_name.find("__1__");
 
         RecipeToAdd.SetTime(recipe.second.time);
         RecipeToAdd.SetTypeFactory(TypeFactrorySK[recipe.first]);
 
         std::set<ResourceCalculator::CountsItem> CountsItemToSet;
 
-        for (const auto ingredient : recipe.second.ingredients)
+        std::string ReplaseName;
+
+        for (const auto& ingredient : recipe.second.ingredients)
         {
           ResourceCalculator::CountsItem CountsItemToAdd;
           CountsItemToAdd.Count = ingredient.amount;
           CountsItemToAdd.ItemId = ItemsSK[ingredient.name];
           CountsItemToSet.insert(CountsItemToAdd);
+          if (IsNameEdit != std::string::npos && ingredient.type == "fluid")
+          {
+            std::string newName = recipe.second.localised_name;
+            auto item = pc.IC.GetItem(CountsItemToAdd.ItemId);
+            if (item)
+            {
+              ReplaseName = item->GetName();
+              newName.replace(IsNameEdit, 5, ReplaseName);
+              IsNameEdit = std::string::npos;
+              RecipeToAdd.SetName(newName);
+            }
+          }
         }
 
         RecipeToAdd.SetRequired(CountsItemToSet);
         CountsItemToSet.clear();
 
-        for (const auto ingredient : recipe.second.products)
+        for (const auto& ingredient : recipe.second.products)
         {
           ResourceCalculator::CountsItem CountsItemToAdd;
           CountsItemToAdd.Count = ingredient.amount;
           CountsItemToAdd.ItemId = ItemsSK[ingredient.name];
           CountsItemToSet.insert(CountsItemToAdd);
+          if (IsNameEdit != std::string::npos && ingredient.type == "fluid")
+          {
+            std::string newName = recipe.second.localised_name;
+            auto item = pc.IC.GetItem(CountsItemToAdd.ItemId);
+            if (item)
+            {
+              ReplaseName = item->GetName();
+              newName.replace(IsNameEdit, 5, ReplaseName);
+              IsNameEdit = std::string::npos;
+              RecipeToAdd.SetName(newName);
+            }
+          }
+        }
+
+        if (!ReplaseName.empty())
+        {
+          for (const auto& ingredient : recipe.second.ingredients)
+          {
+            if (ingredient.type != "item") continue;
+            ResourceCalculator::KEY_ITEM ItemId = ItemsSK[ingredient.name];
+            auto item = pc.IC.GetItem(ItemId);
+            if (item)
+            {
+              ResourceCalculator::Item itemCopy = *item;
+              std::string newName = itemCopy.GetName();
+              IsNameEdit = newName.find("__1__");
+              if (IsNameEdit != std::string::npos)
+              {
+                newName.replace(IsNameEdit, 5, ReplaseName);
+                itemCopy.SetName(newName);
+                std::map<ResourceCalculator::KEY_ITEM, ResourceCalculator::Item> Add;
+                Add[itemCopy.GetKey()] = itemCopy;
+                pc.IC.Add(Add);
+              }
+            }
+          }
+          for (const auto& product: recipe.second.products)
+          {
+            if (product.type != "item") continue;
+            ResourceCalculator::KEY_ITEM ItemId = ItemsSK[product.name];
+            auto item = pc.IC.GetItem(ItemId);
+            if (item)
+            {
+              ResourceCalculator::Item itemCopy = *item;
+              std::string newName = itemCopy.GetName();
+              IsNameEdit = newName.find("__1__");
+              if (IsNameEdit != std::string::npos)
+              {
+                newName.replace(IsNameEdit, 5, ReplaseName);
+                itemCopy.SetName(newName);
+                std::map<ResourceCalculator::KEY_ITEM, ResourceCalculator::Item> Add;
+                Add[itemCopy.GetKey()] = itemCopy;
+                pc.IC.Add(Add);
+              }
+            }
+          }
         }
 
         RecipeToAdd.SetResult(CountsItemToSet);

@@ -634,20 +634,33 @@
 <context>
     <name>ProductionChainTabWidget</name>
     <message>
-        <location filename="../ProductionChainTabWidget.cpp" line="10"/>
+        <location filename="../ProductionChainTabWidget.cpp" line="11"/>
         <source>Summ production items on all tabs</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>ProductionChainTreeItem</name>
+    <message>
+        <location filename="../ProductionChainTreeModel.cpp" line="238"/>
+        <source>Item: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../ProductionChainTreeModel.cpp" line="256"/>
+        <source>Recpie: </source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>ProductionChainTreeModel</name>
     <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="78"/>
+        <location filename="../ProductionChainTreeModel.cpp" line="84"/>
         <source>Icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="80"/>
+        <location filename="../ProductionChainTreeModel.cpp" line="86"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>

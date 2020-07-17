@@ -139,6 +139,7 @@ namespace FactorioImport
     time = jsonPr["energy"].asDouble();
     ReadJsonableFromJsonToList(jsonPr["ingredients"], ingredients);
     ReadJsonableFromJsonToList(jsonPr["products"], products);
+    main_product.ReadFromJson(jsonPr["main_product"]);
     return 0;
   }
 
@@ -257,6 +258,7 @@ namespace FactorioImport
     {
       amount *= jsonPr["probability"].asDouble();
     }
+
     return 0;
   }
 

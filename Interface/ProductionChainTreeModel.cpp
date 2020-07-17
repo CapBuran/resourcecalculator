@@ -1,11 +1,15 @@
 #include "ProductionChainTreeModel.h"
 #include "../../ResourceCalculator/ProductionChainTree.h"
 
-class ProductionChainTreeItem
+
+using IsPresentInTreeType = std::map<ResourceCalculator::KEY_ITEM, std::set<ResourceCalculator::KEY_RECIPE> >;
+
+class ProductionChainTreeItem : public QObject
 {
+
 public:
-  ProductionChainTreeItem(const ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_ITEM ItemKey, ProductionChainTreeItem *parentItem = 0);
-  ProductionChainTreeItem(const ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_RECIPE RecipeKey, ProductionChainTreeItem *parentItem = 0);
+  ProductionChainTreeItem(const ResourceCalculator::FullItemTree& tree, IsPresentInTreeType isPresent, ResourceCalculator::KEY_ITEM ItemKey, ProductionChainTreeItem *parentItem = 0);
+  ProductionChainTreeItem(const ResourceCalculator::FullItemTree& tree, IsPresentInTreeType& isPresent, ResourceCalculator::KEY_RECIPE RecipeKey, ProductionChainTreeItem *parentItem = 0);
   ~ProductionChainTreeItem();
 
   ProductionChainTreeItem* child(int row);
@@ -16,6 +20,7 @@ public:
   ProductionChainTreeItem *parentItem();
 
 private:
+  const ResourceCalculator::FullItemTree& _tree;
   ProductionChainTreeItem* _m_parentItem;
   QList<ProductionChainTreeItem*> _m_childItems;
   const ResourceCalculator::TreeBase* _treeElementData;
@@ -45,7 +50,8 @@ void ProductionChainTreeModel::SetItemID(ResourceCalculator::KEY_ITEM ItemID)
 {
   beginResetModel();
   if (_rootItem != nullptr) delete _rootItem;
-  _rootItem = new ProductionChainTreeItem(_Tree, ItemID);
+  IsPresentInTreeType isPresent;
+  _rootItem = new ProductionChainTreeItem(_Tree, isPresent, ItemID);
   endResetModel();
 }
 
@@ -129,36 +135,62 @@ int ProductionChainTreeModel::rowCount(const QModelIndex &parent) const
 
 ProductionChainTreeItem::ProductionChainTreeItem(
   const ResourceCalculator::FullItemTree& tree,
+  IsPresentInTreeType isPresent,
   ResourceCalculator::KEY_ITEM ItemKey,
   ProductionChainTreeItem* parentItem
 )
-  : _m_parentItem(parentItem)
+  : _tree(tree)
+  , _m_parentItem(parentItem)
   , _treeElementData(
     tree.FactoryItemTree(
-      ItemKey, parentItem ?
-      dynamic_cast<const ResourceCalculator::RecipeResultTree*>(parentItem->_treeElementData)->MyKey:
-      ResourceCalculator::KEY_RECIPE::ID_RECIPE_NoFindRecipe
+      ItemKey,
+      parentItem ?
+        dynamic_cast<const ResourceCalculator::RecipeResultTree*>(parentItem->_treeElementData)->MyKey:
+        ResourceCalculator::KEY_RECIPE::ID_RECIPE_NoFindRecipe
     )
   )
 {
   using namespace ResourceCalculator;
   const ItemResultTree& root = tree.GetRootItemTree(ItemKey);
   _m_childItems.reserve(root.Childrens.size());
-  for (KEY_RECIPE k: root.Childrens)
-    _m_childItems.append(new ProductionChainTreeItem(tree, k, this));
+
+  if (isPresent.count(ItemKey) > 0)
+  {
+    for (KEY_RECIPE k : root.Childrens)
+    {
+      if (isPresent[ItemKey].count(k) == 0)
+      {
+        isPresent[ItemKey].insert(k);
+        _m_childItems.append(new ProductionChainTreeItem(tree, isPresent, k, this));
+      }
+    }
+  }
+  else
+  {
+    for (KEY_RECIPE k : root.Childrens)
+    {
+      if (isPresent[ItemKey].count(k) > 0) continue;
+      isPresent[ItemKey] = { k };
+      _m_childItems.append(new ProductionChainTreeItem(tree, isPresent, k, this));
+    }
+  }
+
 }
 
 ProductionChainTreeItem::ProductionChainTreeItem(
   const ResourceCalculator::FullItemTree& tree,
+  IsPresentInTreeType& isPresent,
   ResourceCalculator::KEY_RECIPE RecipeKey,
   ProductionChainTreeItem* parentItem
 )
-  : _m_parentItem(parentItem)
+  : _tree(tree)
+  , _m_parentItem(parentItem)
   , _treeElementData(
     tree.FactoryRecipeTree(
-      RecipeKey, parentItem ?
-      dynamic_cast<const ResourceCalculator::ItemResultTree*>(parentItem->_treeElementData)->MyKey :
-      ResourceCalculator::KEY_ITEM::ID_ITEM_NoFind_Item
+      RecipeKey,
+      parentItem ?
+        dynamic_cast<const ResourceCalculator::ItemResultTree*>(parentItem->_treeElementData)->MyKey :
+        ResourceCalculator::KEY_ITEM::ID_ITEM_NoFind_Item
     )
   )
 {
@@ -166,12 +198,13 @@ ProductionChainTreeItem::ProductionChainTreeItem(
   const RecipeResultTree& root = tree.GetRootRecipeTree(RecipeKey);
   _m_childItems.reserve(root.Childrens.size());
   for (KEY_ITEM k : root.Childrens)
-    _m_childItems.append(new ProductionChainTreeItem(tree, k, this));
+    _m_childItems.append(new ProductionChainTreeItem(tree, isPresent, k, this));
 }
 
 ProductionChainTreeItem::~ProductionChainTreeItem()
 {
   qDeleteAll(_m_childItems);
+  delete _treeElementData;
 }
 
 ProductionChainTreeItem * ProductionChainTreeItem::child(int row)
@@ -191,44 +224,46 @@ int ProductionChainTreeItem::columnCount() const
 
 QVariant ProductionChainTreeItem::data(int column) const
 {
-  //switch (_ItemType) {
-  //case ProductionChainTreeItemType::ItemItemType:
-  //{
-  //  const ResourceCalculator::Item *item = _PC.IC.GetItem(_ItemKey);
-  //  if (item != nullptr) {
-  //    switch (column) {
-  //    case 0:
-  //      return QString::fromStdString(item->GetIconKey());
-  //      break;
-  //    case 1:
-  //      return QString::fromStdString(item->GetName());
-  //      break;
-  //    default:
-  //      break;
-  //    }
-  //  }
-  //}
-  //  break;
-  //case ProductionChainTreeItemType::RecipeItemType:
-  //{
-  //  const ResourceCalculator::Recipe *recipe = _PC.RC.GetRecipe(_RecipeKey);
-  //  if (recipe != nullptr) {
-  //    switch (column) {
-  //    case 0:
-  //      return QString::fromStdString(recipe->GetIconKey());
-  //      break;
-  //    case 1:
-  //      return QString::fromStdString(recipe->GetName());
-  //      break;
-  //    default:
-  //      break;
-  //    }
-  //  }
-  //}
-  //  break;
-  //default:
-  //  break;
-  //}
+  switch (_treeElementData->Type) {
+  case ResourceCalculator::TreeBaseType::ITEM:
+  {
+    const ResourceCalculator::ItemResultTree& treeElement = dynamic_cast<const ResourceCalculator::ItemResultTree&>(*_treeElementData);
+    const ResourceCalculator::Item *item = _tree.GetPC().IC.GetItem(treeElement.MyKey);
+    if (item != nullptr) {
+      switch (column) {
+      case 0:
+        return QString::fromStdString(item->GetIconKey());
+        break;
+      case 1:
+        return tr("Item: ") + QString::fromStdString(item->GetName());
+        break;
+      default:
+        break;
+      }
+    }
+  }
+    break;
+  case ResourceCalculator::TreeBaseType::RECIPE:
+  {
+    const ResourceCalculator::RecipeResultTree& treeElement = dynamic_cast<const ResourceCalculator::RecipeResultTree&>(*_treeElementData);
+    const ResourceCalculator::Recipe* recipe = _tree.GetPC().RC.GetRecipe(treeElement.MyKey);
+    if (recipe != nullptr) {
+      switch (column) {
+      case 0:
+        return QString::fromStdString(recipe->GetIconKey());
+        break;
+      case 1:
+        return tr("Recpie: ") + QString::fromStdString(recipe->GetName());
+        break;
+      default:
+        break;
+      }
+    }
+  }
+    break;
+  default:
+    break;
+  }
   return QVariant();
 }
 

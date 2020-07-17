@@ -62,6 +62,7 @@ namespace FactorioImport
     double time = 0.0;
     std::list<RecipeComponentImport> ingredients;
     std::list<RecipeComponentImport> products;
+    RecipeComponentImport main_product;
   public:
     int ReadFromJson(const Json::Value& jsonPr) override;
   };

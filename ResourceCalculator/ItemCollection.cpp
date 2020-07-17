@@ -13,9 +13,9 @@ namespace ResourceCalculator {
   {
   }
 
-  void ItemCollection::Add( const std::map<KEY_ITEM, Item > &ModulesToAdd )
+  void ItemCollection::Add( const std::map<KEY_ITEM, Item >& ItemsToAdd )
   {
-    for ( auto & it : ModulesToAdd ) {
+    for ( auto & it : ItemsToAdd) {
       _Items[it.first] = it.second;
     }
   }

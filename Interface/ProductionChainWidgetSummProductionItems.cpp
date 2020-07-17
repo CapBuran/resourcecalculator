@@ -190,8 +190,8 @@ QSize ProductionChainDelegateSummProductionItems::sizeHint(const QStyleOptionVie
 
 #pragma endregion DELEGATE
 
-ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionItems(const ResourceCalculator::ParamsCollection &PC, QWidget *parent ):
-  ProductionChainWidgetBase(PC, parent), _Model(PC, parent), _ModelTree(PC)
+ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionItems(const ResourceCalculator::FullItemTree& tree, QWidget *parent ):
+  ProductionChainWidgetBase(tree, parent), _Model(tree.GetPC(), parent), _ModelTree(tree)
 {
   _Model.Update();
 
@@ -202,7 +202,7 @@ ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionIte
   tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   tableView->setModel(&_Model);
   tableView->sortByColumn(1, Qt::AscendingOrder);
-  tableView->setItemDelegate(new ProductionChainDelegateSummProductionItems(PC));
+  tableView->setItemDelegate(new ProductionChainDelegateSummProductionItems(tree.GetPC()));
   tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   tableView->setHorizontalHeader(new ProductionChainHeaderView(Qt::Orientation::Horizontal));
   tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
@@ -215,7 +215,7 @@ ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionIte
   TreeView->setModel(&_ModelTree);
   TreeView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
   TreeView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
-  TreeView->setItemDelegate(new ProductionChainDelegateSummProductionItems(PC));
+  TreeView->setItemDelegate(new ProductionChainDelegateSummProductionItems(tree.GetPC()));
   TreeView->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
   QItemSelectionModel *sm = tableView->selectionModel();

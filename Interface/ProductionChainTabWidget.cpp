@@ -3,10 +3,11 @@
 #include "ModulesSelectDialog.h"
 #include "ProductionChainWidgetSummProductionItems.h"
 
-ProductionChainTabWidget::ProductionChainTabWidget(ResourceCalculator::FullItemTree& tree, QWidget* parent):
-  Tree_(tree), QTabWidget(parent)
+ProductionChainTabWidget::ProductionChainTabWidget(const ResourceCalculator::FullItemTree& tree, QWidget* parent)
+  : QTabWidget(parent)
+  , _tree(tree)
 {
-  ProductionChainWidgetSummProductionItems *PCWSPI = new ProductionChainWidgetSummProductionItems(Tree_.GetPC(), this);
+  ProductionChainWidgetSummProductionItems *PCWSPI = new ProductionChainWidgetSummProductionItems(tree, this);
   addTab(PCWSPI, tr("Summ production items on all tabs") );
   connect(this, SIGNAL(currentChanged(int)), SLOT(OncurrentChanged(int)));
 }
@@ -25,8 +26,8 @@ void ProductionChainTabWidget::Update()
 
 void ProductionChainTabWidget::AddTab(ResourceCalculator::KEY_ITEM ItemKey)
 {
-  ProductionChainWidget *PCW = new ProductionChainWidget(Tree_, ItemKey, this);
-  addTab(PCW, QString::fromStdString(Tree_.GetPC().IC.GetItem(ItemKey)->GetName()));
+  ProductionChainWidget *PCW = new ProductionChainWidget(_tree, ItemKey, this);
+  addTab(PCW, QString::fromStdString(_tree.GetPC().IC.GetItem(ItemKey)->GetName()));
   Update();
 }
 
