@@ -4,8 +4,9 @@
 
 #pragma region MODEL
 
-FactoryTypesEditModel::FactoryTypesEditModel(ResourceCalculator::ParamsCollection &PC, QObject *parent ):
-  QAbstractTableModel( parent ), _PC( PC )
+FactoryTypesEditModel::FactoryTypesEditModel(ResourceCalculator::FactoryCollection& FC, QObject *parent )
+  : QAbstractTableModel( parent )
+  , _FC(FC)
 {
   Select();
 }
@@ -13,7 +14,7 @@ FactoryTypesEditModel::FactoryTypesEditModel(ResourceCalculator::ParamsCollectio
 int FactoryTypesEditModel::rowCount( const QModelIndex &parent ) const
 {
   Q_UNUSED( parent );
-  return _listOfItemsId.size();
+  return _FC_Edit.Size();
 }
 
 int FactoryTypesEditModel::columnCount( const QModelIndex &parent ) const
@@ -29,16 +30,16 @@ QVariant FactoryTypesEditModel::data( const QModelIndex &index, int role ) const
   if ( !index.isValid() )
     return QVariant();
 
-  if ( index.row() >= _listOfItemsId.size() || index.row() < 0 )
+  if ( index.row() >= _FC_Edit.Size() || index.row() < 0 )
     return QVariant();
 
   if ( role == Qt::DisplayRole ) {
     switch ( index.column() ) {
     case 0:
-      return QVariant( tr( "There should be an icon" ) );
+      return QString::fromStdString(_FC_Edit.GetTypes().GetFactoryType(_FC_Edit.GetTypes().GetEnumKeyByKey(index.row())).IconPath );
       break;
     case 1:
-      return QString::fromStdString( _listOfItemsId[index.row()].second.Name );
+      return QString::fromStdString(_FC_Edit.GetTypes().GetFactoryType(_FC_Edit.GetTypes().GetEnumKeyByKey(index.row())).Name );
       break;
     default:
       return QVariant();
@@ -70,15 +71,14 @@ bool FactoryTypesEditModel::insertRows( int position, int rows, const QModelInde
 {
   Q_UNUSED( index );
   beginInsertRows( QModelIndex(), position, position + rows - 1 );
-  for ( int row = 0; row < rows; ++row ) {
+  for (int row = 0; row < rows; ++row) {
     using namespace ResourceCalculator;
-    KEY_TYPE_FACTORY NewKey = _PC.FC.GetUniqueFactoryTypeKey();
-    QString Name( tr( "New type factory" ) + QString( ' ' ) + QString::number( static_cast<KEY_TO_Json>( NewKey ) ) );
+    KEY_TYPE_FACTORY NewKey = _FC_Edit.GetTypes().GetUniqueEnumKey();
+    QString Name(tr("New type factory") + QString(' ') + QString::number(static_cast<KEY_TO_Json>(NewKey)));
     std::pair<KEY_TYPE_FACTORY, FactoryType > ToADD;
     ToADD.first = NewKey;
     ToADD.second.Name = Name.toStdString();
-    _FactoryTypesKeyToAdd[NewKey] = ToADD.second;
-    _listOfItemsId.insert( position, ToADD );
+    _FC_Edit.GetTypes().AddFactorysTypes({ToADD});
   }
   endInsertRows();
   return true;
@@ -88,10 +88,12 @@ bool FactoryTypesEditModel::removeRows( int position, int rows, const QModelInde
 {
   Q_UNUSED( index );
   beginRemoveRows( QModelIndex(), position, position + rows - 1 );
+  using namespace ResourceCalculator;
+  std::set<KEY_TYPE_FACTORY> FactoryTypesKey;
   for ( int row = 0; row < rows; ++row ) {
-    _FactoryTypesKeyToDelete.insert( _listOfItemsId.at( position ).first );
-    _listOfItemsId.removeAt( position );
+    FactoryTypesKey.insert(_FC_Edit.GetTypes().GetEnumKeyByKey(row));
   }
+  _FC_Edit.GetTypes().DeleteFactorysTypes(FactoryTypesKey);
   endRemoveRows();
   return true;
 }
@@ -107,46 +109,30 @@ Qt::ItemFlags FactoryTypesEditModel::flags( const QModelIndex &index ) const
 
 void FactoryTypesEditModel::Commit()
 {
-  _PC.FC.DeleteFactorysTypes( _FactoryTypesKeyToDelete );
-  _PC.FC.AddFactorysTypes( _FactoryTypesKeyToAdd );
+  _FC = _FC_Edit;
   Select();
 }
 
 void FactoryTypesEditModel::Select()
 {
-  using namespace ResourceCalculator;
-  auto & TypesFactorys = _PC.FC.GetTypesFactorys();
-  _listOfItemsId.reserve( static_cast< int >( TypesFactorys.size() ) );
-  for ( auto & TypeFactory : TypesFactorys ) {
-    _listOfItemsId.push_back( TypeFactory );
-  }
-}
-
-ResourceCalculator::FactoryType FactoryTypesEditModel::GetDataRow( int Row ) const
-{
-  return _listOfItemsId[Row].second;
-}
-
-ResourceCalculator::KEY_TYPE_FACTORY FactoryTypesEditModel::GetDataRowType( int Row ) const
-{
-  return _listOfItemsId[Row].first;
+  _FC_Edit = _FC;
 }
 
 bool FactoryTypesEditModel::setData( const QModelIndex & index, const QVariant & value, int role )
 {
   if ( index.isValid() && role == Qt::EditRole ) {
+    ResourceCalculator::FactoryType& ft = _FC_Edit.GetTypes().GetFactoryType(_FC_Edit.GetTypes().GetEnumKeyByKey(index.row()));
     switch ( index.column() ) {
     case 0:
-      _listOfItemsId[index.row()].second.IconPath = value.toString().toStdString();
+      ft.IconPath = value.toString().toStdString();
       break;
     case 1:
-      _listOfItemsId[index.row()].second.Name = value.toString().toStdString();
+      ft.Name = value.toString().toStdString();
       break;
     default:
       return false;
       break;
     }
-    _FactoryTypesKeyToAdd[_listOfItemsId[index.row()].first] = _listOfItemsId[index.row()].second;
     emit( dataChanged( index, index ) );
     return true;
   }
@@ -157,8 +143,10 @@ bool FactoryTypesEditModel::setData( const QModelIndex & index, const QVariant &
 
 #pragma region DELEGATE
 
-FactoryTypesEditDelegate::FactoryTypesEditDelegate( ResourceCalculator::ParamsCollection &PC, const FactoryTypesEditModel &Model, QObject *parent )
-  : QStyledItemDelegate( parent ), _PC( PC ), _Model( Model )
+FactoryTypesEditDelegate::FactoryTypesEditDelegate( ResourceCalculator::FactoryCollection& FC, const ResourceCalculator::IconCollection& IC, const FactoryTypesEditModel &Model, QObject *parent )
+  : QStyledItemDelegate( parent )
+  , _Model( Model )
+  , _IC(IC)
 {
 }
 
@@ -166,9 +154,10 @@ void FactoryTypesEditDelegate::paint( QPainter * painter, const QStyleOptionView
 {
   emit( editorEventDelegate( index ) );
   switch ( index.column() ) {
-  case 0: {
-    std::string IconPath = _Model.GetDataRow(index.row()).IconPath;
-    const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon( IconPath );
+  case 0:
+  {
+    QStyledItemDelegate::paint(painter, option, index);
+    const ResourceCalculator::Icon &icon = _IC.GetIcon(_Model.data(index, Qt::DisplayRole).toString().toStdString());
     if ( icon.GetRawData().size() > 0 ) {
       QPixmap pixmap;
       bool dd = pixmap.loadFromData( ( uchar* ) &icon.GetRawData()[0], ( uint ) icon.GetRawData().size() );
@@ -202,7 +191,7 @@ bool FactoryTypesEditDelegate::editorEvent( QEvent * event, QAbstractItemModel *
     switch ( index.column() ) {
     case 0:
     {
-      IconSelectedDialog _IconSelectedDialog( _PC );
+      IconSelectedDialog _IconSelectedDialog(_IC);
       if ( _IconSelectedDialog.exec() ) {
         const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
         if ( Icon != nullptr ) {
@@ -220,11 +209,12 @@ bool FactoryTypesEditDelegate::editorEvent( QEvent * event, QAbstractItemModel *
   return QStyledItemDelegate::editorEvent( event, model, option, index );
 }
 
-
 #pragma endregion DELEGATE
 
-FactoryTypesEditDialog::FactoryTypesEditDialog(ResourceCalculator::ParamsCollection &PC, QWidget *parent )
-  : QDialog( parent ), _PC( PC )
+FactoryTypesEditDialog::FactoryTypesEditDialog(ResourceCalculator::FactoryCollection &FC, const ResourceCalculator::IconCollection& IC, QWidget *parent )
+  : QDialog( parent )
+  , _Model(FC, parent)
+  , _Delegate(FC, IC, _Model, parent)
 {
   setMinimumSize( 400, 600 );
 
@@ -232,15 +222,12 @@ FactoryTypesEditDialog::FactoryTypesEditDialog(ResourceCalculator::ParamsCollect
   QPushButton *addButton = new QPushButton( tr( "Add" ) );
   _remoteButton = new QPushButton( tr( "Remote" ) );
   QPushButton *cancelButton = new QPushButton( tr( "Cancel" ) );
-  _Model = new FactoryTypesEditModel( _PC, this );
-
-  FactoryTypesEditDelegate *Delegate = new FactoryTypesEditDelegate( PC, *_Model, nullptr );
 
   _tableView = new QTableView;
   _tableView->setSelectionMode( QTableView::SelectionMode::SingleSelection );
   _tableView->setSelectionBehavior( QTableView::SelectionBehavior::SelectRows );
-  _tableView->setModel( _Model );
-  _tableView->setItemDelegate( Delegate );
+  _tableView->setModel( &_Model );
+  _tableView->setItemDelegate( &_Delegate );
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   _tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
   _tableView->setColumnWidth(0, 60);
@@ -260,21 +247,21 @@ FactoryTypesEditDialog::FactoryTypesEditDialog(ResourceCalculator::ParamsCollect
   connect( cancelButton, &QAbstractButton::clicked, this, &QDialog::reject );
   connect( addButton, &QAbstractButton::clicked, this, &FactoryTypesEditDialog::add_item );
   connect( _remoteButton, &QAbstractButton::clicked, this, &FactoryTypesEditDialog::remove_item );
-  connect( Delegate, &FactoryTypesEditDelegate::editorEventDelegate, this, &FactoryTypesEditDialog::editorEventDelegate );
+  connect( &_Delegate, &FactoryTypesEditDelegate::editorEventDelegate, this, &FactoryTypesEditDialog::editorEventDelegate );
 
   setWindowTitle( tr( "Editor types factory items" ) );
 }
 
 void FactoryTypesEditDialog::Commit()
 {
-  _Model->Commit();
+  _Model.Commit();
 }
 
 void FactoryTypesEditDialog::remove_item()
 {
   QModelIndexList RowsSelected = _tableView->selectionModel()->selectedRows();
   if ( RowsSelected.size() > 0 ) {
-    _Model->removeRow( RowsSelected[0].row() );
+    _Model.removeRow( RowsSelected[0].row() );
   }
 }
 
@@ -288,8 +275,8 @@ void FactoryTypesEditDialog::add_item()
 {
   QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
   if ( Rows.size() > 0 ) {
-    _Model->insertRow( Rows[0].row() );
+    _Model.insertRow( Rows[0].row() );
   } else {
-    _Model->insertRow( 0 );
+    _Model.insertRow( 0 );
   }
 }

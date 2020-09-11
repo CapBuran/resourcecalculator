@@ -10,7 +10,7 @@ ProductionChainModelSummProductionItems::ProductionChainModelSummProductionItems
 int ProductionChainModelSummProductionItems::rowCount( const QModelIndex &parent ) const
 {
   Q_UNUSED( parent );
-  return static_cast<int>(_PC.IC.GetData().size());
+  return static_cast<int>(_PC.IC.Size());
 }
 
 int ProductionChainModelSummProductionItems::columnCount( const QModelIndex &parent ) const
@@ -39,7 +39,7 @@ QVariant ProductionChainModelSummProductionItems::data( const QModelIndex &index
   }
 
   if (index.column() == 0) {
-    const Item *item = _PC.IC.GetItemByID(index.row());
+    const Item *item = _PC.IC.GetItem(_PC.IC.GetEnumKeyByKey(index.row()));
     if (item != nullptr) {
       return QString::fromStdString(item->GetIconKey());
     }
@@ -77,7 +77,7 @@ void ProductionChainModelSummProductionItems::Update()
 {
   using namespace ResourceCalculator;
   beginResetModel();
-  const int CountItems = static_cast<int>(_PC.IC.GetData().size());
+  const int CountItems = static_cast<int>(_PC.IC.Size());
   //const int CountChain = static_cast<int>(_PC.PCC.GetReadingPCMs().size());
   const int CountChain = 0;
 
@@ -88,7 +88,7 @@ void ProductionChainModelSummProductionItems::Update()
   _DATA.resize(CountItems + 1);
   _VerticalHeader.resize(CountItems);
   for (int row = 0; row < CountItems; row++) {
-    const Item * item = _PC.IC.GetItemByID(row);
+    const Item * item = _PC.IC.GetItem(_PC.IC.GetEnumKeyByKey(row));
     if (item != nullptr) {
       _VerticalHeader[row] = QString::fromStdString(item->GetName());
     } else {
@@ -241,7 +241,7 @@ void ProductionChainWidgetSummProductionItems::on_selectionChanged(const QItemSe
 {
   if (selected.indexes().size() > 0) {
     int row = selected.indexes()[0].row();
-    const ResourceCalculator::Item *item = _PC.IC.GetItemByID(row);
+    const ResourceCalculator::Item *item = _PC.IC.GetItem(_PC.IC.GetEnumKeyByKey(row));
     if (item!= nullptr) {
       _ModelTree.SetItemID(item->GetKey());
     }

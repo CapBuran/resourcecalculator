@@ -15,12 +15,12 @@ namespace ResourceCalculator {
     void ADD(const Icon& icon);
     void Delete(std::string keyIcon);
 
-    int ReadFromJson(const Json::Value &jsonPr) override;
-    int WriteToJson(Json::Value &jsonPr) const override;
-
     const Icon &GetIcon(std::string KeyIcon) const;
 
     const std::map<std::string, Icon> & GetAllIcon() const;
+
+    int ReadFromJson(const Json::Value &jsonPr) override;
+    int WriteToJson(Json::Value &jsonPr) const override;
 
   private:
     std::map<std::string, Icon> _Icons;

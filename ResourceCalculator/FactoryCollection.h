@@ -1,56 +1,70 @@
-#ifndef FactoryCollectionH
-#define FactoryCollectionH
+#pragma once
+
+#include <memory>
 
 #include "Factory.h"
 
-namespace ResourceCalculator {
-  struct FactoryType {
+namespace ResourceCalculator
+{
+  struct FactoryType
+  {
     std::string Name;
     std::string IconPath;
   };
 
-  class FactoryCollection: public Jsonable
+  class FactoryCollection;
+
+  class FactoryTypeCollection: public Jsonable, public Indexator<KEY_TYPE_FACTORY, FactoryType>
+  {
+  public:
+    FactoryTypeCollection(FactoryCollection& owner);
+    virtual ~FactoryTypeCollection();
+
+    void CloneTo(FactoryTypeCollection& ref) const;
+
+    const FactoryType& GetFactoryType(KEY_TYPE_FACTORY Key) const;
+    FactoryType& GetFactoryType(KEY_TYPE_FACTORY Key);
+
+    void AddFactorysTypes(std::map<KEY_TYPE_FACTORY, FactoryType > FactoryTypes);
+    void DeleteFactorysTypes(std::set<KEY_TYPE_FACTORY> FactoryTypesKey);
+
+    int ReadFromJson(const Json::Value& jsonPr) override;
+    int WriteToJson(Json::Value& jsonPr) const override;
+
+  private:
+    FactoryType _UNKNOWN_FactoryType;
+    FactoryCollection& _Owner;
+    std::map<KEY_TYPE_FACTORY, FactoryType> _TypesFactory;
+  };
+
+  class FactoryCollection: public Jsonable, public Indexator<KEY_FACTORY, Factory>
   {
   public:
     FactoryCollection();
-    ~FactoryCollection();
+    virtual ~FactoryCollection();
+    FactoryCollection(const FactoryCollection& copy);
+    FactoryCollection& operator=(const FactoryCollection& fc);
 
-    void ADD(const Factory);
-    void ADD(KEY_TYPE_FACTORY type, const FactoryType factoryType);
+    const Factory& GetFactory(KEY_FACTORY Key) const;
+    Factory& GetFactoryForEdit(KEY_FACTORY Key);
 
-    const Factory& GetFactory( KEY_FACTORY Key ) const;
-    const FactoryType& GetFactoryType( KEY_FACTORY Key ) const;
-    Factory& GetFactoryForEdit( KEY_FACTORY Key );
-
-    const std::map<KEY_TYPE_FACTORY, FactoryType >& GetTypesFactorys() const;
-
-    const std::map<KEY_FACTORY, Factory>& GetFactorys() const;
-
-    void DeleteFactorysTypes( const std::set<KEY_TYPE_FACTORY> &FactoryTypesKey );
-    void AddFactorysTypes( const std::map<KEY_TYPE_FACTORY, FactoryType > &FactoryTypes );
-
-    void DeleteFactorys( const std::set<KEY_FACTORY> &FactoryKeys );
-    void AddFactorys( const std::map<KEY_FACTORY, Factory > &Factorys );
-
-    KEY_FACTORY GetUniqueFactoryKey();
-    KEY_TYPE_FACTORY GetUniqueFactoryTypeKey();
+    void AddFactorys(std::map<KEY_FACTORY, Factory> factorys);
+    void DeleteFactorys( std::set<KEY_FACTORY> factoresKey);
 
     int ReadFromJson( const Json::Value &jsonPr ) override;
     int WriteToJson( Json::Value &jsonPr ) const override;
 
-    int ReadFromJsonFactoryTypes( const Json::Value &jsonPr );
-    int WriteToJsonFactoryTypes( Json::Value &jsonPr ) const;
+    std::map<KEY_FACTORY, Factory> GetFactoryByConditions(std::function<bool(const Factory&)> func) const;
+
+    void DeleteTypes(std::set<KEY_TYPE_FACTORY> deletes);
+
+    FactoryTypeCollection& GetTypes();
+    const FactoryTypeCollection& GetTypes() const;
 
   private:
-    KEY_FACTORY _LastRetvalUniqueFactoryKey;
-    KEY_TYPE_FACTORY _LastRetvalUniqueFactoryTypeKey;
-
-    std::map<KEY_FACTORY, Factory> _Factorys;
-    std::map<KEY_TYPE_FACTORY, FactoryType> _TypesFactory;
     Factory _NoFindFactory;
-    FactoryType _UNKNOWN_FactoryType;
+    std::map<KEY_FACTORY, Factory> _Factorys;
+    std::unique_ptr<FactoryTypeCollection> _Types;
   };
 
 }
-
-#endif // !FactoryCollectionH

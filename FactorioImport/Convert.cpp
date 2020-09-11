@@ -27,12 +27,12 @@ namespace FactorioImport
 
     for (auto& it: all.Items)
     {
-      ResourceCalculator::KEY_ITEM key = pc.IC.GetUniqueItemKey();
+      ResourceCalculator::KEY_ITEM key = pc.IC.GetUniqueEnumKey();
       ItemsKS[key] = it.first;
       ItemsSK[it.first] = key;
       if (it.second.type == "module")
       {
-        ResourceCalculator::KEY_MODULE key_module = pc.MC.GetUniqueModuleKey();
+        ResourceCalculator::KEY_MODULE key_module = pc.MC.GetUniqueEnumKey();
         ModuleKS[key_module] = it.first;
         ModuleSK[it.first] = key_module;
       }
@@ -40,14 +40,14 @@ namespace FactorioImport
 
     for (auto& it : all.Fluids)
     {
-      ResourceCalculator::KEY_ITEM key = pc.IC.GetUniqueItemKey();
+      ResourceCalculator::KEY_ITEM key = pc.IC.GetUniqueEnumKey();
       ItemsKS[key] = it.first;
       ItemsSK[it.first] = key;
     }
 
     for (auto& it: all.Recipes)
     {
-      ResourceCalculator::KEY_RECIPE key_recipe = pc.RC.GetUniqueRecipeKey();
+      ResourceCalculator::KEY_RECIPE key_recipe = pc.RC.GetUniqueEnumKey();
       RecipeKS[key_recipe] = it.first;
       RecipeSK[it.first] = key_recipe;
       TypeFactrorySK[it.second.category] = ResourceCalculator::KEY_TYPE_FACTORY::Unknown;
@@ -55,7 +55,7 @@ namespace FactorioImport
 
     for (auto& it: all.Furnaces)
     {
-      ResourceCalculator::KEY_FACTORY key_factory = pc.FC.GetUniqueFactoryKey();
+      ResourceCalculator::KEY_FACTORY key_factory = pc.FC.GetUniqueEnumKey();
       FactroryKS[key_factory] = it.first;
       FactrorySK[it.first] = key_factory;
       for (auto& cat: it.second.crafting_categories)
@@ -66,7 +66,7 @@ namespace FactorioImport
 
     for (auto& it: all.AssemblingMachines)
     {
-      ResourceCalculator::KEY_FACTORY key_factory = pc.FC.GetUniqueFactoryKey();
+      ResourceCalculator::KEY_FACTORY key_factory = pc.FC.GetUniqueEnumKey();
       FactroryKS[key_factory] = it.first;
       FactrorySK[it.first] = key_factory;
       for (auto& cat: it.second.crafting_categories)
@@ -75,89 +75,99 @@ namespace FactorioImport
       }
     }
 
-    for (auto& it: TypeFactrorySK)
     {
-      it.second = pc.FC.GetUniqueFactoryTypeKey();
-      TypeFactroryKS[it.second] = it.first;
-      ResourceCalculator::FactoryType FT;
-      FT.Name = it.first;
-      for (auto& f: all.AssemblingMachines)
+      std::map<ResourceCalculator::KEY_TYPE_FACTORY, ResourceCalculator::FactoryType> types;
+      std::map<ResourceCalculator::KEY_FACTORY, ResourceCalculator::Factory> factories;
+
+      ResourceCalculator::FactoryTypeCollection& factoryTypes = pc.FC.GetTypes();
+
+      for (auto& it : TypeFactrorySK)
       {
-        for (auto& cat : f.second.crafting_categories)
+        it.second = factoryTypes.GetUniqueEnumKey();
+        TypeFactroryKS[it.second] = it.first;
+        ResourceCalculator::FactoryType FT;
+        FT.Name = it.first;
+        for (auto& f : all.AssemblingMachines)
         {
-          if (cat.second == "true" && it.first == cat.first)
+          for (auto& cat : f.second.crafting_categories)
           {
-            FT.IconPath = f.second.icon_key;
-            break;
+            if (cat.second == "true" && it.first == cat.first)
+            {
+              FT.IconPath = f.second.icon_key;
+              break;
+            }
           }
+          if (!FT.IconPath.empty()) break;
         }
-        if (!FT.IconPath.empty()) break;
-      }
-      for (auto& f: all.Furnaces)
-      {
-        for (auto& cat: f.second.crafting_categories)
+        for (auto& f : all.Furnaces)
         {
-          if (cat.second == "true" && it.first == cat.second)
+          for (auto& cat : f.second.crafting_categories)
           {
-            FT.IconPath = f.second.icon_key;
-            break;
+            if (cat.second == "true" && it.first == cat.second)
+            {
+              FT.IconPath = f.second.icon_key;
+              break;
+            }
           }
+          if (!FT.IconPath.empty()) break;
         }
-        if (!FT.IconPath.empty()) break;
+        types[it.second] = FT;
+
       }
-      pc.FC.ADD(it.second, FT);
-    }
-    
-    for (auto& it: all.Furnaces)
-    {
-      ResourceCalculator::Factory F;
-      std::set<ResourceCalculator::KEY_TYPE_FACTORY> keys;
-      for (auto& cat : it.second.crafting_categories)
+
+      for (auto& it : all.Furnaces)
       {
-        keys.insert(TypeFactrorySK[cat.first]);
+        ResourceCalculator::Factory F;
+        std::set<ResourceCalculator::KEY_TYPE_FACTORY> keys;
+        for (auto& cat : it.second.crafting_categories)
+        {
+          keys.insert(TypeFactrorySK[cat.first]);
+        }
+
+        F.SetKey(FactrorySK[it.second.name]);
+        F.SetName(it.second.name);
+        F.SetIconKey(it.second.icon_key);
+        F.SetSpeed(it.second.crafting_speed);
+        F.SetCountSlotsForModules(it.second.module_inventory_size);
+        F.SetCountSlotsForRecipes(it.second.ingredient_count);
+        F.SetWear(0.0);//TODO
+        F.SetPower(it.second.energy_usage);
+        F.SetLevelOfPollution(0.0);//TODO
+        F.SetTypes(keys);
+
+        factories[FactrorySK[it.second.name]] = F;
       }
 
-      F.SetKey(FactrorySK[it.second.name]);
-      F.SetName(it.second.name);
-      F.SetIconKey(it.second.icon_key);
-      F.SetSpeed(it.second.crafting_speed);
-      F.SetCountSlotsForModules(it.second.module_inventory_size);
-      F.SetCountSlotsForRecipes(it.second.ingredient_count);
-      F.SetWear(0.0);//TODO
-      F.SetPower(it.second.energy_usage);
-      F.SetLevelOfPollution(0.0);//TODO
-      F.SetTypes(keys);
-
-      pc.FC.ADD(F);
-    }
-
-    for (auto& it : all.AssemblingMachines)
-    {
-      ResourceCalculator::Factory F;
-      std::set<ResourceCalculator::KEY_TYPE_FACTORY> keys;
-      for (auto& cat : it.second.crafting_categories)
+      for (auto& it : all.AssemblingMachines)
       {
-        keys.insert(TypeFactrorySK[cat.first]);
+        ResourceCalculator::Factory F;
+        std::set<ResourceCalculator::KEY_TYPE_FACTORY> keys;
+        for (auto& cat : it.second.crafting_categories)
+        {
+          keys.insert(TypeFactrorySK[cat.first]);
+        }
+
+        F.SetKey(FactrorySK[it.second.name]);
+        F.SetName(it.second.name);
+        F.SetIconKey(it.second.icon_key);
+        F.SetSpeed(it.second.crafting_speed);
+        F.SetCountSlotsForModules(it.second.module_inventory_size);
+        F.SetCountSlotsForRecipes(it.second.ingredient_count);
+        F.SetWear(0.0);//TODO
+        F.SetPower(it.second.energy_usage);
+        F.SetLevelOfPollution(0.0);//TODO
+        F.SetTypes(keys);
+
+        factories[FactrorySK[it.second.name]] = F;
       }
 
-      F.SetKey(FactrorySK[it.second.name]);
-      F.SetName(it.second.name);
-      F.SetIconKey(it.second.icon_key);
-      F.SetSpeed(it.second.crafting_speed);
-      F.SetCountSlotsForModules(it.second.module_inventory_size);
-      F.SetCountSlotsForRecipes(it.second.ingredient_count);
-      F.SetWear(0.0);//TODO
-      F.SetPower(it.second.energy_usage);
-      F.SetLevelOfPollution(0.0);//TODO
-      F.SetTypes(keys);
+      pc.FC.GetTypes().AddFactorysTypes(types);
+      pc.FC.AddFactorys(factories);
 
-      pc.FC.ADD(F);
     }
 
     {
-      auto IC_DATA = pc.IC.GetData();
-      IC_DATA.clear();
-
+      std::map<ResourceCalculator::KEY_ITEM, ResourceCalculator::Item> IC_DATA;
       for (const auto item : all.Items)
       {
         ResourceCalculator::Item ItemToAdd;
@@ -181,7 +191,6 @@ namespace FactorioImport
         ItemToAdd.SetIconKey(item.second.icon_key);
         IC_DATA[ki] = ItemToAdd;
       }
-
       pc.IC.Add(IC_DATA);
     }
 
@@ -197,7 +206,7 @@ namespace FactorioImport
         size_t IsNameEdit = recipe.second.localised_name.find("__1__");
 
         RecipeToAdd.SetTime(recipe.second.time);
-        RecipeToAdd.SetTypeFactory(TypeFactrorySK[recipe.first]);
+        RecipeToAdd.SetTypeFactory(TypeFactrorySK[recipe.second.category]);
 
         std::set<ResourceCalculator::CountsItem> CountsItemToSet;
 

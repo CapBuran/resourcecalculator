@@ -2,69 +2,60 @@
 
 #pragma region MODEL
 
+
 ItemSelectedModel::ItemSelectedModel(
-  const ResourceCalculator::ParamsCollection &PC,
-  ItemSelectedDialogMode Mode,
-  ResourceCalculator::KEY_RECIPE recipe_key,
-  QObject *parent):
-  QAbstractTableModel(parent), _PC(PC), _Mode(Mode)
+  const ResourceCalculator::ItemCollection& IC,
+  const std::set<ResourceCalculator::CountsItem>& oldValues,
+  QObject* parent 
+)
+  : QAbstractTableModel(parent)
+  , _IsOneItem(false)
+  , _IC(IC)
 {
   using namespace ResourceCalculator;
+  TYPE_KEY CountItems = IC.Size();
+  _Status.resize(CountItems);
 
-  std::set<CountsItem> _ResultOld;
-
-  if (
-    recipe_key != ResourceCalculator::KEY_RECIPE::ID_RECIPE_NoFindRecipe
-  ){
-    const Recipe * recipe = PC.RC.GetRecipe(recipe_key);
-    if (recipe != nullptr) {
-      if (Mode == ItemSelectedDialogMode::ForRecipeSelectItemsResult) {
-        _ResultOld = recipe->GetResult();
-      }
-      if (Mode == ItemSelectedDialogMode::ForRecipeSelectItemsRequired) {
-        _ResultOld = recipe->GetRequired();
-      }
-    }
+  for (TYPE_KEY i = 0; i < CountItems; i++)
+  {
+    _Status[i].ItemId = _IC.GetEnumKeyByKey(i);
   }
 
-  const std::map<KEY_ITEM, Item> &DATA = _PC.IC.GetData();
-  _listOfItemsId.reserve(static_cast<int>(DATA.size()));
-  for (auto &it : DATA) {
-    CountsItem CI(it.first);
-    auto f = _ResultOld.find(it.first);
-    if (f != _ResultOld.end()){
-      CI.Count = f->Count;
-    }
-    _listOfItemsId.push_back(CI);
+  for (const auto& r: oldValues)
+  {
+    int rowId = _IC.GetKeyByEnumKey(r.ItemId);
+    _Status[rowId] = r;
   }
 }
 
-ItemSelectedModel::ItemSelectedModel(const ResourceCalculator::ParamsCollection & PC, ItemSelectedDialogMode Mode, const std::set<ResourceCalculator::CountsItem>& Result, QObject * parent)
-  : QAbstractTableModel(parent), _PC(PC), _Mode(Mode)
+ItemSelectedModel::ItemSelectedModel(
+  const ResourceCalculator::ItemCollection& IC,
+  QObject* parent
+)
+  : QAbstractTableModel(parent)
+  , _IsOneItem(true)
+  , _IC(IC)
 {
   using namespace ResourceCalculator;
-  const std::map<KEY_ITEM, Item> &DATA = _PC.IC.GetData();
-  _listOfItemsId.reserve(static_cast<int>(DATA.size()));
-  for (auto &it : DATA) {
-    CountsItem CI(it.first);
-    auto f = Result.find(it.first);
-    if (f != Result.end()) {
-      CI.Count = f->Count;
-    }
-    _listOfItemsId.push_back(CI);
+  TYPE_KEY CountItems = IC.Size();
+  _Status.resize(CountItems);
+
+  for (TYPE_KEY i = 0; i < CountItems; i++)
+  {
+    _Status[i].ItemId = _IC.GetEnumKeyByKey(i);
   }
 }
 
 int ItemSelectedModel::rowCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
-  return _listOfItemsId.size();
+  return _IC.Size();
 }
 
 int ItemSelectedModel::columnCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
-  return _Mode == ItemSelectedDialogMode::ForSelectOneItem ? 2 : 3;
+  return _IsOneItem ? 2 : 3;
 }
 
 QVariant ItemSelectedModel::data(const QModelIndex &index, int role) const
@@ -74,24 +65,25 @@ QVariant ItemSelectedModel::data(const QModelIndex &index, int role) const
   if (!index.isValid())
     return QVariant();
 
-  if (index.row() >= _listOfItemsId.size() || index.row() < 0)
+  if (index.row() >= _IC.Size() || index.row() < 0)
     return QVariant();
 
   if (role == Qt::DisplayRole) {
-    const Item *R = _PC.IC.GetItem( _listOfItemsId[index.row()].ItemId );
-    if (R == nullptr) {
+    
+    const Item *item = _IC.GetItem(_IC.GetEnumKeyByKey(index.row() ));
+    if (item == nullptr) {
       return QVariant();
     }
     switch (index.column())
     {
     case 0:
-      return QString( R->GetIconKey().c_str() );
+      return QString(item->GetIconKey().c_str() );
       break;
     case 1:
-      return QString( R->GetName().c_str() );
+      return QString(item->GetName().c_str() );
       break;
     case 2:
-      return QString::number( _listOfItemsId[index.row()].Count );
+      return QString::number(_Status[index.row()].Count );
       break;
     default:
       return QVariant();
@@ -129,32 +121,16 @@ Qt::ItemFlags ItemSelectedModel::flags(const QModelIndex &index) const
   return Qt::ItemIsSelectable | Qt::ItemIsEnabled | (index.column() == 2 ? Qt::ItemIsEditable : Qt::NoItemFlags);
 }
 
-int ItemSelectedModel::GetItemRow(ResourceCalculator::KEY_ITEM ItemKey)
-{
-  for (int i = 0; i < _listOfItemsId.size(); i++){
-    if (ItemKey == _listOfItemsId[i].ItemId){
-      return i;
-    }
-  }
-  return -1;
-}
-
 bool ItemSelectedModel::setData(const QModelIndex & index, const QVariant & value, int role)
 {
   if (index.isValid() && role == Qt::EditRole) {
     
-    Q_ASSERT(
-      index.column() == 2 && 
-      (
-        _Mode == ItemSelectedDialogMode::ForRecipeSelectItemsRequired ||
-        _Mode == ItemSelectedDialogMode::ForRecipeSelectItemsResult
-      )
-    );
+    Q_ASSERT(index.column() == 2 && !_IsOneItem);
 
     switch (index.column())
     {
     case 2:
-      _listOfItemsId[index.row()].Count = value.toDouble();
+      _Status[index.row()].Count = value.toDouble();
       break;
     default:
       return false;
@@ -166,17 +142,32 @@ bool ItemSelectedModel::setData(const QModelIndex & index, const QVariant & valu
   return false;
 }
 
-const ResourceCalculator::CountsItem & ItemSelectedModel::GetItemData(int Num) const
+std::set<ResourceCalculator::CountsItem> ItemSelectedModel::GetResult(const QModelIndexList& Rows) const
 {
-  return _listOfItemsId[Num];
+  std::set<ResourceCalculator::CountsItem> RetVal;
+
+  for (auto& Row: Rows) {
+    if (Row.row() < _Status.size())
+    {
+      ResourceCalculator::CountsItem InsertOne = _Status[Row.row()];
+      RetVal.insert(InsertOne);
+    }
+  }
+  return RetVal;
 }
 
 #pragma endregion MODEL
 
 #pragma region DELEGATE
 
-ItemSelectedDelegate::ItemSelectedDelegate(const ResourceCalculator::ParamsCollection &PC, ItemSelectedDialogMode Mode, QObject *parent)
-  : QStyledItemDelegate(parent), _Mode(Mode), _PC(PC)
+ItemSelectedDelegate::ItemSelectedDelegate(
+  const ResourceCalculator::IconCollection& icons,
+  ItemSelectedDialogMode Mode,
+  QObject* parent
+)
+  : QStyledItemDelegate(parent)
+  , _Mode(Mode)
+  , _Icons(icons)
 {
 }
 
@@ -185,7 +176,7 @@ void ItemSelectedDelegate::paint(QPainter * painter, const QStyleOptionViewItem 
   switch (index.column()) {
   case 0: {
     std::string IconPath = index.data().toString().toStdString();
-    const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon( IconPath );
+    const ResourceCalculator::Icon &icon = _Icons.GetIcon( IconPath );
     if ( icon.GetRawData().size() > 0 ) {
       QPixmap pixmap;
       pixmap.loadFromData( ( uchar* ) &icon.GetRawData()[0], ( uint ) icon.GetRawData().size() );
@@ -225,11 +216,14 @@ QSize ItemSelectedDelegate::sizeHint(const QStyleOptionViewItem & option, const 
 #pragma endregion DELEGATE
 
 ItemSelectedDialog::ItemSelectedDialog(
-  const ResourceCalculator::ParamsCollection &PC,
+  const ResourceCalculator::ItemCollection& IC,
+  const ResourceCalculator::IconCollection& icons,
   ItemSelectedDialogMode Mode,
-  ResourceCalculator::KEY_RECIPE recipe_key,
-  QWidget *parent)
-  : QDialog( parent ), _PC( PC ), _Mode( Mode ), _Model( PC, _Mode, recipe_key )
+  const std::set<ResourceCalculator::CountsItem>& select,
+  QWidget *parent
+)
+  : QDialog( parent )
+  , _Model(IC, select, parent)
 {
   setMinimumSize(400, 600);
    
@@ -237,28 +231,24 @@ ItemSelectedDialog::ItemSelectedDialog(
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));
   _tableView = new QTableView;
   _tableView->setSelectionMode(
-    _Mode == ItemSelectedDialogMode::ForSelectOneItem ?
+    Mode == ItemSelectedDialogMode::ForSelectOneItem ?
     QTableView::SelectionMode::SingleSelection:
     QTableView::SelectionMode::MultiSelection
   );
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->setModel(&_Model);
-  _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
+  _tableView->setItemDelegate(new ItemSelectedDelegate(icons, Mode));
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   //_tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
   //_tableView->setColumnWidth(0, 60);
 
-  if (_Mode != ItemSelectedDialogMode::ForSelectOneItem) {
+  if (Mode != ItemSelectedDialogMode::ForSelectOneItem) {
     using namespace ResourceCalculator;
-    const Recipe *recipe = PC.RC.GetRecipe(recipe_key);
-    if ( recipe != nullptr ) {
-      auto _ResultOld = _Mode == ItemSelectedDialogMode::ForRecipeSelectItemsRequired ?
-        recipe->GetRequired() : recipe->GetResult();
-      for ( auto it : _ResultOld ) {
-        int row = _Model.GetItemRow( it.ItemId );
-        if ( row >= 0 ) {
-          _tableView->selectRow( row );
-        }
+    for (const auto& it: select)
+    {
+      int row = IC.GetKeyByEnumKey(it.ItemId);
+      if ( row >= 0 ) {
+        _tableView->selectRow( row );
       }
     }
   }
@@ -280,42 +270,32 @@ ItemSelectedDialog::ItemSelectedDialog(
   }else{
     setWindowTitle(tr("Select items"));
   }
-  
 }
 
-ItemSelectedDialog::ItemSelectedDialog(const ResourceCalculator::ParamsCollection & PC, ItemSelectedDialogMode Mode, const std::set<ResourceCalculator::CountsItem> &Result, QWidget * parent)
-  : QDialog(parent), _PC(PC), _Mode(Mode), _Model(PC, _Mode, Result)
+ItemSelectedDialog::ItemSelectedDialog(
+  const ResourceCalculator::ItemCollection& IC,
+  const ResourceCalculator::IconCollection& icons,
+  QWidget * parent
+)
+  : QDialog(parent)
+  , _Model(IC, parent)
 {
   setMinimumSize(700, 600);
 
   QPushButton *okButton = new QPushButton(tr("OK"));
   QPushButton *cancelButton = new QPushButton(tr("Cancel"));
-  _tableView = new QTableView;
-  _tableView->setSelectionMode(
-    _Mode == ItemSelectedDialogMode::ForSelectOneItem ?
-    QTableView::SelectionMode::SingleSelection :
-    QTableView::SelectionMode::MultiSelection
-  );
+  _tableView = new QTableView(this);
+  _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   //QSortFilterProxyModel *proxyModel = new QSortFilterProxyModel();
   //proxyModel->setSourceModel(&_Model);
   //_tableView->setModel(proxyModel);
   _tableView->setModel(&_Model);
   _tableView->sortByColumn(1, Qt::AscendingOrder);
-  _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
+  _tableView->setItemDelegate(new ItemSelectedDelegate(icons, ItemSelectedDialogMode::ForSelectOneItem));
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   //_tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
   //_tableView->setColumnWidth(0, 60);
-
-  if (_Mode != ItemSelectedDialogMode::ForSelectOneItem) {
-    using namespace ResourceCalculator;
-    for (auto it : Result) {
-      int row = _Model.GetItemRow(it.ItemId);
-      if (row >= 0) {
-        _tableView->selectRow(row);
-      }
-    }
-  }
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
   buttonLayout->addWidget(okButton);
@@ -329,31 +309,11 @@ ItemSelectedDialog::ItemSelectedDialog(const ResourceCalculator::ParamsCollectio
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
 
-  if (Mode == ItemSelectedDialogMode::ForSelectOneItem) {
-    setWindowTitle(tr("Select an item"));
-  } else {
-    setWindowTitle(tr("Select items"));
-  }
-
-}
-
-ResourceCalculator::KEY_ITEM ItemSelectedDialog::GetResultOne() const
-{
-  ResourceCalculator::KEY_ITEM RetVal = ResourceCalculator::KEY_ITEM::ID_ITEM_NoFind_Item;
-  QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
-  if (Rows.size() > 0){
-    RetVal = _Model.GetItemData( Rows[0].row() ).ItemId;
-  }
-  return RetVal;
+  setWindowTitle(tr("Select an item"));
 }
 
 std::set<ResourceCalculator::CountsItem> ItemSelectedDialog::GetResult() const
 {
-  std::set<ResourceCalculator::CountsItem> RetVal;
-  QModelIndexList Rows = _tableView->selectionModel()->selectedRows();
-  for (auto & Row : Rows){
-    ResourceCalculator::CountsItem InsertOne = _Model.GetItemData(Row.row());
-    RetVal.insert(InsertOne);
-  }
-  return RetVal;
+  return _Model.GetResult(_tableView->selectionModel()->selectedRows());
 }
+

@@ -13,9 +13,9 @@ namespace ResourceCalculator {
   class ParamsCollection: public Jsonable
   {
   public:
+    FactoryCollection FC;
     RecipeCollection  RC;
     ItemCollection    IC;
-    FactoryCollection FC;
     ModuleCollection  MC;
     IconCollection Icons;
     TransportBeltCollection TC;

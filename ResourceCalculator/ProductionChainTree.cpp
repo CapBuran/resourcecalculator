@@ -20,7 +20,7 @@ ItemResultTree* FullItemTree::FactoryItemTree(KEY_ITEM id, KEY_RECIPE parent ) c
   auto found = _itemKeyToKeyIndex.find(id);
   if (found != _itemKeyToKeyIndex.end())
   {
-    int index = found->second;
+    TYPE_KEY index = found->second;
     if (0 <= index && index < _items.size())
     {
       if (_items[index])
@@ -43,7 +43,7 @@ RecipeResultTree* FullItemTree::FactoryRecipeTree(KEY_RECIPE id, KEY_ITEM parent
   auto found = _recipeKeyToKeyIndex.find(id);
   if (found != _recipeKeyToKeyIndex.end())
   {
-    int index = found->second;
+    TYPE_KEY index = found->second;
     if (0 <= index && index < _items.size())
     {
       if (_items[index])
@@ -66,7 +66,7 @@ const ItemResultTree& FullItemTree::GetRootItemTree(KEY_ITEM id) const
   auto found = _itemKeyToKeyIndex.find(id);
   if (found != _itemKeyToKeyIndex.end())
   {
-    int index = found->second;
+    TYPE_KEY index = found->second;
     if (0 <= index && index < _items.size())
     {
       if (_items[index])
@@ -88,7 +88,7 @@ const RecipeResultTree& FullItemTree::GetRootRecipeTree(KEY_RECIPE id) const
   auto found = _recipeKeyToKeyIndex.find(id);
   if (found != _recipeKeyToKeyIndex.end())
   {
-    int index = found->second;
+    TYPE_KEY index = found->second;
     if (0 <= index && index < _recipes.size())
     {
       if (_recipes[index])
@@ -113,38 +113,37 @@ void FullItemTree::Rebuild()
   _items.clear();
   _recipes.clear();
 
-  int index = 0;
-
-  const std::map<KEY_RECIPE, Recipe>& recipes = _PC.RC.GetData();
-  const std::map<KEY_ITEM, Item>& items = _PC.IC.GetData();
-
-  _items.resize(items.size());
-  _childrensItems.resize(items.size());
-  _recipes.resize(recipes.size());
-  _childrensRecipes.resize(recipes.size());
-
-  for (const auto& item : items)
   {
-    _itemKeyToKeyIndex[item.first] = index;
-    _items[index].reset(new ItemResultTree(item.first, KEY_RECIPE::ID_RECIPE_NoFindRecipe, _childrensItems[index], TreeBaseType::ITEM));
-    index++;
+    const TYPE_KEY Size = _PC.IC.Size();
+    _items.resize(Size);
+    _childrensItems.resize(Size);
+    for (TYPE_KEY i = 0; i < Size; i++)
+    {
+      KEY_ITEM ki = _PC.IC.GetEnumKeyByKey(i);
+      _itemKeyToKeyIndex[ki] = i;
+      _items[i].reset(new ItemResultTree(ki, KEY_RECIPE::ID_RECIPE_NoFindRecipe, _childrensItems[i], TreeBaseType::ITEM));
+    }
   }
 
-  index = 0;
-
-  for (const auto& recipe: recipes)
   {
-    _recipeKeyToKeyIndex[recipe.first] = index;
-    auto& results = recipe.second.GetRequired();
-    auto& required = recipe.second.GetResult();
-    _childrensRecipes[index].resize(results.size());
-    std::copy(results.begin(), results.end(), _childrensRecipes[index].begin());
-    for (auto item_counter: required)
+    const TYPE_KEY Size = _PC.RC.Size();
+    _recipes.resize(Size);
+    _childrensRecipes.resize(Size);
+    for (TYPE_KEY i = 0; i < Size; i++)
     {
-      _childrensItems[_itemKeyToKeyIndex[item_counter]].push_back(recipe.first);
+      KEY_RECIPE kr = _PC.RC.GetEnumKeyByKey(i);
+      _recipeKeyToKeyIndex[kr] = i;
+      const Recipe& recipe = *_PC.RC.GetRecipe(kr);
+      auto& results = recipe.GetRequired();
+      auto& required = recipe.GetResult();
+      _childrensRecipes[i].resize(results.size());
+      std::copy(results.begin(), results.end(), _childrensRecipes[i].begin());
+      for (auto item_counter: required)
+      {
+        _childrensItems[_itemKeyToKeyIndex[item_counter]].push_back(kr);
+      }
+      _recipes[i].reset(new RecipeResultTree(kr, KEY_ITEM::ID_ITEM_NoFind_Item, _childrensRecipes[i], TreeBaseType::RECIPE));
     }
-    _recipes[index].reset(new RecipeResultTree(recipe.first, KEY_ITEM::ID_ITEM_NoFind_Item, _childrensRecipes[index], TreeBaseType::RECIPE));
-    index++;
   }
 }
 

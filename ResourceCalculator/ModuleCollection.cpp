@@ -6,19 +6,15 @@ namespace ResourceCalculator {
   static Module EmptyModule;
 
   ModuleCollection::ModuleCollection()
+    : _Modules()
+    , Indexator<KEY_MODULE, Module>(_Modules)
   {
     EmptyModule.SetName("EMTY SLOT");
-    _LastRetvalUniqueModuleKey = KEY_MODULE::ID_CleanSlot;
   }
 
   ModuleCollection::~ModuleCollection()
   {
-  }
-  
-  const std::map<KEY_MODULE, Module> & ModuleCollection::GetModules() const
-  {
-    return _Modules;
-  }
+  }  
 
   const Module & ModuleCollection::GetModule(KEY_MODULE ModuleKey) const
   {
@@ -35,6 +31,7 @@ namespace ResourceCalculator {
       module.ReadFromJson( it );
       _Modules[module.GetKey()] = module;
     }
+    UpdateIndex();
     return 0;
   }
 
@@ -54,11 +51,12 @@ namespace ResourceCalculator {
     for ( auto & it : ModulesToAdd ) {
       _Modules[it.first] = it.second;
     }
+    UpdateIndex();
   }
 
   void ModuleCollection::Delete( const std::set<KEY_MODULE>& ModulesToDel )
   {
-    for ( auto & it : ModulesToDel ) {
+    for ( auto & it: ModulesToDel ) {
       bool ToDel = false;
       for ( auto &itm : _Modules ) {
         if ( itm.first == it ) {
@@ -70,16 +68,7 @@ namespace ResourceCalculator {
         _Modules.erase( it );
       }
     }
-  }
-
-  KEY_MODULE ModuleCollection::GetUniqueModuleKey()
-  {
-    TYPE_KEY retval = static_cast<TYPE_KEY>( _LastRetvalUniqueModuleKey) + 1;
-    while ( _Modules.find( static_cast<KEY_MODULE>( retval ) ) != _Modules.end() ) {
-      retval++;
-    }
-    _LastRetvalUniqueModuleKey = static_cast< KEY_MODULE >( retval );
-    return  _LastRetvalUniqueModuleKey;
+    UpdateIndex();
   }
 
 }

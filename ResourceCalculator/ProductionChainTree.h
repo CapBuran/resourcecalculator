@@ -71,8 +71,8 @@ private:
 
   ItemResultTree _noFoundItem;
   RecipeResultTree _noFoundRecipe;
-  std::map<KEY_ITEM, int> _itemKeyToKeyIndex;
-  std::map<KEY_RECIPE, int> _recipeKeyToKeyIndex;
+  std::map<KEY_ITEM, TYPE_KEY> _itemKeyToKeyIndex;
+  std::map<KEY_RECIPE, TYPE_KEY> _recipeKeyToKeyIndex;
 
   std::vector<std::vector<KEY_RECIPE> > _childrensItems;
   std::vector<std::vector<KEY_ITEM> > _childrensRecipes;

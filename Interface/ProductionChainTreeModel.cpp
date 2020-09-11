@@ -152,7 +152,7 @@ ProductionChainTreeItem::ProductionChainTreeItem(
 {
   using namespace ResourceCalculator;
   const ItemResultTree& root = tree.GetRootItemTree(ItemKey);
-  _m_childItems.reserve(root.Childrens.size());
+  _m_childItems.reserve(static_cast<int>(root.Childrens.size()));
 
   if (isPresent.count(ItemKey) > 0)
   {
@@ -196,7 +196,7 @@ ProductionChainTreeItem::ProductionChainTreeItem(
 {
   using namespace ResourceCalculator;
   const RecipeResultTree& root = tree.GetRootRecipeTree(RecipeKey);
-  _m_childItems.reserve(root.Childrens.size());
+  _m_childItems.reserve(static_cast<int>(root.Childrens.size()));
   for (KEY_ITEM k : root.Childrens)
     _m_childItems.append(new ProductionChainTreeItem(tree, isPresent, k, this));
 }

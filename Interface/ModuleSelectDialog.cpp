@@ -9,11 +9,11 @@ ModuleSelectModel::ModuleSelectModel(
   QAbstractTableModel(parent), _Result(OldResult)
 {
   using namespace ResourceCalculator;
-  const std::map<KEY_MODULE, Module> &Modules = PC.MC.GetModules();
-  _listOfItemsId.reserve(static_cast<int>(Modules.size()));
-  for (auto &it : Modules) {
-    _listOfItemsId.push_back(it.second);
-  }
+  //const std::map<KEY_MODULE, Module> &Modules = PC.MC.GetModules();
+  //_listOfItemsId.reserve(static_cast<int>(Modules.size()));
+  //for (auto &it : Modules) {
+  //  _listOfItemsId.push_back(it.second);
+  //}
 }
 
 int ModuleSelectModel::rowCount(const QModelIndex &parent) const

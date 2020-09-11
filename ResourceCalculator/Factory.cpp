@@ -1,6 +1,5 @@
 #include "Module.h"
 #include "Factory.h"
-#include "ParamsCollection.h"
 
 namespace ResourceCalculator
 {
@@ -17,24 +16,18 @@ namespace ResourceCalculator
     _Key = KEY_FACTORY::ID_ITEM_NoFind_Factory;
   }
 
-  bool Factory::IsAllowedProduction( const ParamsCollection & PC, KEY_RECIPE RecipeId ) const
+  bool Factory::IsAllowedProduction(const Recipe& recipe) const
   {
     if (_Types.size() == 0) return false;
-    const Recipe *recipePTR = PC.RC.GetRecipe(RecipeId);
-    if (recipePTR == nullptr) return false;
-    const Recipe &recipe = *recipePTR;
     if ( _Types.count(recipe.GetTypeFactory()) == 0 ) return false;
     if ( _CountSlotsForRecipes < recipe.GetResult().size() ) return false;
     if ( _CountSlotsForRecipes < recipe.GetRequired().size() ) return false;
     return true;
   }
 
-  bool Factory::IsAllowedMining(const ParamsCollection & PC, KEY_ITEM ItemId) const
+  bool Factory::IsAllowedMining(const Item& item) const
   {
     if (_Types.size() == 0) return false;
-    const Item *itemPTR = PC.IC.GetItem(ItemId);
-    if (itemPTR == nullptr) return false;
-    const Item &item = *itemPTR;
     if (item.GetMiningHardness() == 0 || _Power == 0) return true;
     if (item.GetMiningHardness() >= _Power) return false;
     return true;

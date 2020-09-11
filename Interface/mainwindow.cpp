@@ -186,23 +186,29 @@ void MainWindow::saveAsFile()
 
 void MainWindow::PushButtonClickedRecipesEditDialog()
 {
-  RecipesEditDialog Dialog(_PC);
+  RecipesEditDialog Dialog(_PC.RC, _PC.IC, _PC.Icons, this);
   Dialog.exec();
   _PCTW->Update();
 }
 
 void MainWindow::PushButtonClickedItemsEditDialog()
 {
-  ItemsEditDialog Dialog(_PC);
+  ItemsEditDialog Dialog(_PC.IC, _PC.Icons, this);
   Dialog.exec();
   _PCTW->Update();
 }
 
 void MainWindow::PushButtonClickedAddTab()
 {
-  ItemSelectedDialog _ItemsSelectedDialog( _PC, ItemSelectedDialogMode::ForSelectOneItem );
-  if ( _ItemsSelectedDialog.exec() ) {
-    _PCTW->AddTab(_ItemsSelectedDialog.GetResultOne());
+  ItemSelectedDialog _ItemsSelectedDialog(_PC.IC, _PC.Icons, this);
+  if ( _ItemsSelectedDialog.exec() )
+  {
+    const auto &result = _ItemsSelectedDialog.GetResult();
+    assert(result.size() == 1 || result.size() == 0);
+    if (!result.empty())
+    {
+      _PCTW->AddTab(*result.begin());
+    }
   }
 }
 
@@ -213,7 +219,7 @@ void MainWindow::PushButtonClickedRemoveTab()
 
 void MainWindow::PushButtonClickedFactorysEditDialog()
 {
-  FactorysEditDialog Dialog( _PC );
+  FactorysEditDialog Dialog( _PC.FC, _PC.Icons, this );
   if (Dialog.exec() ) {
     Dialog.Commit();
     _PCTW->Update();

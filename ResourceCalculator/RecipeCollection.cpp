@@ -2,15 +2,39 @@
 #include <algorithm>
 
 namespace ResourceCalculator {
-
-RecipeCollection::RecipeCollection():
-  _LastGenGey(0)
+RecipeCollection::RecipeCollection(const FactoryTypeCollection& FTC)
+  : _Recipes()
+  , Indexator<KEY_RECIPE, Recipe>(_Recipes)
+  , _FTC(FTC)
 {
+}
+
+RecipeCollection::~RecipeCollection()
+{
+}
+
+RecipeCollection::RecipeCollection(const RecipeCollection& copy)
+  : _Recipes()
+  , Indexator<KEY_RECIPE, Recipe>(_Recipes)
+  , _FTC(copy._FTC)
+{
+  *this = copy;
+}
+
+RecipeCollection& RecipeCollection::operator=(const RecipeCollection& rc)
+{
+  if (this != &rc)
+  {
+    _Recipes = rc._Recipes;
+    rc.CopyIndexes(*this);
+  }
+  return *this;
 }
 
 void RecipeCollection::Add(const Recipe &recipe)
 {
   _Recipes[recipe.GetKey()] = recipe;
+  UpdateIndex();
 }
 
 int RecipeCollection::ReadFromJson(const Json::Value & jsonPr)
@@ -19,20 +43,10 @@ int RecipeCollection::ReadFromJson(const Json::Value & jsonPr)
     Recipe ToAdd;
     ToAdd.ReadFromJson(it);
     TYPE_KEY AddKey = static_cast<TYPE_KEY>(ToAdd.GetKey());
-    if (_LastGenGey < AddKey) _LastGenGey = AddKey;
     Add(ToAdd);
   }
+  UpdateIndex();
   return 0;
-}
-
-const std::map<KEY_RECIPE, Recipe> &RecipeCollection::GetData() const
-{
-  return _Recipes;
-}
-
-std::map<KEY_RECIPE, Recipe> &RecipeCollection::GetDataForEdit()
-{
-  return _Recipes;
 }
 
 const Recipe *RecipeCollection::GetRecipe(KEY_RECIPE KeyRecipe) const
@@ -47,17 +61,19 @@ const Recipe *RecipeCollection::GetRecipe(KEY_RECIPE KeyRecipe) const
 void RecipeCollection::Delete(const std::set<KEY_ITEM>& ItemsKeysToDel)
 {
   for (KEY_ITEM ItemID : ItemsKeysToDel) {
-    for (auto &recipe : _Recipes) {
+    for (auto &recipe: _Recipes) {
       recipe.second.DeleteItem(ItemID);
     }
   }
+  UpdateIndex();
 }
 
 void RecipeCollection::Delete(const std::set<KEY_RECIPE>& RecipsKeysToDel)
 {
-  for (KEY_RECIPE RecipeID : RecipsKeysToDel) {
+  for (KEY_RECIPE RecipeID: RecipsKeysToDel) {
     _Recipes.erase(RecipeID);
   }
+  UpdateIndex();
 }
 
 Recipe *RecipeCollection::GetRecipeForEdit(KEY_RECIPE KeyRecipe)
@@ -69,26 +85,21 @@ Recipe *RecipeCollection::GetRecipeForEdit(KEY_RECIPE KeyRecipe)
   return &it->second;
 }
 
-KEY_RECIPE RecipeCollection::GetUniqueRecipeKey()
-{
-  TYPE_KEY retval = _LastGenGey + 1;
-  if (_Recipes.size() > 0) {
-    while (_Recipes.find(static_cast<KEY_RECIPE>(retval)) != _Recipes.end()) {
-      retval++;
-    }
-  }
-  _LastGenGey = retval;
-  return static_cast<KEY_RECIPE>(retval);
-}
 
 int RecipeCollection::WriteToJson(Json::Value & jsonPr) const
 {
   jsonPr = Json::Value(Json::arrayValue);
-  for (auto& it : _Recipes) {
+  for (auto& it: _Recipes) {
     Json::Value newVal;
     it.second.WriteToJson(newVal);
     jsonPr.append(newVal);
   }
   return 0;
 }
+
+const FactoryTypeCollection& RecipeCollection::GetFactoryTypes() const
+{
+  return _FTC;
+}
+
 }

@@ -102,7 +102,7 @@ bool ModulesTypesEditModel::insertRows( int position, int rows, const QModelInde
   beginInsertRows( QModelIndex(), position, position + rows - 1 );
   for ( int row = 0; row < rows; ++row ) {
     using namespace ResourceCalculator;
-    KEY_MODULE NewKey = _PC.MC.GetUniqueModuleKey();
+    KEY_MODULE NewKey = _PC.MC.GetUniqueEnumKey();
     QString Name( tr( "New module" ) + QString( ' ' ) + QString::number( static_cast<KEY_TO_Json>( NewKey ) ) );
     std::pair<KEY_MODULE, Module > ToADD;
     ToADD.first = NewKey;
@@ -205,11 +205,11 @@ void ModulesTypesEditModel::Select()
   using namespace ResourceCalculator;
   _ModulesToDelete.clear();
   _ModulesToAdd.clear();
-  const std::map<KEY_MODULE, Module> &TypesModules = _PC.MC.GetModules();
-  _listOfItemsId.reserve( static_cast< int >( TypesModules.size() ) );
-  for ( auto & TypeFactory : TypesModules ) {
-    _listOfItemsId.push_back( TypeFactory );
-  }
+  //const std::map<KEY_MODULE, Module> &TypesModules = _PC.MC.GetModules();
+  //_listOfItemsId.reserve( static_cast< int >( TypesModules.size() ) );
+  //for ( auto & TypeFactory : TypesModules ) {
+  //  _listOfItemsId.push_back( TypeFactory );
+  //}
 }
 
 void ModulesTypesEditModel::SetKeyPathForItem( int Row, const std::string & KeyPath )
@@ -267,7 +267,7 @@ bool ModulesEditDelegate::editorEvent( QEvent * event, QAbstractItemModel * mode
     switch ( index.column() ) {
     case 0:
     {
-      IconSelectedDialog _IconSelectedDialog( _PC );
+      IconSelectedDialog _IconSelectedDialog( _PC.Icons );
       if ( _IconSelectedDialog.exec() ) {
         const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
         if ( Icon != nullptr ) {

@@ -71,7 +71,7 @@ namespace FactorioImport
   {
   public:
     double energy_usage = 0.0;
-    double ingredient_count = 0.0;
+    int ingredient_count = 0;
     double crafting_speed = 0.0;
     double drain = 0.0;
     int module_inventory_size = 0;

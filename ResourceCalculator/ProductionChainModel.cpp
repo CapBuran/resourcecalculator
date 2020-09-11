@@ -32,26 +32,25 @@ namespace ResourceCalculator
 
     _Factorys.clear();
 
-    bool IsIsFactoryOkOld = _PC->FC.GetFactory( _FactoryCurrent ).IsAllowedProduction( *_PC, _RecipeCurrent );
-
     KEY_ITEM InitItemKey = KEY_ITEM::ID_ITEM_NoFind_Item;
 
     if (CountsCols > 0 && _InitColumb >= 0) {
       InitItemKey = _ColsItems[_InitColumb];
-      if (IsIsFactoryOkOld) {
-        IsIsFactoryOkOld = _PC->FC.GetFactory(_FactoryCurrent).IsAllowedMining(*_PC, InitItemKey);
-      }
     }
 
-    const std::map<KEY_FACTORY, Factory> &Factorys = _PC->FC.GetFactorys();
-    for ( auto & it : Factorys ) {
-      bool IsFactoryOk1 = it.second.IsAllowedProduction(*_PC, _RecipeCurrent);
-      bool IsFactoryOk2 = it.second.IsAllowedMining(*_PC, InitItemKey);
-      if (IsFactoryOk1 && IsFactoryOk2) {
-        if(!IsIsFactoryOkOld) _FactoryCurrent = it.first;
-        _Factorys.push_back( it.first );
-      }
+    const Recipe& recipe = *_PC->RC.GetRecipe(_RecipeCurrent);
+    const Item& item = *_PC->IC.GetItem(InitItemKey);
+
+    const bool IsIsFactoryOkOld =
+      _PC->FC.GetFactory(_FactoryCurrent).IsAllowedProduction(recipe)
+      &&
+      _PC->FC.GetFactory(_FactoryCurrent).IsAllowedMining(item);
+
+    const std::map<KEY_FACTORY, Factory> Factorys = _PC->FC.GetFactoryByConditions([&](const Factory& factory)->bool
+    {
+      return factory.IsAllowedMining(item) && factory.IsAllowedProduction(recipe);
     }
+    );
 
     if ( _Factorys.size() == 0 ) {
       _Factorys.push_back( KEY_FACTORY::ID_ITEM_NoFind_Factory );
@@ -64,7 +63,6 @@ namespace ResourceCalculator
     }
 
     const Factory &factory = _PC->FC.GetFactory( _FactoryCurrent );
-    const Recipe &recipe = _PC->RC.GetData().find( _RecipeCurrent )->second;
 
     _CurrentFactoryName = factory.GetName();
     _CurrentRecipeName = recipe.GetName();

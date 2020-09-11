@@ -239,7 +239,7 @@ bool TransportBeltsEditDelegate::editorEvent( QEvent * event, QAbstractItemModel
     switch ( index.column() ) {
     case 0:
     {
-      IconSelectedDialog _IconSelectedDialog( _PC );
+      IconSelectedDialog _IconSelectedDialog( _PC.Icons );
       if ( _IconSelectedDialog.exec() ) {
         const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
         if ( Icon != nullptr ) {

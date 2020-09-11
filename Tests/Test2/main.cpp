@@ -84,19 +84,19 @@ int main(int argc, char ** argv) {
     factory.SetSpeed(1.0);
     factory.SetTypes({ KEY_TYPE_FACTORY::Furnace });
     factory.SetWear(0.0);
-    PC.FC.ADD(factory);
+    PC.FC.AddFactorys({{factory.GetKey(), factory}});
 
     factory.SetName("Стальная печь");
     factory.SetSpeed(2.0);
     factory.SetKey(KEY_FACTORY::ID_FACTORY_PechStalnaya);
-    PC.FC.ADD(factory);
+    PC.FC.AddFactorys({ {factory.GetKey(), factory} });
 
     factory.SetName("Электрическая печь");
     factory.SetSpeed(2.0);
     factory.SetKey(KEY_FACTORY::ID_FACTORY_PechElectro1);
     factory.SetCountSlotsForModules(2);
     factory.SetCountSlotsForRecipes(3);
-    PC.FC.ADD(factory);
+    PC.FC.AddFactorys({ {factory.GetKey(), factory} });
 
     factory.SetName("Сборочный автомат");
     factory.SetSpeed(0.50);
@@ -104,21 +104,21 @@ int main(int argc, char ** argv) {
     factory.SetKey(KEY_FACTORY::ID_FACTORY_Assembly1);
     factory.SetCountSlotsForModules(0);
     factory.SetCountSlotsForRecipes(2);
-    PC.FC.ADD(factory);
+    PC.FC.AddFactorys({ {factory.GetKey(), factory} });
 
     factory.SetName("Сборочный автомат 2");
     factory.SetSpeed(0.75);
     factory.SetKey(KEY_FACTORY::ID_FACTORY_Assembly2);
     factory.SetCountSlotsForModules(2);
     factory.SetCountSlotsForRecipes(3);
-    PC.FC.ADD(factory);
+    PC.FC.AddFactorys({ {factory.GetKey(), factory} });
 
     factory.SetName("Сборочный автомат 3");
     factory.SetSpeed(1.75);
     factory.SetKey(KEY_FACTORY::ID_FACTORY_Assembly3);
     factory.SetCountSlotsForModules(4);
     factory.SetCountSlotsForRecipes(4);
-    PC.FC.ADD(factory);
+    PC.FC.AddFactorys({ {factory.GetKey(), factory} });
   }
 
   {

@@ -18,8 +18,8 @@ int SetIconData(QIcon &Icon, QSize Size, int size_data, const char* data) {
   return 0;
 }
 
-IconSelectedDialog::IconSelectedDialog(const ResourceCalculator::ParamsCollection &PC, QWidget *parent)
-  : QDialog(parent), _PC(PC), _Result(nullptr)
+IconSelectedDialog::IconSelectedDialog(const ResourceCalculator::IconCollection& IC, QWidget *parent)
+  : QDialog(parent), _IC(IC), _Result(nullptr)
 {
   setMinimumSize(800, 600);
   setWindowState(Qt::WindowStates::enum_type::WindowMaximized);
@@ -47,7 +47,7 @@ IconSelectedDialog::IconSelectedDialog(const ResourceCalculator::ParamsCollectio
   mainLayout->addLayout(buttonLayout);
   setLayout(mainLayout);
 
-  const std::map<std::string, ResourceCalculator::Icon>& Icons = PC.Icons.GetAllIcon();
+  const std::map<std::string, ResourceCalculator::Icon>& Icons = IC.GetAllIcon();
   for (auto & icon : Icons){
     QListWidgetItemData *ListItem = new QListWidgetItemData(&icon.second, icon.second.GetShortName().c_str());
     const std::vector<char>& RawData = icon.second.GetRawData();

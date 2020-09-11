@@ -1,10 +1,10 @@
-#ifndef FACTORY_H
-#define FACTORY_H
+#pragma once
 
 #include <string>
 #include <set>
 
-#include "Types.h"
+#include <Item.h>
+#include <Recipe.h>
 
 namespace ResourceCalculator
 {
@@ -39,6 +39,10 @@ namespace ResourceCalculator
 
     Factory();
 
+    bool IsAllowedProduction(const Recipe& recipe) const;
+
+    bool IsAllowedMining(const Item& item) const;
+
     DeclareAndDefinitionProperty( Speed, double )
     DeclareAndDefinitionProperty( CountSlotsForModules, int )
     DeclareAndDefinitionProperty( CountSlotsForRecipes, int )
@@ -48,10 +52,6 @@ namespace ResourceCalculator
     DeclareAndDefinitionProperty( Key, KEY_FACTORY )
     DeclareAndDefinitionProperty( Types, std::set<KEY_TYPE_FACTORY>)
 
-    bool IsAllowedProduction( const ParamsCollection & PC, KEY_RECIPE RecipeId ) const;
-
-    bool IsAllowedMining(const ParamsCollection & PC, KEY_ITEM ItemId) const;
-
     void FixFactoryModules( FactoryModules & ) const;
 
     int ReadFromJson( const Json::Value & jsonPr ) override;
@@ -60,4 +60,3 @@ namespace ResourceCalculator
   };
 
 }
-#endif// FACTORY_H

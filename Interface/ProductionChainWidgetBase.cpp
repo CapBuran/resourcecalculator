@@ -33,7 +33,8 @@ QSize ProductionChainHeaderView::sizeHint() const
   for (int columb = 0; columb < count; columb++) {
     QString DisplayData = model()->headerData(columb, orientation()).toString();
     QFontMetrics fm(font());
-    int width = fm.width(DisplayData) + fm.overlinePos();
+    //int width = fm.width(DisplayData) + fm.overlinePos();
+    int width = fm.horizontalAdvance(DisplayData) + fm.overlinePos();
     if (width >  MaxWidth) {
       MaxWidth = width;
       MaxHeight = fm.height();
@@ -59,7 +60,8 @@ QSize ProductionChainHeaderView::sectionSizeFromContents(int logicalIndex) const
 {
   QString DisplayData = model()->headerData(logicalIndex, orientation()).toString();
   QFontMetrics fm(font());
-  return QSize(fm.height(), fm.width(DisplayData));
+  //return QSize(fm.height(), fm.width(DisplayData));
+  return QSize(fm.height(), fm.horizontalAdvance(DisplayData));
 }
 
 ProductionChainDelegateBase::ProductionChainDelegateBase(const ResourceCalculator::ParamsCollection & PC, QObject * parent) :
@@ -74,7 +76,8 @@ QSize ProductionChainDelegateBase::sizeHint(
   QStyleOptionViewItem optV4(option);
   this->initStyleOption(&optV4, index);
   QFontMetrics fm(optV4.fontMetrics);
-  return QSize(fm.width(optV4.text) + fm.overlinePos(), fm.height());
+  //return QSize(fm.width(optV4.text) + fm.overlinePos(), fm.height());
+  return QSize(fm.horizontalAdvance(optV4.text) + fm.overlinePos(), fm.height());
 }
 
 #pragma endregion DELEGATE

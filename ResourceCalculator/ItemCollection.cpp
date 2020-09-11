@@ -4,13 +4,43 @@
 
 namespace ResourceCalculator {
 
-  ItemCollection::ItemCollection( RecipeCollection &RC ):
-    _RC( RC ), _LastGenGen(0)
+  ItemCollection::ItemCollection( RecipeCollection &RC )
+    : _Items()
+    , Indexator<KEY_ITEM, Item>(_Items)
+    , _RC( RC )
   {
+  }
+
+  ItemCollection::ItemCollection(const ItemCollection& copy)
+    : _RC(copy._RC)
+    , _Items()
+    , Indexator<KEY_ITEM, Item>(_Items)
+  {
+    *this = copy;
   }
 
   ItemCollection::~ItemCollection()
   {
+  }
+
+  ItemCollection& ItemCollection::operator= (const ItemCollection& ic)
+  {
+    if (this != &ic)
+    {
+      _Items = ic._Items;
+      ic.CopyIndexes(*this);
+    }
+    return *this;
+  }
+
+  const RecipeCollection& ItemCollection::GetRecipes() const
+  {
+    return _RC;
+  }
+  
+  RecipeCollection& ItemCollection::GetRecipes()
+  {
+    return _RC;
   }
 
   void ItemCollection::Add( const std::map<KEY_ITEM, Item >& ItemsToAdd )
@@ -18,14 +48,16 @@ namespace ResourceCalculator {
     for ( auto & it : ItemsToAdd) {
       _Items[it.first] = it.second;
     }
+
+    UpdateIndex();
   }
 
   void ItemCollection::Delete( const std::set<KEY_ITEM>& ItemsKeysToDel )
   {
     _RC.Delete( ItemsKeysToDel );
-    for ( auto & it : ItemsKeysToDel ) {
+    for ( auto& it: ItemsKeysToDel ) {
       bool ToDel = false;
-      for ( auto &itm : _Items ) {
+      for ( auto& itm : _Items ) {
         if ( itm.first == it ) {
           ToDel = true;
           break;
@@ -35,6 +67,7 @@ namespace ResourceCalculator {
         _Items.erase( it );
       }
     }
+    UpdateIndex();
   }
   
   int ItemCollection::ReadFromJson(const Json::Value & jsonPr)
@@ -43,9 +76,9 @@ namespace ResourceCalculator {
       Item ToAdd;
       ToAdd.ReadFromJson(it);
       TYPE_KEY AddKey = static_cast<TYPE_KEY>(ToAdd.GetKey());
-      if (_LastGenGen < AddKey) _LastGenGen = AddKey;
       _Items[ToAdd.GetKey()] = ToAdd;
     }
+    UpdateIndex();
     return 0;
   }
 
@@ -60,12 +93,7 @@ namespace ResourceCalculator {
     return 0;
   }
 
-  const std::map<KEY_ITEM, Item>& ItemCollection::GetData() const
-  {
-    return _Items;
-  }
-
-  const Item * ItemCollection::GetItem(KEY_ITEM KeyItem) const
+  const Item* ItemCollection::GetItem(KEY_ITEM KeyItem) const
   {
     std::map<KEY_ITEM, Item>::const_iterator it = _Items.find(KeyItem);
     if (it == _Items.end()) {
@@ -74,38 +102,13 @@ namespace ResourceCalculator {
     return &it->second;
   }
 
-  const Item * ItemCollection::GetItemByID(int KeyItem) const
+  Item* ItemCollection::GetItemForEdit(KEY_ITEM KeyItem)
   {
-    if (KeyItem >= static_cast<int>(_Items.size())) return nullptr;
-    std::map<KEY_ITEM, Item>::const_iterator it = _Items.begin();
-    for (int i = 0; i < KeyItem; i++, it++);
+    std::map<KEY_ITEM, Item>::iterator it = _Items.find(KeyItem);
+    if (it == _Items.end()) {
+      return nullptr;
+    }
     return &it->second;
-  }
-
-  KEY_ITEM ItemCollection::GetUniqueItemKey()
-  {
-    TYPE_KEY retval = _LastGenGen + 1;
-    if (_Items.size() > 0) {
-      while (_Items.find(static_cast<KEY_ITEM>(retval)) != _Items.end()) {
-        retval++;
-      }
-    }
-    _LastGenGen = retval;
-    return static_cast<KEY_ITEM>(retval);
-  }
-
-  int ItemCollection::GetItemIdByKey(KEY_ITEM KeyItem) const
-  {
-    int Retval = 0;
-    bool IsFind = false;
-    for ( auto &it : _Items) {
-      if (it.first == KeyItem) {
-        IsFind = true;
-        break;
-      }
-      Retval++;
-    }
-    return IsFind ? Retval : -1;
   }
 
 }

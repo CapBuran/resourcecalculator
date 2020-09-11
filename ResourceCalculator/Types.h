@@ -1,5 +1,4 @@
-#ifndef FACTORIES_TYPES
-#define FACTORIES_TYPES
+#pragma once
 
 #include <cstdint>
 #include <string>
@@ -8,6 +7,7 @@
 #include <vector>
 #include <map>
 #include <memory>
+#include  <functional>
 
 #include <json/json.h>
 
@@ -148,5 +148,93 @@ namespace ResourceCalculator
 
   };
 
+  template<typename EnumKey, class T>
+  class Indexator
+  {
+  public:
+
+    Indexator(const std::map<EnumKey, T>& items)
+      : _LastGenGen(0)
+      , _Size(0)
+      , _Items(items)
+    {}
+
+    virtual ~Indexator() {}
+
+    EnumKey GetEnumKeyByKey(TYPE_KEY key) const
+    {
+      auto f = _Index2.find(key);
+      if (f != _Index2.end())
+      {
+        return f->second;
+      }
+
+      return static_cast<EnumKey>(0);
+    }
+
+    TYPE_KEY GetKeyByEnumKey(EnumKey key) const
+    {
+      auto f = _Index1.find(key);
+      if (f != _Index1.end())
+      {
+        return f->second;
+      }
+
+      return -1;
+    }
+
+    EnumKey GetUniqueEnumKey()
+    {
+      TYPE_KEY retval = _LastGenGen + 1;
+      if (_Items.size() > 0) {
+        while (_Items.find(static_cast<EnumKey>(retval)) != _Items.end()) {
+          retval++;
+        }
+      }
+      _LastGenGen = retval;
+      return static_cast<EnumKey>(retval);
+    }
+
+    TYPE_KEY Size() const
+    {
+      return _Size;
+    }
+
+  protected:
+
+    void UpdateIndex()
+    {
+      _Index1.clear();
+      _Index2.clear();
+      TYPE_KEY k = 0;
+      for (const auto& pair : _Items)
+      {
+        TYPE_KEY keyInt = static_cast<TYPE_KEY>(pair.first);
+        if (keyInt == 0) continue;
+        _Index1[pair.first] = k;
+        _Index2[k] = pair.first;
+        k++;
+        if (keyInt > _LastGenGen) _LastGenGen = keyInt + 1;
+      }
+      _Size = k;
+    };
+
+    void CopyIndexes(Indexator& retVal) const
+    {
+      retVal._Index1 = _Index1;
+      retVal._Index2 = _Index2;
+      retVal._LastGenGen = _LastGenGen;
+      retVal._Size = _Size;
+    }
+
+  private:
+
+    TYPE_KEY _LastGenGen;
+    TYPE_KEY _Size;
+
+    std::map<EnumKey, TYPE_KEY> _Index1;
+    std::map<TYPE_KEY, EnumKey> _Index2;
+    const std::map<EnumKey, T>& _Items;
+  };
+
 }
-#endif // !FACTORIES_TYPES

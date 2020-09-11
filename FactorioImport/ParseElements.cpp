@@ -165,7 +165,7 @@ namespace FactorioImport
     BaseImport::ReadFromJson(jsonPr);
     type = jsonPr["type"].asString();
     energy_usage = jsonPr["energy_usage"].asDouble();
-    ingredient_count = jsonPr["ingredient_count"].asDouble();
+    ingredient_count = jsonPr["ingredient_count"].asInt();
     crafting_speed = jsonPr["crafting_speed"].asDouble();
     drain = jsonPr["drain"].asDouble();
     module_inventory_size = jsonPr["module_inventory_size"].asInt();
