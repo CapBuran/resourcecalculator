@@ -52,7 +52,7 @@ namespace ResourceCalculator
     _Key = static_cast<KEY_FACTORY>( jsonPr["Key"].asInt64() );
     Json::Value jsonPrArray = jsonPr["Types"];
     for (auto& it : jsonPrArray) {
-      auto ToAdd = static_cast<KEY_TYPE_FACTORY>(jsonPr["Type"].asInt64());
+      auto ToAdd = static_cast<KEY_TYPE_FACTORY>(it.asInt64());
       _Types.insert(ToAdd);
     }
     return 0;

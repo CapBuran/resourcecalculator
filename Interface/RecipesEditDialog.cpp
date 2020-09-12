@@ -336,8 +336,9 @@ bool RecipesEditDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, 
       factorysTypesSelectedDialog.SetResult({static_cast<ResourceCalculator::KEY_TYPE_FACTORY>(V.value<int>())});
       if (factorysTypesSelectedDialog.exec())
       {
-        V.setValue<QT_KeysFactoryType>(factorysTypesSelectedDialog.GetResult());
-        model->setData(index, V);
+        std::set<ResourceCalculator::KEY_TYPE_FACTORY> result = factorysTypesSelectedDialog.GetResult();
+        if (!result.empty())
+          model->setData(index, QVariant::fromValue<int>(static_cast<int>(*result.begin())));
       }
       return false;
       break;

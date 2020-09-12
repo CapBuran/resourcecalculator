@@ -1,7 +1,6 @@
 #include "FactorysEditDialog.h"
 #include "FactoryTypesEditDialog.h"
 #include "IconSelectedDialog.h"
-#include "Multilist.h"
 
 using QT_KeysFactoryType = std::set<ResourceCalculator::KEY_TYPE_FACTORY>;
 Q_DECLARE_METATYPE(QT_KeysFactoryType);
@@ -397,18 +396,17 @@ void FactorysEditDialogDelegate::paint(QPainter * painter, const QStyleOptionVie
     const QT_KeysFactoryType& types = index.data().value<QT_KeysFactoryType>();
     const FactorysEditDialogModel& model = dynamic_cast<const FactorysEditDialogModel&>(*index.model());
     const auto& FTC = model.GetTypesData();
-    QString val = tr("Types not set!");
-    if (types.empty()) val.clear();
+    QString Text = types.empty() ? tr("Types not set!") : "";
     for (const auto& type: types)
     {
-      if (!val.isEmpty()) val += tr(", ");
-      val += QString::fromStdString(FTC.GetFactoryType(type).Name);
+      if (!Text.isEmpty()) Text += tr(", ");
+      Text += QString::fromStdString(FTC.GetFactoryType(type).Name);
     }
-    QStyleOptionComboBox comboBoxOption;
-    comboBoxOption.rect = option.rect;
-    comboBoxOption.currentText = val;
-    comboBoxOption.state = QStyle::State_Enabled;
-    QApplication::style()->drawComplexControl(QStyle::CC_ComboBox, &comboBoxOption, painter, 0);
+    QStyleOptionButton button;
+    button.text = Text;
+    button.rect = option.rect;
+    button.state = QStyle::State_Enabled;
+    QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter, 0);
     break;
   }
   default:
@@ -416,6 +414,26 @@ void FactorysEditDialogDelegate::paint(QPainter * painter, const QStyleOptionVie
     return;
     break;
   }
+}
+
+QSize FactorysEditDialogDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
+{
+  if (index.column() == 2)
+  {
+    const QT_KeysFactoryType& types = index.data().value<QT_KeysFactoryType>();
+    const FactorysEditDialogModel& model = dynamic_cast<const FactorysEditDialogModel&>(*index.model());
+    const auto& FTC = model.GetTypesData();
+    QString Text = types.empty() ? tr("Types not set!") : "";
+    for (const auto& type : types)
+    {
+      if (!Text.isEmpty()) Text += tr(", ");
+      Text += QString::fromStdString(FTC.GetFactoryType(type).Name);
+    }
+    QFontMetrics fm(option.font);
+    int width = fm.horizontalAdvance(Text) + fm.overlinePos();
+    return QSize(width, option.rect.height());
+  }
+  return QStyledItemDelegate::sizeHint(option, index);
 }
 
 bool FactorysEditDialogDelegate::editorEvent(QEvent * event, QAbstractItemModel* model, const QStyleOptionViewItem & option, const QModelIndex& index)
@@ -441,6 +459,7 @@ bool FactorysEditDialogDelegate::editorEvent(QEvent * event, QAbstractItemModel*
       FactorysEditDialogModel& modelFactory = dynamic_cast<FactorysEditDialogModel&>(*model);
       FactoryTypesViewModel modelFactoryTypesReadOnly(modelFactory.GetTypesData());
       FactorysTypesSelectedDialog dialog(modelFactoryTypesReadOnly, true, nullptr);
+      dialog.SetResult(types);
       if (dialog.exec()) {
         QVariant V; V.setValue<QT_KeysFactoryType>(dialog.GetResult());
         modelFactory.setData(index, V);
@@ -565,7 +584,9 @@ FactorysTypesSelectedDialog::FactorysTypesSelectedDialog(FactoryTypesViewModel& 
   _tableView->setModel(&_Model);
   _tableView->sortByColumn(1, Qt::AscendingOrder);
 //  _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
-  _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+  //_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+  _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
+  
   //_tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
   //_tableView->setColumnWidth(0, 60);
 
@@ -580,8 +601,11 @@ FactorysTypesSelectedDialog::FactorysTypesSelectedDialog(FactoryTypesViewModel& 
 
   connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
   connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
-
-  setWindowTitle(tr("Select an item"));
+  
+  if(_isMultiSelect)
+    setWindowTitle(tr("Select an types factory"));
+  else
+    setWindowTitle(tr("Select an type factory"));
 }
 
 std::set<ResourceCalculator::KEY_TYPE_FACTORY> FactorysTypesSelectedDialog::GetResult() const
@@ -594,6 +618,6 @@ void FactorysTypesSelectedDialog::SetResult(std::set<ResourceCalculator::KEY_TYP
   QSet<int> indexses = _Model.GetSelectedRows(result);
   for (int index: indexses)
   {
-    _tableView->selectRow(index);
+    if(index >= 0) _tableView->selectRow(index);
   }
 }

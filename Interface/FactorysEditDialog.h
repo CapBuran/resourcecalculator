@@ -51,6 +51,7 @@ public:
   FactorysEditDialogDelegate( const ResourceCalculator::IconCollection& IC, QObject *parent = 0 );
   bool editorEvent(QEvent* event, QAbstractItemModel* model, const QStyleOptionViewItem& option, const QModelIndex& index) override;
   void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+  QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 private:
   const ResourceCalculator::IconCollection& _IC;
 Q_SIGNALS:

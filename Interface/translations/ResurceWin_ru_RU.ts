@@ -50,7 +50,7 @@
 <context>
     <name>FactoryTypesViewModel</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="62"/>
+        <location filename="../FactorysEditDialog.cpp" line="61"/>
         <source>Factory type name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -58,32 +58,32 @@
 <context>
     <name>FactorysEditDialog</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="476"/>
+        <location filename="../FactorysEditDialog.cpp" line="495"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="477"/>
+        <location filename="../FactorysEditDialog.cpp" line="496"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="478"/>
+        <location filename="../FactorysEditDialog.cpp" line="497"/>
         <source>Remote</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="479"/>
+        <location filename="../FactorysEditDialog.cpp" line="498"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="480"/>
+        <location filename="../FactorysEditDialog.cpp" line="499"/>
         <source>Factory types</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="513"/>
+        <location filename="../FactorysEditDialog.cpp" line="532"/>
         <source>Editor factorys</source>
         <translation type="unfinished"></translation>
     </message>
@@ -91,12 +91,14 @@
 <context>
     <name>FactorysEditDialogDelegate</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="400"/>
+        <location filename="../FactorysEditDialog.cpp" line="399"/>
+        <location filename="../FactorysEditDialog.cpp" line="426"/>
         <source>Types not set!</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="404"/>
+        <location filename="../FactorysEditDialog.cpp" line="402"/>
+        <location filename="../FactorysEditDialog.cpp" line="429"/>
         <source>, </source>
         <translation type="unfinished"></translation>
     </message>
@@ -104,42 +106,42 @@
 <context>
     <name>FactorysEditDialogModel</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="177"/>
+        <location filename="../FactorysEditDialog.cpp" line="176"/>
         <source>Icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="179"/>
+        <location filename="../FactorysEditDialog.cpp" line="178"/>
         <source>Factory name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="181"/>
+        <location filename="../FactorysEditDialog.cpp" line="180"/>
         <source>Factory types</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="183"/>
+        <location filename="../FactorysEditDialog.cpp" line="182"/>
         <source>Speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="185"/>
+        <location filename="../FactorysEditDialog.cpp" line="184"/>
         <source>Drilling power</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="187"/>
+        <location filename="../FactorysEditDialog.cpp" line="186"/>
         <source>Slots for recipe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="189"/>
+        <location filename="../FactorysEditDialog.cpp" line="188"/>
         <source>Slots for modules</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="205"/>
+        <location filename="../FactorysEditDialog.cpp" line="204"/>
         <source>New factory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -147,18 +149,23 @@
 <context>
     <name>FactorysTypesSelectedDialog</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="560"/>
+        <location filename="../FactorysEditDialog.cpp" line="579"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="561"/>
+        <location filename="../FactorysEditDialog.cpp" line="580"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="584"/>
-        <source>Select an item</source>
+        <location filename="../FactorysEditDialog.cpp" line="606"/>
+        <source>Select an types factory</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../FactorysEditDialog.cpp" line="608"/>
+        <source>Select an type factory</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -760,27 +767,27 @@
 <context>
     <name>RecipesEditDialog</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="361"/>
+        <location filename="../RecipesEditDialog.cpp" line="362"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="362"/>
+        <location filename="../RecipesEditDialog.cpp" line="363"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="363"/>
+        <location filename="../RecipesEditDialog.cpp" line="364"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="364"/>
+        <location filename="../RecipesEditDialog.cpp" line="365"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="393"/>
+        <location filename="../RecipesEditDialog.cpp" line="394"/>
         <source>Recipes Edit</source>
         <translation type="unfinished"></translation>
     </message>
