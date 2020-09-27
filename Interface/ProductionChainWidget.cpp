@@ -23,15 +23,15 @@ QWidget *ProductionChainDelegate0::createEditor( QWidget *parent, const QStyleOp
 {
   using namespace ResourceCalculator;
   if ( index.column() == 0 ) {
-    const std::vector <KEY_FACTORY> &Factorys = _PCM.GetRow( index.row() ).GetFactorys();
+    const std::map<KEY_FACTORY, Factory> &Factorys = _PCM.GetRow( index.row() ).GetFactores();
     QComboBox *combobox = new QComboBox( parent );
-    KEY_FACTORY CurenFactory = _PCM.GetRow( index.row() ).GetFactoryCurrent();
+    KEY_FACTORY CurenFactory = _PCM.GetRow( index.row() ).GetCurrentFactory().GetKey();
     int Pos = -1;
     int Counter = 0;
-    for ( KEY_FACTORY FI : Factorys ) {
-      QString str = QString::fromStdString( _PC.FC.GetFactory( FI ).GetName() );
+    for ( const auto& FI : Factorys ) {
+      QString str = QString::fromStdString( FI.second.GetName() );
       combobox->addItem( str );
-      if ( CurenFactory == FI ) {
+      if ( CurenFactory == FI.first ) {
         Pos = Counter;
       }
       Counter++;
@@ -45,7 +45,7 @@ QWidget *ProductionChainDelegate0::createEditor( QWidget *parent, const QStyleOp
   {
     QComboBox *combobox = new QComboBox(parent);
     combobox->addItem(tr("Item received earlier"));
-    KEY_RECIPE CurenRecipe = _PCM.GetRow(index.row()).GetRecipeCurrent();
+    KEY_RECIPE CurenRecipe = _PCM.GetRow(index.row()).RecipeCurrent.GetKey();
     const Recipe *recipe = _PC.RC.GetRecipe(CurenRecipe);
     combobox->setCurrentIndex(0);
     if (recipe != nullptr) {
@@ -97,7 +97,7 @@ void ProductionChainDelegate0::paint( QPainter * painter, const QStyleOptionView
   using namespace ResourceCalculator;
   switch ( index.column() ) {
   case 0: {
-    KEY_FACTORY CurenFactory = _PCM.GetRow( index.row() ).GetFactoryCurrent();
+    KEY_FACTORY CurenFactory = _PCM.GetRow( index.row() ).GetCurrentFactory().GetKey();
     const Factory &factory = _PC.FC.GetFactory( CurenFactory );
     QString Text = QString::fromStdString( factory.GetName() );
     QStyleOptionComboBox comboBoxOption;
@@ -109,7 +109,7 @@ void ProductionChainDelegate0::paint( QPainter * painter, const QStyleOptionView
     break;
   }
   case 1: {
-    KEY_RECIPE CurenRecipe = _PCM.GetRow(index.row()).GetRecipeCurrent();
+    KEY_RECIPE CurenRecipe = _PCM.GetRow(index.row()).RecipeCurrent.GetKey();
     const Recipe *recipe = _PC.RC.GetRecipe(CurenRecipe);
     if (recipe != nullptr)
     {
@@ -137,7 +137,7 @@ bool ProductionChainDelegate0::editorEvent(QEvent * event, QAbstractItemModel * 
   if (event->type() == QEvent::MouseButtonPress) {
     int column = index.column();
     if (column == 2 || column == 3) {
-      ModulesSelectDialog MSD(_PC, _PCM.GetRow(index.row()).GetFM());
+      ModulesSelectDialog MSD(_PC, _PCM.GetRow(index.row()).FM());
       if (MSD.exec()) {
         const ResourceCalculator::FactoryModules &Result = MSD.GetResult();
         QVariant data; data.setValue<ResourceCalculator::FactoryModules>(Result);
@@ -193,21 +193,24 @@ QVariant ProductionChainModel::data( const QModelIndex &index, int role ) const
     const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
     switch ( index.column() ) {
     case 0:
-      return QString::fromStdString( ROW.GetCurrentFactoryName() );
+      return QString::fromStdString( ROW.GetCurrentFactory().GetName() );
     case 1:
-      return QString::fromStdString( ROW.GetCurrentRecipeName() );
+    {
+      std::string d = ROW.RecipeCurrent.GetName();
+      return QString::fromStdString(ROW.RecipeCurrent.GetName());
+    }
     case 2:
-      return ToOut( ROW.GetSummProductivity(_PCM.GetPC()) );
+      return ToOut( ROW.GetSummProductivity(_PCM.GetPC().MC) );
     case 3:
-      return ToOut( ROW.GetSummSpeed(_PCM.GetPC()) );
+      return ToOut( ROW.GetSummSpeed(_PCM.GetPC().MC) );
     case 4:
-      return ToOut( ROW.GetSpeedFactory() );
+      return ToOut( ROW.GetCurrentFactory().GetSpeed() );
     case 5:
-      return ToOut( ROW.GetSecPerOneRecipe() );
+      return ToOut( ROW.RecipeCurrent.GetTime());
     case 6:
-      return ToOut( ROW.GetRealTimeProductionOfOneItemPerSec() );
+      return ToOut( ROW.RealTimeProductionOfOneItemPerSec() );
     case 7:
-      return ToOut( ROW.GetCountFactorys() );
+      return ToOut( ROW.CountFactorys() );
     default:
       break;
     }
@@ -216,20 +219,24 @@ QVariant ProductionChainModel::data( const QModelIndex &index, int role ) const
   if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
     const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
     if ( 7 < index.column() && index.column() <= 7 + CI ) {
-      return ToOut( ROW.GetCountItems()[index.column() - 8] );
+      //return ToOut( ROW.GetCountItems()[index.column() - 8] );
+      return ToOut(ROW.ItemCount(index.column() - 8));
     }
     if ( 7 < index.column() + CI && index.column() <= 7 + CI + CI ) {
-      return ToOut( ROW.GetItemsPerSec()[index.column() - 8 - CI] );
+      //return ToOut( ROW.GetItemsPerSec()[index.column() - 8 - CI] );
+      return ToOut(ROW.ItemPerSec(index.column() - 8 - CI));
     }
   }
 
   if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
     const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
     if ( 7 < index.column() && index.column() <= 7 + CI ) {
-      return ToOut( ROW.GetCountItems()[index.column() - 8] );
+      //return ToOut( ROW.GetCountItems()[index.column() - 8] );
+      return ToOut(ROW.ItemCount(index.column() - 8));
     }
     if ( 7 < index.column() + CI && index.column() <= 7 + CI + CI ) {
-      return ToOut( ROW.GetItemsPerSec()[index.column() - 8 - CI] );
+      //return ToOut( ROW.GetItemsPerSec()[index.column() - 8 - CI] );
+      return ToOut(ROW.ItemPerSec(index.column() - 8 - CI));
     }
   }
 
@@ -282,45 +289,39 @@ bool ProductionChainModel::setData( const QModelIndex &index, const QVariant &va
   if ( !( index.isValid() && role == Qt::EditRole ) )return false;
   int CI = _PCM.CountItems();
   if ( index.column() == 0 ) {
-    beginResetModel();
-    const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
-    KEY_FACTORY KeyFactory = ROW.GetFactoryIdFromIndex( value.toInt() );
-    _PCM.SetFactory( index.row(), KeyFactory );
-    endResetModel();
-    emit( AllDataChanged() );
+    //beginResetModel();
+    //const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
+    //KEY_FACTORY KeyFactory = KEY_FACTORY::ID_ITEM_NoFind_Factory;
+    //_PCM.GetRow(index.row()).SetFactory(KeyFactory);
+    //endResetModel();
+    //emit( AllDataChanged() );
     return true;
   }
   if (index.column() == 1)
   {
-    //beginResetModel();
-    //if (value.toInt() == 0)
-    //{
-      //_PCM.SetRecipe(index.row(), KEY_RECIPE::ID_RECIPE_FindRecipeROOT);
-    //}
-    //endResetModel();
-    //emit(AllDataChanged());
+    beginResetModel();
+    _PCM.EnableRecipes(index.row());
+    endResetModel();
+    emit(AllDataChanged());
     return true;
   }
   if (index.column() == 2 || index.column() == 3) {
     beginResetModel();
-    const ResourceCalculator::FactoryModules &FM = value.value<ResourceCalculator::FactoryModules>();
-    _PCM.SetModules(index.row(), FM);
+    _PCM.GetRow(index.row()).SetFactoryModules(value.value<ResourceCalculator::FactoryModules>());
     endResetModel();
     emit(AllDataChanged());
     return true;
   }
   if ( index.column() == 7 ) {
     beginResetModel();
-    _PCM.SetCountFactores( index.row(), value.toDouble() );
+    _PCM.GetRow(index.row()).SetCountFactorys(value.toDouble());
     endResetModel();
     emit( AllDataChanged() );
     return true;
   }
   if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
     beginResetModel();
-    ProductionChainDataRow& ROW = _PCM.GetRowEdit( index.row() );
-    ROW.FindCountFactorysForItemsCount( index.column() - 8 - CI, value.toDouble() );
-    _PCM.Optimize();
+    _PCM.GetRow(index.row()).FindCountFactorysForItemsCount( index.column() - 8 - CI, value.toDouble() );
     endResetModel();
     emit( AllDataChanged() );
     return true;
@@ -345,9 +346,9 @@ Qt::ItemFlags ProductionChainModel::flags( const QModelIndex &index ) const
 
 void ProductionChainModel::FitQuantity()
 {
+  beginResetModel();
   _PCM.FitQuantity();
-  _PCM.ReInit();
-
+  endResetModel();
   emit( AllDataChanged() );
 }
 
@@ -358,16 +359,16 @@ const ResourceCalculator::ProductionChainModel & ProductionChainModel::GetPCM() 
 
 void ProductionChainModel::ModelAllChanged()
 {
-  beginResetModel();
-  _PCM.Optimize();
-  endResetModel();
+  //beginResetModel();
+  //_PCM.UpdateAll();
+  //endResetModel();
 }
 
 void ProductionChainModel::Update()
 {
-  beginResetModel();
-  _PCM.ReInit();
-  endResetModel();
+  //beginResetModel();
+  //_PCM.UpdateAll();
+  //endResetModel();
 }
 
 #pragma endregion MODEL

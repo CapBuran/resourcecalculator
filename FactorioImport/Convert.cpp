@@ -255,6 +255,8 @@ namespace FactorioImport
           }
         }
 
+        RecipeToAdd.SetMainResult(ItemsSK[recipe.second.main_product.name]);
+
         if (!ReplaseName.empty())
         {
           for (const auto& ingredient : recipe.second.ingredients)

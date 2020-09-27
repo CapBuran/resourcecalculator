@@ -188,7 +188,8 @@ int main(int argc, char ** argv) {
   FullItemTree tree(PC);
 
   ProductionChainModel PCM(tree, KEY_ITEM::ID_ITEM_science_pack_1);
-  
+  PCM.GetRow(3).SetCountFactorys(10);
+  PCM.FitQuantity();
   return 0;
 
 }

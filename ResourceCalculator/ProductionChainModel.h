@@ -1,140 +1,96 @@
-#ifndef ProductionChainModel_H
-#define ProductionChainModel_H
+#pragma once
+
+#include <memory>
 
 #include <Module.h>
 #include <ProductionChainTree.h>
 
 namespace ResourceCalculator {
 
-class ProductionChainModel;
+class ProductionChainDataRow: public Jsonable
+{
+public:
+  ProductionChainDataRow(
+    const ParamsCollection& PC,
+    KEY_RECIPE keyRecipe,
+    TYPE_KEY initColumb,
+    const std::vector<KEY_ITEM>& cols,
+    bool isEnabled
+  );
 
-class ProductionChainDataRow : public Jsonable {
+  const bool IsEnabled;
+  const Recipe RecipeCurrent;
+  const TYPE_KEY InitColumb;
 
+  bool SetFactory(KEY_FACTORY type);
+  const Factory& GetCurrentFactory() const { return _FactoryCurrent; }
+  const std::map<KEY_FACTORY, Factory>& GetFactores() const { return _Factorys; }
+
+  bool SetFactoryModules(FactoryModules FM);
+  const FactoryModules& FM() const { return _FM; }
+
+  double CountFactorys() const { return _CountFactorys; }
+  bool SetCountFactorys(double count);
+
+  double ItemCount(TYPE_KEY columb) const { return _ItemsCount[columb]; }
+  double ItemPerSec(TYPE_KEY columb) const { return _ItemsPerSec[columb]; }
+  KEY_ITEM ItemType(TYPE_KEY columb) const { return _ColsItems[columb]; }
+
+  double GetSummProductivity(const ModuleCollection& MC) const { return _FM.GetSummProductivity(MC); }
+  double GetSummSpeed(const ModuleCollection& MC) const { return _FM.GetSummSpeed(MC); }
+  double SecPerOneRecipe() const { return _SecPerOneRecipe; }
+  double RealTimeProductionOfOneItemPerSec() const { return _RealTimeProductionOfOneItemPerSec; }
+
+  bool FindCountFactorysForItemsCount(TYPE_KEY columb, double count);
+
+  int ReadFromJson(const Json::Value & jsonPr) override;
+  int WriteToJson(Json::Value & jsonPr) const override;
 private:
-  KEY_RECIPE  _RecipeCurrent;
-  KEY_FACTORY _FactoryCurrent;
 
-  std::string _CurrentFactoryName;
-  std::string _CurrentRecipeName;
-
-  double _PeakPower;
-  double _LevelOfPollution;
-  double _SpeedFactory;
   double _SecPerOneRecipe;
   double _RealTimeProductionOfOneItemPerSec;
   double _CountFactorys;
-  int    _InitColumb;
 
-  std::vector <KEY_FACTORY> _Factorys;
-  std::vector <KEY_ITEM>    _ColsItems;
-  FactoryModules _FM;
-
-  std::vector <double> _CountItems;
+  Factory _FactoryCurrent;
+  
+  std::map<KEY_FACTORY, Factory> _Factorys;
+  std::vector<KEY_ITEM> _ColsItems;
+  std::vector <double> _ItemsCount;
   std::vector <double> _ItemsPerSec;
 
-  const ParamsCollection *_PC;
-
-  bool _Update();
-
-public:
-
-  bool SetCountFactorys( double Count);
-  bool SetFactoryModules(const FactoryModules &FM);
-  bool SetFactoryCurrent(KEY_FACTORY);
-  bool FindCountFactorysForItemsCount(int Columb, double Count);
-
-  bool ReInit();
-  bool Init(const ParamsCollection &PC, KEY_RECIPE RecipeId, const std::vector<KEY_ITEM> &Cols);
-
-  double GetSummProductivity(const ParamsCollection &PC) const;
-  double GetSummSpeed(const ParamsCollection &PC) const;
-  
-  DeclareAndDefinitionPropertyReadOnly(RecipeCurrent, KEY_RECIPE)
-  DeclareAndDefinitionPropertyReadOnly(Factorys, std::vector <KEY_FACTORY>)
-  DeclareAndDefinitionPropertyReadOnly(FactoryCurrent, KEY_FACTORY)
-  DeclareAndDefinitionPropertyReadOnly(CurrentFactoryName, std::string)
-  DeclareAndDefinitionPropertyReadOnly(CurrentRecipeName, std::string)
-  DeclareAndDefinitionPropertyReadOnly(FM, FactoryModules)
-  DeclareAndDefinitionPropertyReadOnly(InitColumb, int)
-  DeclareAndDefinitionPropertyReadOnly(SpeedFactory, double)
-  DeclareAndDefinitionPropertyReadOnly(SecPerOneRecipe, double)
-  DeclareAndDefinitionPropertyReadOnly(RealTimeProductionOfOneItemPerSec, double)
-  DeclareAndDefinitionPropertyReadOnly(CountFactorys, double)
-  DeclareAndDefinitionRefReadOnly(CountItems, std::vector <double>)
-  DeclareAndDefinitionRefReadOnly(ItemsPerSec, std::vector <double>)
-  
-  KEY_FACTORY GetFactoryIdFromIndex(int Index) const;
-  void DeleteModules(const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel);
-
-  int ReadFromJson(const Json::Value & jsonPr) override;
-  int WriteToJson(Json::Value & jsonPr) const override;
+  FactoryModules _FM;
 };
 
-class ProductionChainModel : public ItemBase
+class ProductionChainModel: public ItemBase
 {
-private:
-  KEY_ITEM _ItemKey;
-  const ParamsCollection &_PC;
-
-  std::vector<KEY_ITEM> _ColsItems;
-  std::vector<ProductionChainDataRow>  _DataRows;
-  std::vector<double> _SummSpeeds;
-  
-  //Возвращают истину, когда нужно обновить всю модель
-  bool _SetItemKey(KEY_ITEM ItemKey);
- 
-  const FullItemTree& _tree;
 public:
-
-  const ParamsCollection &GetPC() const
-  {
-    return _PC;
-  }
-
-  KEY_ITEM GetItemKey() const ;
-
   ProductionChainModel(const FullItemTree& tree, KEY_ITEM ItemKey);
   ProductionChainModel(const FullItemTree& tree);
-  ~ProductionChainModel();
-
-  void DeleteModules(const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel);
-
-  //Возвращают истину, когда нужно обновить всю модель
-  bool ReInit();
-
-  //Возвращают истину, когда нужно обновить всю модель
-  bool SetFactory(int Row, KEY_FACTORY FactoryId);
-
-  bool SetCountFactores(int Row, double CountFactores);
-
-  //Возвращают истину, когда нужно обновить всю модель
-  bool SetModules(int Row, const FactoryModules& Modules);
-
-  int CountItems() const;
-
-  int CountRecipes() const;
-
-  const std::vector<KEY_ITEM> &GetColsItems() const;
-
-  const ProductionChainDataRow &GetRow(int Row) const;
-
-  ProductionChainDataRow &GetRowEdit(int Row);
-
-  const std::vector<double> GetSummSpeeds() const;
-
-  std::string GetItemName(int Col) const;
-
+  bool SetItemKey(KEY_ITEM itemKey);
+  bool EnableRecipes(TYPE_KEY row);
   bool FitQuantity();
+  bool UpdateAll();
 
-  //Возвращают истину, когда нужно обновить всю модель
-  bool Optimize();
+  const ParamsCollection& GetPC() const { return _Tree.GetPC(); }
 
-  int ReadFromJson(const Json::Value & jsonPr) override;
+  TYPE_KEY CountItems() const;
+  TYPE_KEY CountRecipes() const;
+  const std::vector<double> GetSummSpeeds() const;
+  const ProductionChainDataRow& GetRow(TYPE_KEY row) const;
+  ProductionChainDataRow& GetRow(TYPE_KEY row);
+  std::string GetItemName(TYPE_KEY col) const;
 
-  int WriteToJson(Json::Value & jsonPr) const override;
+  int ReadFromJson(const Json::Value& jsonPr) override;
+  int WriteToJson(Json::Value& jsonPr) const override;
+private:
+  void Rebuild(KEY_ITEM itemKey);
 
+  std::vector<std::unique_ptr<ProductionChainDataRow> > _DataRows;
+  std::vector<double> _SummSpeeds;
+  std::vector <std::string> _ItemsNames;
+  std::set<KEY_RECIPE> _DenyKeysRecipes;
+  const FullItemTree& _Tree;
+  KEY_ITEM _ItemKey;
 };
 
 }
-
-#endif // ProductionChainModel_H

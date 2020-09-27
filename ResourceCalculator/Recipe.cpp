@@ -2,8 +2,10 @@
 
 namespace ResourceCalculator {
 
-  Recipe::Recipe():
-    _Time(1.0)
+  Recipe::Recipe()
+    : _Time(1.0)
+    , _Key(KEY_RECIPE::ID_RECIPE_NoFindRecipe)
+    , _TypeFactory(KEY_TYPE_FACTORY::Unknown)
   {
   }
 
@@ -34,6 +36,7 @@ namespace ResourceCalculator {
     _Key = static_cast<KEY_RECIPE>(jsonPr["Key"].asInt64());
     _TypeFactory = static_cast<KEY_TYPE_FACTORY>(jsonPr["TypeFactory"].asInt64());
     _Time = jsonPr["Time"].asDouble();
+    _MainResult = static_cast<KEY_ITEM>(jsonPr["MainResult"].asInt64());
     return 0;
   }
 
@@ -58,6 +61,7 @@ namespace ResourceCalculator {
     jsonPr["Required"] = jsonRequired;
     jsonPr["Result"] = jsonResult;
     jsonPr["Key"] = static_cast<Json::Value::Int64>(_Key);
+    jsonPr["MainResult"] = static_cast<Json::Value::Int64>(_MainResult);
     jsonPr["Time"] = _Time;
     return 0;
   }

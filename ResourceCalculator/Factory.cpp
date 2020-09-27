@@ -79,4 +79,9 @@ namespace ResourceCalculator
     return 0;
   }
 
+  bool FactoryIsAllowed(const Factory& factory, const Recipe& recipe)
+  {
+    return factory.IsAllowedProduction(recipe);
+  }
+
 }

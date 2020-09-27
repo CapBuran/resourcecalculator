@@ -600,42 +600,42 @@
 <context>
     <name>ProductionChainModel</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="251"/>
+        <location filename="../ProductionChainWidget.cpp" line="258"/>
         <source>Factory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="253"/>
+        <location filename="../ProductionChainWidget.cpp" line="260"/>
         <source>Recipe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="255"/>
+        <location filename="../ProductionChainWidget.cpp" line="262"/>
         <source>Modules productivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="257"/>
+        <location filename="../ProductionChainWidget.cpp" line="264"/>
         <source>Modules speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="259"/>
+        <location filename="../ProductionChainWidget.cpp" line="266"/>
         <source>Speed factory</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="261"/>
+        <location filename="../ProductionChainWidget.cpp" line="268"/>
         <source>Time for recipe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="263"/>
+        <location filename="../ProductionChainWidget.cpp" line="270"/>
         <source>Real time for recipe</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="265"/>
+        <location filename="../ProductionChainWidget.cpp" line="272"/>
         <source>Count factorys</source>
         <translation type="unfinished"></translation>
     </message>
@@ -695,12 +695,12 @@
 <context>
     <name>ProductionChainWidget</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="548"/>
+        <location filename="../ProductionChainWidget.cpp" line="549"/>
         <source>Auto-fit quantity items</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="550"/>
+        <location filename="../ProductionChainWidget.cpp" line="551"/>
         <source>Summ results:  </source>
         <translation type="unfinished"></translation>
     </message>

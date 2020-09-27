@@ -74,7 +74,7 @@ QSize ProductionChainDelegateBase::sizeHint(
   const QModelIndex &index) const
 {
   QStyleOptionViewItem optV4(option);
-  this->initStyleOption(&optV4, index);
+  initStyleOption(&optV4, index);
   QFontMetrics fm(optV4.fontMetrics);
   //return QSize(fm.width(optV4.text) + fm.overlinePos(), fm.height());
   return QSize(fm.horizontalAdvance(optV4.text) + fm.overlinePos(), fm.height());

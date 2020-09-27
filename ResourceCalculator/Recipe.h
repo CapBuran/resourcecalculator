@@ -29,7 +29,7 @@ namespace ResourceCalculator
     std::set<CountsItem> _Required;
     std::set<CountsItem> _Result;
     KEY_TYPE_FACTORY _TypeFactory;
-
+    KEY_ITEM _MainResult;
   public:
 
     Recipe();
@@ -39,6 +39,7 @@ namespace ResourceCalculator
     DeclareAndDefinitionProperty( Required, std::set<CountsItem> )
     DeclareAndDefinitionProperty( Result, std::set<CountsItem> )
     DeclareAndDefinitionProperty( TypeFactory, KEY_TYPE_FACTORY )
+    DeclareAndDefinitionProperty( MainResult, KEY_ITEM )
 
     int ReadFromJson( const Json::Value & jsonPr ) override;
     int WriteToJson( Json::Value & jsonPr ) const override;

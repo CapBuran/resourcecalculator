@@ -9,8 +9,6 @@
 namespace ResourceCalculator
 {
   class FactoryModules;
-  class FactoryCollection;
-  class ParamsCollection;
 
   class Factory: public ItemBase {
   private:
@@ -58,5 +56,7 @@ namespace ResourceCalculator
     int WriteToJson( Json::Value & jsonPr ) const override;
 
   };
+
+  bool FactoryIsAllowed(const Factory& factory, const Recipe& recipe);
 
 }
