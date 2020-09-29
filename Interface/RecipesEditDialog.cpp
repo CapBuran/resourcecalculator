@@ -195,11 +195,11 @@ bool RecipeListModel::removeRows(int position, int rows, const QModelIndex &inde
   using namespace ResourceCalculator;
   std::set<KEY_RECIPE> ToDelete;
   for (int row = 0; row < rows; ++row) {
-    ToDelete.insert(_RC.GetEnumKeyByKey(position + row));
+    ToDelete.insert(_RC.GetEnumKeyByKey(position));
   }
-  _RC_EDIT.Delete(ToDelete);
+  bool retval = _RC_EDIT.Delete(ToDelete);
   endRemoveRows();
-  return true;
+  return retval;
 }
 
 void RecipeListModel::Commit()

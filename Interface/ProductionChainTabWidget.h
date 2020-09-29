@@ -2,6 +2,7 @@
 #define ProductionChainTabWidget_H
 
 #include <ProductionChainModel.h>
+#include "ProductionChainWidgetSummProductionItems.h"
 
 #include <QtWidgets>
 
@@ -15,6 +16,7 @@ public:
   void RemoveCurrentTab();
 private:
   const ResourceCalculator::FullItemTree& _tree;
+  ProductionChainWidgetSummProductionItems* _PCWSPI;
 private slots:
   void OncurrentChanged(int index);
 };

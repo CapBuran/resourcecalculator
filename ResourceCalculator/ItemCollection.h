@@ -18,7 +18,7 @@ namespace ResourceCalculator {
     const RecipeCollection& GetRecipes() const;
     RecipeCollection& GetRecipes();
 
-    void Delete( const std::set<KEY_ITEM>& ItemsKeysToDel);
+    bool Delete( const std::set<KEY_ITEM>& ItemsKeysToDel);
     void Add( const std::map<KEY_ITEM, Item >& ItemsToAdd);
 
     const Item* GetItem(KEY_ITEM KeyItem) const;

@@ -7,8 +7,8 @@ ProductionChainTabWidget::ProductionChainTabWidget(const ResourceCalculator::Ful
   : QTabWidget(parent)
   , _tree(tree)
 {
-  ProductionChainWidgetSummProductionItems *PCWSPI = new ProductionChainWidgetSummProductionItems(tree, this);
-  addTab(PCWSPI, tr("Summ production items on all tabs") );
+  _PCWSPI = new ProductionChainWidgetSummProductionItems(tree, this);
+  addTab(_PCWSPI, tr("Summ production items on all tabs") );
   connect(this, SIGNAL(currentChanged(int)), SLOT(OncurrentChanged(int)));
 }
 
@@ -22,6 +22,7 @@ void ProductionChainTabWidget::Update()
       PCB->UpdateModel();
     }
   }
+  _PCWSPI->UpdateModel();
 }
 
 void ProductionChainTabWidget::AddTab(ResourceCalculator::KEY_ITEM ItemKey)

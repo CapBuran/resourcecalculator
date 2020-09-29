@@ -58,22 +58,26 @@ const Recipe *RecipeCollection::GetRecipe(KEY_RECIPE KeyRecipe) const
   return &it->second;
 }
 
-void RecipeCollection::Delete(const std::set<KEY_ITEM>& ItemsKeysToDel)
+bool RecipeCollection::Delete(const std::set<KEY_ITEM>& ItemsKeysToDel)
 {
+  const auto oldSize = _Recipes.size();
   for (KEY_ITEM ItemID : ItemsKeysToDel) {
     for (auto &recipe: _Recipes) {
       recipe.second.DeleteItem(ItemID);
     }
   }
   UpdateIndex();
+  return oldSize > _Recipes.size();
 }
 
-void RecipeCollection::Delete(const std::set<KEY_RECIPE>& RecipsKeysToDel)
+bool RecipeCollection::Delete(const std::set<KEY_RECIPE>& RecipsKeysToDel)
 {
+  const auto oldSize = _Recipes.size();
   for (KEY_RECIPE RecipeID: RecipsKeysToDel) {
     _Recipes.erase(RecipeID);
   }
   UpdateIndex();
+  return oldSize > _Recipes.size();
 }
 
 Recipe *RecipeCollection::GetRecipeForEdit(KEY_RECIPE KeyRecipe)

@@ -18,8 +18,8 @@ namespace ResourceCalculator
     virtual ~RecipeCollection();
 
     void Add(const Recipe&);
-    void Delete(const std::set<KEY_ITEM>& ItemsKeysToDel);
-    void Delete(const std::set<KEY_RECIPE>& RecipsKeysToDel);
+    bool Delete(const std::set<KEY_ITEM>& ItemsKeysToDel);
+    bool Delete(const std::set<KEY_RECIPE>& RecipsKeysToDel);
 
     Recipe *GetRecipeForEdit(KEY_RECIPE KeyRecipe);
     const Recipe *GetRecipe(KEY_RECIPE KeyRecipe) const;

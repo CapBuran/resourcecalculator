@@ -150,11 +150,11 @@ bool ItemsEditModel::removeRows(int position, int rows, const QModelIndex &index
   std::set<ResourceCalculator::KEY_ITEM> removes;
   for (int row = 0; row < rows; ++row)
   {
-    removes.insert(_IC.GetEnumKeyByKey(index.row()));
+    removes.insert(_IC.GetEnumKeyByKey(position));
   }
-  _IC_EDIT.Delete(removes);
+  bool retval = _IC_EDIT.Delete(removes);
   endRemoveRows();
-  return true;
+  return retval;
 }
 
 void ItemsEditModel::Commit()

@@ -52,9 +52,10 @@ namespace ResourceCalculator {
     UpdateIndex();
   }
 
-  void ItemCollection::Delete( const std::set<KEY_ITEM>& ItemsKeysToDel )
+  bool ItemCollection::Delete( const std::set<KEY_ITEM>& ItemsKeysToDel )
   {
-    _RC.Delete( ItemsKeysToDel );
+    bool retival = _RC.Delete( ItemsKeysToDel );
+    const auto oldSize = _Items.size();
     for ( auto& it: ItemsKeysToDel ) {
       bool ToDel = false;
       for ( auto& itm : _Items ) {
@@ -68,6 +69,7 @@ namespace ResourceCalculator {
       }
     }
     UpdateIndex();
+    return oldSize > _Items.size() || retival;
   }
   
   int ItemCollection::ReadFromJson(const Json::Value & jsonPr)
