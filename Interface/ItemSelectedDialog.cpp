@@ -18,12 +18,12 @@ ItemSelectedModel::ItemSelectedModel(
 
   for (TYPE_KEY i = 0; i < CountItems; i++)
   {
-    _Status[i].ItemId = _IC.GetEnumKeyByKey(i);
+    _Status[i].ItemId = _IC(i);
   }
 
   for (const auto& r: oldValues)
   {
-    int rowId = _IC.GetKeyByEnumKey(r.ItemId);
+    int rowId = _IC(r.ItemId);
     _Status[rowId] = r;
   }
 }
@@ -42,7 +42,7 @@ ItemSelectedModel::ItemSelectedModel(
 
   for (TYPE_KEY i = 0; i < CountItems; i++)
   {
-    _Status[i].ItemId = _IC.GetEnumKeyByKey(i);
+    _Status[i].ItemId = _IC(i);
   }
 }
 
@@ -70,20 +70,18 @@ QVariant ItemSelectedModel::data(const QModelIndex &index, int role) const
 
   if (role == Qt::DisplayRole) {
     
-    const Item *item = _IC.GetItem(_IC.GetEnumKeyByKey(index.row() ));
-    if (item == nullptr) {
-      return QVariant();
-    }
+    const Item& item = _IC[_IC(index.row())];
+    if (!item) return QVariant();
     switch (index.column())
     {
     case 0:
-      return QString(item->GetIconKey().c_str() );
+      return QString(item.GetIconKey().c_str() );
       break;
     case 1:
-      return QString(item->GetName().c_str() );
+      return QString(item.GetName().c_str() );
       break;
     case 2:
-      return QString::number(_Status[index.row()].Count );
+      return QString::number(_Status[index.row()].Count);
       break;
     default:
       return QVariant();
@@ -246,7 +244,7 @@ ItemSelectedDialog::ItemSelectedDialog(
     using namespace ResourceCalculator;
     for (const auto& it: select)
     {
-      int row = IC.GetKeyByEnumKey(it.ItemId);
+      int row = IC(it.ItemId);
       if ( row >= 0 ) {
         _tableView->selectRow( row );
       }

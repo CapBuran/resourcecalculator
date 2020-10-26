@@ -40,7 +40,7 @@ QVariant FactoryTypesViewModel::data(const QModelIndex &index, int role) const
     switch (index.column())
     {
     case 0:
-      return QString::fromStdString(_types.GetFactoryType(_types.GetEnumKeyByKey(index.row())).Name);
+      return QString::fromStdString(_types.GetFactoryType(_types(index.row())).Name);
       break;
     default:
       return QVariant();
@@ -81,7 +81,7 @@ std::set<ResourceCalculator::KEY_TYPE_FACTORY> FactoryTypesViewModel::GetFactory
   for (auto& row : select) {
     if (row.row() < _types.Size())
     {
-      RetVal.insert(_types.GetEnumKeyByKey(row.row()));
+      RetVal.insert(_types(row.row()));
     }
   }
   return RetVal;
@@ -92,7 +92,7 @@ QSet<int> FactoryTypesViewModel::GetSelectedRows(std::set<ResourceCalculator::KE
   QSet<int> retval;
   for(ResourceCalculator::KEY_TYPE_FACTORY key: result )
   {
-    retval.insert(_types.GetKeyByEnumKey(key));
+    retval.insert(_types(key));
   }
   return retval;
 }
@@ -129,7 +129,7 @@ QVariant FactorysEditDialogModel::data(const QModelIndex &index, int role) const
   if (index.row() >= _FC_Edit.Size() || index.row() < 0)
     return QVariant();
 
-  const Factory &factory = _FC_Edit.GetFactory(_FC_Edit.GetEnumKeyByKey(index.row()));
+  const Factory &factory = _FC_Edit.GetFactory(_FC_Edit(index.row()));
 
   if (role == Qt::DisplayRole && 0 <= index.column() && index.column() <= 6) {
     switch (index.column()) {
@@ -200,7 +200,7 @@ bool FactorysEditDialogModel::insertRows(int position, int rows, const QModelInd
   beginInsertRows(QModelIndex(), position, position + rows - 1);
   for (int row = 0; row < rows; ++row) {
     using namespace ResourceCalculator;
-    KEY_FACTORY NewKey = _FC_Edit.GetUniqueEnumKey();
+    KEY_FACTORY NewKey = _FC_Edit.NewKey();
     QString Name(tr("New factory") + QString(' ') + QString::number(static_cast<KEY_TO_Json>(NewKey)));
     std::pair<KEY_FACTORY, Factory > ToADD;
     ToADD.first = NewKey;
@@ -220,7 +220,7 @@ bool FactorysEditDialogModel::removeRows(int position, int rows, const QModelInd
   std::set<ResourceCalculator::KEY_FACTORY> factoresKey;
 
   for (int row = 0; row < rows; ++row) {
-    factoresKey.insert(_FC_Edit.GetEnumKeyByKey(row));
+    factoresKey.insert(_FC_Edit(row));
   }
   _FC_Edit.DeleteFactorys(factoresKey);
 
@@ -264,7 +264,7 @@ void FactorysEditDialogModel::Select()
 
 const ResourceCalculator::Factory& FactorysEditDialogModel::GetCurrentFactory(int row) const
 {
-  return _FC_Edit.GetFactory(_FC_Edit.GetEnumKeyByKey(row));
+  return _FC_Edit.GetFactory(_FC_Edit(row));
 }
 
 const ResourceCalculator::FactoryTypeCollection& FactorysEditDialogModel::GetTypesData() const
@@ -280,7 +280,7 @@ std::set<ResourceCalculator::KEY_TYPE_FACTORY> FactorysEditDialogModel::GetFacto
 bool FactorysEditDialogModel::setData(const QModelIndex & index, const QVariant & value, int role)
 {
   if (index.isValid() && role == Qt::EditRole) {
-    ResourceCalculator::Factory& factory = _FC_Edit.GetFactoryForEdit(_FC_Edit.GetEnumKeyByKey(index.row()));
+    ResourceCalculator::Factory& factory = _FC_Edit.GetFactoryForEdit(_FC_Edit(index.row()));
     switch (index.column()) {
     case 0:
     {

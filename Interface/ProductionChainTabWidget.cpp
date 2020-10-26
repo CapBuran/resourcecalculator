@@ -3,7 +3,7 @@
 #include "ModulesSelectDialog.h"
 #include "ProductionChainWidgetSummProductionItems.h"
 
-ProductionChainTabWidget::ProductionChainTabWidget(const ResourceCalculator::FullItemTree& tree, QWidget* parent)
+ProductionChainTabWidget::ProductionChainTabWidget(ResourceCalculator::FullItemTree& tree, QWidget* parent)
   : QTabWidget(parent)
   , _tree(tree)
 {
@@ -28,7 +28,7 @@ void ProductionChainTabWidget::Update()
 void ProductionChainTabWidget::AddTab(ResourceCalculator::KEY_ITEM ItemKey)
 {
   ProductionChainWidget *PCW = new ProductionChainWidget(_tree, ItemKey, this);
-  addTab(PCW, QString::fromStdString(_tree.GetPC().IC.GetItem(ItemKey)->GetName()));
+  addTab(PCW, QString::fromStdString(_tree.GetPC().IC[ItemKey].GetName()));
   Update();
 }
 

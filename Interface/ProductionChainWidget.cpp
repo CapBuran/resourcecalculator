@@ -46,10 +46,10 @@ QWidget *ProductionChainDelegate0::createEditor( QWidget *parent, const QStyleOp
     QComboBox *combobox = new QComboBox(parent);
     combobox->addItem(tr("Item received earlier"));
     KEY_RECIPE CurenRecipe = _PCM.GetRow(index.row()).RecipeCurrent.GetKey();
-    const Recipe *recipe = _PC.RC.GetRecipe(CurenRecipe);
+    const Recipe& recipe = _PCM.GetPC().RC[CurenRecipe];
     combobox->setCurrentIndex(0);
-    if (recipe != nullptr) {
-      combobox->addItem(QString::fromStdString(recipe->GetName()));
+    if (recipe) {
+      combobox->addItem(QString::fromStdString(recipe.GetName()));
       combobox->setCurrentIndex(1);
     }
     combobox->setGeometry(option.rect);
@@ -110,10 +110,10 @@ void ProductionChainDelegate0::paint( QPainter * painter, const QStyleOptionView
   }
   case 1: {
     KEY_RECIPE CurenRecipe = _PCM.GetRow(index.row()).RecipeCurrent.GetKey();
-    const Recipe *recipe = _PC.RC.GetRecipe(CurenRecipe);
-    if (recipe != nullptr)
+    const Recipe& recipe = _PC.RC[CurenRecipe];
+    if (recipe)
     {
-      QString Text = QString::fromStdString(recipe->GetName());
+      QString Text = QString::fromStdString(recipe.GetName());
       QStyleOptionComboBox comboBoxOption;
       comboBoxOption.rect = option.rect;
       comboBoxOption.currentText = Text;

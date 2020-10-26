@@ -21,9 +21,6 @@ namespace ResourceCalculator {
     bool Delete( const std::set<KEY_ITEM>& ItemsKeysToDel);
     void Add( const std::map<KEY_ITEM, Item >& ItemsToAdd);
 
-    const Item* GetItem(KEY_ITEM KeyItem) const;
-    Item* GetItemForEdit(KEY_ITEM KeyItem);
-
     int ReadFromJson(const Json::Value& jsonPr) override;
     int WriteToJson(Json::Value& jsonPr) const override;
 

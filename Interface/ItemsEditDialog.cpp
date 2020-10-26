@@ -15,7 +15,7 @@ ItemsEditModel::ItemsEditModel(ResourceCalculator::ItemCollection& IC, QObject* 
 int ItemsEditModel::rowCount(const QModelIndex& parent) const
 {
   Q_UNUSED(parent);
-  return _IC.Size();
+  return _IC_EDIT.Size();
 }
 
 int ItemsEditModel::columnCount(const QModelIndex &parent) const
@@ -29,25 +29,23 @@ QVariant ItemsEditModel::data(const QModelIndex &index, int role) const
   using namespace ResourceCalculator;
   if (!index.isValid())
     return QVariant();
-  if (index.row() >= _IC.Size() || index.row() < 0)
+  if (index.row() >= _IC_EDIT.Size() || index.row() < 0)
     return QVariant();
   if (role == Qt::DisplayRole) {
-    const Item* item = _IC_EDIT.GetItem(_IC_EDIT.GetEnumKeyByKey(index.row()));
-    if (item == nullptr) {
-      return QVariant();
-    }
+    const Item& item = _IC_EDIT[_IC_EDIT(index.row())];
+    if (!item) return QVariant();
     switch (index.column()) {
     case 0:
-      return QString::fromStdString(item->GetIconKey());
+      return QString::fromStdString(item.GetIconKey());
       break;
     case 1:
-      return QString::fromUtf8(item->GetName().c_str());
+      return QString::fromUtf8(item.GetName().c_str());
       break;
     case 2:
-      return QVariant(item->GetIsALiquidOrGas());
+      return QVariant(item.GetIsALiquidOrGas());
       break;
     case 3:
-      return QVariant(item->GetMiningHardness());
+      return QVariant(item.GetMiningHardness());
       break;
     default:
       return QVariant();
@@ -93,27 +91,27 @@ bool ItemsEditModel::setData(const QModelIndex &index, const QVariant &value, in
 {
   using namespace ResourceCalculator;
   if (index.isValid() && role == Qt::EditRole) {
-    Item* item = _IC_EDIT.GetItemForEdit(_IC_EDIT.GetEnumKeyByKey(index.row()));
-    if (item == nullptr) {
+    Item& item = _IC_EDIT[(_IC_EDIT(index.row()))];
+    if (item) {
       return false;
     }
     switch (index.column()) {
     case 0: {
-      item->SetIconKey(value.toString().toStdString());
+      item.SetIconKey(value.toString().toStdString());
       break;
     }
     case 1: {
       std::string Name = value.toString().toStdString();
       if (Name.length() > 0) {
-        item->SetName(Name);
+        item.SetName(Name);
       }
       break;
     }
     case 2:
-      item->SetIsALiquidOrGas(value.toBool());
+      item.SetIsALiquidOrGas(value.toBool());
       break;
     case 3:
-      item->SetMiningHardness(value.toDouble());
+      item.SetMiningHardness(value.toDouble());
       break;
     default:
       return false;
@@ -131,13 +129,13 @@ bool ItemsEditModel::insertRows(int position, int rows, const QModelIndex &index
   beginInsertRows(QModelIndex(), position, position + rows - 1);
   for (int row = 0; row < rows; ++row) {
     using namespace ResourceCalculator;
-    KEY_ITEM NewKey = _IC_EDIT.GetUniqueEnumKey();
+    KEY_ITEM NewKey = _IC_EDIT.NewKey();
     QString Name(tr("New item") + QString(' ') + QString::number(static_cast<KEY_TO_Json>(NewKey)));
     std::pair<KEY_ITEM, Item > ToADD;
     ToADD.first = NewKey;
     ToADD.second.SetKey(NewKey);
     ToADD.second.SetName(Name.toStdString());
-    _IC.Add({ ToADD });
+    _IC_EDIT.Add({ ToADD });
   }
   endInsertRows();
   return true;
@@ -146,14 +144,14 @@ bool ItemsEditModel::insertRows(int position, int rows, const QModelIndex &index
 bool ItemsEditModel::removeRows(int position, int rows, const QModelIndex &index)
 {
   Q_UNUSED(index);
-  beginRemoveRows(QModelIndex(), position, position + rows - 1);
+  beginResetModel();
   std::set<ResourceCalculator::KEY_ITEM> removes;
   for (int row = 0; row < rows; ++row)
   {
-    removes.insert(_IC.GetEnumKeyByKey(position));
+    removes.insert(_IC(position));
   }
   bool retval = _IC_EDIT.Delete(removes);
-  endRemoveRows();
+  endResetModel();
   return retval;
 }
 
@@ -272,7 +270,7 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ItemCollection& IC, const R
   _tableView->setModel(&_Model);
   _tableView->sortByColumn(1, Qt::AscendingOrder);
   _tableView->setItemDelegate(Delegate);
-  _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
+  _tableView->setSelectionMode(QTableView::SelectionMode::MultiSelection);
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   _tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
@@ -305,8 +303,9 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ItemCollection& IC, const R
 void ItemsEditDialog::remove_item()
 {
   QModelIndexList RowsSelected = _tableView->selectionModel()->selectedRows();
-  if (RowsSelected.size() > 0) {
-    _Model.removeRow(RowsSelected[0].row());
+  for (const auto& it : RowsSelected)
+  {
+    _Model.removeRow(it.row());
   }
 }
 

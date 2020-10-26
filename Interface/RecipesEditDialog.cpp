@@ -42,7 +42,7 @@ QVariant RecipeListModel::data(const QModelIndex &index, int role) const
   if (index.row() >= _RC_EDIT.Size() || index.row() < 0)
     return QVariant();
   if (role == Qt::DisplayRole) {
-    const Recipe& R = *_RC_EDIT.GetRecipe(_RC_EDIT.GetEnumKeyByKey(index.row()));
+    const Recipe& R = _RC_EDIT[_RC_EDIT(index.row())];
     switch (index.column()) {
     case 0://Icon
       return QString::fromStdString(R.GetIconKey());
@@ -116,7 +116,7 @@ bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, i
 {
   if (index.isValid() && role == Qt::EditRole) {
     using namespace ResourceCalculator;
-    Recipe& R = *_RC_EDIT.GetRecipeForEdit(_RC.GetEnumKeyByKey(index.row()));
+    Recipe& R = _RC_EDIT[_RC(index.row())];
 
     switch (index.column()) {
     case 0://Icon
@@ -176,7 +176,7 @@ bool RecipeListModel::insertRows(int position, int rows, const QModelIndex &inde
   beginInsertRows(QModelIndex(), position, position + rows - 1);
   for (int row = 0; row < rows; ++row) {
     using namespace ResourceCalculator;
-    const KEY_RECIPE NewKey = _RC_EDIT.GetUniqueEnumKey();
+    const KEY_RECIPE NewKey = _RC_EDIT.NewKey();
     QString Name(tr("New recipe") + ' ' + QString::number(static_cast<KEY_TO_Json>(NewKey)));
     Recipe ToADD;
     ToADD.SetKey(NewKey);
@@ -190,15 +190,14 @@ bool RecipeListModel::insertRows(int position, int rows, const QModelIndex &inde
 
 bool RecipeListModel::removeRows(int position, int rows, const QModelIndex &index)
 {
-  Q_UNUSED(index);
-  beginRemoveRows(QModelIndex(), position, position + rows - 1);
+  beginResetModel();
   using namespace ResourceCalculator;
   std::set<KEY_RECIPE> ToDelete;
   for (int row = 0; row < rows; ++row) {
-    ToDelete.insert(_RC.GetEnumKeyByKey(position));
+    ToDelete.insert(_RC(position));
   }
   bool retval = _RC_EDIT.Delete(ToDelete);
-  endRemoveRows();
+  endResetModel();
   return retval;
 }
 

@@ -102,7 +102,7 @@ bool ModulesTypesEditModel::insertRows( int position, int rows, const QModelInde
   beginInsertRows( QModelIndex(), position, position + rows - 1 );
   for ( int row = 0; row < rows; ++row ) {
     using namespace ResourceCalculator;
-    KEY_MODULE NewKey = _PC.MC.GetUniqueEnumKey();
+    KEY_MODULE NewKey = _PC.MC.NewKey();
     QString Name( tr( "New module" ) + QString( ' ' ) + QString::number( static_cast<KEY_TO_Json>( NewKey ) ) );
     std::pair<KEY_MODULE, Module > ToADD;
     ToADD.first = NewKey;

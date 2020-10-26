@@ -61,17 +61,18 @@ private:
   FactoryModules _FM;
 };
 
-class ProductionChainModel: public ItemBase
+class ProductionChainModel: public ItemBase<KEY_ITEM>
 {
 public:
   ProductionChainModel(const FullItemTree& tree, KEY_ITEM ItemKey);
   ProductionChainModel(const FullItemTree& tree);
+
+  const ParamsCollection& GetPC() const { return _Tree.GetPC(); }
+
   bool SetItemKey(KEY_ITEM itemKey);
   bool EnableRecipes(TYPE_KEY row);
   bool FitQuantity();
-  bool UpdateAll();
-
-  const ParamsCollection& GetPC() const { return _Tree.GetPC(); }
+  bool UpdateAll(const ParamsCollection& PC);
 
   TYPE_KEY CountItems() const;
   TYPE_KEY CountRecipes() const;
@@ -90,7 +91,6 @@ private:
   std::vector <std::string> _ItemsNames;
   std::set<KEY_RECIPE> _DenyKeysRecipes;
   const FullItemTree& _Tree;
-  KEY_ITEM _ItemKey;
 };
 
 }

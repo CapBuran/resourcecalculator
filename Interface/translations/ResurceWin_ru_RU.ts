@@ -208,12 +208,12 @@
 <context>
     <name>ItemEditDelegate</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="214"/>
+        <location filename="../ItemsEditDialog.cpp" line="212"/>
         <source>Yes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="214"/>
+        <location filename="../ItemsEditDialog.cpp" line="212"/>
         <source>No</source>
         <translation type="unfinished"></translation>
     </message>
@@ -221,25 +221,25 @@
 <context>
     <name>ItemSelectedDialog</name>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="230"/>
-        <location filename="../ItemSelectedDialog.cpp" line="285"/>
+        <location filename="../ItemSelectedDialog.cpp" line="228"/>
+        <location filename="../ItemSelectedDialog.cpp" line="283"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="231"/>
-        <location filename="../ItemSelectedDialog.cpp" line="286"/>
+        <location filename="../ItemSelectedDialog.cpp" line="229"/>
+        <location filename="../ItemSelectedDialog.cpp" line="284"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="269"/>
-        <location filename="../ItemSelectedDialog.cpp" line="312"/>
+        <location filename="../ItemSelectedDialog.cpp" line="267"/>
+        <location filename="../ItemSelectedDialog.cpp" line="310"/>
         <source>Select an item</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="271"/>
+        <location filename="../ItemSelectedDialog.cpp" line="269"/>
         <source>Select items</source>
         <translation type="unfinished"></translation>
     </message>
@@ -247,17 +247,17 @@
 <context>
     <name>ItemSelectedModel</name>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="104"/>
+        <location filename="../ItemSelectedDialog.cpp" line="102"/>
         <source>Icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="106"/>
+        <location filename="../ItemSelectedDialog.cpp" line="104"/>
         <source>Item Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemSelectedDialog.cpp" line="108"/>
+        <location filename="../ItemSelectedDialog.cpp" line="106"/>
         <source>Number of items</source>
         <translation type="unfinished"></translation>
     </message>
@@ -265,27 +265,27 @@
 <context>
     <name>ItemsEditDialog</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="262"/>
+        <location filename="../ItemsEditDialog.cpp" line="260"/>
         <source>OK</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="263"/>
+        <location filename="../ItemsEditDialog.cpp" line="261"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="264"/>
+        <location filename="../ItemsEditDialog.cpp" line="262"/>
         <source>ADD</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="265"/>
+        <location filename="../ItemsEditDialog.cpp" line="263"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="302"/>
+        <location filename="../ItemsEditDialog.cpp" line="300"/>
         <source>Item Edit</source>
         <translation type="unfinished"></translation>
     </message>
@@ -293,27 +293,27 @@
 <context>
     <name>ItemsEditModel</name>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="67"/>
+        <location filename="../ItemsEditDialog.cpp" line="65"/>
         <source>Icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="69"/>
+        <location filename="../ItemsEditDialog.cpp" line="67"/>
         <source>Item Name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="71"/>
+        <location filename="../ItemsEditDialog.cpp" line="69"/>
         <source>Is a liquid or gas</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="73"/>
+        <location filename="../ItemsEditDialog.cpp" line="71"/>
         <source>Mining hardness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ItemsEditDialog.cpp" line="135"/>
+        <location filename="../ItemsEditDialog.cpp" line="133"/>
         <source>New item</source>
         <translation type="unfinished"></translation>
     </message>
@@ -667,27 +667,14 @@
     </message>
 </context>
 <context>
-    <name>ProductionChainTreeItem</name>
-    <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="238"/>
-        <source>Item: </source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="256"/>
-        <source>Recpie: </source>
-        <translation type="unfinished"></translation>
-    </message>
-</context>
-<context>
     <name>ProductionChainTreeModel</name>
     <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="84"/>
+        <location filename="../ProductionChainTreeModel.cpp" line="197"/>
         <source>Icon</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="86"/>
+        <location filename="../ProductionChainTreeModel.cpp" line="199"/>
         <source>Name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -708,7 +695,7 @@
 <context>
     <name>ProductionChainWidgetSummProductionItems</name>
     <message>
-        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="227"/>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="229"/>
         <source>Sum of all items produced</source>
         <translation type="unfinished"></translation>
     </message>
@@ -754,12 +741,12 @@
 <context>
     <name>RecipesEditDelegate</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="267"/>
+        <location filename="../RecipesEditDialog.cpp" line="266"/>
         <source>Result</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="267"/>
+        <location filename="../RecipesEditDialog.cpp" line="266"/>
         <source>Ingredients</source>
         <translation type="unfinished"></translation>
     </message>
@@ -767,27 +754,27 @@
 <context>
     <name>RecipesEditDialog</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="362"/>
+        <location filename="../RecipesEditDialog.cpp" line="361"/>
         <source>Ok</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="363"/>
+        <location filename="../RecipesEditDialog.cpp" line="362"/>
         <source>Add</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="364"/>
+        <location filename="../RecipesEditDialog.cpp" line="363"/>
         <source>Remove</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="365"/>
+        <location filename="../RecipesEditDialog.cpp" line="364"/>
         <source>Cancel</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="394"/>
+        <location filename="../RecipesEditDialog.cpp" line="393"/>
         <source>Recipes Edit</source>
         <translation type="unfinished"></translation>
     </message>

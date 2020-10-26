@@ -1,21 +1,25 @@
+#include <fstream>
+
+#include <TestInit.h>
 
 #include "mainwindow.h"
-#include <fstream>
 
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
   ResourceCalculator::ParamsCollection PC;
 
-  {
-    Q_INIT_RESOURCE(ResurceGui);
-    QFile file(":/Res/IconsDefault");
-    if (file.open(QIODevice::ReadOnly)) {
-      QByteArray RawData = file.readAll();
-      //PC.Icons.ReadRawDataAsJson(RawData.constData());
-    }
-  }
+  //{
+  //  Q_INIT_RESOURCE(ResurceGui);
+  //  QFile file(":/Res/IconsDefault");
+  //  if (file.open(QIODevice::ReadOnly)) {
+  //    QByteArray RawData = file.readAll();
+  //    //PC.Icons.ReadRawDataAsJson(RawData.constData());
+  //  }
+  //}
 
+  //if(false)
+  if (true)
   {
     QFile file(StandartTestFileJson);
     if (!file.open(QIODevice::ReadOnly)) {
@@ -26,6 +30,10 @@ int main(int argc, char *argv[])
     Json::Reader JsonReader;
     bool parsingSuccessful = JsonReader.parse(fileData.constData(), jsonPrRestore);
     PC.ReadFromJson(jsonPrRestore);
+  }
+  else
+  {
+    ResourceCalculator::InitTest1(PC);
   }
 
   //{

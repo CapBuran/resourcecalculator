@@ -5,14 +5,13 @@
 
 namespace ResourceCalculator {
   
-  class Item: public ItemBase {
+  class Item: public ItemBase<KEY_ITEM>
+  {
   private:
-    KEY_ITEM _Key;
     bool _IsALiquidOrGas;
     double _MiningHardness;
   public:
     Item();
-    DeclareAndDefinitionProperty(Key, KEY_ITEM)
     DeclareAndDefinitionProperty(IsALiquidOrGas, bool)
     DeclareAndDefinitionProperty(MiningHardness, double)
     int ReadFromJson(const Json::Value & jsonPr) override;

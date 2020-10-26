@@ -8,8 +8,8 @@
 #include "IconCollection.h"
 #include "TransportBeltCollection.h"
 
-namespace ResourceCalculator {
-  
+namespace ResourceCalculator
+{
   class ParamsCollection: public Jsonable
   {
   public:
@@ -25,7 +25,6 @@ namespace ResourceCalculator {
     int ReadFromJson(const Json::Value &jsonPr) override;
     int WriteToJson(Json::Value &jsonPr) const override;
   };
-
 }
 
 #endif // ParamsCollection

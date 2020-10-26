@@ -9,7 +9,7 @@
 class ProductionChainTabWidget : public QTabWidget {
   Q_OBJECT
 public:
-  ProductionChainTabWidget(const ResourceCalculator::FullItemTree& tree, QWidget *parent = 0);
+  ProductionChainTabWidget(ResourceCalculator::FullItemTree& tree, QWidget *parent = 0);
   void Update();
   void AddTab(ResourceCalculator::KEY_ITEM ItemKey);
   void AddTabs(const std::list<ResourceCalculator::KEY_ITEM>& ToADD);

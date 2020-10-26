@@ -9,7 +9,6 @@ class ProductionChainCollection : public Jsonable
 {
 private:
   std::set<ProductionChainModel*> _PCMs;
-  const ParamsCollection &_PC;
   FullItemTree& _tree;
 public:
   ProductionChainCollection(FullItemTree& tree);

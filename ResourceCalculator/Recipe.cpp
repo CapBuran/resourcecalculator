@@ -4,8 +4,8 @@ namespace ResourceCalculator {
 
   Recipe::Recipe()
     : _Time(1.0)
-    , _Key(KEY_RECIPE::ID_RECIPE_NoFindRecipe)
     , _TypeFactory(KEY_TYPE_FACTORY::Unknown)
+    , _MainResult(KEY_ITEM::ID_ITEM_NoFind_Item)
   {
   }
 
@@ -33,7 +33,6 @@ namespace ResourceCalculator {
       ToAdd.Count = it["Count"].asDouble();
       _Result.insert(ToAdd);
     }
-    _Key = static_cast<KEY_RECIPE>(jsonPr["Key"].asInt64());
     _TypeFactory = static_cast<KEY_TYPE_FACTORY>(jsonPr["TypeFactory"].asInt64());
     _Time = jsonPr["Time"].asDouble();
     _MainResult = static_cast<KEY_ITEM>(jsonPr["MainResult"].asInt64());
@@ -60,7 +59,6 @@ namespace ResourceCalculator {
     jsonPr["TypeFactory"] = static_cast<Json::Value::Int64>(_TypeFactory);
     jsonPr["Required"] = jsonRequired;
     jsonPr["Result"] = jsonResult;
-    jsonPr["Key"] = static_cast<Json::Value::Int64>(_Key);
     jsonPr["MainResult"] = static_cast<Json::Value::Int64>(_MainResult);
     jsonPr["Time"] = _Time;
     return 0;

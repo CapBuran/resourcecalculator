@@ -5,17 +5,15 @@
 
 namespace ResourceCalculator {
   
-  class Module: public ItemBase {
+  class Module: public ItemBase<KEY_MODULE>
+  {
   private:
-    KEY_MODULE _Key;
-
     double _CoefficientPollution;//Коэффициент загрязнения
     double _CoefficientEffectiveness;//Коэффициент эффективности
     double _CoefficientSpeed;//Коэффициент скорости
     double _CoefficientProductivity;//Коэффициент продуктивности
 
   public:
-    DeclareAndDefinitionProperty(Key,                  KEY_MODULE)
     DeclareAndDefinitionProperty(CoefficientPollution,     double)
     DeclareAndDefinitionProperty(CoefficientEffectiveness, double)
     DeclareAndDefinitionProperty(CoefficientSpeed,         double)

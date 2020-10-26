@@ -39,9 +39,9 @@ QVariant ProductionChainModelSummProductionItems::data( const QModelIndex &index
   }
 
   if (index.column() == 0) {
-    const Item *item = _PC.IC.GetItem(_PC.IC.GetEnumKeyByKey(index.row()));
-    if (item != nullptr) {
-      return QString::fromStdString(item->GetIconKey());
+    const Item& item = _PC.IC[_PC.IC(index.row())];
+    if (item) {
+      return QString::fromStdString(item.GetIconKey());
     }
   }
   
@@ -88,9 +88,9 @@ void ProductionChainModelSummProductionItems::Update()
   _DATA.resize(CountItems + 1);
   _VerticalHeader.resize(CountItems);
   for (int row = 0; row < CountItems; row++) {
-    const Item * item = _PC.IC.GetItem(_PC.IC.GetEnumKeyByKey(row));
-    if (item != nullptr) {
-      _VerticalHeader[row] = QString::fromStdString(item->GetName());
+    const Item& item = _PC.IC[_PC.IC(row)];
+    if (item) {
+      _VerticalHeader[row] = QString::fromStdString(item.GetName());
     } else {
       _VerticalHeader[row] = tr("Production chain is deleted!!!");
     }
@@ -190,8 +190,10 @@ QSize ProductionChainDelegateSummProductionItems::sizeHint(const QStyleOptionVie
 
 #pragma endregion DELEGATE
 
-ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionItems(const ResourceCalculator::FullItemTree& tree, QWidget *parent ):
-  ProductionChainWidgetBase(tree, parent), _Model(tree.GetPC(), parent), _ModelTree(tree)
+ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionItems(ResourceCalculator::FullItemTree& tree, QWidget *parent )
+  : ProductionChainWidgetBase(tree, parent)
+  , _Model(tree.GetPC(), parent)
+  , _ModelTree(tree)
 {
   _Model.Update();
 
@@ -241,9 +243,10 @@ void ProductionChainWidgetSummProductionItems::on_selectionChanged(const QItemSe
 {
   if (selected.indexes().size() > 0) {
     int row = selected.indexes()[0].row();
-    const ResourceCalculator::Item *item = _PC.IC.GetItem(_PC.IC.GetEnumKeyByKey(row));
-    if (item!= nullptr) {
-      _ModelTree.SetItemID(item->GetKey());
+    const ResourceCalculator::Item& item = _PC.IC[_PC.IC(row)];
+    if (item)
+    {
+      _ModelTree.SetItemID(item.GetKey());
     }
   }
 }

@@ -4,7 +4,6 @@
 namespace ResourceCalculator {
 
   Module::Module(): 
-    _Key(KEY_MODULE::ID_CleanSlot),
     _CoefficientPollution(0.0),
     _CoefficientEffectiveness(0.0),
     _CoefficientSpeed(0.0),

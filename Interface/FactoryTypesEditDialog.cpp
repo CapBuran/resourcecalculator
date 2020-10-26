@@ -36,10 +36,10 @@ QVariant FactoryTypesEditModel::data( const QModelIndex &index, int role ) const
   if ( role == Qt::DisplayRole ) {
     switch ( index.column() ) {
     case 0:
-      return QString::fromStdString(_FC_Edit.GetTypes().GetFactoryType(_FC_Edit.GetTypes().GetEnumKeyByKey(index.row())).IconPath );
+      return QString::fromStdString(_FC_Edit.GetTypes().GetFactoryType(_FC_Edit.GetTypes()(index.row())).IconPath );
       break;
     case 1:
-      return QString::fromStdString(_FC_Edit.GetTypes().GetFactoryType(_FC_Edit.GetTypes().GetEnumKeyByKey(index.row())).Name );
+      return QString::fromStdString(_FC_Edit.GetTypes().GetFactoryType(_FC_Edit.GetTypes()(index.row())).Name );
       break;
     default:
       return QVariant();
@@ -73,7 +73,7 @@ bool FactoryTypesEditModel::insertRows( int position, int rows, const QModelInde
   beginInsertRows( QModelIndex(), position, position + rows - 1 );
   for (int row = 0; row < rows; ++row) {
     using namespace ResourceCalculator;
-    KEY_TYPE_FACTORY NewKey = _FC_Edit.GetTypes().GetUniqueEnumKey();
+    KEY_TYPE_FACTORY NewKey = _FC_Edit.GetTypes().NewKey();
     QString Name(tr("New type factory") + QString(' ') + QString::number(static_cast<KEY_TO_Json>(NewKey)));
     std::pair<KEY_TYPE_FACTORY, FactoryType > ToADD;
     ToADD.first = NewKey;
@@ -91,7 +91,7 @@ bool FactoryTypesEditModel::removeRows( int position, int rows, const QModelInde
   using namespace ResourceCalculator;
   std::set<KEY_TYPE_FACTORY> FactoryTypesKey;
   for ( int row = 0; row < rows; ++row ) {
-    FactoryTypesKey.insert(_FC_Edit.GetTypes().GetEnumKeyByKey(row));
+    FactoryTypesKey.insert(_FC_Edit.GetTypes()(row));
   }
   _FC_Edit.GetTypes().DeleteFactorysTypes(FactoryTypesKey);
   endRemoveRows();
@@ -121,7 +121,7 @@ void FactoryTypesEditModel::Select()
 bool FactoryTypesEditModel::setData( const QModelIndex & index, const QVariant & value, int role )
 {
   if ( index.isValid() && role == Qt::EditRole ) {
-    ResourceCalculator::FactoryType& ft = _FC_Edit.GetTypes().GetFactoryType(_FC_Edit.GetTypes().GetEnumKeyByKey(index.row()));
+    ResourceCalculator::FactoryType& ft = _FC_Edit.GetTypes().GetFactoryType(_FC_Edit.GetTypes()(index.row()));
     switch ( index.column() ) {
     case 0:
       ft.IconPath = value.toString().toStdString();

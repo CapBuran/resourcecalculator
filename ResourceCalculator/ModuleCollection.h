@@ -3,8 +3,8 @@
 
 #include "Module.h"
 
-namespace ResourceCalculator {
-
+namespace ResourceCalculator
+{
   class ModuleCollection: public Jsonable, public Indexator<KEY_MODULE, Module>
   {
   public:
@@ -22,7 +22,6 @@ namespace ResourceCalculator {
   private:
     std::map<KEY_MODULE, Module> _Modules;
   };
-
 }
 
 #endif // !ItemCollectionH

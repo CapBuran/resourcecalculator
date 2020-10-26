@@ -21,20 +21,16 @@ namespace ResourceCalculator
     return lhs.ItemId < rhs.ItemId;
   }
 
-  class Recipe: public ItemBase
+  class Recipe: public ItemBase<KEY_RECIPE>
   {
   private:
-    double      _Time;
-    KEY_RECIPE  _Key;
+    double _Time;
     std::set<CountsItem> _Required;
     std::set<CountsItem> _Result;
     KEY_TYPE_FACTORY _TypeFactory;
     KEY_ITEM _MainResult;
   public:
-
     Recipe();
-
-    DeclareAndDefinitionProperty( Key, KEY_RECIPE )
     DeclareAndDefinitionProperty( Time, double )
     DeclareAndDefinitionProperty( Required, std::set<CountsItem> )
     DeclareAndDefinitionProperty( Result, std::set<CountsItem> )
@@ -45,7 +41,6 @@ namespace ResourceCalculator
     int WriteToJson( Json::Value & jsonPr ) const override;
 
     bool DeleteItem( KEY_ITEM KeyItem );
-
   };
 
 }

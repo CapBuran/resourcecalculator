@@ -34,8 +34,11 @@ source_group(Icon     FILES Icon.cpp)
 source_group(Icon     FILES IconCollection.h)
 source_group(Icon     FILES IconCollection.cpp)
 
+#source_group(Other    FILES Serializer.h)
 source_group(Other    FILES ParamsCollection.h)
 source_group(Other    FILES ParamsCollection.cpp)
+source_group(Other    FILES TestInit.h)
+source_group(Other    FILES TestInit.cpp)
 
 source_group(ProductionChain FILES ProductionChainModel.cpp)
 source_group(ProductionChain FILES ProductionChainModel.h)
@@ -43,10 +46,6 @@ source_group(ProductionChain FILES ProductionChainCollection.cpp)
 source_group(ProductionChain FILES ProductionChainCollection.h)
 source_group(ProductionChain FILES ProductionChainTree.cpp)
 source_group(ProductionChain FILES ProductionChainTree.h)
-
-source_group(Other    FILES Serializer.h)
-
-
 
 add_library(ResourceCalculator STATIC ${ResourceCalculator_HEADERS} ${ResourceCalculator_SOURCES} )
 

@@ -18,9 +18,9 @@ namespace ResourceCalculator
     , _CountFactorys(.0)
     , InitColumb(initColumb >= 0 ? initColumb : 0)
     , IsEnabled(isEnabled)
-    , RecipeCurrent(*PC.RC.GetRecipe(keyRecipe))
+    , RecipeCurrent(PC.RC[keyRecipe])
   {
-    assert(PC.RC.GetRecipe(keyRecipe));
+    assert(PC.RC[keyRecipe]);
 
     _ColsItems = cols;
     _FactoryCurrent = PC.FC.GetFactory(KEY_FACTORY::ID_ITEM_NoFind_Factory);
@@ -114,9 +114,6 @@ namespace ResourceCalculator
     return true;
   }
 
-
-
-
   const std::vector<double> ProductionChainModel::GetSummSpeeds() const
   {
     return _SummSpeeds;
@@ -124,15 +121,13 @@ namespace ResourceCalculator
 
   ProductionChainModel::ProductionChainModel(const FullItemTree& tree)
     : _Tree(tree)
-    , _ItemKey(KEY_ITEM::ID_ITEM_NoFind_Item)
-    {
+  {
   }
 
   ProductionChainModel::ProductionChainModel(const FullItemTree& tree, KEY_ITEM ItemKey)
     : _Tree(tree)
-    , _ItemKey(ItemKey)
   {
-    SetItemKey( ItemKey );
+    SetItemKey(ItemKey);
   }
 
   struct ItemIndex
@@ -165,8 +160,9 @@ namespace ResourceCalculator
 
     if (treeCounter < treeMaxCounter)
     {
-      const ItemResultTree& tree_item = tree.GetRootItemTree(key_item);
-      const std::vector<KEY_RECIPE>& recipesIds = tree_item.Childrens;
+      const ItemNode::Ptr& tree_item = tree[key_item];
+      if (!tree_item) return;
+      const std::vector<KEY_RECIPE>& recipesIds = tree_item->Childrens;
       if (recipesIds.empty())
       {
         keys_items_no_childrens_set.insert(key_item);
@@ -191,8 +187,9 @@ namespace ResourceCalculator
             keys_recipes_list.push_front({ treeCounter, k_recipe, key_item });
             if (deny_keys_recipes_set.count(k_recipe) == 0)
             {
-              const RecipeResultTree& tree_recipe = tree.GetRootRecipeTree(k_recipe);
-              const std::vector<KEY_ITEM>& recipesIds = tree_recipe.Childrens;
+              const RecipeNode::Ptr& tree_recipe = tree[k_recipe];
+              if (!tree_recipe) return;
+              const std::vector<KEY_ITEM>& recipesIds = tree_recipe->Childrens;
               for (KEY_ITEM k_item : recipesIds)
               {
                 if (keys_items_set.count(k_item) == 0)
@@ -211,6 +208,7 @@ namespace ResourceCalculator
 
   void ProductionChainModel::Rebuild(KEY_ITEM itemKey)
   {
+    _Key = itemKey;
     _DataRows.clear();
     _SummSpeeds.clear();
     _ItemsNames.clear();
@@ -225,7 +223,7 @@ namespace ResourceCalculator
 
     std::set<KEY_ITEM> keys_items_no_childrens_set;
 
-    RecursiveSurvey(treeCounter, MaxRecursive, _Tree, _ItemKey, keys_items_set, keys_items_no_childrens_set, keys_recipes_set, _DenyKeysRecipes, keys_items_list, keys_recipes_list);
+    RecursiveSurvey(treeCounter, MaxRecursive, _Tree, _Key, keys_items_set, keys_items_no_childrens_set, keys_recipes_set, _DenyKeysRecipes, keys_items_list, keys_recipes_list);
 
     std::vector<KEY_ITEM> ColsItems;
     ColsItems.resize(keys_items_set.size());
@@ -255,7 +253,7 @@ namespace ResourceCalculator
       }
       for (TYPE_KEY i = 0; i < Counter; i++)
       {
-        _ItemsNames[i] = _Tree.GetPC().IC.GetItem(ColsItems[i])->GetName();
+        _ItemsNames[i] = _Tree.GetPC().IC[ColsItems[i]].GetName();
       }
     }
 
@@ -299,14 +297,14 @@ namespace ResourceCalculator
         _DenyKeysRecipes.erase(recipeKey);
     }
 
-    Rebuild(_ItemKey);
+    Rebuild(_Key);
 
     return true;
   }
 
-  bool ProductionChainModel::UpdateAll()
+  bool ProductionChainModel::UpdateAll(const ParamsCollection& PC)
   {
-    Rebuild(_ItemKey);
+    Rebuild(_Key);
     return true;
   }
 
@@ -368,8 +366,7 @@ namespace ResourceCalculator
 
   int ProductionChainModel::ReadFromJson(const Json::Value& jsonPr)
   {
-    //ItemBase::ReadFromJson(jsonPr);
-    //_ItemKey = static_cast<KEY_ITEM>(jsonPr["ItemKey"].asInt64());
+    ItemBase::ReadFromJson(jsonPr);
     //_SetItemKey(_ItemKey);
     //if (jsonPr["Rows"].size() == _DataRows.size()){
     //  uint64_t i = 0;
@@ -383,6 +380,7 @@ namespace ResourceCalculator
 
   int ProductionChainModel::WriteToJson(Json::Value& jsonPr) const
   {
+    ItemBase::WriteToJson(jsonPr);
     //Json::Value jsonRows = Json::Value(Json::arrayValue);
     //jsonPr["Rows"] = Json::Value(Json::arrayValue);
     //for (auto& it : _DataRows) {
@@ -390,7 +388,6 @@ namespace ResourceCalculator
     //  it.WriteToJson(newVal);
     //  jsonRows.append(newVal);
     //}
-    //jsonPr["ItemKey"] = static_cast<KEY_TO_Json>(_ItemKey);
     //jsonPr["Rows"] = jsonRows;
     return 0;
   }

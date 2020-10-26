@@ -87,7 +87,6 @@ Q_SIGNALS:
 private:
 
   ResourceCalculator::ProductionChainModel &_PCM;
-
 };
 
 class ProductionChainWidget: public ProductionChainWidgetBase {

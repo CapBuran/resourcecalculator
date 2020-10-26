@@ -4,6 +4,8 @@
 
 namespace ResourceCalculator {
 
+  Item NotFound;
+
   ItemCollection::ItemCollection( RecipeCollection &RC )
     : _Items()
     , Indexator<KEY_ITEM, Item>(_Items)
@@ -28,7 +30,7 @@ namespace ResourceCalculator {
     if (this != &ic)
     {
       _Items = ic._Items;
-      ic.CopyIndexes(*this);
+      ic.CloneTo(*this);
     }
     return *this;
   }
@@ -93,24 +95,6 @@ namespace ResourceCalculator {
       jsonPr.append(newVal);
     }
     return 0;
-  }
-
-  const Item* ItemCollection::GetItem(KEY_ITEM KeyItem) const
-  {
-    std::map<KEY_ITEM, Item>::const_iterator it = _Items.find(KeyItem);
-    if (it == _Items.end()) {
-      return nullptr;
-    }
-    return &it->second;
-  }
-
-  Item* ItemCollection::GetItemForEdit(KEY_ITEM KeyItem)
-  {
-    std::map<KEY_ITEM, Item>::iterator it = _Items.find(KeyItem);
-    if (it == _Items.end()) {
-      return nullptr;
-    }
-    return &it->second;
   }
 
 }

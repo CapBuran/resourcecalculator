@@ -21,9 +21,6 @@ namespace ResourceCalculator
     bool Delete(const std::set<KEY_ITEM>& ItemsKeysToDel);
     bool Delete(const std::set<KEY_RECIPE>& RecipsKeysToDel);
 
-    Recipe *GetRecipeForEdit(KEY_RECIPE KeyRecipe);
-    const Recipe *GetRecipe(KEY_RECIPE KeyRecipe) const;
-
     int ReadFromJson(const Json::Value& jsonPr) override;
     int WriteToJson(Json::Value& jsonPr) const override;
 

@@ -19,7 +19,7 @@ namespace ResourceCalculator
   {
     ref._UNKNOWN_FactoryType = _UNKNOWN_FactoryType;
     ref._TypesFactory = _TypesFactory;
-    CopyIndexes(ref);
+    Indexator<KEY_TYPE_FACTORY, FactoryType>::CloneTo(ref);
   }
 
   FactoryCollection::FactoryCollection()
@@ -44,7 +44,7 @@ namespace ResourceCalculator
   {
     if (this != &fc)
     {
-      fc.CopyIndexes(*this);
+      fc.CloneTo(*this);
       fc._Types->CloneTo(*_Types);
       _Factorys = fc._Factorys;
       _NoFindFactory= fc._NoFindFactory;

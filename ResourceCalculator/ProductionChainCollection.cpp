@@ -3,8 +3,7 @@
 
 namespace ResourceCalculator {
 ProductionChainCollection::ProductionChainCollection(FullItemTree& tree)
-  : _PC(tree.GetPC())
-  , _tree(tree)
+  : _tree(tree)
 {
 }
 
@@ -17,7 +16,7 @@ ProductionChainCollection::~ProductionChainCollection()
 
 ProductionChainModel* ProductionChainCollection::Add(KEY_ITEM itemID)
 {
-  ProductionChainModel *RetVal = new ProductionChainModel(_tree, itemID);
+  ProductionChainModel *RetVal = new ProductionChainModel(_tree);
   _PCMs.insert(RetVal);
   return RetVal;
 }

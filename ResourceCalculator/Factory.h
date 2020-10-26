@@ -10,7 +10,8 @@ namespace ResourceCalculator
 {
   class FactoryModules;
 
-  class Factory: public ItemBase {
+  class Factory: public ItemBase<KEY_FACTORY>
+  {
   private:
     double _Speed;
 
@@ -29,8 +30,6 @@ namespace ResourceCalculator
     //!Пиковое значение загрязнения
     double _LevelOfPollution;
 
-    KEY_FACTORY _Key;
-
     std::set<KEY_TYPE_FACTORY> _Types;
 
   public:
@@ -47,7 +46,6 @@ namespace ResourceCalculator
     DeclareAndDefinitionProperty( Wear, double )
     DeclareAndDefinitionProperty( Power, double )
     DeclareAndDefinitionProperty( LevelOfPollution, double )
-    DeclareAndDefinitionProperty( Key, KEY_FACTORY )
     DeclareAndDefinitionProperty( Types, std::set<KEY_TYPE_FACTORY>)
 
     void FixFactoryModules( FactoryModules & ) const;

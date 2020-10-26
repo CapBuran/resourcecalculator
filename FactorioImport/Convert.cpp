@@ -27,12 +27,12 @@ namespace FactorioImport
 
     for (auto& it: all.Items)
     {
-      ResourceCalculator::KEY_ITEM key = pc.IC.GetUniqueEnumKey();
+      ResourceCalculator::KEY_ITEM key = pc.IC.NewKey();
       ItemsKS[key] = it.first;
       ItemsSK[it.first] = key;
       if (it.second.type == "module")
       {
-        ResourceCalculator::KEY_MODULE key_module = pc.MC.GetUniqueEnumKey();
+        ResourceCalculator::KEY_MODULE key_module = pc.MC.NewKey();
         ModuleKS[key_module] = it.first;
         ModuleSK[it.first] = key_module;
       }
@@ -40,14 +40,14 @@ namespace FactorioImport
 
     for (auto& it : all.Fluids)
     {
-      ResourceCalculator::KEY_ITEM key = pc.IC.GetUniqueEnumKey();
+      ResourceCalculator::KEY_ITEM key = pc.IC.NewKey();
       ItemsKS[key] = it.first;
       ItemsSK[it.first] = key;
     }
 
     for (auto& it: all.Recipes)
     {
-      ResourceCalculator::KEY_RECIPE key_recipe = pc.RC.GetUniqueEnumKey();
+      ResourceCalculator::KEY_RECIPE key_recipe = pc.RC.NewKey();
       RecipeKS[key_recipe] = it.first;
       RecipeSK[it.first] = key_recipe;
       TypeFactrorySK[it.second.category] = ResourceCalculator::KEY_TYPE_FACTORY::Unknown;
@@ -55,7 +55,7 @@ namespace FactorioImport
 
     for (auto& it: all.Furnaces)
     {
-      ResourceCalculator::KEY_FACTORY key_factory = pc.FC.GetUniqueEnumKey();
+      ResourceCalculator::KEY_FACTORY key_factory = pc.FC.NewKey();
       FactroryKS[key_factory] = it.first;
       FactrorySK[it.first] = key_factory;
       for (auto& cat: it.second.crafting_categories)
@@ -66,7 +66,7 @@ namespace FactorioImport
 
     for (auto& it: all.AssemblingMachines)
     {
-      ResourceCalculator::KEY_FACTORY key_factory = pc.FC.GetUniqueEnumKey();
+      ResourceCalculator::KEY_FACTORY key_factory = pc.FC.NewKey();
       FactroryKS[key_factory] = it.first;
       FactrorySK[it.first] = key_factory;
       for (auto& cat: it.second.crafting_categories)
@@ -83,7 +83,7 @@ namespace FactorioImport
 
       for (auto& it : TypeFactrorySK)
       {
-        it.second = factoryTypes.GetUniqueEnumKey();
+        it.second = factoryTypes.NewKey();
         TypeFactroryKS[it.second] = it.first;
         ResourceCalculator::FactoryType FT;
         FT.Name = it.first;
@@ -221,10 +221,10 @@ namespace FactorioImport
           if (IsNameEdit != std::string::npos && ingredient.type == "fluid")
           {
             std::string newName = recipe.second.localised_name;
-            auto item = pc.IC.GetItem(CountsItemToAdd.ItemId);
+            auto item = pc.IC[CountsItemToAdd.ItemId];
             if (item)
             {
-              ReplaseName = item->GetName();
+              ReplaseName = item.GetName();
               newName.replace(IsNameEdit, 5, ReplaseName);
               IsNameEdit = std::string::npos;
               RecipeToAdd.SetName(newName);
@@ -244,10 +244,10 @@ namespace FactorioImport
           if (IsNameEdit != std::string::npos && ingredient.type == "fluid")
           {
             std::string newName = recipe.second.localised_name;
-            auto item = pc.IC.GetItem(CountsItemToAdd.ItemId);
+            auto item = pc.IC[CountsItemToAdd.ItemId];
             if (item)
             {
-              ReplaseName = item->GetName();
+              ReplaseName = item.GetName();
               newName.replace(IsNameEdit, 5, ReplaseName);
               IsNameEdit = std::string::npos;
               RecipeToAdd.SetName(newName);
@@ -263,10 +263,10 @@ namespace FactorioImport
           {
             if (ingredient.type != "item") continue;
             ResourceCalculator::KEY_ITEM ItemId = ItemsSK[ingredient.name];
-            auto item = pc.IC.GetItem(ItemId);
+            auto item = pc.IC[ItemId];
             if (item)
             {
-              ResourceCalculator::Item itemCopy = *item;
+              ResourceCalculator::Item itemCopy = item;
               std::string newName = itemCopy.GetName();
               IsNameEdit = newName.find("__1__");
               if (IsNameEdit != std::string::npos)
@@ -283,10 +283,10 @@ namespace FactorioImport
           {
             if (product.type != "item") continue;
             ResourceCalculator::KEY_ITEM ItemId = ItemsSK[product.name];
-            auto item = pc.IC.GetItem(ItemId);
+            auto item = pc.IC[ItemId];
             if (item)
             {
-              ResourceCalculator::Item itemCopy = *item;
+              ResourceCalculator::Item itemCopy = item;
               std::string newName = itemCopy.GetName();
               IsNameEdit = newName.find("__1__");
               if (IsNameEdit != std::string::npos)

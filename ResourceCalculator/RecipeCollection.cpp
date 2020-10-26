@@ -26,7 +26,7 @@ RecipeCollection& RecipeCollection::operator=(const RecipeCollection& rc)
   if (this != &rc)
   {
     _Recipes = rc._Recipes;
-    rc.CopyIndexes(*this);
+    rc.CloneTo(*this);
   }
   return *this;
 }
@@ -47,15 +47,6 @@ int RecipeCollection::ReadFromJson(const Json::Value & jsonPr)
   }
   UpdateIndex();
   return 0;
-}
-
-const Recipe *RecipeCollection::GetRecipe(KEY_RECIPE KeyRecipe) const
-{
-  std::map<KEY_RECIPE, Recipe>::const_iterator it = _Recipes.find(KeyRecipe);
-  if (it == _Recipes.end()) {
-    return nullptr;
-  }
-  return &it->second;
 }
 
 bool RecipeCollection::Delete(const std::set<KEY_ITEM>& ItemsKeysToDel)
@@ -79,16 +70,6 @@ bool RecipeCollection::Delete(const std::set<KEY_RECIPE>& RecipsKeysToDel)
   UpdateIndex();
   return oldSize > _Recipes.size();
 }
-
-Recipe *RecipeCollection::GetRecipeForEdit(KEY_RECIPE KeyRecipe)
-{
-  std::map<KEY_RECIPE, Recipe>::iterator it = _Recipes.find(KeyRecipe);
-  if (it == _Recipes.end()) {
-    return nullptr;
-  }
-  return &it->second;
-}
-
 
 int RecipeCollection::WriteToJson(Json::Value & jsonPr) const
 {

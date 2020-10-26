@@ -19,6 +19,8 @@ namespace ResourceCalculator
   //typedef KEY_TO_Json TYPE_KEY;
   typedef uint64_t TYPE_KEY;
 
+  const static TYPE_KEY NoFoundKey = static_cast<TYPE_KEY>(-1);
+
   enum class KEY_RECIPE: TYPE_KEY {
     ID_RECIPE_NoFindRecipe = 0,
 //    ID_RECIPE_PreviouslyProduced = 10000001,
@@ -43,12 +45,12 @@ namespace ResourceCalculator
 
   enum class KEY_ITEM: TYPE_KEY {
     ID_ITEM_NoFind_Item,
-    ID_ITEM_science_pack_1,
+    ID_ITEM_Iron_Ruda,
+    ID_ITEM_Cuprum_Ruda,
     ID_ITEM_Iron_Plate,
     ID_ITEM_Cuprum_Plate,
     ID_ITEM_Sherst,
-    ID_ITEM_Iron_Ruda,
-    ID_ITEM_Cuprum_Ruda,
+    ID_ITEM_science_pack_1,
     ID_ITEM_Oil,
     ID_ITEM_Water,
     ID_ITEM_electronic_circuit,
@@ -130,22 +132,36 @@ namespace ResourceCalculator
 #define DeclarePropertyReadOnly(Name, Type) \
   Type Get##Name() const;
 
-  class ItemBase: public Jsonable {
+  template<typename EnumKey>
+  class ItemBase : public Jsonable {
   protected:
     std::string _Name;
     std::string _IconKey;
-    inline virtual ~ItemBase()
-    {
-    }
-
+    EnumKey _Key;
+    ItemBase()
+      :_Key(static_cast<EnumKey>(0))
+    {}
+    virtual ~ItemBase() {}
   public:
-
+    operator bool() const { return _Key != static_cast<EnumKey>(0); }
+    DeclareAndDefinitionProperty( Key, EnumKey)
     DeclareAndDefinitionProperty( Name, std::string )
     DeclareAndDefinitionProperty( IconKey, std::string )
-
-    virtual int ReadFromJson( const Json::Value & jsonPr ) override;
-    virtual int WriteToJson( Json::Value & jsonPr ) const override;
-
+    int ItemBase::ReadFromJson(const Json::Value& jsonPr)
+    {
+      _Key = static_cast<EnumKey>(jsonPr["Key"].asInt64());
+      _Name = jsonPr["Name"]["ru"].asString();
+      _IconKey = jsonPr["IconPath"].asString();
+      return 0;
+    }
+    int ItemBase::WriteToJson(Json::Value& jsonPr) const
+    {
+      jsonPr["Key"] = static_cast<Json::Value::Int64>(_Key);
+      jsonPr["Name"]["ru"] = _Name;
+      jsonPr["Name"]["en"] = "English lang";
+      jsonPr["IconPath"] = _IconKey;
+      return 0;
+    }
   };
 
   template<typename EnumKey, class T>
@@ -153,37 +169,7 @@ namespace ResourceCalculator
   {
   public:
 
-    Indexator(const std::map<EnumKey, T>& items)
-      : _LastGenGen(0)
-      , _Size(0)
-      , _Items(items)
-    {}
-
-    virtual ~Indexator() {}
-
-    EnumKey GetEnumKeyByKey(TYPE_KEY key) const
-    {
-      auto f = _Index2.find(key);
-      if (f != _Index2.end())
-      {
-        return f->second;
-      }
-
-      return static_cast<EnumKey>(0);
-    }
-
-    TYPE_KEY GetKeyByEnumKey(EnumKey key) const
-    {
-      auto f = _Index1.find(key);
-      if (f != _Index1.end())
-      {
-        return f->second;
-      }
-
-      return -1;
-    }
-
-    EnumKey GetUniqueEnumKey()
+    EnumKey NewKey()
     {
       TYPE_KEY retval = _LastGenGen + 1;
       if (_Items.size() > 0) {
@@ -200,7 +186,43 @@ namespace ResourceCalculator
       return _Size;
     }
 
+    const T& operator[] (EnumKey KeyItem) const
+    {
+      auto it = _Items.find(KeyItem);
+      if (it == _Items.end()) return _NotFound;
+      return it->second;
+    }
+
+    T& operator[] (EnumKey KeyItem)
+    {
+      auto it = _Items.find(KeyItem);
+      if (it == _Items.end()) return _NotFound;
+      return it->second;
+    }
+
+    EnumKey operator()(TYPE_KEY key) const
+    {
+      auto f = _Index2.find(key);
+      if (f != _Index2.end()) return f->second;
+      return static_cast<EnumKey>(0);
+    }
+
+    TYPE_KEY operator()(EnumKey key) const
+    {
+      auto f = _Index1.find(key);
+      if (f != _Index1.end()) return f->second;
+      return NoFoundKey;
+    }
+
   protected:
+
+    Indexator(std::map<EnumKey, T>& items)
+      : _LastGenGen(0)
+      , _Size(0)
+      , _Items(items)
+    {}
+
+    virtual ~Indexator() {}
 
     void UpdateIndex()
     {
@@ -219,7 +241,7 @@ namespace ResourceCalculator
       _Size = k;
     };
 
-    void CopyIndexes(Indexator& retVal) const
+    void CloneTo(Indexator& retVal) const
     {
       retVal._Index1 = _Index1;
       retVal._Index2 = _Index2;
@@ -231,10 +253,11 @@ namespace ResourceCalculator
 
     TYPE_KEY _LastGenGen;
     TYPE_KEY _Size;
+    T _NotFound;
 
     std::map<EnumKey, TYPE_KEY> _Index1;
     std::map<TYPE_KEY, EnumKey> _Index2;
-    const std::map<EnumKey, T>& _Items;
+    std::map<EnumKey, T>& _Items;
   };
 
 }
