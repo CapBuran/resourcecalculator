@@ -33,30 +33,16 @@ namespace ResourceCalculator
   public:
     using Ptr = std::unique_ptr<TreeNode<KeyType, RelatedKey, type> >;
     const KeyType MyKey;
-    const RelatedKey ParentKey;
     const std::vector<RelatedKey>& Childrens;
     TYPE_KEY Size() const override {
       return static_cast<TYPE_KEY>(Childrens.size());
     }
   private:
-    TreeNode(KeyType myID, const std::vector<RelatedKey>& childrens, RelatedKey parent = static_cast<RelatedKey>(0))
+    TreeNode(KeyType myID, const std::vector<RelatedKey>& childrens)
       : MyKey(myID)
-      , ParentKey(parent)
       , Childrens(childrens)
       , TreeNodeBase(type)
     {}
-    //TreeNode(const TreeNode<KeyType, RelatedKey, type>& original, RelatedKey parent)
-    //  : MyKey(original.MyKey)
-    //  , ParentKey(parent)
-    //  , Childrens(original.Childrens)
-    //  , TreeNodeBase(original.Type)
-    //{}
-    //TreeNode(const TreeNode<KeyType, RelatedKey, type>& original)
-    //  : MyKey(original.MyKey)
-    //  , ParentKey(original.ParentKey)
-    //  , Childrens(original.Childrens)
-    //  , TreeNodeBase(original.Type)
-    //{}
     friend FullItemTree;
   };
 
@@ -70,8 +56,6 @@ namespace ResourceCalculator
   public:
     FullItemTree(const ParamsCollection& PC);
     ~FullItemTree();
-    //ItemNode* FactoryItemTree(KEY_ITEM id, KEY_RECIPE parent) const;
-    //RecipeNode* FactoryRecipeTree(KEY_RECIPE id, KEY_ITEM parent) const;
     void Rebuild();
     void CloneTo(FullItemTree& tree) const;
     const ParamsCollection& GetPC() const { return _PC; }

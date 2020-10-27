@@ -27,52 +27,6 @@ namespace ResourceCalculator
   {
   }
 
-  //ItemNode* FullItemTree::FactoryItemTree(KEY_ITEM id, KEY_RECIPE parent) const
-  //{
-  //  //auto found = _itemKeyToKeyIndex.find(id);
-  //  //if (found != _itemKeyToKeyIndex.end())
-  //  //{
-  //  //  TYPE_KEY index = found->second;
-  //  //  if (0 <= index && index < _items.size())
-  //  //  {
-  //  //    if (_items[index])
-  //  //    {
-  //  //      const ItemResultTree& F = *_items[index];
-  //  //      return new ItemResultTree(F, parent);
-  //  //    }
-  //  //    else
-  //  //    {
-  //  //      return nullptr;
-  //  //    }
-  //  //  }
-  //  //}
-
-  //  return nullptr;
-  //}
-
-  //RecipeNode* FullItemTree::FactoryRecipeTree(KEY_RECIPE id, KEY_ITEM parent) const
-  //{
-  //  //auto found = _recipeKeyToKeyIndex.find(id);
-  //  //if (found != _recipeKeyToKeyIndex.end())
-  //  //{
-  //  //  TYPE_KEY index = found->second;
-  //  //  if (0 <= index && index < _items.size())
-  //  //  {
-  //  //    if (_items[index])
-  //  //    {
-  //  //      const RecipeResultTree& F = *_recipes[index];
-  //  //      return new RecipeResultTree(F, parent);
-  //  //    }
-  //  //    else
-  //  //    {
-  //  //      return nullptr;
-  //  //    }
-  //  //  }
-  //  //}
-
-  //  return nullptr;
-  //}
-
   void FullItemTree::Rebuild()
   {
     _childrensItems.clear();
