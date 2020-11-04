@@ -43,7 +43,7 @@ QVariant ModulesTypesEditModel::data( const QModelIndex & index, int role ) cons
       return QVariant( _listOfItemsId[index.row()].second.GetCoefficientPollution() );
       break;
     case 3:
-      return QVariant( _listOfItemsId[index.row()].second.GetCoefficientEffectiveness() );
+      return QVariant( _listOfItemsId[index.row()].second.GetCoefficientConsumption() );
       break;
     case 4:
       return QVariant( _listOfItemsId[index.row()].second.GetCoefficientSpeed() );
@@ -157,7 +157,7 @@ bool ModulesTypesEditModel::setData( const QModelIndex & index, const QVariant &
     case 3:
       val = value.toDouble(&IsOk);
       if (IsOk) {
-        _listOfItemsId[index.row()].second.SetCoefficientEffectiveness(val);
+        _listOfItemsId[index.row()].second.SetCoefficientConsumption(val);
       }
       break;
     case 4:

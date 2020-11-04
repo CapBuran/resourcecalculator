@@ -143,6 +143,20 @@ namespace FactorioImport
     return 0;
   }
 
+  int ReadModuleEffects(const Json::Value& jsonPr, std::list<ModuleEffect>& DST)
+  {
+    DST.clear();
+    auto CategorysNames = jsonPr.getMemberNames();
+    for (auto& it: CategorysNames)
+    {
+      ModuleEffect ToAdd;
+      ToAdd.ReadFromJson(jsonPr[it]);
+      ToAdd.effect_category = it;
+      DST.push_back(ToAdd);
+    }
+    return 0;
+  }
+
   int ItemImport::ReadFromJson(const Json::Value& jsonPr)
   {
     BaseImport::ReadFromJson(jsonPr);
@@ -155,7 +169,7 @@ namespace FactorioImport
     fuel_top_speed_multiplier = jsonPr["fuel_top_speed_multiplier"].asDouble();
     burnt_result = jsonPr["burnt_result"].asString();
     tier = jsonPr["tier"].asInt();
-    ReadJsonableFromJsonToList(jsonPr["module_effects"], module_effects);
+    ReadModuleEffects(jsonPr["module_effects"], module_effects);
     ReadFromJsonToList(jsonPr["limitations"], limitations);
     return 0;
   }
@@ -269,7 +283,9 @@ namespace FactorioImport
 
   int ModuleEffect::ReadFromJson(const Json::Value& jsonPr)
   {
-    effect_category = jsonPr["effect_category"].asString();
+    //effect_category = jsonPr.getMemberNames();
+    auto dd = jsonPr.getMemberNames();
+    auto dd2 = jsonPr.toStyledString();
     bonus = jsonPr["bonus"].asDouble();
     return 0;
   }

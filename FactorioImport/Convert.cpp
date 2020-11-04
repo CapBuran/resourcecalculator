@@ -168,6 +168,8 @@ namespace FactorioImport
 
     {
       std::map<ResourceCalculator::KEY_ITEM, ResourceCalculator::Item> IC_DATA;
+      std::map<ResourceCalculator::KEY_MODULE, ResourceCalculator::Module> MC_DATA;
+
       for (const auto item : all.Items)
       {
         ResourceCalculator::Item ItemToAdd;
@@ -178,6 +180,23 @@ namespace FactorioImport
         ItemToAdd.SetIsALiquidOrGas(false);
         ItemToAdd.SetIconKey(item.second.icon_key);
         IC_DATA[ki] = ItemToAdd;
+
+        if (ModuleSK.count(item.first))
+        {
+          ResourceCalculator::KEY_MODULE keyModule = ModuleSK[item.first];
+          ResourceCalculator::Module ModuleToAdd;
+          ModuleToAdd.SetKey(keyModule);
+          ModuleToAdd.SetIconKey(item.second.icon_key);
+          ModuleToAdd.SetName(item.second.localised_name);
+          for (const ModuleEffect& category: item.second.module_effects)
+          {
+            if (category.effect_category == "consumption")  ModuleToAdd.SetCoefficientConsumption(category.bonus);
+            if (category.effect_category == "speed")        ModuleToAdd.SetCoefficientSpeed(category.bonus);
+            if (category.effect_category == "productivity") ModuleToAdd.SetCoefficientProductivity(category.bonus);
+            if (category.effect_category == "pollution")    ModuleToAdd.SetCoefficientPollution(category.bonus);
+          }
+          MC_DATA[keyModule] = ModuleToAdd;
+        }
       }
 
       for (const auto item : all.Fluids)
@@ -192,6 +211,7 @@ namespace FactorioImport
         IC_DATA[ki] = ItemToAdd;
       }
       pc.IC.Add(IC_DATA);
+      pc.MC.Add(MC_DATA);
     }
 
     {

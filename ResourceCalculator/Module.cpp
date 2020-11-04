@@ -3,11 +3,11 @@
 
 namespace ResourceCalculator {
 
-  Module::Module(): 
-    _CoefficientPollution(0.0),
-    _CoefficientEffectiveness(0.0),
-    _CoefficientSpeed(0.0),
-    _CoefficientProductivity(0.0)
+  Module::Module()
+    : _CoefficientPollution(0.0)
+    , _CoefficientSpeed(0.0)
+    , _CoefficientProductivity(0.0)
+    , _CoefficientConsumption(0.0)
   {
   }
 
@@ -20,7 +20,7 @@ namespace ResourceCalculator {
     ItemBase::ReadFromJson(jsonPr);
     _Key                      = static_cast<KEY_MODULE>(jsonPr["Key"].asInt64());
     _CoefficientPollution     = jsonPr["CoefficientPollution"].asDouble() ;
-    _CoefficientEffectiveness = jsonPr["CoefficientEffectiveness"].asDouble();
+    _CoefficientConsumption   = jsonPr["CoefficientConsumption"].asDouble();
     _CoefficientSpeed         = jsonPr["CoefficientSpeed"].asDouble() ;
     _CoefficientProductivity  = jsonPr["CoefficientProductivity"].asDouble() ;
     return 0;
@@ -31,7 +31,7 @@ namespace ResourceCalculator {
     ItemBase::WriteToJson(jsonPr);
     jsonPr["Key"]                      = static_cast<KEY_TO_Json>( _Key );
     jsonPr["CoefficientPollution"]     = _CoefficientPollution;
-    jsonPr["CoefficientEffectiveness"] = _CoefficientEffectiveness;
+    jsonPr["CoefficientConsumption"] = _CoefficientConsumption;
     jsonPr["CoefficientSpeed"]         = _CoefficientSpeed;
     jsonPr["CoefficientProductivity"]  = _CoefficientProductivity;
     return 0;
@@ -69,7 +69,7 @@ namespace ResourceCalculator {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
       const Module &module = MC.GetModule(moduleKey);
-      retval += module.GetCoefficientEffectiveness() / 100.0;
+      retval += module.GetCoefficientConsumption() / 100.0;
     }
     //TODO выставить такие ограничения в настройки
     if (retval > 1.8) retval = 1.8;

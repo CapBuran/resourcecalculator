@@ -426,7 +426,7 @@ QSize FactorysEditDialogDelegate::sizeHint(const QStyleOptionViewItem& option, c
     QString Text = types.empty() ? tr("Types not set!") : "";
     for (const auto& type : types)
     {
-      if (!Text.isEmpty()) Text += tr(", ");
+      if (!Text.isEmpty()) Text += ", ";
       Text += QString::fromStdString(FTC.GetFactoryType(type).Name);
     }
     QFontMetrics fm(option.font);

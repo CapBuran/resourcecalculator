@@ -9,15 +9,15 @@ namespace ResourceCalculator {
   {
   private:
     double _CoefficientPollution;//Коэффициент загрязнения
-    double _CoefficientEffectiveness;//Коэффициент эффективности
     double _CoefficientSpeed;//Коэффициент скорости
     double _CoefficientProductivity;//Коэффициент продуктивности
+    double _CoefficientConsumption;//Коэффициент потребления
 
   public:
     DeclareAndDefinitionProperty(CoefficientPollution,     double)
-    DeclareAndDefinitionProperty(CoefficientEffectiveness, double)
     DeclareAndDefinitionProperty(CoefficientSpeed,         double)
     DeclareAndDefinitionProperty(CoefficientProductivity,  double)
+    DeclareAndDefinitionProperty(CoefficientConsumption,   double)
 
     Module();
     ~Module();
