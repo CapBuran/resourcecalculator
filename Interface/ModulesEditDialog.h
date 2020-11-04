@@ -8,7 +8,7 @@
 class ModulesTypesEditModel: public QAbstractTableModel {
   Q_OBJECT
 public:
-  ModulesTypesEditModel( ResourceCalculator::ParamsCollection &PC, QObject *parent = 0 );
+  ModulesTypesEditModel( ResourceCalculator::ModuleCollection& MC, QObject *parent = 0 );
   int rowCount( const QModelIndex &parent ) const override;
   int columnCount( const QModelIndex &parent ) const override;
   QVariant data( const QModelIndex &index, int role ) const override;
@@ -16,26 +16,23 @@ public:
   Qt::ItemFlags flags( const QModelIndex &index ) const override;
   bool insertRows( int position, int rows, const QModelIndex &index = QModelIndex() ) override;
   bool removeRows( int position, int rows, const QModelIndex &index = QModelIndex() ) override;
-  ResourceCalculator::KEY_MODULE GetDataRowModuleType( int Row ) const;
   bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole ) override;
   void Commit();
   void Select();
-  void SetKeyPathForItem( int Row, const std::string & KeyPath );
 private:
-  ResourceCalculator::ParamsCollection &_PC;
-  std::set<ResourceCalculator::KEY_MODULE> _ModulesToDelete;
-  std::set<ResourceCalculator::KEY_MODULE> _ModulesToAdd;
-  QList<std::pair<ResourceCalculator::KEY_MODULE, ResourceCalculator::Module > > _listOfItemsId;
+  ResourceCalculator::ModuleCollection _MC_EDIT;
+  ResourceCalculator::ModuleCollection& _MC;
 };
 
 class ModulesEditDelegate: public QStyledItemDelegate {
   Q_OBJECT
 public:
-  ModulesEditDelegate( const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0 );
+  ModulesEditDelegate(const ResourceCalculator::ModuleCollection& MC, const ResourceCalculator::IconCollection& icons, QObject *parent = 0 );
   void paint( QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   bool editorEvent( QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index ) override;
 private:
-  const ResourceCalculator::ParamsCollection &_PC;
+  const ResourceCalculator::ModuleCollection& _MC;
+  const ResourceCalculator::IconCollection& _Icons;
 Q_SIGNALS:
   void editorEventDelegate( const QModelIndex & index ) const;
 };
@@ -43,9 +40,8 @@ Q_SIGNALS:
 class ModulesEditDialog: public QDialog {
   Q_OBJECT
 public:
-  ModulesEditDialog( ResourceCalculator::ParamsCollection &PC, QWidget *parent = 0 );
+  ModulesEditDialog(ResourceCalculator::ModuleCollection& MC, const ResourceCalculator::IconCollection& icons, QWidget *parent = 0 );
 private:
-  ResourceCalculator::ParamsCollection &_PC;
   QTableView *_tableView;
   ModulesTypesEditModel _Model;
 private Q_SLOTS:

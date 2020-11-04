@@ -10,7 +10,7 @@ class ModuleSelectModel : public QAbstractTableModel
   Q_OBJECT
 public:
   ModuleSelectModel(
-    const ResourceCalculator::ParamsCollection &PC,
+    const ResourceCalculator::ModuleCollection& MC,
     ResourceCalculator::KEY_MODULE OldResult,
     QObject *parent = 0
   );
@@ -22,16 +22,17 @@ public:
   Qt::ItemFlags flags(const QModelIndex &index) const override;
   ResourceCalculator::KEY_MODULE GetResult() const;
 private:
-  QList<ResourceCalculator::Module> _listOfItemsId;
+  const ResourceCalculator::ModuleCollection& _MC;
   ResourceCalculator::KEY_MODULE _Result;
 };
 
 class ModuleSelectDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
-    const ResourceCalculator::ParamsCollection &_PC;
+  const ResourceCalculator::ModuleCollection& _MC;
+  const ResourceCalculator::IconCollection& _Icons;
 public:
-  ModuleSelectDelegate(const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
+  ModuleSelectDelegate(const ResourceCalculator::ModuleCollection& MC, const ResourceCalculator::IconCollection& icons, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
   bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 };
@@ -40,7 +41,11 @@ class ModuleSelectDialog : public QDialog
 {
   Q_OBJECT
 public:
-  ModuleSelectDialog(const ResourceCalculator::ParamsCollection & PC, ResourceCalculator::KEY_MODULE OldResult, QWidget * parent = 0);
+  ModuleSelectDialog(
+    const ResourceCalculator::ModuleCollection& MC,
+    const ResourceCalculator::IconCollection& icons,
+    ResourceCalculator::KEY_MODULE OldResult,
+    QWidget * parent = 0);
   ResourceCalculator::KEY_MODULE GetResult() const;
 private:
   ModuleSelectModel _Model;

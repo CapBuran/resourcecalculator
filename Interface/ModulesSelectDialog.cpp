@@ -4,10 +4,11 @@
 #pragma region MODEL
 
 ModulesSelectModel::ModulesSelectModel(
-  const ResourceCalculator::ParamsCollection &PC,
+  const ResourceCalculator::ModuleCollection& MC,
   int CountSlotsForModules,
-  QObject *parent) :
-  QAbstractTableModel(parent), _PC(PC)
+  QObject *parent)
+  : QAbstractTableModel(parent)
+  , _MC(MC)
 {
   _Result.SetCountModules(CountSlotsForModules);
   for (int i = 0; i < CountSlotsForModules; i++) {
@@ -15,8 +16,12 @@ ModulesSelectModel::ModulesSelectModel(
   }
 }
 
-ModulesSelectModel::ModulesSelectModel(const ResourceCalculator::ParamsCollection & PC, const ResourceCalculator::FactoryModules &OldResult, QObject * parent) :
-  QAbstractTableModel(parent), _PC(PC)
+ModulesSelectModel::ModulesSelectModel(
+  const ResourceCalculator::ModuleCollection& MC,
+  const ResourceCalculator::FactoryModules &OldResult, 
+  QObject * parent)
+  : QAbstractTableModel(parent)
+  , _MC(MC)
 {
   _Result = OldResult;
 }
@@ -24,7 +29,7 @@ ModulesSelectModel::ModulesSelectModel(const ResourceCalculator::ParamsCollectio
 int ModulesSelectModel::rowCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
-  return static_cast<int>(_Result.GetModules().size());
+  return static_cast<int>(_MC.Size());
 }
 
 int ModulesSelectModel::columnCount(const QModelIndex &parent) const
@@ -42,7 +47,7 @@ QVariant ModulesSelectModel::data(const QModelIndex &index, int role) const
     return QVariant();
   if (role == Qt::DisplayRole) {
     KEY_MODULE key = _Result.GetModules()[index.row()];
-    const Module &module = _PC.MC.GetModule(key);
+    const Module &module = _MC.GetModule(key);
     switch (index.column()) {
     case 0:
       return QString(module.GetIconKey().c_str());
@@ -116,8 +121,10 @@ const ResourceCalculator::FactoryModules & ModulesSelectModel::GetResult() const
 
 #pragma region DELEGATE
 
-ModulesSelectDelegate::ModulesSelectDelegate(const ResourceCalculator::ParamsCollection &PC, QObject *parent)
-  : QStyledItemDelegate(parent), _PC(PC)
+ModulesSelectDelegate::ModulesSelectDelegate(const ResourceCalculator::ModuleCollection& MC, const ResourceCalculator::IconCollection& icons, QObject* parent)
+  : QStyledItemDelegate(parent)
+  , _MC(MC)
+  , _Icons(icons)
 {
 }
 
@@ -127,7 +134,7 @@ void ModulesSelectDelegate::paint(QPainter * painter, const QStyleOptionViewItem
   case 0:
   {
     std::string IconPath = index.data().toString().toStdString();
-    const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon(IconPath);
+    const ResourceCalculator::Icon &icon = _Icons.GetIcon(IconPath);
     if (icon.GetRawData().size() > 0) {
       QPixmap pixmap;
       pixmap.loadFromData((uchar*)&icon.GetRawData()[0], (uint)icon.GetRawData().size());
@@ -161,7 +168,7 @@ bool ModulesSelectDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
     switch (index.column()) {
     case 1:
     {
-      ModuleSelectDialog MSD(_PC, ResourceCalculator::KEY_MODULE::ID_CleanSlot);
+      ModuleSelectDialog MSD(_MC, _Icons, ResourceCalculator::KEY_MODULE::ID_CleanSlot);
       if (MSD.exec()) {
         model->setData(index, static_cast<int>(MSD.GetResult()));
       }
@@ -179,11 +186,13 @@ bool ModulesSelectDelegate::editorEvent(QEvent * event, QAbstractItemModel * mod
 #pragma endregion DELEGATE
 
 ModulesSelectDialog::ModulesSelectDialog(
-  const ResourceCalculator::ParamsCollection & PC,
+  const ResourceCalculator::ModuleCollection& MC,
+  const ResourceCalculator::IconCollection& icons,
   int CountSlotsForModules,
   QWidget * parent
 )
-  : QDialog(parent), _PC(PC), _Model(PC, CountSlotsForModules)
+  : QDialog(parent)
+  , _Model(MC, CountSlotsForModules)
 {
   setMinimumSize(400, 600);
 
@@ -192,7 +201,7 @@ ModulesSelectDialog::ModulesSelectDialog(
   _tableView = new QTableView;
   _tableView->setSelectionMode(QTableView::SelectionMode::NoSelection);
   _tableView->setModel(&_Model);
-  _tableView->setItemDelegate(new ModulesSelectDelegate(PC));
+  _tableView->setItemDelegate(new ModulesSelectDelegate(MC, icons));
 
   QHBoxLayout *buttonLayout = new QHBoxLayout;
   buttonLayout->addWidget(okButton);
@@ -209,8 +218,12 @@ ModulesSelectDialog::ModulesSelectDialog(
   setWindowTitle(tr("Select modules for factory"));
 }
 
-ModulesSelectDialog::ModulesSelectDialog(const ResourceCalculator::ParamsCollection & PC, const ResourceCalculator::FactoryModules & OldResult, QWidget * parent)
-  : QDialog(parent), _PC(PC), _Model(PC, OldResult)
+ModulesSelectDialog::ModulesSelectDialog(
+  const ResourceCalculator::ModuleCollection& MC,
+  const ResourceCalculator::IconCollection& icons,
+  const ResourceCalculator::FactoryModules & OldResult,
+  QWidget * parent)
+  : QDialog(parent), _Model(MC, OldResult)
 {
   setMinimumSize(600, 600);
 
@@ -219,7 +232,7 @@ ModulesSelectDialog::ModulesSelectDialog(const ResourceCalculator::ParamsCollect
   _tableView = new QTableView;
   _tableView->setSelectionMode(QTableView::SelectionMode::NoSelection);
   _tableView->setModel(&_Model);
-  _tableView->setItemDelegate(new ModulesSelectDelegate(PC));
+  _tableView->setItemDelegate(new ModulesSelectDelegate(MC, icons, this));
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   _tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
   _tableView->setColumnWidth(0, 60);

@@ -136,7 +136,7 @@ bool ProductionChainDelegate0::editorEvent(QEvent * event, QAbstractItemModel * 
   if (event->type() == QEvent::MouseButtonPress) {
     int column = index.column();
     if (column == 2 || column == 3) {
-      ModulesSelectDialog MSD(_PC, _PCM.GetRow(index.row()).FM());
+      ModulesSelectDialog MSD(_PCM.GetPC().MC, _PCM.GetPC().Icons, _PCM.GetRow(index.row()).FM());
       if (MSD.exec()) {
         const ResourceCalculator::FactoryModules &Result = MSD.GetResult();
         QVariant data; data.setValue<ResourceCalculator::FactoryModules>(Result);

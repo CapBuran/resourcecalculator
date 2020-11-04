@@ -22,6 +22,22 @@ namespace ResourceCalculator {
     return module == _Modules.end() ? EmptyModule : module->second;
   }
 
+  ModuleCollection::ModuleCollection(const ModuleCollection& copy)
+    :  Indexator<KEY_MODULE, Module>(_Modules)
+  {
+    *this = copy;
+  }
+
+  ModuleCollection& ModuleCollection::operator=(const ModuleCollection& rc)
+  {
+    if (this != &rc)
+    {
+      _Modules = rc._Modules;
+      rc.CloneTo(*this);
+    }
+    return *this;
+  }
+
   int ModuleCollection::ReadFromJson(const Json::Value & jsonPr)
   {
     _Modules.clear();
@@ -54,21 +70,26 @@ namespace ResourceCalculator {
     UpdateIndex();
   }
 
-  void ModuleCollection::Delete( const std::set<KEY_MODULE>& ModulesToDel )
+  bool ModuleCollection::Delete( const std::set<KEY_MODULE>& ModulesToDel )
   {
-    for ( auto & it: ModulesToDel ) {
-      bool ToDel = false;
-      for ( auto &itm : _Modules ) {
-        if ( itm.first == it ) {
-          ToDel = true;
+    bool retval = false;
+    for ( auto & it: ModulesToDel )
+    {
+      for ( auto &itm : _Modules )
+      {
+        if ( itm.first == it )
+        {
+          retval = true;
           break;
         }
       }
-      if ( ToDel ) {
+      if (retval) 
+      {
         _Modules.erase( it );
       }
     }
     UpdateIndex();
+    return retval;
   }
 
 }

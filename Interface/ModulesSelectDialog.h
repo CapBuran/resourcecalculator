@@ -10,12 +10,12 @@ class ModulesSelectModel : public QAbstractTableModel
   Q_OBJECT
 public:
   ModulesSelectModel(
-    const ResourceCalculator::ParamsCollection &PC,
+    const ResourceCalculator::ModuleCollection& MC,
     int CountSlotsForModules,
     QObject *parent = 0
   );
   ModulesSelectModel(
-    const ResourceCalculator::ParamsCollection &PC,
+    const ResourceCalculator::ModuleCollection& MC,
     const ResourceCalculator::FactoryModules &OldResult,
     QObject *parent = 0
   );
@@ -27,16 +27,17 @@ public:
   bool setData(const QModelIndex &index, const QVariant &value, int role = Qt::EditRole) override;
   const ResourceCalculator::FactoryModules &GetResult() const;
 private:
-  const ResourceCalculator::ParamsCollection &_PC;
+  const ResourceCalculator::ModuleCollection& _MC;
   ResourceCalculator::FactoryModules _Result;
 };
 
 class ModulesSelectDelegate : public QStyledItemDelegate
 {
   Q_OBJECT
-  const ResourceCalculator::ParamsCollection &_PC;
+  const ResourceCalculator::ModuleCollection& _MC;
+  const ResourceCalculator::IconCollection& _Icons;
 public:
-  ModulesSelectDelegate(const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0);
+  ModulesSelectDelegate(const ResourceCalculator::ModuleCollection& MC, const ResourceCalculator::IconCollection& icons, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
   bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 };
@@ -46,16 +47,17 @@ class ModulesSelectDialog : public QDialog
   Q_OBJECT
 public:
   ModulesSelectDialog(
-    const ResourceCalculator::ParamsCollection & PC,
+    const ResourceCalculator::ModuleCollection& MC,
+    const ResourceCalculator::IconCollection& icons,
     int CountSlotsForModules,
     QWidget * parent = 0);
   ModulesSelectDialog(
-    const ResourceCalculator::ParamsCollection & PC,
+    const ResourceCalculator::ModuleCollection& MC,
+    const ResourceCalculator::IconCollection& icons,
     const ResourceCalculator::FactoryModules &OldResult,
     QWidget * parent = 0);
   const ResourceCalculator::FactoryModules &GetResult() const;
 private:
-  const ResourceCalculator::ParamsCollection &_PC;
   ModulesSelectModel _Model;
   QTableView *_tableView;
 };

@@ -450,17 +450,17 @@
 <context>
     <name>ModuleSelectDialog</name>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="155"/>
+        <location filename="../ModuleSelectDialog.cpp" line="158"/>
         <source>OK</source>
         <translation type="unfinished">Ок</translation>
     </message>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="156"/>
+        <location filename="../ModuleSelectDialog.cpp" line="159"/>
         <source>Cancel</source>
         <translation type="unfinished">Отмена</translation>
     </message>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="179"/>
+        <location filename="../ModuleSelectDialog.cpp" line="182"/>
         <source>Select modules for factory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -468,17 +468,17 @@
 <context>
     <name>ModuleSelectModel</name>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="46"/>
+        <location filename="../ModuleSelectDialog.cpp" line="42"/>
         <source>Empty slot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="73"/>
+        <location filename="../ModuleSelectDialog.cpp" line="69"/>
         <source>Icon</source>
         <translation type="unfinished">Иконка</translation>
     </message>
     <message>
-        <location filename="../ModuleSelectDialog.cpp" line="75"/>
+        <location filename="../ModuleSelectDialog.cpp" line="71"/>
         <source>Module name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -486,27 +486,27 @@
 <context>
     <name>ModulesEditDialog</name>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="296"/>
+        <location filename="../ModulesEditDialog.cpp" line="279"/>
         <source>OK</source>
         <translation type="unfinished">Ок</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="297"/>
+        <location filename="../ModulesEditDialog.cpp" line="280"/>
         <source>Add</source>
         <translation type="unfinished">Добавить</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="298"/>
+        <location filename="../ModulesEditDialog.cpp" line="281"/>
         <source>Remove</source>
         <translation type="unfinished">Удалить</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="299"/>
+        <location filename="../ModulesEditDialog.cpp" line="282"/>
         <source>Cancel</source>
         <translation type="unfinished">Отмена</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="326"/>
+        <location filename="../ModulesEditDialog.cpp" line="309"/>
         <source>Edit modules</source>
         <translation type="unfinished"></translation>
     </message>
@@ -514,20 +514,20 @@
 <context>
     <name>ModulesSelectDialog</name>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="190"/>
-        <location filename="../ModulesSelectDialog.cpp" line="217"/>
+        <location filename="../ModulesSelectDialog.cpp" line="199"/>
+        <location filename="../ModulesSelectDialog.cpp" line="230"/>
         <source>OK</source>
         <translation type="unfinished">Ок</translation>
     </message>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="191"/>
-        <location filename="../ModulesSelectDialog.cpp" line="218"/>
+        <location filename="../ModulesSelectDialog.cpp" line="200"/>
+        <location filename="../ModulesSelectDialog.cpp" line="231"/>
         <source>Cancel</source>
         <translation type="unfinished">Отмена</translation>
     </message>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="209"/>
-        <location filename="../ModulesSelectDialog.cpp" line="239"/>
+        <location filename="../ModulesSelectDialog.cpp" line="218"/>
+        <location filename="../ModulesSelectDialog.cpp" line="252"/>
         <source>Select modules for factory</source>
         <translation type="unfinished"></translation>
     </message>
@@ -535,17 +535,17 @@
 <context>
     <name>ModulesSelectModel</name>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="52"/>
+        <location filename="../ModulesSelectDialog.cpp" line="57"/>
         <source>Empty slot</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="72"/>
+        <location filename="../ModulesSelectDialog.cpp" line="77"/>
         <source>Icon</source>
         <translation type="unfinished">Иконка</translation>
     </message>
     <message>
-        <location filename="../ModulesSelectDialog.cpp" line="74"/>
+        <location filename="../ModulesSelectDialog.cpp" line="79"/>
         <source>Module name</source>
         <translation type="unfinished"></translation>
     </message>
@@ -553,37 +553,37 @@
 <context>
     <name>ModulesTypesEditModel</name>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="70"/>
+        <location filename="../ModulesEditDialog.cpp" line="71"/>
         <source>Icon</source>
         <translation type="unfinished">Иконка</translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="72"/>
+        <location filename="../ModulesEditDialog.cpp" line="73"/>
         <source>Module name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="74"/>
+        <location filename="../ModulesEditDialog.cpp" line="75"/>
         <source>Coefficient pollution</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="76"/>
+        <location filename="../ModulesEditDialog.cpp" line="77"/>
         <source>Coefficient effectiveness</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="78"/>
+        <location filename="../ModulesEditDialog.cpp" line="79"/>
         <source>Coefficient speed</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="80"/>
+        <location filename="../ModulesEditDialog.cpp" line="81"/>
         <source>Coefficient productivity</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../ModulesEditDialog.cpp" line="106"/>
+        <location filename="../ModulesEditDialog.cpp" line="107"/>
         <source>New module</source>
         <translation type="unfinished"></translation>
     </message>

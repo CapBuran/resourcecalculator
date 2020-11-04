@@ -228,7 +228,7 @@ void MainWindow::PushButtonClickedFactorysEditDialog()
 
 void MainWindow::PushButtonClickedModulesEditDialog()
 {
-  ModulesEditDialog Dialog( _PC );
+  ModulesEditDialog Dialog( _PC.MC, _PC.Icons);
   Dialog.exec();
  _PCTW->Update();
 }

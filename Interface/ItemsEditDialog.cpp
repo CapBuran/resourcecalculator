@@ -145,12 +145,12 @@ bool ItemsEditModel::removeRows(int position, int rows, const QModelIndex &index
 {
   Q_UNUSED(index);
   beginResetModel();
-  std::set<ResourceCalculator::KEY_ITEM> removes;
-  for (int row = 0; row < rows; ++row)
-  {
-    removes.insert(_IC(position));
+  using namespace ResourceCalculator;
+  std::set<KEY_ITEM> ToDelete;
+  for (int row = 0; row < rows; ++row) {
+    ToDelete.insert(_IC(position + row));
   }
-  bool retval = _IC_EDIT.Delete(removes);
+  bool retval = _IC_EDIT.Delete(ToDelete);
   endResetModel();
   return retval;
 }

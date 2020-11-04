@@ -3,23 +3,19 @@
 #pragma region MODEL
 
 ModuleSelectModel::ModuleSelectModel(
-  const ResourceCalculator::ParamsCollection &PC,
+  const ResourceCalculator::ModuleCollection &MC,
   ResourceCalculator::KEY_MODULE OldResult,
-  QObject *parent) :
-  QAbstractTableModel(parent), _Result(OldResult)
+  QObject *parent)
+  : QAbstractTableModel(parent)
+  , _MC(MC)
+  , _Result(OldResult)
 {
-  using namespace ResourceCalculator;
-  //const std::map<KEY_MODULE, Module> &Modules = PC.MC.GetModules();
-  //_listOfItemsId.reserve(static_cast<int>(Modules.size()));
-  //for (auto &it : Modules) {
-  //  _listOfItemsId.push_back(it.second);
-  //}
 }
 
 int ModuleSelectModel::rowCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
-  return _listOfItemsId.size();
+  return _MC.Size();
 }
 
 int ModuleSelectModel::columnCount(const QModelIndex &parent) const
@@ -33,10 +29,10 @@ QVariant ModuleSelectModel::data(const QModelIndex &index, int role) const
   using namespace ResourceCalculator;
   if (!index.isValid())
     return QVariant();
-  if (index.row() >= _listOfItemsId.size())
+  if (index.row() >= _MC.Size())
     return QVariant();
   if (role == Qt::DisplayRole) {
-    const Module &module = _listOfItemsId[index.row()];
+    const Module &module = _MC[_MC(index.row())];
     switch (index.column()) {
     case 0:
       return QString(module.GetIconKey().c_str());
@@ -59,7 +55,7 @@ QVariant ModuleSelectModel::data(const QModelIndex &index, int role) const
 bool ModuleSelectModel::setData(const QModelIndex &index, const QVariant & value, int role)
 {
   if (!(index.isValid() && role == Qt::EditRole)) return false;
-  _Result = _listOfItemsId[index.row()].GetKey();
+  _Result = _MC(index.row());
   return true;
 }
 
@@ -97,8 +93,10 @@ ResourceCalculator::KEY_MODULE ModuleSelectModel::GetResult() const
 
 #pragma region DELEGATE
 
-ModuleSelectDelegate::ModuleSelectDelegate(const ResourceCalculator::ParamsCollection &PC, QObject *parent)
-  : QStyledItemDelegate(parent), _PC(PC)
+ModuleSelectDelegate::ModuleSelectDelegate(const ResourceCalculator::ModuleCollection& MC, const ResourceCalculator::IconCollection& icons, QObject* parent)
+  : QStyledItemDelegate(parent)
+  , _MC(MC)
+  , _Icons(icons)
 {
 }
 
@@ -108,7 +106,7 @@ void ModuleSelectDelegate::paint(QPainter * painter, const QStyleOptionViewItem 
   case 0:
   {
     std::string IconPath = index.data().toString().toStdString();
-    const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon(IconPath);
+    const ResourceCalculator::Icon &icon = _Icons.GetIcon(IconPath);
     if (icon.GetRawData().size() > 0) {
       QPixmap pixmap;
       pixmap.loadFromData((uchar*)&icon.GetRawData()[0], (uint)icon.GetRawData().size());
@@ -147,8 +145,13 @@ bool ModuleSelectDelegate::editorEvent(QEvent * event, QAbstractItemModel * mode
 
 #pragma endregion DELEGATE
 
-ModuleSelectDialog::ModuleSelectDialog(const ResourceCalculator::ParamsCollection & PC, ResourceCalculator::KEY_MODULE OldResult, QWidget * parent)
-  : QDialog(parent), _Model(PC, OldResult)
+ModuleSelectDialog::ModuleSelectDialog(
+  const ResourceCalculator::ModuleCollection& MC,
+  const ResourceCalculator::IconCollection& icons,
+  ResourceCalculator::KEY_MODULE OldResult,
+  QWidget * parent
+)
+  : QDialog(parent), _Model(MC, OldResult)
 {
   setMinimumSize(600, 600);
 
@@ -159,7 +162,7 @@ ModuleSelectDialog::ModuleSelectDialog(const ResourceCalculator::ParamsCollectio
   _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->setModel(&_Model);
-  _tableView->setItemDelegate(new ModuleSelectDelegate(PC));
+  _tableView->setItemDelegate(new ModuleSelectDelegate(MC, icons));
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   _tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
   _tableView->setColumnWidth(0, 60);

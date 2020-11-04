@@ -9,6 +9,9 @@ namespace ResourceCalculator
   {
   public:
     ModuleCollection();
+    ModuleCollection(const ModuleCollection& copy);
+    ModuleCollection& operator= (const ModuleCollection& rc);
+
     virtual ~ModuleCollection();
 
     const Module& GetModule(KEY_MODULE ModuleKey) const;
@@ -17,7 +20,7 @@ namespace ResourceCalculator
     int WriteToJson(Json::Value &jsonPr) const override;
     
     void Add( const std::map<KEY_MODULE, Module>& ModulesToAdd );
-    void Delete(const std::set<KEY_MODULE>& ModulesToDel );
+    bool Delete(const std::set<KEY_MODULE>& ModulesToDel );
 
   private:
     std::map<KEY_MODULE, Module> _Modules;

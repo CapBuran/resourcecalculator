@@ -3,8 +3,9 @@
 
 #pragma region MODEL
 
-ModulesTypesEditModel::ModulesTypesEditModel( ResourceCalculator::ParamsCollection &PC, QObject *parent ):
-  QAbstractTableModel( parent ), _PC( PC )
+ModulesTypesEditModel::ModulesTypesEditModel( ResourceCalculator::ModuleCollection& MC, QObject *parent )
+  : QAbstractTableModel( parent )
+  , _MC(MC)
 {
   Select();
 }
@@ -12,7 +13,7 @@ ModulesTypesEditModel::ModulesTypesEditModel( ResourceCalculator::ParamsCollecti
 int ModulesTypesEditModel::rowCount( const QModelIndex & parent ) const
 {
   Q_UNUSED( parent );
-  return _listOfItemsId.size();
+  return _MC_EDIT.Size();
 }
 
 int ModulesTypesEditModel::columnCount( const QModelIndex & parent ) const
@@ -27,29 +28,29 @@ QVariant ModulesTypesEditModel::data( const QModelIndex & index, int role ) cons
   if ( !index.isValid() )
     return QVariant();
 
-  if ( index.row() >= _listOfItemsId.size() || index.row() < 0 )
+  if ( index.row() >= _MC_EDIT.Size() || index.row() < 0 )
     return QVariant();
 
   if ( role == Qt::DisplayRole ) {
+    const Module& module = _MC_EDIT[_MC_EDIT(index.row())];
     switch ( index.column() ) {
     case 0:
-      //return QVariant( tr( "There should be an icon" ) );
-      return QString::fromStdString( _listOfItemsId[index.row()].second.GetIconKey() );
+      return QString::fromStdString(module.GetIconKey() );
       break;
     case 1:
-      return QString::fromStdString( _listOfItemsId[index.row()].second.GetName() );
+      return QString::fromStdString(module.GetName() );
       break;
     case 2:
-      return QVariant( _listOfItemsId[index.row()].second.GetCoefficientPollution() );
+      return QVariant(module.GetCoefficientPollution() );
       break;
     case 3:
-      return QVariant( _listOfItemsId[index.row()].second.GetCoefficientConsumption() );
+      return QVariant(module.GetCoefficientConsumption() );
       break;
     case 4:
-      return QVariant( _listOfItemsId[index.row()].second.GetCoefficientSpeed() );
+      return QVariant(module.GetCoefficientSpeed() );
       break;
     case 5:
-      return QVariant( _listOfItemsId[index.row()].second.GetCoefficientProductivity() );
+      return QVariant(module.GetCoefficientProductivity() );
       break;
     default:
       return QVariant();
@@ -102,14 +103,13 @@ bool ModulesTypesEditModel::insertRows( int position, int rows, const QModelInde
   beginInsertRows( QModelIndex(), position, position + rows - 1 );
   for ( int row = 0; row < rows; ++row ) {
     using namespace ResourceCalculator;
-    KEY_MODULE NewKey = _PC.MC.NewKey();
+    KEY_MODULE NewKey = _MC.NewKey();
     QString Name( tr( "New module" ) + QString( ' ' ) + QString::number( static_cast<KEY_TO_Json>( NewKey ) ) );
     std::pair<KEY_MODULE, Module > ToADD;
     ToADD.first = NewKey;
     ToADD.second.SetKey( NewKey );
     ToADD.second.SetName( Name.toStdString() );
-    _ModulesToAdd.insert( NewKey );
-    _listOfItemsId.insert( position, ToADD );
+    _MC_EDIT.Add({ToADD});
   }
   endInsertRows();
   return true;
@@ -117,59 +117,65 @@ bool ModulesTypesEditModel::insertRows( int position, int rows, const QModelInde
 
 bool ModulesTypesEditModel::removeRows( int position, int rows, const QModelIndex & index )
 {
+  Q_UNUSED(index);
+  beginResetModel();
+  using namespace ResourceCalculator;
+  std::set<KEY_MODULE> ToDelete;
+  for (int row = 0; row < rows; ++row) {
+    ToDelete.insert(_MC_EDIT(position + row));
+  }
+  bool retval = _MC_EDIT.Delete(ToDelete);
+  endResetModel();
+  return retval;
+
   Q_UNUSED( index );
   beginRemoveRows( QModelIndex(), position, position + rows - 1 );
-  for ( int row = 0; row < rows; ++row ) {
-    _ModulesToDelete.insert( _listOfItemsId.at( position ).first );
-    _listOfItemsId.removeAt( position );
+  for (int row = 0; row < rows; ++row)
+  {
+    _MC_EDIT.Delete({ _MC_EDIT(row) });
   }
   endRemoveRows();
   return true;  
-}
-
-ResourceCalculator::KEY_MODULE ModulesTypesEditModel::GetDataRowModuleType( int Row ) const
-{
-  return _listOfItemsId[Row].second.GetKey();
 }
 
 bool ModulesTypesEditModel::setData( const QModelIndex & index, const QVariant & value, int role )
 {
   if ( index.isValid() && role == Qt::EditRole ) {
     using namespace ResourceCalculator;
-    const KEY_MODULE KeyModule = _listOfItemsId[index.row()].first;
-    _ModulesToAdd.insert( KeyModule );
+    Module& module = _MC_EDIT[_MC_EDIT(index.row())];
+
     bool IsOk = false;
     double val = 0.0;
     switch ( index.column() ) {
     case 0:
-      _listOfItemsId[index.row()].second.SetIconKey( value.toString().toStdString() );
+      module.SetIconKey( value.toString().toStdString() );
       break;
     case 1:
       if(value.toString().length() > 0)
-        _listOfItemsId[index.row()].second.SetName( value.toString().toStdString() );
+        module.SetName( value.toString().toStdString() );
       break;
     case 2:
       val = value.toDouble(&IsOk);
       if (IsOk) {
-        _listOfItemsId[index.row()].second.SetCoefficientPollution(val);
+        module.SetCoefficientPollution(val);
       }
       break;
     case 3:
       val = value.toDouble(&IsOk);
       if (IsOk) {
-        _listOfItemsId[index.row()].second.SetCoefficientConsumption(val);
+        module.SetCoefficientConsumption(val);
       }
       break;
     case 4:
       val = value.toDouble(&IsOk);
       if (IsOk) {
-        _listOfItemsId[index.row()].second.SetCoefficientSpeed(val);
+        module.SetCoefficientSpeed(val);
       }
       break;
     case 5:
       val = value.toDouble(&IsOk);
       if (IsOk) {
-        _listOfItemsId[index.row()].second.SetCoefficientProductivity(val);
+        module.SetCoefficientProductivity(val);
       }
       break;
     default:
@@ -184,46 +190,23 @@ bool ModulesTypesEditModel::setData( const QModelIndex & index, const QVariant &
 
 void ModulesTypesEditModel::Commit()
 {
-  _PC.MC.Delete( _ModulesToDelete );
-  std::map<ResourceCalculator::KEY_MODULE, ResourceCalculator::Module > ModulesToAdd;
-  for ( auto it : _ModulesToAdd ) {
-    for ( auto itm : _listOfItemsId ) {
-      if ( itm.first == it ) {
-        ModulesToAdd[it] = itm.second;
-      }
-    }
-  }
-  _PC.MC.Add( ModulesToAdd );
-  _ModulesToDelete.clear();
-  _ModulesToAdd.clear();
-  _listOfItemsId.clear();
+  _MC = _MC_EDIT;
   Select();
 }
 
 void ModulesTypesEditModel::Select()
 {
-  using namespace ResourceCalculator;
-  _ModulesToDelete.clear();
-  _ModulesToAdd.clear();
-  //const std::map<KEY_MODULE, Module> &TypesModules = _PC.MC.GetModules();
-  //_listOfItemsId.reserve( static_cast< int >( TypesModules.size() ) );
-  //for ( auto & TypeFactory : TypesModules ) {
-  //  _listOfItemsId.push_back( TypeFactory );
-  //}
-}
-
-void ModulesTypesEditModel::SetKeyPathForItem( int Row, const std::string & KeyPath )
-{
-  _ModulesToAdd.insert( _listOfItemsId[Row].first );
-  _listOfItemsId[Row].second.SetIconKey( KeyPath );
+  _MC_EDIT = _MC;
 }
 
 #pragma endregion MODEL
 
 #pragma region DELEGATE
 
-ModulesEditDelegate::ModulesEditDelegate( const ResourceCalculator::ParamsCollection &PC, QObject *parent )
-  : QStyledItemDelegate( parent ), _PC( PC )
+ModulesEditDelegate::ModulesEditDelegate(const ResourceCalculator::ModuleCollection& MC, const ResourceCalculator::IconCollection& icons, QObject *parent )
+  : QStyledItemDelegate(parent)
+  , _MC(MC)
+  , _Icons(icons)
 {
 }
 
@@ -233,7 +216,7 @@ void ModulesEditDelegate::paint( QPainter * painter, const QStyleOptionViewItem 
   switch ( index.column() ) {
   case 0: {
     std::string IconPath = index.data().toString().toStdString();
-    const ResourceCalculator::Icon &icon = _PC.Icons.GetIcon( IconPath );
+    const ResourceCalculator::Icon &icon = _Icons.GetIcon( IconPath );
     if ( icon.GetRawData().size() > 0 ) {
       QPixmap pixmap;
       pixmap.loadFromData( ( uchar* ) &icon.GetRawData()[0], ( uint ) icon.GetRawData().size() );
@@ -267,7 +250,7 @@ bool ModulesEditDelegate::editorEvent( QEvent * event, QAbstractItemModel * mode
     switch ( index.column() ) {
     case 0:
     {
-      IconSelectedDialog _IconSelectedDialog( _PC.Icons );
+      IconSelectedDialog _IconSelectedDialog( _Icons );
       if ( _IconSelectedDialog.exec() ) {
         const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
         if ( Icon != nullptr ) {
@@ -287,8 +270,8 @@ bool ModulesEditDelegate::editorEvent( QEvent * event, QAbstractItemModel * mode
 
 #pragma endregion DELEGATE
 
-ModulesEditDialog::ModulesEditDialog( ResourceCalculator::ParamsCollection &PC, QWidget *parent ):
-  _PC(PC), _Model( PC, parent )
+ModulesEditDialog::ModulesEditDialog(ResourceCalculator::ModuleCollection& MC, const ResourceCalculator::IconCollection& icons, QWidget *parent ):
+  _Model(MC, parent )
 {
 
   setMinimumSize( 1200, 600 );
@@ -302,7 +285,7 @@ ModulesEditDialog::ModulesEditDialog( ResourceCalculator::ParamsCollection &PC, 
   _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
   _tableView->setSelectionBehavior( QTableView::SelectionBehavior::SelectRows );
   _tableView->setModel( &_Model );
-  _tableView->setItemDelegate( new ModulesEditDelegate( PC ) );
+  _tableView->setItemDelegate( new ModulesEditDelegate(MC, icons) );
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   _tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
   _tableView->setColumnWidth(0, 60);

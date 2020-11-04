@@ -39,7 +39,7 @@ namespace ResourceCalculator {
     double GetSummProductivity(const ModuleCollection &MC) const;
     double GetSummEffectiveness(const ModuleCollection &MC) const;
     double GetSummPollution(const ModuleCollection &MC) const;
-    void DeleteModules( const std::set<ResourceCalculator::KEY_MODULE>& ModulesToDel );
+    void DeleteModules( const std::set<KEY_MODULE>& ModulesToDel );
     int ReadFromJson( const Json::Value & jsonPr ) override;
     int WriteToJson( Json::Value & jsonPr ) const override;
   };
