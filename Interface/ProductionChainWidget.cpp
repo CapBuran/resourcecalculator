@@ -2,6 +2,7 @@
 #include "ModulesSelectDialog.h"
 
 Q_DECLARE_METATYPE(ResourceCalculator::FactoryModules);
+Q_DECLARE_METATYPE(ResourceCalculator::FactoryType);
 
 #pragma region DELEGATE
 
@@ -23,6 +24,10 @@ QWidget *ProductionChainDelegate0::createEditor( QWidget *parent, const QStyleOp
 {
   using namespace ResourceCalculator;
   if ( index.column() == 0 ) {
+    if (!_PCM.GetRow(index.row()).IsEnabled)
+    {
+      return ProductionChainDelegateBase::createEditor(parent, option, index);
+    }
     const std::map<KEY_FACTORY, Factory> &Factorys = _PCM.GetRow( index.row() ).GetFactores();
     QComboBox *combobox = new QComboBox( parent );
     KEY_FACTORY CurenFactory = _PCM.GetRow( index.row() ).GetCurrentFactory().GetKey();
@@ -41,47 +46,32 @@ QWidget *ProductionChainDelegate0::createEditor( QWidget *parent, const QStyleOp
     combobox->setFrame( true );
     return combobox;
   }
-  if (index.column() == 1)
-  {
-    QComboBox *combobox = new QComboBox(parent);
-    combobox->addItem(tr("Item received earlier"));
-    KEY_RECIPE CurenRecipe = _PCM.GetRow(index.row()).RecipeCurrent.GetKey();
-    const Recipe& recipe = _PCM.GetPC().RC[CurenRecipe];
-    combobox->setCurrentIndex(0);
-    if (recipe) {
-      combobox->addItem(QString::fromStdString(recipe.GetName()));
-      combobox->setCurrentIndex(1);
-    }
-    combobox->setGeometry(option.rect);
-    combobox->setFrame(true);
-    return combobox;
-  }
   return ProductionChainDelegateBase::createEditor( parent, option, index );
 }
 
 void ProductionChainDelegate0::setEditorData( QWidget *editor, const QModelIndex &index ) const
 {
-  bool IsOk = false;
-  if ( index.column() == 0 || index.column() == 1) {
+  if ( index.column() == 0 && _PCM.GetRow(index.row()).IsEnabled)
+  {
     QComboBox *combobox = dynamic_cast< QComboBox * >( editor );
     combobox->setCurrentText( index.model()->data( index, Qt::EditRole ).toString() );
-    IsOk = true;
   }
-  if ( !IsOk ) {
+  else
+  {
     ProductionChainDelegateBase::setEditorData( editor, index );
   }
 }
 
 void ProductionChainDelegate0::setModelData( QWidget *editor, QAbstractItemModel *model, const QModelIndex &index ) const
 {
-  bool IsOk = false;
-  if ( index.column() == 0 || index.column() == 1) {
+  if ( index.column() == 0 && _PCM.GetRow(index.row()).IsEnabled)
+  {
     QComboBox *combobox = dynamic_cast< QComboBox * >( editor );
     int value = combobox->currentIndex();
     model->setData( index, value, Qt::EditRole );
-    IsOk = true;
   }
-  if ( !IsOk ) {
+  else
+  {
     ProductionChainDelegateBase::setModelData( editor, model, index );
   }
 }
@@ -95,34 +85,43 @@ void ProductionChainDelegate0::updateEditorGeometry( QWidget *editor,
 void ProductionChainDelegate0::paint( QPainter * painter, const QStyleOptionViewItem & option, const QModelIndex & index ) const
 {
   using namespace ResourceCalculator;
-  switch ( index.column() ) {
-  case 0: {
-    KEY_FACTORY CurenFactory = _PCM.GetRow( index.row() ).GetCurrentFactory().GetKey();
-    const Factory &factory = _PC.FC.GetFactory( CurenFactory );
-    QString Text = QString::fromStdString( factory.GetName() );
-    QStyleOptionComboBox comboBoxOption;
-    comboBoxOption.rect = option.rect;
-    comboBoxOption.currentText = Text;
-    comboBoxOption.state = QStyle::State_Enabled;
-    QApplication::style()->drawComplexControl( QStyle::CC_ComboBox, &comboBoxOption, painter, 0 );
-    QApplication::style()->drawControl( QStyle::CE_ComboBoxLabel, &comboBoxOption, painter, 0 );
-    break;
-  }
-  case 1: {
-    KEY_RECIPE CurenRecipe = _PCM.GetRow(index.row()).RecipeCurrent.GetKey();
-    const Recipe& recipe = _PC.RC[CurenRecipe];
-    if (recipe)
+  switch ( index.column() )
+  {
+  case 0: 
+  {
+    if (_PCM.GetRow(index.row()).IsEnabled)
     {
-      QString Text = QString::fromStdString(recipe.GetName());
+      KEY_FACTORY CurenFactory = _PCM.GetRow(index.row()).GetCurrentFactory().GetKey();
+      const Factory& factory = _PC.FC.GetFactory(CurenFactory);
+      QString Text = QString::fromStdString(factory.GetName());
       QStyleOptionComboBox comboBoxOption;
       comboBoxOption.rect = option.rect;
       comboBoxOption.currentText = Text;
       comboBoxOption.state = QStyle::State_Enabled;
       QApplication::style()->drawComplexControl(QStyle::CC_ComboBox, &comboBoxOption, painter, 0);
       QApplication::style()->drawControl(QStyle::CE_ComboBoxLabel, &comboBoxOption, painter, 0);
-    } else {
-      QStyledItemDelegate::paint(painter, option, index);
     }
+    else
+    {
+      QStyleOptionComboBox comboBoxOption;
+      comboBoxOption.rect = option.rect;
+      comboBoxOption.currentText = tr("Not applicable");
+      comboBoxOption.state = QStyle::State_None;
+      QApplication::style()->drawComplexControl(QStyle::CC_ComboBox, &comboBoxOption, painter, 0);
+      QApplication::style()->drawControl(QStyle::CE_ComboBoxLabel, &comboBoxOption, painter, 0);
+    }
+    break;
+  }
+  case 1:
+  {
+    QStyleOptionButton button;
+    button.rect = option.rect;
+    if(_PCM.GetRow(index.row()).IsEnabled)
+      button.text = index.data().toString();
+    else
+      button.text = tr("Production in a different chain");
+    button.state = QStyle::State_Enabled;
+    QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
     break;
   }
   default:
@@ -143,6 +142,11 @@ bool ProductionChainDelegate0::editorEvent(QEvent * event, QAbstractItemModel * 
         QVariant data; data.setValue<ResourceCalculator::FactoryModules>(Result);
         model->setData(index, data);
       }
+      return true;
+    }
+    if (column == 1)
+    {
+      model->setData(index, QVariant());
       return true;
     }
   }
@@ -195,10 +199,7 @@ QVariant ProductionChainModel::data( const QModelIndex &index, int role ) const
     case 0:
       return QString::fromStdString( ROW.GetCurrentFactory().GetName() );
     case 1:
-    {
-      std::string d = ROW.RecipeCurrent.GetName();
-      return QString::fromStdString(ROW.RecipeCurrent.GetName());
-    }
+      return QString::fromStdString( ROW.RecipeCurrent.GetName() );
     case 2:
       return ToOut( ROW.GetSummProductivity(_PCM.GetPC().MC) );
     case 3:
@@ -289,12 +290,20 @@ bool ProductionChainModel::setData( const QModelIndex &index, const QVariant &va
   if ( !( index.isValid() && role == Qt::EditRole ) )return false;
   int CI = _PCM.CountItems();
   if ( index.column() == 0 ) {
-    //beginResetModel();
-    //const ProductionChainDataRow& ROW = _PCM.GetRow( index.row() );
-    //KEY_FACTORY KeyFactory = KEY_FACTORY::ID_ITEM_NoFind_Factory;
-    //_PCM.GetRow(index.row()).SetFactory(KeyFactory);
-    //endResetModel();
-    //emit( AllDataChanged() );
+    beginResetModel();
+    const std::map<KEY_FACTORY, Factory>& Factorys = _PCM.GetRow(index.row()).GetFactores();
+    int Pos = value.toInt();
+    int Counter = 0;
+    for (const auto& FI : Factorys) {
+      QString str = QString::fromStdString(FI.second.GetName());
+      if (Counter == Pos) {
+        _PCM.GetRow(index.row()).SetFactory(FI.first);
+        Pos = Counter;
+      }
+      Counter++;
+    }
+    endResetModel();
+    emit( AllDataChanged() );
     return true;
   }
   if (index.column() == 1)
@@ -315,6 +324,7 @@ bool ProductionChainModel::setData( const QModelIndex &index, const QVariant &va
   if ( index.column() == 7 ) {
     beginResetModel();
     _PCM.GetRow(index.row()).SetCountFactorys(value.toDouble());
+    _PCM.CalculateSumm();
     endResetModel();
     emit( AllDataChanged() );
     return true;
@@ -322,6 +332,7 @@ bool ProductionChainModel::setData( const QModelIndex &index, const QVariant &va
   if ( index.column() > 7 && index.row() < _PCM.CountRecipes() ) {
     beginResetModel();
     _PCM.GetRow(index.row()).FindCountFactorysForItemsCount( index.column() - 8 - CI, value.toDouble() );
+    _PCM.CalculateSumm();
     endResetModel();
     emit( AllDataChanged() );
     return true;
@@ -335,7 +346,18 @@ Qt::ItemFlags ProductionChainModel::flags( const QModelIndex &index ) const
     return Qt::ItemIsEnabled;
   int CI = _PCM.CountItems();
   Qt::ItemFlags flags = QAbstractTableModel::flags( index );
-  if ( index.column() == 0 || index.column() == 1 || index.column() == 2 || index.column() == 3 || index.column() == 7 ) {
+
+  if (index.column() == 0){
+    if (_PCM.GetRow(index.row()).IsEnabled) {
+      flags |= Qt::ItemIsEditable;
+    } else {
+      flags |= Qt::ItemIsEnabled;
+    }
+  }
+  if (index.column() == 1) {
+    flags |= Qt::ItemIsEnabled;
+  }
+  if (index.column() == 2 || index.column() == 3 || index.column() == 7) {
     flags |= Qt::ItemIsEditable;
   }
   if ( index.column() > CI + 7 && index.row() < _PCM.CountRecipes() ) {

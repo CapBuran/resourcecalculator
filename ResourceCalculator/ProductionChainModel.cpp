@@ -64,7 +64,7 @@ namespace ResourceCalculator
   bool ProductionChainDataRow::SetCountFactorys( double Count )
   {
     if ( _CountFactorys == Count ) return false;
-
+    if (!IsEnabled) return false;
     _RealTimeProductionOfOneItemPerSec = Count / _SecPerOneRecipe;
     _CountFactorys = Count;
     for (size_t i = 0; i < _ItemsPerSec.size(); i++)
@@ -86,7 +86,7 @@ namespace ResourceCalculator
 
   bool ProductionChainDataRow::SetFactory( KEY_FACTORY KeyFactory )
   {
-    if (_Factorys.count(KeyFactory)) return false;
+    if (!_Factorys.count(KeyFactory)) return false;
 
     double OldSpeed = _FactoryCurrent.GetSpeed();
     OldSpeed = (std::abs(OldSpeed) < 0.0000001) ? OldSpeed : 1.0;
@@ -96,13 +96,14 @@ namespace ResourceCalculator
 
     const double NewSpeed = _FactoryCurrent.GetSpeed();
 
-    _CountFactorys = _CountFactorys * NewSpeed / OldSpeed;
+    _CountFactorys = _CountFactorys * OldSpeed / NewSpeed;
 
     return true;
   }
 
   bool ProductionChainDataRow::FindCountFactorysForItemsCount(TYPE_KEY Columb, double Count )
   {
+    if ( abs( _ItemsCount[Columb] ) < 1E-100) return false;
     if ( abs( _CountFactorys ) < 0.00001 ) {
       SetCountFactorys( 1.0 );
     }
@@ -208,6 +209,17 @@ namespace ResourceCalculator
 
   void ProductionChainModel::Rebuild(KEY_ITEM itemKey)
   {
+    std::map<KEY_RECIPE, double> OldCountFactorys;
+    std::map<KEY_RECIPE, KEY_FACTORY> OldFactorys;
+
+    for (const auto& it: _DataRows)
+    {
+      if (!it) continue;
+      KEY_RECIPE recipeKey = it->RecipeCurrent.GetKey();
+      OldCountFactorys[recipeKey] = it->CountFactorys();
+      OldFactorys[recipeKey] = it->GetCurrentFactory().GetKey();
+    }
+
     _Key = itemKey;
     _DataRows.clear();
     _SummSpeeds.clear();
@@ -270,12 +282,21 @@ namespace ResourceCalculator
         if (ki.index != level) continue;
         if (_DenyKeysRecipes.count(ki.key) > 0)
         {
-          _DataRows[CounterRecipes++] = std::make_unique<ProductionChainDataRow>(_Tree.GetPC(), ki.key, InitCounts[ki.key_find], ColsItems, false);
+          _DataRows[CounterRecipes] = std::make_unique<ProductionChainDataRow>(_Tree.GetPC(), ki.key, InitCounts[ki.key_find], ColsItems, false);
         }
         else
         {
-          _DataRows[CounterRecipes++] = std::make_unique<ProductionChainDataRow>(_Tree.GetPC(), ki.key, InitCounts[ki.key_find], ColsItems, true);
+          _DataRows[CounterRecipes] = std::make_unique<ProductionChainDataRow>(_Tree.GetPC(), ki.key, InitCounts[ki.key_find], ColsItems, true);
+          if (OldFactorys.count(ki.key))
+          {
+            _DataRows[CounterRecipes]->SetFactory(OldFactorys[ki.key]);
+            _DataRows[CounterRecipes]->SetCountFactorys(OldCountFactorys[ki.key]);
+          }
         }
+        for (TYPE_KEY ItemID = 0; ItemID < _SummSpeeds.size(); ItemID++) {
+          _SummSpeeds[ItemID] += _DataRows[CounterRecipes]->ItemPerSec(ItemID);
+        }
+        CounterRecipes++;
       }
     }
   }
@@ -305,6 +326,23 @@ namespace ResourceCalculator
   bool ProductionChainModel::UpdateAll(const ParamsCollection& PC)
   {
     Rebuild(_Key);
+    return true;
+  }
+
+  bool ProductionChainModel::CalculateSumm()
+  {
+    for (auto& col : _SummSpeeds)
+    {
+      col = .0;
+    }
+
+    for (const auto& row: _DataRows)
+    {
+      for (TYPE_KEY ItemID = 0; ItemID < _SummSpeeds.size(); ItemID++) {
+        _SummSpeeds[ItemID] += row->ItemPerSec(ItemID);
+      }
+    }
+
     return true;
   }
 

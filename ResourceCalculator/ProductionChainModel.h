@@ -73,6 +73,7 @@ public:
   bool EnableRecipes(TYPE_KEY row);
   bool FitQuantity();
   bool UpdateAll(const ParamsCollection& PC);
+  bool CalculateSumm();
 
   TYPE_KEY CountItems() const;
   TYPE_KEY CountRecipes() const;
