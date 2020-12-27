@@ -79,25 +79,26 @@ namespace FactorioImport
       std::map<ResourceCalculator::KEY_TYPE_FACTORY, ResourceCalculator::FactoryType> types;
       std::map<ResourceCalculator::KEY_FACTORY, ResourceCalculator::Factory> factories;
 
-      ResourceCalculator::FactoryTypeCollection& factoryTypes = pc.FC.GetTypes();
+      ResourceCalculator::FactoryTypeCollection& factoryTypes = pc.FTC;
 
       for (auto& it : TypeFactrorySK)
       {
         it.second = factoryTypes.NewKey();
         TypeFactroryKS[it.second] = it.first;
         ResourceCalculator::FactoryType FT;
-        FT.Name = it.first;
+        FT.SetKey(it.second);
+        FT.SetName(it.first);
         for (auto& f : all.AssemblingMachines)
         {
           for (auto& cat : f.second.crafting_categories)
           {
             if (cat.second == "true" && it.first == cat.first)
             {
-              FT.IconPath = f.second.icon_key;
+              FT.SetIconKey(f.second.icon_key);
               break;
             }
           }
-          if (!FT.IconPath.empty()) break;
+          if (!FT.GetIconKey().empty()) break;
         }
         for (auto& f : all.Furnaces)
         {
@@ -105,11 +106,11 @@ namespace FactorioImport
           {
             if (cat.second == "true" && it.first == cat.second)
             {
-              FT.IconPath = f.second.icon_key;
+              FT.SetIconKey(f.second.icon_key);
               break;
             }
           }
-          if (!FT.IconPath.empty()) break;
+          if (!FT.GetIconKey().empty()) break;
         }
         types[it.second] = FT;
 
@@ -161,8 +162,8 @@ namespace FactorioImport
         factories[FactrorySK[it.second.name]] = F;
       }
 
-      pc.FC.GetTypes().AddFactorysTypes(types);
-      pc.FC.AddFactorys(factories);
+      pc.FTC.Add(types);
+      pc.FC.Add(factories);
 
     }
 

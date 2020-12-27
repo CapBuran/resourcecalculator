@@ -50,6 +50,8 @@ namespace ResourceCalculator
 
     void FixFactoryModules( FactoryModules & ) const;
 
+    bool DeleteTypes(const std::set<KEY_TYPE_FACTORY>& types);
+
     int ReadFromJson( const Json::Value & jsonPr ) override;
     int WriteToJson( Json::Value & jsonPr ) const override;
 

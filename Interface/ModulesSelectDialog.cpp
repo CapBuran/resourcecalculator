@@ -29,7 +29,7 @@ ModulesSelectModel::ModulesSelectModel(
 int ModulesSelectModel::rowCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
-  return static_cast<int>(_MC.Size());
+  return static_cast<int>(_Result.GetModules().size());
 }
 
 int ModulesSelectModel::columnCount(const QModelIndex &parent) const
@@ -47,7 +47,7 @@ QVariant ModulesSelectModel::data(const QModelIndex &index, int role) const
     return QVariant();
   if (role == Qt::DisplayRole) {
     KEY_MODULE key = _Result.GetModules()[index.row()];
-    const Module &module = _MC.GetModule(key);
+    const Module &module = _MC[key];
     switch (index.column()) {
     case 0:
       return QString(module.GetIconKey().c_str());

@@ -18,7 +18,7 @@ namespace ResourceCalculator
 
   bool Factory::IsAllowedProduction(const Recipe& recipe) const
   {
-    if (_Types.size() == 0) return false;
+    if ( _Types.size() == 0 ) return false;
     if ( _Types.count(recipe.GetTypeFactory()) == 0 ) return false;
     if ( _CountSlotsForRecipes < recipe.GetResult().size() ) return false;
     if ( _CountSlotsForRecipes < recipe.GetRequired().size() ) return false;
@@ -36,6 +36,12 @@ namespace ResourceCalculator
   void Factory::FixFactoryModules( FactoryModules & FM ) const
   {
     FM.SetCountModules( _CountSlotsForModules );
+  }
+
+  bool Factory::DeleteTypes(const std::set<KEY_TYPE_FACTORY>& types)
+  {
+    _Types.erase(types.begin(), types.end());
+    return true;
   }
 
   int Factory::ReadFromJson( const Json::Value & jsonPr )

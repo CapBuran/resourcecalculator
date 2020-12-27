@@ -1,9 +1,9 @@
-#ifndef ModuleH
-#define ModuleH
+#pragma once
 
-#include "Types.h"
+#include <Types.h>
 
-namespace ResourceCalculator {
+namespace ResourceCalculator
+{
   
   class Module: public ItemBase<KEY_MODULE>
   {
@@ -25,9 +25,9 @@ namespace ResourceCalculator {
     int WriteToJson(Json::Value & jsonPr) const override;
 
   };
-  
-  class  ModuleCollection;
 
+  using ModuleCollection = Indexator<KEY_MODULE, Module>;
+  
   class FactoryModules: public Jsonable {
   private:
     std::vector < KEY_MODULE > _Modules;
@@ -44,7 +44,4 @@ namespace ResourceCalculator {
     int WriteToJson( Json::Value & jsonPr ) const override;
   };
 
-
 }
-
-#endif

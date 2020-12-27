@@ -10,6 +10,7 @@
 class ProductionChainDelegate0: public ProductionChainDelegateBase {
   Q_OBJECT
 private:
+  QRect Rect_;
   const ResourceCalculator::ProductionChainModel &_PCM;
 public:
   ProductionChainDelegate0( const ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
@@ -92,10 +93,7 @@ private:
 class ProductionChainWidget: public ProductionChainWidgetBase {
   Q_OBJECT
 public:
-
-  ProductionChainModel* GetModel(){
-    return &_Model;
-  }
+  ProductionChainModel* GetModel(){ return &_Model; }
 
   ProductionChainWidget(const ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_ITEM keyItem, QWidget* parent = 0);
   ResourceCalculator::ProductionChainModel &GetPCM();

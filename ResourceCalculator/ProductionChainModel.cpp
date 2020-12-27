@@ -23,7 +23,7 @@ namespace ResourceCalculator
     assert(PC.RC[keyRecipe]);
 
     _ColsItems = cols;
-    _FactoryCurrent = PC.FC.GetFactory(KEY_FACTORY::ID_ITEM_NoFind_Factory);
+    _FactoryCurrent = PC.FC[KEY_FACTORY::ID_ITEM_NoFind_Factory];
     _ItemsCount.resize(_ColsItems.size(), .0);
     _ItemsPerSec.resize(_ColsItems.size(), 0.0);
 
@@ -46,7 +46,7 @@ namespace ResourceCalculator
 
     if (IsEnabled)
     {
-      _Factorys = PC.FC.GetFactoryByConditions(std::bind(FactoryIsAllowed, std::placeholders::_1, std::ref(RecipeCurrent)));
+      _Factorys = PC.FC.GetByConditions(std::bind(FactoryIsAllowed, std::placeholders::_1, std::ref(RecipeCurrent)));
       if (!_Factorys.empty()) _FactoryCurrent = _Factorys.begin()->second;
     }
     else
@@ -125,10 +125,10 @@ namespace ResourceCalculator
   {
   }
 
-  ProductionChainModel::ProductionChainModel(const FullItemTree& tree, KEY_ITEM ItemKey)
+  ProductionChainModel::ProductionChainModel(const FullItemTree& tree, KEY_ITEM ItemKey, int nesting)
     : _Tree(tree)
   {
-    SetItemKey(ItemKey);
+    SetItemKey(ItemKey, nesting);
   }
 
   struct ItemIndex
@@ -147,12 +147,13 @@ namespace ResourceCalculator
   void RecursiveSurvey(
     TYPE_KEY treeCounter,
     TYPE_KEY treeMaxCounter,
+    TYPE_KEY treeMaxEnabledCounter,
     const FullItemTree& tree,
     KEY_ITEM key_item,
     std::set<KEY_ITEM>& keys_items_set,
     std::set<KEY_ITEM>& keys_items_no_childrens_set,
     std::set<KEY_RECIPE>& keys_recipes_set,
-    const std::set<KEY_RECIPE>& deny_keys_recipes_set,
+    std::set<KEY_RECIPE>& deny_keys_recipes_set,
     std::list<ItemIndex>& keys_items_list,
     std::list<RecipeIndex>& keys_recipes_list
   )
@@ -161,9 +162,9 @@ namespace ResourceCalculator
 
     if (treeCounter < treeMaxCounter)
     {
-      const ItemNode::Ptr& tree_item = tree[key_item];
-      if (!tree_item) return;
-      const std::vector<KEY_RECIPE>& recipesIds = tree_item->Childrens;
+      const ItemNode& treeItem = tree[key_item];
+      if (!treeItem) return;
+      const std::vector<KEY_RECIPE>& recipesIds = treeItem.Childrens;
       if (recipesIds.empty())
       {
         keys_items_no_childrens_set.insert(key_item);
@@ -186,18 +187,22 @@ namespace ResourceCalculator
           {
             keys_recipes_set.insert(k_recipe);
             keys_recipes_list.push_front({ treeCounter, k_recipe, key_item });
+            if (treeCounter > treeMaxEnabledCounter)
+            {
+              deny_keys_recipes_set.insert(k_recipe);
+            }
             if (deny_keys_recipes_set.count(k_recipe) == 0)
             {
-              const RecipeNode::Ptr& tree_recipe = tree[k_recipe];
-              if (!tree_recipe) return;
-              const std::vector<KEY_ITEM>& recipesIds = tree_recipe->Childrens;
+              const RecipeNode& treeRecipe = tree[k_recipe];
+              if (!treeRecipe) return;
+              const std::vector<KEY_ITEM>& recipesIds = treeRecipe.Childrens;
               for (KEY_ITEM k_item : recipesIds)
               {
                 if (keys_items_set.count(k_item) == 0)
                 {
                   keys_items_set.insert(k_item);
                   keys_items_list.push_front({ treeCounter, k_item });
-                  RecursiveSurvey(treeCounter, treeMaxCounter, tree, k_item, keys_items_set, keys_items_no_childrens_set, keys_recipes_set, deny_keys_recipes_set, keys_items_list, keys_recipes_list);
+                  RecursiveSurvey(treeCounter, treeMaxCounter, treeMaxEnabledCounter, tree, k_item, keys_items_set, keys_items_no_childrens_set, keys_recipes_set, deny_keys_recipes_set, keys_items_list, keys_recipes_list);
                 }
               }
             }
@@ -207,8 +212,12 @@ namespace ResourceCalculator
     }
   }
 
-  void ProductionChainModel::Rebuild(KEY_ITEM itemKey)
+  void ProductionChainModel::Rebuild(KEY_ITEM itemKey, int nesting)
   {
+    if (nesting < 0) nesting = 2;
+
+    Nesting_ = nesting;
+
     std::map<KEY_RECIPE, double> OldCountFactorys;
     std::map<KEY_RECIPE, KEY_FACTORY> OldFactorys;
 
@@ -224,7 +233,7 @@ namespace ResourceCalculator
     _DataRows.clear();
     _SummSpeeds.clear();
     _ItemsNames.clear();
-    TYPE_KEY MaxRecursive = 100;
+    TYPE_KEY MaxRecursive = 100;  nesting < 0 ? 100 : nesting;
     TYPE_KEY treeCounter = 0;
 
     std::set<KEY_ITEM> keys_items_set;
@@ -235,7 +244,7 @@ namespace ResourceCalculator
 
     std::set<KEY_ITEM> keys_items_no_childrens_set;
 
-    RecursiveSurvey(treeCounter, MaxRecursive, _Tree, _Key, keys_items_set, keys_items_no_childrens_set, keys_recipes_set, _DenyKeysRecipes, keys_items_list, keys_recipes_list);
+    RecursiveSurvey(treeCounter, MaxRecursive, Nesting_, _Tree, _Key, keys_items_set, keys_items_no_childrens_set, keys_recipes_set, _DenyKeysRecipes, keys_items_list, keys_recipes_list);
 
     std::vector<KEY_ITEM> ColsItems;
     ColsItems.resize(keys_items_set.size());
@@ -301,9 +310,9 @@ namespace ResourceCalculator
     }
   }
 
-  bool ProductionChainModel::SetItemKey(KEY_ITEM ItemKey)
+  bool ProductionChainModel::SetItemKey(KEY_ITEM ItemKey, int nesting)
   {
-    Rebuild(ItemKey);
+    Rebuild(ItemKey, nesting);
     return true;
   }
 
@@ -318,14 +327,14 @@ namespace ResourceCalculator
         _DenyKeysRecipes.erase(recipeKey);
     }
 
-    Rebuild(_Key);
+    Rebuild(_Key, 100);
 
     return true;
   }
 
   bool ProductionChainModel::UpdateAll(const ParamsCollection& PC)
   {
-    Rebuild(_Key);
+    Rebuild(_Key, 100);
     return true;
   }
 

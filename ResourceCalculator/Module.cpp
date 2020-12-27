@@ -48,7 +48,7 @@ namespace ResourceCalculator {
   {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
-      const Module &module = MC.GetModule(moduleKey);
+      const Module &module = MC[moduleKey];
       retval += module.GetCoefficientSpeed() / 100.0;
     }
     return retval;
@@ -58,7 +58,7 @@ namespace ResourceCalculator {
   {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
-      const Module &module = MC.GetModule(moduleKey);
+      const Module &module = MC[moduleKey];
       retval += module.GetCoefficientProductivity() / 100.0;
     }
     return retval;
@@ -68,7 +68,7 @@ namespace ResourceCalculator {
   {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
-      const Module &module = MC.GetModule(moduleKey);
+      const Module &module = MC[moduleKey];
       retval += module.GetCoefficientConsumption() / 100.0;
     }
     //TODO выставить такие ограничения в настройки
@@ -80,7 +80,7 @@ namespace ResourceCalculator {
   {
     double retval = 1.0;
     for (KEY_MODULE moduleKey : _Modules) {
-      const Module &module = MC.GetModule(moduleKey);
+      const Module &module = MC[moduleKey];
       retval += module.GetCoefficientPollution() / 100.0;
     }
     return retval;

@@ -1,16 +1,15 @@
-#ifndef ProductionChainTreeModel_H
-#define ProductionChainTreeModel_H
+#pragma once
+
+#include <QAbstractItemModel>
 
 #include <ProductionChainTree.h>
-
-#include <QtWidgets>
 
 class ProductionChainTreeItem;
 
 class ProductionChainTreeModel : public QAbstractItemModel
 {
 public:
-  ProductionChainTreeModel(ResourceCalculator::FullItemTree& tree, QObject *parent = 0);
+  ProductionChainTreeModel(const ResourceCalculator::FullItemTree& tree, QObject *parent = 0);
   ~ProductionChainTreeModel();
 
   QVariant data(const QModelIndex &index, int role) const override;
@@ -21,13 +20,11 @@ public:
   int rowCount(const QModelIndex &parent = QModelIndex()) const override;
   int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
-  void RebuildModel();
-
+  void Reset();
   void SetItemID(ResourceCalculator::KEY_ITEM ItemID);
 
 private:
-  ResourceCalculator::FullItemTree& _Tree;
+  const ResourceCalculator::FullItemTree& _Tree;
   ProductionChainTreeItem* _RootItem;
 };
 
-#endif //ProductionChainTreeModel_H

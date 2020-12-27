@@ -14,6 +14,9 @@ public:
   void AddTab(ResourceCalculator::KEY_ITEM ItemKey);
   void AddTabs(const std::list<ResourceCalculator::KEY_ITEM>& ToADD);
   void RemoveCurrentTab();
+  void RemoveAllTabs();
+  void UpdateModel();
+  void Init();
 private:
   const ResourceCalculator::FullItemTree& _tree;
   ProductionChainWidgetSummProductionItems* _PCWSPI;

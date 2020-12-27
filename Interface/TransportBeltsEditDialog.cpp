@@ -39,10 +39,10 @@ QVariant TransportBeltsEditModel::data( const QModelIndex & index, int role ) co
       return QString::fromStdString( _listOfItemsId[index.row()].second.GetName() );
       break;
     case 2:
-      return QVariant( _listOfItemsId[index.row()].second.GetSpeed() );
+      return QVariant( _listOfItemsId[index.row()].second.Speed );
       break;
     case 3:
-      return QVariant( _listOfItemsId[index.row()].second.GetMaxDensity() );
+      return QVariant( _listOfItemsId[index.row()].second.MaxDensity );
       break;
     case 4:
       return QVariant( _listOfItemsId[index.row()].second.GetMaxThroughput() );
@@ -96,7 +96,7 @@ bool TransportBeltsEditModel::insertRows( int position, int rows, const QModelIn
   beginInsertRows( QModelIndex(), position, position + rows - 1 );
   for ( int row = 0; row < rows; ++row ) {
     using namespace ResourceCalculator;
-    KEY_TRANSPORT_BELT NewKey = _PC.TC.GetUniqueItemKey();
+    KEY_TRANSPORT_BELT NewKey = _PC.TC.NewKey();
     QString Name( tr( "New transport belt" ) + QString( ' ' ) + QString::number( static_cast<KEY_TO_Json>( NewKey ) ) );
     std::pair<KEY_TRANSPORT_BELT, TransportBelt > ToADD;
     ToADD.first = NewKey;
@@ -140,13 +140,13 @@ bool TransportBeltsEditModel::setData( const QModelIndex & index, const QVariant
     case 2:
       val = value.toDouble(&IsOk);
       if (IsOk) {
-        _listOfItemsId[index.row()].second.SetSpeed(val);
+        _listOfItemsId[index.row()].second.Speed = val;
       }
       break;
     case 3:
       val = value.toDouble(&IsOk);
       if (IsOk) {
-        _listOfItemsId[index.row()].second.SetMaxDensity(val);
+        _listOfItemsId[index.row()].second.MaxDensity = val;
       }
       break;
 
@@ -183,11 +183,11 @@ void TransportBeltsEditModel::Select()
   using namespace ResourceCalculator;
   _TransportBeltsToDelete.clear();
   _TransportBeltsToAdd.clear();
-  const std::map<KEY_TRANSPORT_BELT, TransportBelt> &TransportBelts = _PC.TC.GetData();
-  _listOfItemsId.reserve( static_cast< int >(TransportBelts.size() ) );
-  for ( auto & TransportBelt : TransportBelts) {
-    _listOfItemsId.push_back(TransportBelt);
-  }
+  //const std::map<KEY_TRANSPORT_BELT, TransportBelt> &TransportBelts = _PC.TC.GetData();
+  //_listOfItemsId.reserve( static_cast< int >(TransportBelts.size() ) );
+  //for ( auto & TransportBelt : TransportBelts) {
+  //  _listOfItemsId.push_back(TransportBelt);
+  //}
 }
 
 #pragma endregion MODEL

@@ -14,34 +14,23 @@ namespace ResourceCalculator
     RECIPE
   };
 
-  class TreeNodeBase
-  {
-  public:
-    const TreeNodeType Type;
-    TreeNodeBase(TreeNodeType type)
-      : Type(type)
-    {}
-    virtual TYPE_KEY Size() const = 0;
-    virtual ~TreeNodeBase() {};
-  protected:
-    static const std::string& GetEmptyString();
-  };
-
   template <typename KeyType, typename RelatedKey, TreeNodeType type>
-  class TreeNode : public TreeNodeBase
+  class TreeNode
   {
   public:
     using Ptr = std::unique_ptr<TreeNode<KeyType, RelatedKey, type> >;
+    //const TreeNodeType Type;
     const KeyType MyKey;
     const std::vector<RelatedKey>& Childrens;
-    TYPE_KEY Size() const override {
-      return static_cast<TYPE_KEY>(Childrens.size());
-    }
+    const bool Found;
+    TYPE_KEY Size() const { return static_cast<TYPE_KEY>(Childrens.size());}
+    operator bool() const { return Found; }
   private:
-    TreeNode(KeyType myID, const std::vector<RelatedKey>& childrens)
+    TreeNode(KeyType myID, const std::vector<RelatedKey>& childrens, bool found)
       : MyKey(myID)
       , Childrens(childrens)
-      , TreeNodeBase(type)
+      , Found(found)
+      //, Type(type)
     {}
     friend FullItemTree;
   };
@@ -50,8 +39,6 @@ namespace ResourceCalculator
   using RecipeNode = TreeNode<KEY_RECIPE, KEY_ITEM, TreeNodeType::RECIPE>;
 
   class FullItemTree
-    : public Indexator<KEY_ITEM, ItemNode::Ptr>
-    , public Indexator<KEY_RECIPE, RecipeNode::Ptr>
   {
   public:
     FullItemTree(const ParamsCollection& PC);
@@ -59,9 +46,23 @@ namespace ResourceCalculator
     void Rebuild();
     void CloneTo(FullItemTree& tree) const;
     const ParamsCollection& GetPC() const { return _PC; }
+    const ItemNode& operator[] (KEY_ITEM key) const
+    {
+      auto it = _items.find(key);
+      if (it == _items.end()) return _noFoundItem;
+      return *it->second;
+    }
+    const RecipeNode& operator[] (KEY_RECIPE key) const
+    {
+      auto it = _recipes.find(key);
+      if (it == _recipes.end()) return _noFoundRecipe;
+      return *it->second;
+    }
   private:
     const ItemNode _noFoundItem;
     const RecipeNode _noFoundRecipe;
+    const std::vector<KEY_ITEM> _ChildrensNoFoundItems;
+    const std::vector<KEY_RECIPE> _ChildrensNoRecipes;
     std::vector<std::vector<KEY_RECIPE> > _childrensItems;
     std::vector<std::vector<KEY_ITEM> > _childrensRecipes;
     const ParamsCollection& _PC;

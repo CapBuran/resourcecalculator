@@ -64,12 +64,12 @@ private:
 class ProductionChainModel: public ItemBase<KEY_ITEM>
 {
 public:
-  ProductionChainModel(const FullItemTree& tree, KEY_ITEM ItemKey);
+  ProductionChainModel(const FullItemTree& tree, KEY_ITEM ItemKey, int nesting = -1);
   ProductionChainModel(const FullItemTree& tree);
 
   const ParamsCollection& GetPC() const { return _Tree.GetPC(); }
 
-  bool SetItemKey(KEY_ITEM itemKey);
+  bool SetItemKey(KEY_ITEM itemKey, int nesting = -1);
   bool EnableRecipes(TYPE_KEY row);
   bool FitQuantity();
   bool UpdateAll(const ParamsCollection& PC);
@@ -85,8 +85,9 @@ public:
   int ReadFromJson(const Json::Value& jsonPr) override;
   int WriteToJson(Json::Value& jsonPr) const override;
 private:
-  void Rebuild(KEY_ITEM itemKey);
+  void Rebuild(KEY_ITEM itemKey, int nesting);
 
+  int Nesting_ = -1;
   std::vector<std::unique_ptr<ProductionChainDataRow> > _DataRows;
   std::vector<double> _SummSpeeds;
   std::vector <std::string> _ItemsNames;

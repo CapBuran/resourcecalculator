@@ -190,7 +190,7 @@ QSize ProductionChainDelegateSummProductionItems::sizeHint(const QStyleOptionVie
 
 #pragma endregion DELEGATE
 
-ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionItems(ResourceCalculator::FullItemTree& tree, QWidget *parent )
+ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionItems(const ResourceCalculator::FullItemTree& tree, QWidget *parent )
   : ProductionChainWidgetBase(tree, parent)
   , _Model(tree.GetPC(), parent)
   , _ModelTree(tree)

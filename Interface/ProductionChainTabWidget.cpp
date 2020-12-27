@@ -6,14 +6,15 @@
 ProductionChainTabWidget::ProductionChainTabWidget(ResourceCalculator::FullItemTree& tree, QWidget* parent)
   : QTabWidget(parent)
   , _tree(tree)
+  , _PCWSPI(nullptr)
 {
-  _PCWSPI = new ProductionChainWidgetSummProductionItems(tree, this);
-  addTab(_PCWSPI, tr("Summ production items on all tabs") );
   connect(this, SIGNAL(currentChanged(int)), SLOT(OncurrentChanged(int)));
+  Init();
 }
 
 void ProductionChainTabWidget::Update()
 {
+  if (_PCWSPI == nullptr) return;
   int ct = count();
   for (int index = 0; index < ct; index++) {
     QWidget *QW = widget(index);
@@ -44,14 +45,36 @@ void ProductionChainTabWidget::RemoveCurrentTab()
   Update();
 }
 
+void ProductionChainTabWidget::UpdateModel()
+{
+  if (_PCWSPI)
+    _PCWSPI->UpdateModel();
+}
+
+void ProductionChainTabWidget::RemoveAllTabs()
+{
+  for (int i = 0; i < count(); i++) {
+    removeTab(0);
+  }
+  _PCWSPI = nullptr;
+}
+
+void ProductionChainTabWidget::Init()
+{
+  RemoveAllTabs();
+  _PCWSPI = new ProductionChainWidgetSummProductionItems(_tree, this);
+  addTab(_PCWSPI, tr("Summ production items on all tabs"));
+}
+
 void ProductionChainTabWidget::AddTabs(const std::list<ResourceCalculator::KEY_ITEM>& ToADD)
 {
-  for (auto it : ToADD) {
+  for (auto it: ToADD) {
     AddTab(it);
   }
 }
 
-void ProductionChainTabWidget::OncurrentChanged(int index){
+void ProductionChainTabWidget::OncurrentChanged(int index)
+{
   if (index == 0) {
     QWidget *W = widget(index);
     ProductionChainWidgetSummProductionItems *PCWSPI = dynamic_cast<ProductionChainWidgetSummProductionItems*>(W);

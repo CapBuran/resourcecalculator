@@ -6,16 +6,32 @@ Q_DECLARE_METATYPE(ResourceCalculator::FactoryType);
 
 #pragma region DELEGATE
 
-ProductionChainDelegate0::ProductionChainDelegate0( const ResourceCalculator::ProductionChainModel &PCM, QObject *parent):
-  _PCM(PCM), ProductionChainDelegateBase(PCM.GetPC(), parent)
+ProductionChainDelegate0::ProductionChainDelegate0( const ResourceCalculator::ProductionChainModel &PCM, QObject *parent)
+  : _PCM(PCM)
+  , ProductionChainDelegateBase(PCM.GetPC(), parent)
 {
 }
 
-QSize ProductionChainDelegate0::sizeHint( const QStyleOptionViewItem & option, const QModelIndex & index ) const
+QSize ProductionChainDelegate0::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-  QSize RetValue = ProductionChainDelegateBase::sizeHint( option, index );
-  if ( index.column() == 0 ) {
-    RetValue.setWidth( RetValue.width() + 10 );
+  QSize RetValue = ProductionChainDelegateBase::sizeHint(option, index);
+  if (index.column() == 0)
+  {
+    if (!Rect_.isValid())
+    {
+      QFontMetrics fm(option.font);
+      const_cast<QRect&>(Rect_) = fm.boundingRect(QRect(0, 0, 150, 50), Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, tr("Production in a different chain"));
+      const_cast<QRect&>(Rect_).setWidth(Rect_.width() + 20);
+    }
+    RetValue.setWidth(RetValue.width() + 20);
+    if (Rect_.width() > RetValue.width())
+    {
+      RetValue.setWidth(Rect_.width());
+    }
+  }
+  if (RetValue.height() > 0)
+  {
+    RetValue.setHeight(17);
   }
   return RetValue;
 }
@@ -92,7 +108,7 @@ void ProductionChainDelegate0::paint( QPainter * painter, const QStyleOptionView
     if (_PCM.GetRow(index.row()).IsEnabled)
     {
       KEY_FACTORY CurenFactory = _PCM.GetRow(index.row()).GetCurrentFactory().GetKey();
-      const Factory& factory = _PC.FC.GetFactory(CurenFactory);
+      const Factory& factory = _PC.FC[CurenFactory];
       QString Text = QString::fromStdString(factory.GetName());
       QStyleOptionComboBox comboBoxOption;
       comboBoxOption.rect = option.rect;
@@ -105,7 +121,7 @@ void ProductionChainDelegate0::paint( QPainter * painter, const QStyleOptionView
     {
       QStyleOptionComboBox comboBoxOption;
       comboBoxOption.rect = option.rect;
-      comboBoxOption.currentText = tr("Not applicable");
+      comboBoxOption.currentText = tr("Production in a different chain");
       comboBoxOption.state = QStyle::State_None;
       QApplication::style()->drawComplexControl(QStyle::CC_ComboBox, &comboBoxOption, painter, 0);
       QApplication::style()->drawControl(QStyle::CE_ComboBoxLabel, &comboBoxOption, painter, 0);
@@ -116,10 +132,7 @@ void ProductionChainDelegate0::paint( QPainter * painter, const QStyleOptionView
   {
     QStyleOptionButton button;
     button.rect = option.rect;
-    if(_PCM.GetRow(index.row()).IsEnabled)
-      button.text = index.data().toString();
-    else
-      button.text = tr("Production in a different chain");
+    button.text = index.data().toString();
     button.state = QStyle::State_Enabled;
     QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter);
     break;
@@ -467,7 +480,7 @@ bool ProductionChainProxyModel3::filterAcceptsRow( int source_row, const QModelI
 
 ProductionChainWidget::ProductionChainWidget(const ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_ITEM keyItem, QWidget* parent)
   : ProductionChainWidgetBase(tree, parent)
-  , _PCM(tree, keyItem)
+  , _PCM(tree, keyItem, 1)
   , _Model(_PCM, parent)
 {
   _Init();
@@ -510,8 +523,8 @@ void ProductionChainWidget::_Init( )
     if ( i == 0 ) {
       tables[i]->setItemDelegate( new ProductionChainDelegate0( _Model.GetPCM(), tables[i] ) );
     } else {
-      tables[i]->setItemDelegate( new ProductionChainDelegateBase( _PC, tables[i] ) );
-      tables[i]->horizontalHeader()->setSectionResizeMode( QHeaderView::Fixed );
+      tables[i]->setItemDelegate(new ProductionChainDelegateBase(_PC, tables[i]));
+      tables[i]->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     }
     tables[i]->verticalHeader()->hide();
     tables[i]->setAlternatingRowColors( true );
@@ -520,7 +533,6 @@ void ProductionChainWidget::_Init( )
     if ( Height > MaxHeight ) {
       MaxHeight = Height;
     }
-    dynamic_cast< ProductionChainHeaderView* >( tables[i]->horizontalHeader() )->SetMaxHeight( MaxHeight );
   }
 
   for ( int i = 0; i < 4; i++ ) {
@@ -539,15 +551,21 @@ void ProductionChainWidget::_Init( )
 
   tables[2]->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
+  tables[3]->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
   int VerticalMaxSizeHeader = 0;
 
-  for (int i = 0; i < 3; i++) {
-    if (VerticalMaxSizeHeader < tables[i]->horizontalHeader()->sizeHint().height())
-      VerticalMaxSizeHeader = tables[i]->horizontalHeader()->sizeHint().height();
+  for (int i = 0; i < 3; i++) 
+  {
+    ProductionChainHeaderView* header = dynamic_cast<ProductionChainHeaderView*>(tables[i]->horizontalHeader());
+    int Height = header->GetMaxHeight();
+    if (VerticalMaxSizeHeader < Height)
+      VerticalMaxSizeHeader = Height;
   }
 
   for (int i = 0; i < 3; i++) {
     tables[i]->horizontalHeader()->setFixedHeight(VerticalMaxSizeHeader);
+    tables[i]->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
   }
 
   tables[3]->setFixedHeight( VerticalSizeResult );
@@ -601,6 +619,10 @@ void ProductionChainWidget::_Init( )
   connect( tables[3]->horizontalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->horizontalScrollBar(), SLOT( setValue( int ) ) );
   connect( tables[3]->horizontalScrollBar(), SIGNAL( valueChanged( int ) ), tables[2]->horizontalScrollBar(), SLOT( setValue( int ) ) );
 
+  connect( tables[0]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->verticalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[0]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[2]->verticalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[1]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[0]->verticalScrollBar(), SLOT( setValue( int ) ) );
+  connect( tables[1]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->verticalScrollBar(), SLOT( setValue( int ) ) );
   connect( tables[2]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[0]->verticalScrollBar(), SLOT( setValue( int ) ) );
   connect( tables[2]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->verticalScrollBar(), SLOT( setValue( int ) ) );
 
@@ -622,3 +644,6 @@ void ProductionChainWidget::OnResized(int logicalIndex, int oldSize, int newSize
   tables[3]->setColumnWidth(logicalIndex, newSize);
 }
 
+void UpdateModel()
+{
+}

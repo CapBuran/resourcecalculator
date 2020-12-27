@@ -16,6 +16,13 @@ namespace ResourceCalculator {
     return true;
   }
 
+  bool Recipe::DeleteItems(const std::set<KEY_ITEM>& ItemsKeys)
+  {
+    for (const KEY_ITEM it: ItemsKeys)
+      DeleteItem(it);
+    return true;
+  }
+
   int Recipe::ReadFromJson(const Json::Value & jsonPr)
   {
     ItemBase::ReadFromJson(jsonPr);

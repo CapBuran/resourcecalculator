@@ -18,8 +18,8 @@ int main(int argc, char *argv[])
   //  }
   //}
 
-  //if(false)
-  if (true)
+  if(false)
+  //if (true)
   {
     QFile file(StandartTestFileJson);
     if (!file.open(QIODevice::ReadOnly)) {

@@ -1,5 +1,4 @@
-#ifndef ProductionChainWidgetSummProductionItems_H
-#define ProductionChainWidgetSummProductionItems_H
+#pragma once
 
 #include <ProductionChainTreeModel.h>
 
@@ -37,7 +36,7 @@ public:
 class ProductionChainWidgetSummProductionItems: public ProductionChainWidgetBase {
   Q_OBJECT
 public:
-  ProductionChainWidgetSummProductionItems(ResourceCalculator::FullItemTree& tree, QWidget *parent = 0 );
+  ProductionChainWidgetSummProductionItems(const ResourceCalculator::FullItemTree& tree, QWidget *parent = 0 );
   ProductionChainWidgetType GetType() const override;
   void UpdateModel() override;
 private:
@@ -46,5 +45,3 @@ private:
 public slots:
   void on_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 };
-
-#endif// ProductionChainWidgetSummProductionItems_H

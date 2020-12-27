@@ -33,6 +33,9 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC)
   QPushButton *_ButtonTransportBeltsEdit = new QPushButton(tr("Transport belts editor"));
   connect(_ButtonTransportBeltsEdit, SIGNAL(clicked()), SLOT(PushButtonClickedTransportBeltsEditDialog()));
 
+  QPushButton* _ButtonJson = new QPushButton("JSON");
+  connect(_ButtonJson, SIGNAL(clicked()), SLOT(PushButtonClickedImportFactorio()));
+
   QHBoxLayout *h = new QHBoxLayout();
   h->addWidget( _ButtonAddRecipeTab );
   h->addWidget( _ButtonDelRecipeTab );
@@ -40,7 +43,8 @@ MainWindow::MainWindow(ResourceCalculator::ParamsCollection &PC)
   h->addWidget( _ButtonItemOpen );
   h->addWidget( _ButtonFactoryOpen );
   h->addWidget( _ButtonModulesEdit);
-  h->addWidget( _ButtonTransportBeltsEdit);
+  h->addWidget( _ButtonTransportBeltsEdit );
+  h->addWidget( _ButtonJson );
 
   _PCTW = new ProductionChainTabWidget( _tree, this );
   QVBoxLayout *v = new QVBoxLayout();
@@ -186,21 +190,22 @@ void MainWindow::saveAsFile()
 
 void MainWindow::PushButtonClickedRecipesEditDialog()
 {
-  RecipesEditDialog Dialog(_PC.RC, _PC.IC, _PC.Icons, this);
+  RecipesEditDialog Dialog(_PC.RC, _PC.IC, _PC.Icons, _PC.FTC, this);
   Dialog.exec();
   _PCTW->Update();
 }
 
 void MainWindow::PushButtonClickedItemsEditDialog()
 {
-  ItemsEditDialog Dialog(_PC.IC, _PC.Icons, this);
+  ItemsEditDialog Dialog(_PC.IC, _PC.RC, _PC.Icons, this);
   Dialog.exec();
   _PCTW->Update();
 }
 
 void MainWindow::PushButtonClickedAddTab()
 {
-  ItemSelectedDialog _ItemsSelectedDialog(_PC.IC, _PC.Icons, this);
+  ItemsModel model(_PC.IC);
+  ItemSelectedDialog _ItemsSelectedDialog(model, _PC.Icons, this);
   if ( _ItemsSelectedDialog.exec() )
   {
     const auto &result = _ItemsSelectedDialog.GetResult();
@@ -219,7 +224,7 @@ void MainWindow::PushButtonClickedRemoveTab()
 
 void MainWindow::PushButtonClickedFactorysEditDialog()
 {
-  FactorysEditDialog Dialog( _PC.FC, _PC.Icons, this );
+  FactorysEditDialog Dialog( _PC.FTC, _PC.Icons, this );
   if (Dialog.exec() ) {
     Dialog.Commit();
     _PCTW->Update();
@@ -239,4 +244,19 @@ void MainWindow::PushButtonClickedTransportBeltsEditDialog()
   if (Dialog.exec()) {
     _PCTW->Update();
   }
+}
+
+void MainWindow::PushButtonClickedImportFactorio()
+{
+  QFile file(StandartTestFileJson);
+  if (!file.open(QIODevice::ReadOnly)) return;
+  _PCTW->RemoveAllTabs();
+  QByteArray fileData = file.readAll();
+  Json::Value jsonPrRestore;
+  Json::Reader JsonReader;
+  bool parsingSuccessful = JsonReader.parse(fileData.constData(), jsonPrRestore);
+  _PC.ReadFromJson(jsonPrRestore);
+  _tree.Rebuild();
+  _PCTW->Update();
+  _PCTW->Init();
 }

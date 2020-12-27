@@ -1,24 +1,18 @@
-#ifndef TransportBeltH
-#define TransportBeltH
+#pragma once
+#include <Types.h>
 
-#include "Types.h"
-
-namespace ResourceCalculator {
-  
+namespace ResourceCalculator
+{
   class TransportBelt: public ItemBase<KEY_TRANSPORT_BELT>
   {
-  private:
-    double _MaxDensity;
-    double _Speed;
   public:
+    double MaxDensity;
+    double Speed;
     TransportBelt();
-    DeclareAndDefinitionProperty(MaxDensity, double)
-    DeclareAndDefinitionProperty(Speed, double)
     double GetMaxThroughput() const;
     int ReadFromJson(const Json::Value & jsonPr) override;
     int WriteToJson(Json::Value & jsonPr) const override;
   };
 
+  using TransportBeltCollection = Indexator<KEY_TRANSPORT_BELT, TransportBelt>;
 }
-
-#endif// TransportBeltH

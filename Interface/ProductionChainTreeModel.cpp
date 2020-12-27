@@ -1,8 +1,9 @@
-#include "ProductionChainTreeModel.h"
-#include "../../ResourceCalculator/ProductionChainTree.h"
+#include <ProductionChainTreeModel.h>
+#include <ProductionChainTree.h>
 
-class ProductionChainTreeItem
+class ProductionChainTreeItem: private QObject
 {
+  
 public:
 
   ProductionChainTreeItem(const ResourceCalculator::FullItemTree& tree, ResourceCalculator::KEY_ITEM key)
@@ -64,8 +65,8 @@ public:
         case 0:
           return QString::fromStdString(item.GetIconKey());
         case 1:
-          //return tr("Item: ") + QString::fromStdString(item.GetName());
-          return QString::fromStdString(item.GetName());
+          return tr("Item: ") + QString::fromStdString(item.GetName());
+          //return QString::fromStdString(item.GetName());
         default:
           break;
         }
@@ -79,8 +80,8 @@ public:
         case 0:
           return QString::fromStdString(recipe.GetIconKey());
         case 1:
-          //return tr("Recipe: ") + QString::fromStdString(recipe.GetName());
-          return QString::fromStdString(recipe.GetName());
+          return tr("Recipe: ") + QString::fromStdString(recipe.GetName());
+          //return QString::fromStdString(recipe.GetName());
         default:
           break;
         }
@@ -101,8 +102,8 @@ private:
     {
     case TreeNodeType::ITEM:
     {
-      const ItemNode::Ptr& root = Tree[static_cast<ResourceCalculator::KEY_ITEM>(Key)];
-      for (auto Children : root->Childrens)
+      const ItemNode& root = Tree[static_cast<ResourceCalculator::KEY_ITEM>(Key)];
+      for (auto Children : root.Childrens)
       {
         list.append(new ProductionChainTreeItem(Tree, Children, this));
       }
@@ -110,10 +111,10 @@ private:
       break;
     case ResourceCalculator::TreeNodeType::RECIPE:
     {
-      const RecipeNode::Ptr& root = Tree[static_cast<ResourceCalculator::KEY_RECIPE>(Key)];
+      const RecipeNode& root = Tree[static_cast<ResourceCalculator::KEY_RECIPE>(Key)];
       if (root)
       {
-        for (auto Children: root->Childrens)
+        for (auto Children: root.Childrens)
         {
           list.append(new ProductionChainTreeItem(Tree, Children, this));
         }
@@ -133,7 +134,7 @@ private:
   bool _IsInit = false;
 };
 
-ProductionChainTreeModel::ProductionChainTreeModel(ResourceCalculator::FullItemTree& tree, QObject* parent)
+ProductionChainTreeModel::ProductionChainTreeModel(const ResourceCalculator::FullItemTree& tree, QObject* parent)
   : QAbstractItemModel(parent)
   , _Tree(tree)
   , _RootItem(nullptr)
@@ -157,17 +158,15 @@ int ProductionChainTreeModel::columnCount(const QModelIndex &parent) const
   return 0;
 }
 
-void ProductionChainTreeModel::RebuildModel()
+void ProductionChainTreeModel::Reset()
 {
   beginResetModel();
-  _Tree.Rebuild();
   endResetModel();
 }
 
 void ProductionChainTreeModel::SetItemID(ResourceCalculator::KEY_ITEM ItemID)
 {
   beginResetModel();
-  _Tree.Rebuild();
   if (_RootItem) delete _RootItem;
   _RootItem = new ProductionChainTreeItem(_Tree, ItemID);
   endResetModel();
@@ -184,7 +183,7 @@ QVariant ProductionChainTreeModel::data(const QModelIndex &index, int role) cons
 Qt::ItemFlags ProductionChainTreeModel::flags(const QModelIndex &index) const
 {
   if (!index.isValid())
-    return 0;
+    return Qt::NoItemFlags;
 
   return QAbstractItemModel::flags(index);
 }

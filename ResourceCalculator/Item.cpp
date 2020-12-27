@@ -12,7 +12,8 @@ namespace ResourceCalculator {
 
   Item::Item():
     _IsALiquidOrGas(false),
-    _MiningHardness(0.0)
+    _MiningHardness(0.0),
+    _Count(0.0)
   {
   }
 

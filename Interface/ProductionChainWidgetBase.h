@@ -18,14 +18,10 @@ enum class ProductionChainWidgetType
 };
 
 class ProductionChainHeaderView: public QHeaderView {
-private:
-  int _MaxHeight;
 public:
   ProductionChainHeaderView( Qt::Orientation orientation, QWidget *parent = Q_NULLPTR );
   void paintSection( QPainter *painter, const QRect &rect, int logicalIndex ) const override;
-  QSize sizeHint() const override;
-  int GetMaxHeight();
-  void SetMaxHeight( int MaxHeight );
+  int GetMaxHeight() const;
   QSize sectionSizeFromContents( int logicalIndex ) const override;
 };
 

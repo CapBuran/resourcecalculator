@@ -23,8 +23,6 @@ namespace ResourceCalculator
 
   enum class KEY_RECIPE: TYPE_KEY {
     ID_RECIPE_NoFindRecipe = 0,
-//    ID_RECIPE_PreviouslyProduced = 10000001,
-//    ID_RECIPE_FindRecipeROOT = 1000000,
     ID_RECIPE_Iron_Plate = 1,
     ID_RECIPE_Cuprum_Plate = 2,
     ID_RECIPE_Sherst = 3,
@@ -72,10 +70,10 @@ namespace ResourceCalculator
   enum class KEY_TYPE_FACTORY: TYPE_KEY {
     Unknown,
     Assembly,
+    AssemblyFluid,
     ChemicalPlant,
     Refinery,
-    Furnace,
-    ElectrolysisPlant
+    Furnace
   };
 
   enum class KEY_FACTORY: TYPE_KEY {
@@ -137,12 +135,9 @@ namespace ResourceCalculator
   protected:
     std::string _Name;
     std::string _IconKey;
-    EnumKey _Key;
-    ItemBase()
-      :_Key(static_cast<EnumKey>(0))
-    {}
-    virtual ~ItemBase() {}
+    EnumKey _Key = static_cast<EnumKey>(NoFoundKey);
   public:
+    virtual ~ItemBase() {}
     operator bool() const { return _Key != static_cast<EnumKey>(0); }
     DeclareAndDefinitionProperty( Key, EnumKey)
     DeclareAndDefinitionProperty( Name, std::string )
@@ -165,9 +160,11 @@ namespace ResourceCalculator
   };
 
   template<typename EnumKey, class T>
-  class Indexator
+  class Indexator: public Jsonable
   {
   public:
+
+    using MyIndexator = Indexator<EnumKey, T>;
 
     EnumKey NewKey()
     {
@@ -204,7 +201,7 @@ namespace ResourceCalculator
     {
       auto f = _Index2.find(key);
       if (f != _Index2.end()) return f->second;
-      return static_cast<EnumKey>(0);
+      return static_cast<EnumKey>(NoFoundKey);
     }
 
     TYPE_KEY operator()(EnumKey key) const
@@ -214,15 +211,106 @@ namespace ResourceCalculator
       return NoFoundKey;
     }
 
-  protected:
+    std::set<TYPE_KEY> ConvertToIndex(std::set<EnumKey> keys) const
+    {
+      std::set<TYPE_KEY> retval;
+      for(EnumKey k: keys)
+      {
+        TYPE_KEY Index1 = operator()(k);
+        if (Index1 != NoFoundKey)
+          retval.insert(Index1);
+      }
+      return retval;
+    }
 
-    Indexator(std::map<EnumKey, T>& items)
-      : _LastGenGen(0)
-      , _Size(0)
-      , _Items(items)
-    {}
+    std::set<EnumKey> ConvertToKey(std::set<TYPE_KEY> indexes) const
+    {
+      std::set<EnumKey> retval;
+      for (TYPE_KEY k : indexes)
+      {
+        EnumKey Index1 = operator()(k);
+        if (static_cast<TYPE_KEY>(Index1) != NoFoundKey)
+          retval.insert(Index1);
+      }
+      return retval;
+    }
 
     virtual ~Indexator() {}
+
+    virtual int ReadFromJson(const Json::Value& jsonPr) override
+    {
+      _Items.clear();
+      //FillNoFindItem(_NotFound);
+      for (auto it: jsonPr) {
+        T toRead;
+        toRead.ReadFromJson(it);
+        _Items[toRead.GetKey()] = toRead;
+      }
+      UpdateIndex();
+      return 0;
+    }
+
+    virtual int WriteToJson(Json::Value& jsonPr) const override
+    {
+      jsonPr = Json::Value(Json::arrayValue);
+      for (auto& it: _Items) {
+        Json::Value newVal;
+        it.second.WriteToJson(newVal);
+        jsonPr.append(newVal);
+      }
+      return 0;
+    }
+
+    std::map<EnumKey, T> GetByConditions(std::function<bool(const T&)> func) const
+    {
+      std::map<EnumKey, T> retval;
+      for (const auto& item : _Items)
+        if (func(item.second))
+          retval[item.first] = item.second;
+      return retval;
+    }
+
+    virtual void Add(const std::map<EnumKey, T>& adds)
+    {
+      for (auto& it : adds)
+        _Items[it.first] = it.second;
+      UpdateIndex();
+    }
+
+    virtual void Add(const std::set<T>& adds)
+    {
+      for (auto& it : adds)
+        _Items[it.GetKey()] = it;
+      UpdateIndex();
+    }
+
+    virtual void Add(const T& add)
+    {
+      _Items[add.GetKey()] = add;
+      UpdateIndex();
+    }
+
+    virtual bool Delete(const std::set<EnumKey>& keys)
+    {
+      for (auto& it: keys) {
+        _Items.erase(it);
+      }
+      UpdateIndex();
+      return true;
+    }
+
+    void IteratorForAllItem(std::function<bool(T&)> func)
+    {
+      for (auto& it: _Items)
+        func(it.second);
+    }
+
+    void CloneFrom(const MyIndexator& other)
+    {
+      *this = other;
+    }
+
+  protected:
 
     void UpdateIndex()
     {
@@ -241,23 +329,15 @@ namespace ResourceCalculator
       _Size = k;
     };
 
-    void CloneTo(Indexator& retVal) const
-    {
-      retVal._Index1 = _Index1;
-      retVal._Index2 = _Index2;
-      retVal._LastGenGen = _LastGenGen;
-      retVal._Size = _Size;
-    }
-
   private:
 
-    TYPE_KEY _LastGenGen;
-    TYPE_KEY _Size;
+    TYPE_KEY _LastGenGen = 0;
+    TYPE_KEY _Size = 0;
     T _NotFound;
 
     std::map<EnumKey, TYPE_KEY> _Index1;
     std::map<TYPE_KEY, EnumKey> _Index2;
-    std::map<EnumKey, T>& _Items;
+    std::map<EnumKey, T> _Items;
   };
 
 }

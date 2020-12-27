@@ -1,161 +1,5 @@
 #include "ItemSelectedDialog.h"
 
-#pragma region MODEL
-
-
-ItemSelectedModel::ItemSelectedModel(
-  const ResourceCalculator::ItemCollection& IC,
-  const std::set<ResourceCalculator::CountsItem>& oldValues,
-  QObject* parent 
-)
-  : QAbstractTableModel(parent)
-  , _IsOneItem(false)
-  , _IC(IC)
-{
-  using namespace ResourceCalculator;
-  TYPE_KEY CountItems = IC.Size();
-  _Status.resize(CountItems);
-
-  for (TYPE_KEY i = 0; i < CountItems; i++)
-  {
-    _Status[i].ItemId = _IC(i);
-  }
-
-  for (const auto& r: oldValues)
-  {
-    int rowId = _IC(r.ItemId);
-    _Status[rowId] = r;
-  }
-}
-
-ItemSelectedModel::ItemSelectedModel(
-  const ResourceCalculator::ItemCollection& IC,
-  QObject* parent
-)
-  : QAbstractTableModel(parent)
-  , _IsOneItem(true)
-  , _IC(IC)
-{
-  using namespace ResourceCalculator;
-  TYPE_KEY CountItems = IC.Size();
-  _Status.resize(CountItems);
-
-  for (TYPE_KEY i = 0; i < CountItems; i++)
-  {
-    _Status[i].ItemId = _IC(i);
-  }
-}
-
-int ItemSelectedModel::rowCount(const QModelIndex &parent) const
-{
-  Q_UNUSED(parent);
-  return _IC.Size();
-}
-
-int ItemSelectedModel::columnCount(const QModelIndex &parent) const
-{
-  Q_UNUSED(parent);
-  return _IsOneItem ? 2 : 3;
-}
-
-QVariant ItemSelectedModel::data(const QModelIndex &index, int role) const
-{
-  using namespace ResourceCalculator;
-
-  if (!index.isValid())
-    return QVariant();
-
-  if (index.row() >= _IC.Size() || index.row() < 0)
-    return QVariant();
-
-  if (role == Qt::DisplayRole) {
-    
-    const Item& item = _IC[_IC(index.row())];
-    if (!item) return QVariant();
-    switch (index.column())
-    {
-    case 0:
-      return QString(item.GetIconKey().c_str() );
-      break;
-    case 1:
-      return QString(item.GetName().c_str() );
-      break;
-    case 2:
-      return QString::number(_Status[index.row()].Count);
-      break;
-    default:
-      return QVariant();
-      break;
-    }
-  }
-  return QVariant();
-}
-
-QVariant ItemSelectedModel::headerData(int section, Qt::Orientation orientation, int role) const
-{
-  if (role != Qt::DisplayRole)
-    return QVariant();
-
-  if (orientation == Qt::Horizontal) {
-    switch (section) {
-    case 0:
-      return tr("Icon");
-    case 1:
-      return tr("Item Name");
-    case 2:
-      return tr("Number of items");
-    default:
-      return QVariant();
-    }
-  }
-  return QVariant();
-}
- 
-Qt::ItemFlags ItemSelectedModel::flags(const QModelIndex &index) const
-{
-  if (!index.isValid())
-    return Qt::ItemIsEnabled;
-
-  return Qt::ItemIsSelectable | Qt::ItemIsEnabled | (index.column() == 2 ? Qt::ItemIsEditable : Qt::NoItemFlags);
-}
-
-bool ItemSelectedModel::setData(const QModelIndex & index, const QVariant & value, int role)
-{
-  if (index.isValid() && role == Qt::EditRole) {
-    
-    Q_ASSERT(index.column() == 2 && !_IsOneItem);
-
-    switch (index.column())
-    {
-    case 2:
-      _Status[index.row()].Count = value.toDouble();
-      break;
-    default:
-      return false;
-      break;
-    }
-    emit(dataChanged(index, index));
-    return true;
-  }
-  return false;
-}
-
-std::set<ResourceCalculator::CountsItem> ItemSelectedModel::GetResult(const QModelIndexList& Rows) const
-{
-  std::set<ResourceCalculator::CountsItem> RetVal;
-
-  for (auto& Row: Rows) {
-    if (Row.row() < _Status.size())
-    {
-      ResourceCalculator::CountsItem InsertOne = _Status[Row.row()];
-      RetVal.insert(InsertOne);
-    }
-  }
-  return RetVal;
-}
-
-#pragma endregion MODEL
-
 #pragma region DELEGATE
 
 ItemSelectedDelegate::ItemSelectedDelegate(
@@ -213,15 +57,17 @@ QSize ItemSelectedDelegate::sizeHint(const QStyleOptionViewItem & option, const 
 
 #pragma endregion DELEGATE
 
+//ItemsModel(ResourceCalculator::ItemCollection& IC, ResourceCalculator::RecipeCollection& RC, QObject* parent = 0);
+
 ItemSelectedDialog::ItemSelectedDialog(
-  const ResourceCalculator::ItemCollection& IC,
+  ItemsModel& model,
   const ResourceCalculator::IconCollection& icons,
   ItemSelectedDialogMode Mode,
   const std::set<ResourceCalculator::CountsItem>& select,
   QWidget *parent
 )
   : QDialog( parent )
-  , _Model(IC, select, parent)
+  , _Model(model)
 {
   setMinimumSize(400, 600);
    
@@ -244,7 +90,7 @@ ItemSelectedDialog::ItemSelectedDialog(
     using namespace ResourceCalculator;
     for (const auto& it: select)
     {
-      int row = IC(it.ItemId);
+      int row = _Model.GetIndex(it);
       if ( row >= 0 ) {
         _tableView->selectRow( row );
       }
@@ -271,12 +117,12 @@ ItemSelectedDialog::ItemSelectedDialog(
 }
 
 ItemSelectedDialog::ItemSelectedDialog(
-  const ResourceCalculator::ItemCollection& IC,
+  ItemsModel& model,
   const ResourceCalculator::IconCollection& icons,
   QWidget * parent
 )
   : QDialog(parent)
-  , _Model(IC, parent)
+  , _Model(model)
 {
   setMinimumSize(700, 600);
 
@@ -312,6 +158,10 @@ ItemSelectedDialog::ItemSelectedDialog(
 
 std::set<ResourceCalculator::CountsItem> ItemSelectedDialog::GetResult() const
 {
-  return _Model.GetResult(_tableView->selectionModel()->selectedRows());
+  std::set<ResourceCalculator::CountsItem> keys;
+  const auto indexes_qt = _tableView->selectionModel()->selectedRows();
+  for (auto index: indexes_qt)
+    keys.insert(_Model.GetCountItem(index));
+  return keys;
 }
 

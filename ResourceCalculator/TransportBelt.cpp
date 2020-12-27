@@ -2,30 +2,30 @@
 
 namespace ResourceCalculator {
 
-  int TransportBelt::ReadFromJson(const Json::Value & jsonPr)
-  {
-    _MaxDensity = jsonPr["MaxDensity"].asDouble();
-    _Speed = jsonPr["Speed"].asDouble();
-    ItemBase::ReadFromJson(jsonPr);
-    return 0;
-  }
-
   TransportBelt::TransportBelt():
-    _Speed(0.0),
-    _MaxDensity(0.0)
+    Speed(0.0),
+    MaxDensity(0.0)
   {
   }
 
   double TransportBelt::GetMaxThroughput() const
   {
-    return _MaxDensity * _Speed;
+    return MaxDensity * Speed;
+  }
+
+  int TransportBelt::ReadFromJson(const Json::Value& jsonPr)
+  {
+    MaxDensity = jsonPr["MaxDensity"].asDouble();
+    Speed = jsonPr["Speed"].asDouble();
+    ItemBase::ReadFromJson(jsonPr);
+    return 0;
   }
 
   int TransportBelt::WriteToJson(Json::Value & jsonPr) const
   {
     ItemBase::WriteToJson(jsonPr);
-    jsonPr["MaxDensity"] = _MaxDensity;
-    jsonPr["Speed"] = _Speed;
+    jsonPr["MaxDensity"] = MaxDensity;
+    jsonPr["Speed"] = Speed;
     return 0;
   }
 

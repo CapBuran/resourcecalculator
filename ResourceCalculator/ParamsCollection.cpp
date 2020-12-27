@@ -3,8 +3,8 @@
 namespace ResourceCalculator
 {
   ParamsCollection::ParamsCollection()
-    : IC(RC)
-    , RC(FC.GetTypes())
+    : FTC(FC)
+    , IC(RC)
   {}
 
   int ResourceCalculator::ParamsCollection::ReadFromJson(const Json::Value & jsonPr)
@@ -15,6 +15,7 @@ namespace ResourceCalculator
     RC.ReadFromJson(jsonPr["Recipes"]);
     MC.ReadFromJson(jsonPr["Modules"]);
     TC.ReadFromJson(jsonPr["TransportBelts"]);
+    FTC.ReadFromJson(jsonPr["FactoryTypes"]);
     return 0;
   }
 
@@ -26,6 +27,7 @@ namespace ResourceCalculator
     RC.WriteToJson(jsonPr["Recipes"]);
     MC.WriteToJson(jsonPr["Modules"]);
     TC.WriteToJson(jsonPr["TransportBelts"]);
+    FTC.WriteToJson(jsonPr["FactoryTypes"]);
     return 0;
   }
 }

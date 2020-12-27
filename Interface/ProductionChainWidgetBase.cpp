@@ -13,76 +13,62 @@ QString ToOut(double Value)
 ProductionChainHeaderView::ProductionChainHeaderView(Qt::Orientation orientation, QWidget * parent) :
   QHeaderView(orientation, parent)
 {
-  _MaxHeight = 0;
   setFont(QFont(font().family(), 10));
 }
 
-void ProductionChainHeaderView::paintSection(QPainter * painter, const QRect & rect, int logicalIndex) const
+void ProductionChainHeaderView::paintSection(QPainter* painter, const QRect& rect, int logicalIndex) const
 {
-  QString data = model()->headerData(logicalIndex, orientation()).toString();
+  QString data = model()->headerData(logicalIndex, orientation(), Qt::DisplayRole).toString();
+
+  painter->save();
   painter->rotate(-90);
+  QRect rect2(2 - rect.height(), 2 + rect.left(), rect.height() - 4, rect.width() - 4);
+
   painter->setFont(font());
-  painter->drawText(-rect.height() + 5, rect.left() + rect.width() / 2, data);
+  painter->drawText(rect2, Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, data);
+  painter->restore();
 }
 
-QSize ProductionChainHeaderView::sizeHint() const
+int ProductionChainHeaderView::GetMaxHeight() const
 {
-  int count = model()->columnCount();
-  int MaxWidth = _MaxHeight;
+  const int count = model()->columnCount();
+  QFontMetrics fm(font());
   int MaxHeight = 0;
-  for (int columb = 0; columb < count; columb++) {
+  for (int columb = 0; columb < count; columb++)
+  {
     QString DisplayData = model()->headerData(columb, orientation()).toString();
-    QFontMetrics fm(font());
-    //int width = fm.width(DisplayData) + fm.overlinePos();
-    int width = fm.horizontalAdvance(DisplayData) + fm.overlinePos();
-    if (width >  MaxWidth) {
-      MaxWidth = width;
-      MaxHeight = fm.height();
-    }
+    QRect rect = fm.boundingRect(QRect(0, 0, 150, 50), Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, DisplayData);
+    auto width = rect.width();
+    if (width > MaxHeight) MaxHeight = width;
   }
-  return QSize(MaxHeight, MaxWidth);
-}
 
-int ProductionChainHeaderView::GetMaxHeight()
-{
-  if (_MaxHeight == 0) {
-    _MaxHeight = sizeHint().height();
-  }
-  return _MaxHeight;
-}
-
-void ProductionChainHeaderView::SetMaxHeight(int MaxHeight)
-{
-  _MaxHeight = MaxHeight;
+  return MaxHeight;
 }
 
 QSize ProductionChainHeaderView::sectionSizeFromContents(int logicalIndex) const
 {
   QString DisplayData = model()->headerData(logicalIndex, orientation()).toString();
   QFontMetrics fm(font());
-  //return QSize(fm.height(), fm.width(DisplayData));
   return QSize(fm.height(), fm.horizontalAdvance(DisplayData));
 }
 
-ProductionChainDelegateBase::ProductionChainDelegateBase(const ResourceCalculator::ParamsCollection & PC, QObject * parent) :
-  QStyledItemDelegate(parent), _PC(PC)
+ProductionChainDelegateBase::ProductionChainDelegateBase(const ResourceCalculator::ParamsCollection & PC, QObject * parent)
+  : QStyledItemDelegate(parent)
+  , _PC(PC)
 {
 }
 
-QSize ProductionChainDelegateBase::sizeHint(
-  const QStyleOptionViewItem &option,
-  const QModelIndex &index) const
+QSize ProductionChainDelegateBase::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
   QStyleOptionViewItem optV4(option);
   initStyleOption(&optV4, index);
   QFontMetrics fm(optV4.fontMetrics);
-  //return QSize(fm.width(optV4.text) + fm.overlinePos(), fm.height());
   return QSize(fm.horizontalAdvance(optV4.text) + fm.overlinePos(), fm.height());
 }
 
 #pragma endregion DELEGATE
 
-ProductionChainWidgetBase::ProductionChainWidgetBase(const ResourceCalculator::FullItemTree& tree, QWidget* parent)
+ProductionChainWidgetBase::ProductionChainWidgetBase(const ResourceCalculator::FullItemTree& tree,   QWidget* parent)
   : _PC(tree.GetPC())
   , QSplitter(parent)
 {

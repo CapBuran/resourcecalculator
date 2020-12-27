@@ -2,23 +2,11 @@
 
 namespace ResourceCalculator
 {
-  const std::string emptyString;
-  const std::vector<KEY_ITEM> ChildrensNoFoundItems;
-  const std::vector<KEY_RECIPE> ChildrensNoRecipes;
-
-  const std::string& ResourceCalculator::TreeNodeBase::GetEmptyString()
-  {
-    return emptyString;
-  }
 
   FullItemTree::FullItemTree(const ParamsCollection& PC)
     : _PC(PC)
-    , _items()
-    , _recipes()
-    , _noFoundItem(KEY_ITEM::ID_ITEM_NoFind_Item, ChildrensNoRecipes)
-    , _noFoundRecipe(KEY_RECIPE::ID_RECIPE_NoFindRecipe, ChildrensNoFoundItems)
-    , Indexator<KEY_ITEM, ItemNode::Ptr>(_items)
-    , Indexator<KEY_RECIPE, RecipeNode::Ptr>(_recipes)
+    , _noFoundItem(KEY_ITEM::ID_ITEM_NoFind_Item, _ChildrensNoRecipes, false)
+    , _noFoundRecipe(KEY_RECIPE::ID_RECIPE_NoFindRecipe, _ChildrensNoFoundItems, false)
   {
     Rebuild();
   }
@@ -40,9 +28,9 @@ namespace ResourceCalculator
       for (TYPE_KEY i = 0; i < Size; i++)
       {
         auto ki = _PC.IC(i);
-        _items.insert({ki, std::move(ItemNode::Ptr(new ItemNode(ki, _childrensItems[i])))});
+        _items.insert({ki, std::move(ItemNode::Ptr(new ItemNode(ki, _childrensItems[i], true)))});
       }
-      Indexator<KEY_ITEM, ItemNode::Ptr>::UpdateIndex();
+      //Indexator<KEY_ITEM, ItemNode::Ptr>::UpdateIndex();
     }
 
     {
@@ -54,7 +42,6 @@ namespace ResourceCalculator
         auto& recipe = _PC.RC[kr];
         auto& required = recipe.GetRequired();
         auto& results = recipe.GetResult();
-        auto& childrensItems = _childrensItems[i];
         auto& childrensRecipes = _childrensRecipes[i];
 
         childrensRecipes.resize(required.size());
@@ -63,11 +50,12 @@ namespace ResourceCalculator
         for (auto item_counter: results)
         {
           TYPE_KEY ii = _PC.IC(item_counter.ItemId);
+          auto& childrensItems = _childrensItems[ii];
           _childrensItems[_PC.IC(item_counter.ItemId)].push_back(kr);
         }
-        _recipes.insert({kr, std::move(RecipeNode::Ptr(new RecipeNode(kr, _childrensRecipes[i])))});
+        _recipes.insert({kr, std::move(RecipeNode::Ptr(new RecipeNode(kr, _childrensRecipes[i], true)))});
       }
-      Indexator<KEY_RECIPE, RecipeNode::Ptr>::UpdateIndex();
+      //Indexator<KEY_RECIPE, RecipeNode::Ptr>::UpdateIndex();
     }
   }
 
@@ -89,8 +77,8 @@ namespace ResourceCalculator
     tree._childrensItems = _childrensItems;
     tree._childrensRecipes = _childrensRecipes;
 
-    tree.Indexator<KEY_ITEM, ItemNode::Ptr>::UpdateIndex();
-    tree.Indexator<KEY_RECIPE, RecipeNode::Ptr>::UpdateIndex();
+    //tree.Indexator<KEY_ITEM, ItemNode::Ptr>::UpdateIndex();
+    //tree.Indexator<KEY_RECIPE, RecipeNode::Ptr>::UpdateIndex();
   }
 
 }

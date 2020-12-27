@@ -1,355 +1,8 @@
-#include "FactorysEditDialog.h"
-#include "FactoryTypesEditDialog.h"
-#include "IconSelectedDialog.h"
+#include <FactorysEditDialog.h>
+#include <IconSelectedDialog.h>
+#include <FactoryTypesEditDialog.h>
 
-using QT_KeysFactoryType = std::set<ResourceCalculator::KEY_TYPE_FACTORY>;
-Q_DECLARE_METATYPE(QT_KeysFactoryType);
-
-#pragma region MODELS
-
-#pragma region FactoryTypesViewModel
-
-FactoryTypesViewModel::FactoryTypesViewModel(const ResourceCalculator::FactoryTypeCollection& types, QObject* parent)
-  : QAbstractTableModel(parent)
-  , _types(types)
-{
-}
-
-int FactoryTypesViewModel::rowCount(const QModelIndex & parent) const
-{
-  return _types.Size();
-}
-
-int FactoryTypesViewModel::columnCount(const QModelIndex & parent) const
-{
-  Q_UNUSED(parent);
-  return 1;
-}
-
-QVariant FactoryTypesViewModel::data(const QModelIndex &index, int role) const
-{
-  using namespace ResourceCalculator;
-
-  if (!index.isValid())
-    return QVariant();
-
-  if (index.row() >= _types.Size() || index.row() < 0)
-    return QVariant();
-
-  if (role == Qt::DisplayRole) {
-    switch (index.column())
-    {
-    case 0:
-      return QString::fromStdString(_types.GetFactoryType(_types(index.row())).Name);
-      break;
-    default:
-      return QVariant();
-      break;
-    }
-  }
-  return QVariant();
-}
-
-QVariant FactoryTypesViewModel::headerData(int section, Qt::Orientation orientation, int role) const
-{
-  if (role != Qt::DisplayRole)
-    return QVariant();
-
-  if (orientation == Qt::Horizontal) {
-    switch (section) {
-    case 0:
-      return tr("Factory type name");
-    default:
-      return QVariant();
-    }
-  }
-  return QVariant();
-}
-
-Qt::ItemFlags FactoryTypesViewModel::flags(const QModelIndex & index) const
-{
-  if (!index.isValid())
-    return Qt::ItemIsEnabled;
-
-  return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
-}
-
-std::set<ResourceCalculator::KEY_TYPE_FACTORY> FactoryTypesViewModel::GetFactoryTypes(QModelIndexList select) const
-{
-  std::set<ResourceCalculator::KEY_TYPE_FACTORY> RetVal;
-
-  for (auto& row : select) {
-    if (row.row() < _types.Size())
-    {
-      RetVal.insert(_types(row.row()));
-    }
-  }
-  return RetVal;
-}
-
-QSet<int> FactoryTypesViewModel::GetSelectedRows(std::set<ResourceCalculator::KEY_TYPE_FACTORY> result) const
-{
-  QSet<int> retval;
-  for(ResourceCalculator::KEY_TYPE_FACTORY key: result )
-  {
-    retval.insert(_types(key));
-  }
-  return retval;
-}
-
-#pragma endregion FactoryTypesViewModel
-
-#pragma region FactorysEditDialogModel
-
-FactorysEditDialogModel::FactorysEditDialogModel(ResourceCalculator::FactoryCollection& FC, QObject *parent) :
-  QAbstractTableModel(parent), _FC(FC)
-{
-  Select();
-}
-
-int FactorysEditDialogModel::rowCount(const QModelIndex &parent) const
-{
-  Q_UNUSED(parent);
-  return _FC_Edit.Size();
-}
-
-int FactorysEditDialogModel::columnCount(const QModelIndex &parent) const
-{
-  Q_UNUSED(parent);
-  return 7;
-}
-
-QVariant FactorysEditDialogModel::data(const QModelIndex &index, int role) const
-{
-  using namespace ResourceCalculator;
-
-  if (!index.isValid())
-    return QVariant();
-
-  if (index.row() >= _FC_Edit.Size() || index.row() < 0)
-    return QVariant();
-
-  const Factory &factory = _FC_Edit.GetFactory(_FC_Edit(index.row()));
-
-  if (role == Qt::DisplayRole && 0 <= index.column() && index.column() <= 6) {
-    switch (index.column()) {
-    case 0:
-      return QString::fromStdString(factory.GetIconKey());
-      break;
-    case 1:
-      return QString::fromStdString(factory.GetName());
-      break;
-    case 2:
-    {
-      QVariant ret; ret.setValue<QT_KeysFactoryType>(factory.GetTypes());
-      return ret;
-      break;
-    }
-    case 3:
-      return QVariant::fromValue(factory.GetSpeed());
-      break;
-    case 4:
-      return QVariant::fromValue(factory.GetPower());
-      break;
-    case 5:
-      return QVariant::fromValue(factory.GetCountSlotsForRecipes());
-      break;
-    case 6:
-      return QVariant::fromValue(factory.GetCountSlotsForModules());
-      break;
-    default:
-      return QVariant();
-      break;
-    }
-  }
-  return QVariant();
-}
-
-QVariant FactorysEditDialogModel::headerData(int section, Qt::Orientation orientation, int role) const
-{
-  if (role != Qt::DisplayRole)
-    return QVariant();
-
-  if (orientation == Qt::Horizontal) {
-    switch (section) {
-    case 0:
-      return tr("Icon");
-    case 1:
-      return tr("Factory name");
-    case 2:
-      return tr("Factory types");
-    case 3:
-      return tr("Speed");
-    case 4:
-      return tr("Drilling power");
-    case 5:
-      return tr("Slots for recipe");
-    case 6:
-      return tr("Slots for modules");
-    default:
-      return QVariant();
-    }
-  }
-  return QVariant();
-}
-
-bool FactorysEditDialogModel::insertRows(int position, int rows, const QModelIndex &index)
-{
-  Q_ASSERT(position + rows - 1 >= 0);
-  Q_UNUSED(index);
-  beginInsertRows(QModelIndex(), position, position + rows - 1);
-  for (int row = 0; row < rows; ++row) {
-    using namespace ResourceCalculator;
-    KEY_FACTORY NewKey = _FC_Edit.NewKey();
-    QString Name(tr("New factory") + QString(' ') + QString::number(static_cast<KEY_TO_Json>(NewKey)));
-    std::pair<KEY_FACTORY, Factory > ToADD;
-    ToADD.first = NewKey;
-    ToADD.second.SetName(Name.toStdString());
-    ToADD.second.SetKey(NewKey);
-    _FC_Edit.AddFactorys({ ToADD });
-  }
-  endInsertRows();
-  return true;
-}
-
-bool FactorysEditDialogModel::removeRows(int position, int rows, const QModelIndex &index)
-{
-  Q_UNUSED(index);
-  beginRemoveRows(QModelIndex(), position, position + rows - 1);
-
-  std::set<ResourceCalculator::KEY_FACTORY> factoresKey;
-
-  for (int row = 0; row < rows; ++row) {
-    factoresKey.insert(_FC_Edit(row));
-  }
-  _FC_Edit.DeleteFactorys(factoresKey);
-
-  endRemoveRows();
-
-  return true;
-}
-
-Qt::ItemFlags FactorysEditDialogModel::flags(const QModelIndex &index) const
-{
-  if (!index.isValid())
-    return Qt::ItemIsEnabled;
-
-  Qt::ItemFlags RetValue = Qt::ItemIsSelectable | Qt::ItemIsEnabled;
-
-  switch (index.column()) {
-  case 1:
-  case 2:
-  case 3:
-  case 4:
-  case 5:
-  case 6:
-    RetValue |= Qt::ItemIsEditable;
-    break;
-  default:
-    break;
-  }
-  return RetValue;
-}
-
-void FactorysEditDialogModel::Commit()
-{
-  _FC = _FC_Edit;
-  Select();
-}
-
-void FactorysEditDialogModel::Select()
-{
-  _FC_Edit = _FC;
-}
-
-const ResourceCalculator::Factory& FactorysEditDialogModel::GetCurrentFactory(int row) const
-{
-  return _FC_Edit.GetFactory(_FC_Edit(row));
-}
-
-const ResourceCalculator::FactoryTypeCollection& FactorysEditDialogModel::GetTypesData() const
-{
-  return _FC_Edit.GetTypes();
-}
-
-std::set<ResourceCalculator::KEY_TYPE_FACTORY> FactorysEditDialogModel::GetFactoryTypes(QModelIndexList select) const
-{
-  return std::set<ResourceCalculator::KEY_TYPE_FACTORY>();
-}
-
-bool FactorysEditDialogModel::setData(const QModelIndex & index, const QVariant & value, int role)
-{
-  if (index.isValid() && role == Qt::EditRole) {
-    ResourceCalculator::Factory& factory = _FC_Edit.GetFactoryForEdit(_FC_Edit(index.row()));
-    switch (index.column()) {
-    case 0:
-    {
-      QString str = value.toString();
-      std::string d = str.toStdString();
-      if (str.size() > 0) {
-        factory.SetIconKey(str.toStdString());
-      }
-      break;
-    }
-    case 1:
-    {
-      QString str = value.toString();
-      if (str.size() > 0) {
-        factory.SetName(str.toStdString());
-      }
-      break;
-    }
-    case 2:
-    {
-      const QT_KeysFactoryType& types = value.value<QT_KeysFactoryType>();
-      factory.SetTypes(types);
-    }
-    break;
-    case 3:
-    {
-      double d = value.toDouble();
-      if (d >= 0.0) {
-        factory.SetSpeed(d);
-      }
-    }
-    break;
-    case 4:
-    {
-      double d = value.toDouble();
-      if (d >= 0.0) {
-        factory.SetPower(d);
-      }
-    }
-    break;
-    case 5:
-    {
-      int d = value.toInt();
-      if (d >= 0.0) {
-        factory.SetCountSlotsForRecipes(d);
-      }
-    }
-    break;
-    case 6:
-    {
-      int d = value.toInt();
-      if (d >= 0.0) {
-        factory.SetCountSlotsForModules(d);
-      }
-    }
-    break;
-    default:
-      return false;
-      break;
-    }
-    emit(dataChanged(index, index));
-    return true;
-  }
-  return false;
-}
-
-#pragma endregion FactorysEditDialogModel
-
-#pragma endregion MODELS
+#include <FactorysModel.h>
 
 #pragma region DELEGATES
 
@@ -394,13 +47,13 @@ void FactorysEditDialogDelegate::paint(QPainter * painter, const QStyleOptionVie
   case 2:
   {
     const QT_KeysFactoryType& types = index.data().value<QT_KeysFactoryType>();
-    const FactorysEditDialogModel& model = dynamic_cast<const FactorysEditDialogModel&>(*index.model());
+    const FactorysModel& model = dynamic_cast<const FactorysModel&>(*index.model());
     const auto& FTC = model.GetTypesData();
     QString Text = types.empty() ? tr("Types not set!") : "";
     for (const auto& type: types)
     {
       if (!Text.isEmpty()) Text += tr(", ");
-      Text += QString::fromStdString(FTC.GetFactoryType(type).Name);
+      Text += QString::fromStdString(FTC[type].GetName());
     }
     QStyleOptionButton button;
     button.text = Text;
@@ -421,13 +74,13 @@ QSize FactorysEditDialogDelegate::sizeHint(const QStyleOptionViewItem& option, c
   if (index.column() == 2)
   {
     const QT_KeysFactoryType& types = index.data().value<QT_KeysFactoryType>();
-    const FactorysEditDialogModel& model = dynamic_cast<const FactorysEditDialogModel&>(*index.model());
+    const FactorysModel& model = dynamic_cast<const FactorysModel&>(*index.model());
     const auto& FTC = model.GetTypesData();
     QString Text = types.empty() ? tr("Types not set!") : "";
     for (const auto& type : types)
     {
       if (!Text.isEmpty()) Text += ", ";
-      Text += QString::fromStdString(FTC.GetFactoryType(type).Name);
+      Text += QString::fromStdString(FTC[type].GetName());
     }
     QFontMetrics fm(option.font);
     int width = fm.horizontalAdvance(Text) + fm.overlinePos();
@@ -455,15 +108,15 @@ bool FactorysEditDialogDelegate::editorEvent(QEvent * event, QAbstractItemModel*
     }
     case 2:
     {
-      const QT_KeysFactoryType& types = index.data().value<QT_KeysFactoryType>();
-      FactorysEditDialogModel& modelFactory = dynamic_cast<FactorysEditDialogModel&>(*model);
-      FactoryTypesViewModel modelFactoryTypesReadOnly(modelFactory.GetTypesData());
-      FactorysTypesSelectedDialog dialog(modelFactoryTypesReadOnly, true, nullptr);
-      dialog.SetResult(types);
-      if (dialog.exec()) {
-        QVariant V; V.setValue<QT_KeysFactoryType>(dialog.GetResult());
-        modelFactory.setData(index, V);
-      }
+      //const QT_KeysFactoryType& types = index.data().value<QT_KeysFactoryType>();
+      //FactorysEditDialogModel& modelFactory = dynamic_cast<FactorysEditDialogModel&>(*model);
+      //FactoryTypesViewModel modelFactoryTypesReadOnly(modelFactory.GetTypesData());
+      //FactorysTypesSelectedDialog dialog(modelFactoryTypesReadOnly, true, nullptr);
+      //dialog.SetResult(types);
+      //if (dialog.exec()) {
+      //  QVariant V; V.setValue<QT_KeysFactoryType>(dialog.GetResult());
+      //  modelFactory.setData(index, V);
+      //}
     }
       break;
     default:
@@ -479,16 +132,14 @@ bool FactorysEditDialogDelegate::editorEvent(QEvent * event, QAbstractItemModel*
 #pragma endregion DELEGATES
 
 FactorysEditDialog::FactorysEditDialog(
-  ResourceCalculator::FactoryCollection& FC,
-  ResourceCalculator::IconCollection& IC,
+  ResourceCalculator::FactoryTypeCollection& FTC,
+  const ResourceCalculator::IconCollection& IC,
   QWidget *parent
 )
   : QDialog(parent)
-  , _FC(FC)
-  , _IC(IC)
-  , _Model(FC, parent)
-  //, _modelForComboBox(_Model, parent)
+  , _Model(FTC, parent)
   , _Delegate(IC, parent)
+  , _IC(IC)
 {
   setMinimumSize(1000, 600);
 
@@ -562,16 +213,16 @@ void FactorysEditDialog::add_item()
 
 void FactorysEditDialog::typesFactory()
 {
-  FactoryTypesEditDialog FTED(_FC, _IC, this);
+  FactoryTypesEditDialog FTED(_Model.GetTypesData(), _IC, this);
   if (FTED.exec()) {
     FTED.Commit();
-    //_modelForComboBox->Select();
   }
 }
 
-FactorysTypesSelectedDialog::FactorysTypesSelectedDialog(FactoryTypesViewModel& model, bool isMultiSelect, QWidget* parent)
+FactorysTypesSelectedDialog::FactorysTypesSelectedDialog(FactoryTypesModel& model, const ResourceCalculator::IconCollection& IC, bool isMultiSelect, QWidget* parent)
   : QDialog(parent)
   , _Model(model)
+  , _IC(IC)
   , _isMultiSelect(isMultiSelect)
 {
   setMinimumSize(700, 600);
@@ -610,14 +261,16 @@ FactorysTypesSelectedDialog::FactorysTypesSelectedDialog(FactoryTypesViewModel& 
 
 std::set<ResourceCalculator::KEY_TYPE_FACTORY> FactorysTypesSelectedDialog::GetResult() const
 {
-  return _Model.GetFactoryTypes(_tableView->selectionModel()->selectedRows());
+  std::set<ResourceCalculator::TYPE_KEY> indexes;
+  const auto indexes_qt = _tableView->selectionModel()->selectedRows();
+  for (auto index: indexes_qt)
+    indexes.insert(static_cast<ResourceCalculator::TYPE_KEY>(index.row()));
+  return _Model.GetRawData().ConvertToKey(indexes);
 }
 
 void FactorysTypesSelectedDialog::SetResult(std::set<ResourceCalculator::KEY_TYPE_FACTORY> result)
 {
-  QSet<int> indexses = _Model.GetSelectedRows(result);
-  for (int index: indexses)
-  {
-    if(index >= 0) _tableView->selectRow(index);
-  }
+  std::set<ResourceCalculator::TYPE_KEY> indexses = _Model.GetRawData().ConvertToIndex(result);
+  for (auto index: indexses)
+    _tableView->selectRow(static_cast<int>(index));
 }

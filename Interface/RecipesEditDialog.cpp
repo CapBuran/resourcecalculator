@@ -3,231 +3,17 @@
 #include "IconSelectedDialog.h"
 #include "FactorysEditDialog.h"
 
-#pragma region MODEL
-
-using QT_CountsItem = std::set<ResourceCalculator::CountsItem>;
-Q_DECLARE_METATYPE(QT_CountsItem);
-using QT_KeysFactoryType = std::set<ResourceCalculator::KEY_TYPE_FACTORY>;
-Q_DECLARE_METATYPE(QT_KeysFactoryType);
-
-RecipeListModel::RecipeListModel(
-  ResourceCalculator::RecipeCollection& RC,
-  const ResourceCalculator::ItemCollection& IC,
-  QObject *parent)
-  : QAbstractTableModel(parent)
-  , _RC(RC)
-  , _IC(IC)
-  , _RC_EDIT(RC.GetFactoryTypes())
-{
-  Select();
-}
-
-int RecipeListModel::rowCount(const QModelIndex &parent) const
-{
-  Q_UNUSED(parent);
-  return _RC_EDIT.Size();
-}
-
-int RecipeListModel::columnCount(const QModelIndex &parent) const
-{
-  Q_UNUSED(parent);
-  return 6;
-}
-
-QVariant RecipeListModel::data(const QModelIndex &index, int role) const
-{
-  using namespace ResourceCalculator;
-  if (!index.isValid())
-    return QVariant();
-  if (index.row() >= _RC_EDIT.Size() || index.row() < 0)
-    return QVariant();
-  if (role == Qt::DisplayRole) {
-    const Recipe& R = _RC_EDIT[_RC_EDIT(index.row())];
-    switch (index.column()) {
-    case 0://Icon
-      return QString::fromStdString(R.GetIconKey());
-      break;
-    case 1://Recipe name
-      return QString::fromStdString(R.GetName());
-      break;
-    case 2://Recipe time
-      return QString::number(R.GetTime());
-      break;
-    case 3://Result of recipe
-    {
-      const QT_CountsItem &CI = R.GetResult();
-      QVariant ret; ret.setValue<QT_CountsItem>(CI);
-      return ret;
-      break;
-    }
-    case 4://Ingredients of the recipe
-    {
-      const QT_CountsItem &CI = R.GetRequired();
-      QVariant ret; ret.setValue<QT_CountsItem>(CI);
-      return ret;
-      break;
-    }
-    case 5://Allowed factories
-    {
-      return QVariant(static_cast<int>(R.GetTypeFactory()));
-      break;
-    }
-    default:
-      return QVariant();
-      break;
-    }
-  }
-  return QVariant();
-}
-
-QVariant RecipeListModel::headerData(int section, Qt::Orientation orientation, int role) const
-{
-  if (role != Qt::DisplayRole)
-    return QVariant();
-  if (orientation == Qt::Horizontal) {
-    switch (section) {
-    case 0:
-      return tr("Icon");
-    case 1:
-      return tr("Recipe name");
-    case 2:
-      return tr("Recipe time");
-    case 3:
-      return tr("Result of recipe");
-    case 4:
-      return tr("Ingredients of the recipe");
-    case 5:
-      return tr("Allowed factories");
-    default:
-      return QVariant();
-    }
-  }
-  return QVariant();
-}
-
-Qt::ItemFlags RecipeListModel::flags(const QModelIndex &index) const
-{
-  if (!index.isValid())
-    return Qt::ItemIsEnabled;
-  return QAbstractTableModel::flags(index) | Qt::ItemIsEditable;
-}
-
-bool RecipeListModel::setData(const QModelIndex &index, const QVariant &value, int role)
-{
-  if (index.isValid() && role == Qt::EditRole) {
-    using namespace ResourceCalculator;
-    Recipe& R = _RC_EDIT[_RC(index.row())];
-
-    switch (index.column()) {
-    case 0://Icon
-    {
-      R.SetIconKey(value.toString().toStdString());
-      break;
-    }
-    case 1://Recipe name
-    {
-      QString Name = value.toString();
-      if (Name.length() > 0) {
-        R.SetName(Name.toStdString());
-      }
-      break;
-    }
-    case 2://Recipe time
-    {
-      double Value = value.toDouble();
-      if (Value >= 0) {
-        R.SetTime(Value);
-      }
-      break;
-    }
-    case 3://Result of recipe
-    {
-      const QT_CountsItem &CI = value.value<QT_CountsItem>();
-      R.SetResult(CI);
-      break;
-    }
-    case 4://Ingredients of the recipe
-    {
-      const QT_CountsItem &CI = value.value<QT_CountsItem>();
-      R.SetRequired(CI);
-      break;
-    }
-    case 5://Allowed factory
-    {
-      int Value = value.toInt();
-      if (Value >= 0) {
-        R.SetTypeFactory(static_cast< KEY_TYPE_FACTORY >(Value));
-      }
-      break;
-    }
-    default:
-      return false;
-      break;
-    }
-    emit(dataChanged(index, index));
-    return true;
-  }
-  return false;
-}
-
-bool RecipeListModel::insertRows(int position, int rows, const QModelIndex &index)
-{
-  Q_UNUSED(index);
-  beginInsertRows(QModelIndex(), position, position + rows - 1);
-  for (int row = 0; row < rows; ++row) {
-    using namespace ResourceCalculator;
-    const KEY_RECIPE NewKey = _RC_EDIT.NewKey();
-    QString Name(tr("New recipe") + ' ' + QString::number(static_cast<KEY_TO_Json>(NewKey)));
-    Recipe ToADD;
-    ToADD.SetKey(NewKey);
-    ToADD.SetName(Name.toStdString());
-    ToADD.SetTypeFactory(KEY_TYPE_FACTORY::Unknown);
-    _RC_EDIT.Add(ToADD);
-  }
-  endInsertRows();
-  return true;
-}
-
-bool RecipeListModel::removeRows(int position, int rows, const QModelIndex &index)
-{
-  beginResetModel();
-  using namespace ResourceCalculator;
-  std::set<KEY_RECIPE> ToDelete;
-  for (int row = 0; row < rows; ++row) {
-    ToDelete.insert(_RC(position + row));
-  }
-  bool retval = _RC_EDIT.Delete(ToDelete);
-  endResetModel();
-  return retval;
-}
-
-void RecipeListModel::Commit()
-{
-  _RC = _RC_EDIT;
-}
-
-void RecipeListModel::Select()
-{
-  _RC_EDIT = _RC;
-}
-
-const ResourceCalculator::FactoryTypeCollection& RecipeListModel::GetFactoryTypes() const
-{
-  return _RC_EDIT.GetFactoryTypes();
-}
-
-const ResourceCalculator::ItemCollection& RecipeListModel::GetItems() const
-{
-  return _IC;
-}
-
-#pragma endregion MODEL
-
 #pragma region DELEGATE
 
-RecipesEditDelegate::RecipesEditDelegate(const ResourceCalculator::IconCollection& icons, QObject *parent)
+RecipesEditDelegate::RecipesEditDelegate(
+  const ResourceCalculator::IconCollection& icons,
+  FactoryTypesModel& factoryTypesModel, 
+  ItemsModel& itemModel,
+  QObject *parent)
   : QStyledItemDelegate(parent)
   , _Icons(icons)
+  , _FactoryTypesModel(factoryTypesModel)
+  , _ItemModel(itemModel)
 {
 }
 
@@ -271,10 +57,10 @@ void RecipesEditDelegate::paint(QPainter* painter, const QStyleOptionViewItem& o
   case 5:
   {
     ResourceCalculator::KEY_TYPE_FACTORY keyFactory = static_cast<ResourceCalculator::KEY_TYPE_FACTORY>(index.data().toInt());
-    const RecipeListModel& model = dynamic_cast<const RecipeListModel&>(*index.model());
+    const RecipesModel& model = dynamic_cast<const RecipesModel&>(*index.model());
 
     QStyleOptionButton button;
-    button.text = QString::fromStdString(model.GetFactoryTypes().GetFactoryType(keyFactory).Name);
+    button.text = QString::fromStdString(model.GetFactoryTypes()[keyFactory].GetName());
     button.rect = option.rect;
     button.state = QStyle::State_Enabled;
     QApplication::style()->drawControl(QStyle::CE_PushButton, &button, painter, 0);
@@ -305,8 +91,8 @@ bool RecipesEditDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, 
     }
     case 3:
     {
-      const RecipeListModel& modelRecipes = dynamic_cast<const RecipeListModel&>(*index.model());
-      ItemSelectedDialog _ItemSelectedDialog(modelRecipes.GetItems(), _Icons, ItemSelectedDialogMode::ForRecipeSelectItemsResult, model->data(index).value<QT_CountsItem>(), nullptr);
+      const RecipesModel& modelRecipes = dynamic_cast<const RecipesModel&>(*index.model());
+      ItemSelectedDialog _ItemSelectedDialog(_ItemModel, _Icons, ItemSelectedDialogMode::ForRecipeSelectItemsResult, model->data(index).value<QT_CountsItem>(), nullptr);
       if (_ItemSelectedDialog.exec()) {
         QVariant V; V.setValue<QT_CountsItem>(_ItemSelectedDialog.GetResult());
         model->setData(index, V);
@@ -316,9 +102,9 @@ bool RecipesEditDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, 
     }
     case 4:
     {
-      const RecipeListModel& modelRecipes = dynamic_cast<const RecipeListModel&>(*index.model());
+      const RecipesModel& modelRecipes = dynamic_cast<const RecipesModel&>(*index.model());
 
-      ItemSelectedDialog _ItemSelectedDialog(modelRecipes.GetItems(), _Icons, ItemSelectedDialogMode::ForRecipeSelectItemsRequired, model->data(index).value<QT_CountsItem>(), nullptr);
+      ItemSelectedDialog _ItemSelectedDialog(_ItemModel, _Icons, ItemSelectedDialogMode::ForRecipeSelectItemsRequired, model->data(index).value<QT_CountsItem>(), nullptr);
       if (_ItemSelectedDialog.exec()) {
         QVariant V; V.setValue<QT_CountsItem>(_ItemSelectedDialog.GetResult());
         model->setData(index, V);
@@ -328,9 +114,8 @@ bool RecipesEditDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, 
     }
     case 5:
     {
-      const RecipeListModel& modelRecipes = dynamic_cast<const RecipeListModel&>(*index.model());
-      FactoryTypesViewModel model2(modelRecipes.GetFactoryTypes(), nullptr);
-      FactorysTypesSelectedDialog factorysTypesSelectedDialog(model2, false, nullptr);
+      const RecipesModel& modelRecipes = dynamic_cast<const RecipesModel&>(*index.model());
+      FactorysTypesSelectedDialog factorysTypesSelectedDialog(_FactoryTypesModel, _Icons, false, nullptr);
       QVariant V = model->data(index);
       factorysTypesSelectedDialog.SetResult({static_cast<ResourceCalculator::KEY_TYPE_FACTORY>(V.value<int>())});
       if (factorysTypesSelectedDialog.exec())
@@ -352,9 +137,16 @@ bool RecipesEditDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, 
 
 #pragma endregion DELEGATE
 
-RecipesEditDialog::RecipesEditDialog(ResourceCalculator::RecipeCollection& RC, const ResourceCalculator::ItemCollection& IC, const ResourceCalculator::IconCollection& icons, QWidget *parent)
+RecipesEditDialog::RecipesEditDialog(
+  ResourceCalculator::RecipeCollection& RC,
+  ResourceCalculator::ItemCollection& IC,
+  const ResourceCalculator::IconCollection& icons,
+  ResourceCalculator::FactoryTypeCollection& FTC,
+  QWidget *parent)
   : QDialog(parent)
-  , _Model(RC, IC, parent)
+  , _Model(RC, IC, FTC, parent)
+  , _FactoryTypesModel(FTC)
+  , _ItemModel(IC)
 {
   setMinimumSize(1000, 600);
 
@@ -365,7 +157,7 @@ RecipesEditDialog::RecipesEditDialog(ResourceCalculator::RecipeCollection& RC, c
 
   _tableView = new QTableView();
   _tableView->setModel(&_Model);
-  _tableView->setItemDelegate(new RecipesEditDelegate(icons, _tableView));
+  _tableView->setItemDelegate(new RecipesEditDelegate(icons, _FactoryTypesModel, _ItemModel, _tableView));
   _tableView->setSelectionMode(QTableView::SelectionMode::MultiSelection);
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
