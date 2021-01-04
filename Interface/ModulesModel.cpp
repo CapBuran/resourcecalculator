@@ -129,7 +129,7 @@ bool ModulesModel::removeRows( int position, int rows, const QModelIndex & index
   beginRemoveRows( QModelIndex(), position, position + rows - 1 );
   for (int row = 0; row < rows; ++row)
   {
-    _MC_EDIT.Delete({ _MC_EDIT(row) });
+    _MC_EDIT.Delete({ _MC_EDIT(position + row) });
   }
   endRemoveRows();
   return true;  

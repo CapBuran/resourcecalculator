@@ -117,7 +117,7 @@ bool FactorysModel::removeRows(int position, int rows, const QModelIndex& index)
   std::set<ResourceCalculator::KEY_FACTORY> factoryKeys;
 
   for (int row = 0; row < rows; ++row) {
-    factoryKeys.insert(_FC_Edit(row));
+    factoryKeys.insert(_FC_Edit(row + position));
   }
 
   _FC_Edit.Delete(factoryKeys);

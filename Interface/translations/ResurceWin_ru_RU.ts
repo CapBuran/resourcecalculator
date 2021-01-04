@@ -49,17 +49,17 @@
     <message>
         <location filename="../FactorysTypesModel.cpp" line="57"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../FactorysTypesModel.cpp" line="59"/>
         <source>Factory type name</source>
-        <translation type="unfinished"></translation>
+        <translation>Тип фабрики</translation>
     </message>
     <message>
         <location filename="../FactorysTypesModel.cpp" line="74"/>
         <source>New type factory</source>
-        <translation type="unfinished">Новый тип фабрики</translation>
+        <translation>Новый тип фабрики</translation>
     </message>
 </context>
 <context>
@@ -156,42 +156,42 @@
     <message>
         <location filename="../FactorysModel.cpp" line="74"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../FactorysModel.cpp" line="76"/>
         <source>Factory name</source>
-        <translation type="unfinished">Название фабрики</translation>
+        <translation>Название фабрики</translation>
     </message>
     <message>
         <location filename="../FactorysModel.cpp" line="78"/>
         <source>Factory types</source>
-        <translation type="unfinished">Типы фабрик</translation>
+        <translation>Типы фабрик</translation>
     </message>
     <message>
         <location filename="../FactorysModel.cpp" line="80"/>
         <source>Speed</source>
-        <translation type="unfinished">Скорость</translation>
+        <translation>Скорость</translation>
     </message>
     <message>
         <location filename="../FactorysModel.cpp" line="82"/>
         <source>Drilling power</source>
-        <translation type="unfinished">Мщность бура</translation>
+        <translation>Мщность бура</translation>
     </message>
     <message>
         <location filename="../FactorysModel.cpp" line="84"/>
         <source>Slots for recipe</source>
-        <translation type="unfinished">Кол-во слотов для предметов</translation>
+        <translation>Кол-во слотов для предметов</translation>
     </message>
     <message>
         <location filename="../FactorysModel.cpp" line="86"/>
         <source>Slots for modules</source>
-        <translation type="unfinished">Кол-во слотов для модулей</translation>
+        <translation>Кол-во слотов для модулей</translation>
     </message>
     <message>
         <location filename="../FactorysModel.cpp" line="102"/>
         <source>New factory</source>
-        <translation type="unfinished">Новая фабрика</translation>
+        <translation>Новая фабрика</translation>
     </message>
 </context>
 <context>
@@ -363,32 +363,32 @@
     <message>
         <location filename="../ItemsModel.cpp" line="65"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../ItemsModel.cpp" line="67"/>
         <source>Item Name</source>
-        <translation type="unfinished">Название</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="../ItemsModel.cpp" line="69"/>
         <source>Is a liquid or gas</source>
-        <translation type="unfinished">Жидкость/Газ</translation>
+        <translation>Жидкость/Газ</translation>
     </message>
     <message>
         <location filename="../ItemsModel.cpp" line="71"/>
         <source>Mining hardness</source>
-        <translation type="unfinished">Трудность добычи</translation>
+        <translation>Трудность добычи</translation>
     </message>
     <message>
         <location filename="../ItemsModel.cpp" line="73"/>
         <source>Count</source>
-        <translation type="unfinished"></translation>
+        <translation>Количество</translation>
     </message>
     <message>
         <location filename="../ItemsModel.cpp" line="138"/>
         <source>New item</source>
-        <translation type="unfinished">Новый предмет</translation>
+        <translation>Новый предмет</translation>
     </message>
 </context>
 <context>
@@ -526,17 +526,17 @@
     <message>
         <location filename="../ModuleSelectDialog.cpp" line="158"/>
         <source>OK</source>
-        <translation type="unfinished">Ок</translation>
+        <translation>Ок</translation>
     </message>
     <message>
         <location filename="../ModuleSelectDialog.cpp" line="159"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <location filename="../ModuleSelectDialog.cpp" line="182"/>
         <source>Select modules for factory</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберете модули и их количество</translation>
     </message>
 </context>
 <context>
@@ -544,17 +544,17 @@
     <message>
         <location filename="../ModuleSelectDialog.cpp" line="42"/>
         <source>Empty slot</source>
-        <translation type="unfinished"></translation>
+        <translation>Пустой слот</translation>
     </message>
     <message>
         <location filename="../ModuleSelectDialog.cpp" line="69"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../ModuleSelectDialog.cpp" line="71"/>
         <source>Module name</source>
-        <translation type="unfinished"></translation>
+        <translation>Название модуля</translation>
     </message>
 </context>
 <context>
@@ -562,27 +562,27 @@
     <message>
         <location filename="../ModulesEditDialog.cpp" line="279"/>
         <source>OK</source>
-        <translation type="unfinished">Ок</translation>
+        <translation>Ок</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="280"/>
         <source>Add</source>
-        <translation type="unfinished">Добавить</translation>
+        <translation>Добавить</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="281"/>
         <source>Remove</source>
-        <translation type="unfinished">Удалить</translation>
+        <translation>Удалить</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="282"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="309"/>
         <source>Edit modules</source>
-        <translation type="unfinished"></translation>
+        <translation>Редактор модулей</translation>
     </message>
 </context>
 <context>
@@ -590,37 +590,37 @@
     <message>
         <location filename="../ModulesModel.cpp" line="68"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../ModulesModel.cpp" line="70"/>
         <source>Module name</source>
-        <translation type="unfinished"></translation>
+        <translation>Имя модуля</translation>
     </message>
     <message>
         <location filename="../ModulesModel.cpp" line="72"/>
         <source>Coefficient pollution</source>
-        <translation type="unfinished"></translation>
+        <translation>Коэфициент загрязнения</translation>
     </message>
     <message>
         <location filename="../ModulesModel.cpp" line="74"/>
         <source>Coefficient effectiveness</source>
-        <translation type="unfinished"></translation>
+        <translation>Кофициент эффективности</translation>
     </message>
     <message>
         <location filename="../ModulesModel.cpp" line="76"/>
         <source>Coefficient speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Коеффициент скорости</translation>
     </message>
     <message>
         <location filename="../ModulesModel.cpp" line="78"/>
         <source>Coefficient productivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Коеффициент продуктивности</translation>
     </message>
     <message>
         <location filename="../ModulesModel.cpp" line="104"/>
         <source>New module</source>
-        <translation type="unfinished"></translation>
+        <translation>Новый модуль</translation>
     </message>
 </context>
 <context>
@@ -629,19 +629,19 @@
         <location filename="../ModulesSelectDialog.cpp" line="199"/>
         <location filename="../ModulesSelectDialog.cpp" line="230"/>
         <source>OK</source>
-        <translation type="unfinished">Ок</translation>
+        <translation>Ок</translation>
     </message>
     <message>
         <location filename="../ModulesSelectDialog.cpp" line="200"/>
         <location filename="../ModulesSelectDialog.cpp" line="231"/>
         <source>Cancel</source>
-        <translation type="unfinished">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
     <message>
         <location filename="../ModulesSelectDialog.cpp" line="218"/>
         <location filename="../ModulesSelectDialog.cpp" line="252"/>
         <source>Select modules for factory</source>
-        <translation type="unfinished"></translation>
+        <translation>Выберете модули для фабрики</translation>
     </message>
 </context>
 <context>
@@ -649,17 +649,17 @@
     <message>
         <location filename="../ModulesSelectDialog.cpp" line="57"/>
         <source>Empty slot</source>
-        <translation type="unfinished"></translation>
+        <translation>Пустой слот</translation>
     </message>
     <message>
         <location filename="../ModulesSelectDialog.cpp" line="77"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../ModulesSelectDialog.cpp" line="79"/>
         <source>Module name</source>
-        <translation type="unfinished"></translation>
+        <translation>Название модуля</translation>
     </message>
 </context>
 <context>
@@ -667,37 +667,37 @@
     <message>
         <location filename="../ModulesEditDialog.cpp" line="71"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="73"/>
         <source>Module name</source>
-        <translation type="unfinished"></translation>
+        <translation>Название модуля</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="75"/>
         <source>Coefficient pollution</source>
-        <translation type="unfinished"></translation>
+        <translation>Коэфициент загрязнения</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="77"/>
         <source>Coefficient effectiveness</source>
-        <translation type="unfinished"></translation>
+        <translation>Кофициент эффективности</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="79"/>
         <source>Coefficient speed</source>
-        <translation type="unfinished"></translation>
+        <translation>Коеффициент скорости</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="81"/>
         <source>Coefficient productivity</source>
-        <translation type="unfinished"></translation>
+        <translation>Коеффициент продуктивности</translation>
     </message>
     <message>
         <location filename="../ModulesEditDialog.cpp" line="107"/>
         <source>New module</source>
-        <translation type="unfinished"></translation>
+        <translation>Новй модуль</translation>
     </message>
 </context>
 <context>
@@ -791,12 +791,12 @@
     <message>
         <location filename="../ProductionChainTreeModel.cpp" line="68"/>
         <source>Item: </source>
-        <translation type="unfinished"></translation>
+        <translation>Предмет: </translation>
     </message>
     <message>
         <location filename="../ProductionChainTreeModel.cpp" line="83"/>
         <source>Recipe: </source>
-        <translation type="unfinished"></translation>
+        <translation>Рецепт: </translation>
     </message>
 </context>
 <context>
@@ -941,37 +941,37 @@
     <message>
         <location filename="../RecipesModel.cpp" line="77"/>
         <source>Icon</source>
-        <translation type="unfinished">Иконка</translation>
+        <translation>Иконка</translation>
     </message>
     <message>
         <location filename="../RecipesModel.cpp" line="79"/>
         <source>Recipe name</source>
-        <translation type="unfinished">Название</translation>
+        <translation>Название</translation>
     </message>
     <message>
         <location filename="../RecipesModel.cpp" line="81"/>
         <source>Recipe time</source>
-        <translation type="unfinished">Время</translation>
+        <translation>Время</translation>
     </message>
     <message>
         <location filename="../RecipesModel.cpp" line="83"/>
         <source>Result of recipe</source>
-        <translation type="unfinished">Результат</translation>
+        <translation>Результат</translation>
     </message>
     <message>
         <location filename="../RecipesModel.cpp" line="85"/>
         <source>Ingredients of the recipe</source>
-        <translation type="unfinished">Интегриенты</translation>
+        <translation>Интегриенты</translation>
     </message>
     <message>
         <location filename="../RecipesModel.cpp" line="87"/>
         <source>Allowed factories</source>
-        <translation type="unfinished">Тип рецепта</translation>
+        <translation>Тип рецепта</translation>
     </message>
     <message>
         <location filename="../RecipesModel.cpp" line="161"/>
         <source>New recipe</source>
-        <translation type="unfinished">Новый рецепт</translation>
+        <translation>Новый рецепт</translation>
     </message>
 </context>
 <context>
