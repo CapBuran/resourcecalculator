@@ -789,12 +789,12 @@
 <context>
     <name>ProductionChainTreeItem</name>
     <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="68"/>
+        <location filename="../ProductionChainTreeModel.cpp" line="72"/>
         <source>Item: </source>
         <translation>Предмет: </translation>
     </message>
     <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="83"/>
+        <location filename="../ProductionChainTreeModel.cpp" line="86"/>
         <source>Recipe: </source>
         <translation>Рецепт: </translation>
     </message>
@@ -802,12 +802,12 @@
 <context>
     <name>ProductionChainTreeModel</name>
     <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="196"/>
+        <location filename="../ProductionChainTreeModel.cpp" line="189"/>
         <source>Icon</source>
         <translation>Иконка</translation>
     </message>
     <message>
-        <location filename="../ProductionChainTreeModel.cpp" line="198"/>
+        <location filename="../ProductionChainTreeModel.cpp" line="191"/>
         <source>Name</source>
         <translation>Название предмета или рецепта</translation>
     </message>
