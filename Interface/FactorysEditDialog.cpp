@@ -1,8 +1,7 @@
 #include <FactorysEditDialog.h>
 #include <IconSelectedDialog.h>
 #include <FactoryTypesEditDialog.h>
-
-#include <FactorysModel.h>
+#include <FactorysTypesSelectedDialog.h>
 
 #pragma region DELEGATES
 
@@ -10,7 +9,7 @@
 
 FactorysEditDialogDelegate::FactorysEditDialogDelegate(const ResourceCalculator::IconCollection& IC, QObject *parent)
   : QStyledItemDelegate(parent)
-  , _IC(IC)
+  , _Icons(IC)
 {
 }
 
@@ -21,7 +20,7 @@ void FactorysEditDialogDelegate::paint(QPainter * painter, const QStyleOptionVie
   case 0:
   {
     using namespace ResourceCalculator;
-    const ResourceCalculator::Icon &icon = _IC.GetIcon(index.data(Qt::DisplayRole).toString().toStdString());
+    const ResourceCalculator::Icon &icon = _Icons.GetIcon(index.data(Qt::DisplayRole).toString().toStdString());
     if (icon.GetRawData().size() > 0) {
       QPixmap pixmap;
       bool dd = pixmap.loadFromData((uchar*)&icon.GetRawData()[0], (uint)icon.GetRawData().size());
@@ -96,7 +95,7 @@ bool FactorysEditDialogDelegate::editorEvent(QEvent * event, QAbstractItemModel*
     switch (index.column()) {
     case 0:
     {
-      IconSelectedDialog _IconSelectedDialog(_IC);
+      IconSelectedDialog _IconSelectedDialog(_Icons);
       if (_IconSelectedDialog.exec()) {
         const ResourceCalculator::Icon* Icon = _IconSelectedDialog.GetResult();
         if (Icon != nullptr) {
@@ -108,15 +107,14 @@ bool FactorysEditDialogDelegate::editorEvent(QEvent * event, QAbstractItemModel*
     }
     case 2:
     {
-      //const QT_KeysFactoryType& types = index.data().value<QT_KeysFactoryType>();
-      //FactorysEditDialogModel& modelFactory = dynamic_cast<FactorysEditDialogModel&>(*model);
-      //FactoryTypesViewModel modelFactoryTypesReadOnly(modelFactory.GetTypesData());
-      //FactorysTypesSelectedDialog dialog(modelFactoryTypesReadOnly, true, nullptr);
-      //dialog.SetResult(types);
-      //if (dialog.exec()) {
-      //  QVariant V; V.setValue<QT_KeysFactoryType>(dialog.GetResult());
-      //  modelFactory.setData(index, V);
-      //}
+      const QT_KeysFactoryType& types = index.data().value<QT_KeysFactoryType>();
+      FactorysModel& modelFactory = dynamic_cast<FactorysModel&>(*model);
+      FactorysTypesSelectedDialog dialog(modelFactory.GetTypesData(), _Icons, true, nullptr);
+      dialog.SetResult(types);
+      if (dialog.exec()) {
+        QVariant V; V.setValue<QT_KeysFactoryType>(dialog.GetResult());
+        modelFactory.setData(index, V);
+      }
     }
       break;
     default:
@@ -139,7 +137,7 @@ FactorysEditDialog::FactorysEditDialog(
   : QDialog(parent)
   , _Model(FTC, parent)
   , _Delegate(IC, parent)
-  , _IC(IC)
+  , _Icons(IC)
 {
   setMinimumSize(1000, 600);
 
@@ -213,64 +211,10 @@ void FactorysEditDialog::add_item()
 
 void FactorysEditDialog::typesFactory()
 {
-  FactoryTypesEditDialog FTED(_Model.GetTypesData(), _IC, this);
+  _Model.BeginReset();
+  FactoryTypesEditDialog FTED(_Model.GetTypesData(), _Icons, this);
   if (FTED.exec()) {
     FTED.Commit();
   }
-}
-
-FactorysTypesSelectedDialog::FactorysTypesSelectedDialog(FactoryTypesModel& model, const ResourceCalculator::IconCollection& IC, bool isMultiSelect, QWidget* parent)
-  : QDialog(parent)
-  , _Model(model)
-  , _IC(IC)
-  , _isMultiSelect(isMultiSelect)
-{
-  setMinimumSize(700, 600);
-
-  QPushButton* okButton = new QPushButton(tr("OK"), this);
-  QPushButton* cancelButton = new QPushButton(tr("Cancel"), this);
-  _tableView = new QTableView(this);
-  _tableView->setSelectionMode(_isMultiSelect ? QTableView::SelectionMode::MultiSelection : QTableView::SelectionMode::SingleSelection);
-  _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
-  _tableView->setModel(&_Model);
-  _tableView->sortByColumn(1, Qt::AscendingOrder);
-//  _tableView->setItemDelegate(new ItemSelectedDelegate(PC, _Mode));
-  //_tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-  _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
-  
-  //_tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);
-  //_tableView->setColumnWidth(0, 60);
-
-  QHBoxLayout* buttonLayout = new QHBoxLayout;
-  buttonLayout->addWidget(okButton);
-  buttonLayout->addWidget(cancelButton);
-
-  QVBoxLayout* mainLayout = new QVBoxLayout;
-  mainLayout->addWidget(_tableView);
-  mainLayout->addLayout(buttonLayout);
-  setLayout(mainLayout);
-
-  connect(okButton, &QAbstractButton::clicked, this, &QDialog::accept);
-  connect(cancelButton, &QAbstractButton::clicked, this, &QDialog::reject);
-  
-  if(_isMultiSelect)
-    setWindowTitle(tr("Select an types factory"));
-  else
-    setWindowTitle(tr("Select an type factory"));
-}
-
-std::set<ResourceCalculator::KEY_TYPE_FACTORY> FactorysTypesSelectedDialog::GetResult() const
-{
-  std::set<ResourceCalculator::TYPE_KEY> indexes;
-  const auto indexes_qt = _tableView->selectionModel()->selectedRows();
-  for (auto index: indexes_qt)
-    indexes.insert(static_cast<ResourceCalculator::TYPE_KEY>(index.row()));
-  return _Model.GetRawData().ConvertToKey(indexes);
-}
-
-void FactorysTypesSelectedDialog::SetResult(std::set<ResourceCalculator::KEY_TYPE_FACTORY> result)
-{
-  std::set<ResourceCalculator::TYPE_KEY> indexses = _Model.GetRawData().ConvertToIndex(result);
-  for (auto index: indexses)
-    _tableView->selectRow(static_cast<int>(index));
+  _Model.EndReset();
 }

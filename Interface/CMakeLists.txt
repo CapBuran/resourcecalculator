@@ -62,6 +62,8 @@ source_group(RecipesDialogs FILES RecipesEditDialog.cpp)
 
 source_group(FactoryDialogs FILES FactoryTypesEditDialog.h)
 source_group(FactoryDialogs FILES FactoryTypesEditDialog.cpp)
+source_group(FactoryDialogs FILES FactorysTypesSelectedDialog.h)
+source_group(FactoryDialogs FILES FactorysTypesSelectedDialog.cpp)
 source_group(FactoryDialogs FILES FactorysEditDialog.h)
 source_group(FactoryDialogs FILES FactorysEditDialog.cpp)
 

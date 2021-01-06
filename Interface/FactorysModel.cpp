@@ -5,7 +5,8 @@ FactorysModel::FactorysModel(ResourceCalculator::FactoryTypeCollection& FTC, QOb
   , _FTC(FTC)
   , _FTC_Edit(_FC_Edit)
 {
-  Select();
+  _FTC_Edit.CloneFrom(_FTC);
+  _FC_Edit.CloneFrom(_FTC.GetFactoryCollection());
 }
 
 int FactorysModel::rowCount(const QModelIndex& parent) const
@@ -153,13 +154,16 @@ void FactorysModel::Commit()
 {
   _FTC.CloneFrom(_FTC_Edit);
   _FTC.GetFactoryCollection().CloneFrom(_FC_Edit);
-  Select();
 }
 
-void FactorysModel::Select()
+void FactorysModel::BeginReset()
 {
-  _FTC_Edit.CloneFrom(_FTC);
-  _FC_Edit.CloneFrom(_FTC.GetFactoryCollection());
+  beginResetModel();
+}
+
+void FactorysModel::EndReset()
+{
+  endResetModel();
 }
 
 ResourceCalculator::FactoryTypeCollection& FactorysModel::GetTypesData()

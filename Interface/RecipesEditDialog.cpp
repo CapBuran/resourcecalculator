@@ -1,19 +1,20 @@
-#include "RecipesEditDialog.h"
-#include "ItemSelectedDialog.h"
-#include "IconSelectedDialog.h"
-#include "FactorysEditDialog.h"
+#include <RecipesEditDialog.h>
+#include <ItemSelectedDialog.h>
+#include <IconSelectedDialog.h>
+#include <FactorysEditDialog.h>
+#include <FactorysTypesSelectedDialog.h>
 
 #pragma region DELEGATE
 
 RecipesEditDelegate::RecipesEditDelegate(
+  const ResourceCalculator::ItemCollection& IC,
+  const ResourceCalculator::FactoryTypeCollection& FTC,
   const ResourceCalculator::IconCollection& icons,
-  FactoryTypesModel& factoryTypesModel, 
-  ItemsModel& itemModel,
-  QObject *parent)
+  QObject* parent)
   : QStyledItemDelegate(parent)
+  , _IC(IC)
+  , _FTC(FTC)
   , _Icons(icons)
-  , _FactoryTypesModel(factoryTypesModel)
-  , _ItemModel(itemModel)
 {
 }
 
@@ -92,7 +93,7 @@ bool RecipesEditDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, 
     case 3:
     {
       const RecipesModel& modelRecipes = dynamic_cast<const RecipesModel&>(*index.model());
-      ItemSelectedDialog _ItemSelectedDialog(_ItemModel, _Icons, ItemSelectedDialogMode::ForRecipeSelectItemsResult, model->data(index).value<QT_CountsItem>(), nullptr);
+      ItemSelectedDialog _ItemSelectedDialog(_IC, _Icons, ItemSelectedDialogMode::ForRecipeSelectItemsResult, model->data(index).value<QT_CountsItem>(), nullptr);
       if (_ItemSelectedDialog.exec()) {
         QVariant V; V.setValue<QT_CountsItem>(_ItemSelectedDialog.GetResult());
         model->setData(index, V);
@@ -102,9 +103,7 @@ bool RecipesEditDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, 
     }
     case 4:
     {
-      const RecipesModel& modelRecipes = dynamic_cast<const RecipesModel&>(*index.model());
-
-      ItemSelectedDialog _ItemSelectedDialog(_ItemModel, _Icons, ItemSelectedDialogMode::ForRecipeSelectItemsRequired, model->data(index).value<QT_CountsItem>(), nullptr);
+      ItemSelectedDialog _ItemSelectedDialog(_IC, _Icons, ItemSelectedDialogMode::ForRecipeSelectItemsRequired, model->data(index).value<QT_CountsItem>(), nullptr);
       if (_ItemSelectedDialog.exec()) {
         QVariant V; V.setValue<QT_CountsItem>(_ItemSelectedDialog.GetResult());
         model->setData(index, V);
@@ -114,8 +113,7 @@ bool RecipesEditDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, 
     }
     case 5:
     {
-      const RecipesModel& modelRecipes = dynamic_cast<const RecipesModel&>(*index.model());
-      FactorysTypesSelectedDialog factorysTypesSelectedDialog(_FactoryTypesModel, _Icons, false, nullptr);
+      FactorysTypesSelectedDialog factorysTypesSelectedDialog(_FTC, _Icons, false, nullptr);
       QVariant V = model->data(index);
       factorysTypesSelectedDialog.SetResult({static_cast<ResourceCalculator::KEY_TYPE_FACTORY>(V.value<int>())});
       if (factorysTypesSelectedDialog.exec())
@@ -138,15 +136,14 @@ bool RecipesEditDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, 
 #pragma endregion DELEGATE
 
 RecipesEditDialog::RecipesEditDialog(
-  ResourceCalculator::RecipeCollection& RC,
   ResourceCalculator::ItemCollection& IC,
+  const ResourceCalculator::FactoryTypeCollection& FTC,
   const ResourceCalculator::IconCollection& icons,
-  ResourceCalculator::FactoryTypeCollection& FTC,
   QWidget *parent)
   : QDialog(parent)
-  , _Model(RC, IC, FTC, parent)
-  , _FactoryTypesModel(FTC)
-  , _ItemModel(IC)
+  , _IC(IC)
+  , _FTC(FTC)
+  , _Model(IC, FTC, parent)
 {
   setMinimumSize(1000, 600);
 
@@ -157,7 +154,7 @@ RecipesEditDialog::RecipesEditDialog(
 
   _tableView = new QTableView();
   _tableView->setModel(&_Model);
-  _tableView->setItemDelegate(new RecipesEditDelegate(icons, _FactoryTypesModel, _ItemModel, _tableView));
+  _tableView->setItemDelegate(new RecipesEditDelegate(IC, FTC, icons, _tableView));
   _tableView->setSelectionMode(QTableView::SelectionMode::MultiSelection);
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);

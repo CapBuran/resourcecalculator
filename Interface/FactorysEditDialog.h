@@ -19,23 +19,9 @@ public:
   void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
   QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 private:
-  const ResourceCalculator::IconCollection& _IC;
+  const ResourceCalculator::IconCollection& _Icons;
 Q_SIGNALS:
   void ThePermissionToDeleteAnObjectHasBeenChanged( const QModelIndex & index, bool IsAllowed ) const;
-};
-
-class FactorysTypesSelectedDialog: public QDialog
-{
-  Q_OBJECT
-public:
-  FactorysTypesSelectedDialog(FactoryTypesModel& model, const ResourceCalculator::IconCollection& IC, bool isMultiSelect, QWidget* parent = 0);
-  std::set<ResourceCalculator::KEY_TYPE_FACTORY> GetResult() const;
-  void SetResult(std::set<ResourceCalculator::KEY_TYPE_FACTORY> result);
-private:
-  const bool _isMultiSelect;
-  QTableView* _tableView;
-  FactoryTypesModel& _Model;
-  const ResourceCalculator::IconCollection& _IC;
 };
 
 class FactorysEditDialog: public QDialog
@@ -50,7 +36,7 @@ private:
   QTableView* _tableView;
   FactorysModel _Model;
   FactorysEditDialogDelegate _Delegate;
-  const ResourceCalculator::IconCollection& _IC;
+  const ResourceCalculator::IconCollection& _Icons;
 private Q_SLOTS:
   void add_item();
   void remove_item();

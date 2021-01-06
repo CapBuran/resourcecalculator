@@ -59,3 +59,5 @@ for _, p in pairs(entries) do
 end
 
 --log(serpent.block(data.raw))
+
+--game.write_file("DataRaw.json",json1.stringify(data.raw))

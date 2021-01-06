@@ -60,14 +60,14 @@ QSize ItemSelectedDelegate::sizeHint(const QStyleOptionViewItem & option, const 
 //ItemsModel(ResourceCalculator::ItemCollection& IC, ResourceCalculator::RecipeCollection& RC, QObject* parent = 0);
 
 ItemSelectedDialog::ItemSelectedDialog(
-  ItemsModel& model,
+  const ResourceCalculator::ItemCollection& IC,
   const ResourceCalculator::IconCollection& icons,
   ItemSelectedDialogMode Mode,
   const std::set<ResourceCalculator::CountsItem>& select,
   QWidget *parent
 )
   : QDialog( parent )
-  , _Model(model)
+  , _Model(IC)
 {
   setMinimumSize(400, 600);
    
@@ -117,12 +117,12 @@ ItemSelectedDialog::ItemSelectedDialog(
 }
 
 ItemSelectedDialog::ItemSelectedDialog(
-  ItemsModel& model,
+  const ResourceCalculator::ItemCollection& IC,
   const ResourceCalculator::IconCollection& icons,
   QWidget * parent
 )
   : QDialog(parent)
-  , _Model(model)
+  , _Model(IC)
 {
   setMinimumSize(700, 600);
 

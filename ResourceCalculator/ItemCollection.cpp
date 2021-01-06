@@ -21,4 +21,11 @@ namespace ResourceCalculator {
     MyIndexator::Delete(keys);
     return true;
   }
+
+  void ItemCollection::CloneFrom(const MyIndexator& other)
+  {
+    MyIndexator::CloneFrom(other);
+    _RC.CloneFrom(dynamic_cast<const ItemCollection&>(other).GetRecipes());
+  }
+
 }

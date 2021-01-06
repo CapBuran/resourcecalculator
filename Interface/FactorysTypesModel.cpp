@@ -1,26 +1,31 @@
 #include <FactorysTypesModel.h>
 
-FactoryTypesModel::FactoryTypesModel(ResourceCalculator::FactoryTypeCollection& FTC, QObject* parent)
+FactoryTypesModelRead::FactoryTypesModelRead(const ResourceCalculator::FactoryTypeCollection& FTC, QObject* parent)
   : QAbstractTableModel(parent)
-  , _FTC(FTC)
   , _FTC_Edit(FTC)
 {
-  Select();
+  _FTC_Edit.CloneFrom(FTC);
 }
 
-int FactoryTypesModel::rowCount(const QModelIndex& parent) const
+FactoryTypesModel::FactoryTypesModel(ResourceCalculator::FactoryTypeCollection& FTC, QObject* parent)
+  : FactoryTypesModelRead(FTC, parent)
+  , _FTC(FTC)
+{
+}
+
+int FactoryTypesModelRead::rowCount(const QModelIndex& parent) const
 {
   Q_UNUSED(parent);
   return _FTC_Edit.Size();
 }
 
-int FactoryTypesModel::columnCount(const QModelIndex& parent) const
+int FactoryTypesModelRead::columnCount(const QModelIndex& parent) const
 {
   Q_UNUSED(parent);
   return 2;
 }
 
-QVariant FactoryTypesModel::data(const QModelIndex& index, int role) const
+QVariant FactoryTypesModelRead::data(const QModelIndex& index, int role) const
 {
   using namespace ResourceCalculator;
 
@@ -46,7 +51,7 @@ QVariant FactoryTypesModel::data(const QModelIndex& index, int role) const
   return QVariant();
 }
 
-QVariant FactoryTypesModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant FactoryTypesModelRead::headerData(int section, Qt::Orientation orientation, int role) const
 {
   if (role != Qt::DisplayRole)
     return QVariant();
@@ -84,15 +89,23 @@ bool FactoryTypesModel::insertRows(int position, int rows, const QModelIndex& in
 bool FactoryTypesModel::removeRows(int position, int rows, const QModelIndex& index)
 {
   Q_UNUSED(index);
-  beginRemoveRows(QModelIndex(), position, position + rows - 1);
+  beginResetModel();
   using namespace ResourceCalculator;
   std::set<KEY_TYPE_FACTORY> FactoryTypesKey;
   for (int row = 0; row < rows; ++row) {
-    FactoryTypesKey.insert(_FTC_Edit(row));
+    FactoryTypesKey.insert(_FTC_Edit(position + row));
   }
   _FTC_Edit.Delete(FactoryTypesKey);
-  endRemoveRows();
+  endResetModel();
   return true;
+}
+
+Qt::ItemFlags FactoryTypesModelRead::flags(const QModelIndex& index) const
+{
+  if (!index.isValid())
+    return Qt::ItemIsEnabled;
+
+  return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
 }
 
 Qt::ItemFlags FactoryTypesModel::flags(const QModelIndex& index) const
@@ -104,15 +117,10 @@ Qt::ItemFlags FactoryTypesModel::flags(const QModelIndex& index) const
     (index.column() == 1 ? Qt::ItemIsEditable : Qt::NoItemFlags);
 }
 
+
 void FactoryTypesModel::Commit()
 {
   _FTC.CloneFrom(_FTC_Edit);
-  Select();
-}
-
-void FactoryTypesModel::Select()
-{
-  _FTC_Edit.CloneFrom(_FTC);
 }
 
 bool FactoryTypesModel::setData(const QModelIndex& index, const QVariant& value, int role)

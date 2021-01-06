@@ -13,30 +13,29 @@ class RecipesEditDelegate: public QStyledItemDelegate
 {
   Q_OBJECT
 public:
-  RecipesEditDelegate(const ResourceCalculator::IconCollection& icons, FactoryTypesModel& factoryTypesModel, ItemsModel& itemModel, QObject *parent = 0);
+  RecipesEditDelegate(const ResourceCalculator::ItemCollection& IC, const ResourceCalculator::FactoryTypeCollection& FTC, const ResourceCalculator::IconCollection& icons, QObject *parent = 0);
   void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
   bool editorEvent(QEvent *event, QAbstractItemModel *model, const QStyleOptionViewItem &option, const QModelIndex &index) override;
 private:
-  ItemsModel& _ItemModel;
-  FactoryTypesModel& _FactoryTypesModel;
+  const ResourceCalculator::ItemCollection& _IC;
+  const ResourceCalculator::FactoryTypeCollection& _FTC;
   const ResourceCalculator::IconCollection &_Icons;
 };
 
-class RecipesEditDialog : public QDialog
+class RecipesEditDialog: public QDialog
 {
   Q_OBJECT
 public:
   RecipesEditDialog(
-    ResourceCalculator::RecipeCollection& RC,
     ResourceCalculator::ItemCollection& IC,
+    const ResourceCalculator::FactoryTypeCollection& FTC,
     const ResourceCalculator::IconCollection& icons,
-    ResourceCalculator::FactoryTypeCollection& FTC,
     QWidget *parent = 0
   );
 private:
-  FactoryTypesModel _FactoryTypesModel;
+  ResourceCalculator::ItemCollection& _IC;
+  const ResourceCalculator::FactoryTypeCollection& _FTC;
   RecipesModel _Model;
-  ItemsModel _ItemModel;
   QTableView *_tableView;
   QPushButton* _removeButton;
 private Q_SLOTS:

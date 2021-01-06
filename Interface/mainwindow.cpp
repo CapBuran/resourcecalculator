@@ -190,22 +190,21 @@ void MainWindow::saveAsFile()
 
 void MainWindow::PushButtonClickedRecipesEditDialog()
 {
-  RecipesEditDialog Dialog(_PC.RC, _PC.IC, _PC.Icons, _PC.FTC, this);
+  RecipesEditDialog Dialog(_PC.IC, _PC.FTC, _PC.Icons, this);
   Dialog.exec();
   _PCTW->Update();
 }
 
 void MainWindow::PushButtonClickedItemsEditDialog()
 {
-  ItemsEditDialog Dialog(_PC.IC, _PC.RC, _PC.Icons, this);
+  ItemsEditDialog Dialog(_PC.IC, _PC.Icons, this);
   Dialog.exec();
   _PCTW->Update();
 }
 
 void MainWindow::PushButtonClickedAddTab()
 {
-  ItemsModel model(_PC.IC);
-  ItemSelectedDialog _ItemsSelectedDialog(model, _PC.Icons, this);
+  ItemSelectedDialog _ItemsSelectedDialog(_PC.IC, _PC.Icons, this);
   if ( _ItemsSelectedDialog.exec() )
   {
     const auto &result = _ItemsSelectedDialog.GetResult();

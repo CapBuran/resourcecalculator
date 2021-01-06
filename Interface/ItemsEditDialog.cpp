@@ -83,7 +83,7 @@ bool ItemEditDelegate::editorEvent(QEvent * event, QAbstractItemModel * model, c
 
 #pragma endregion DELEGATE
 
-ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ItemCollection& IC, ResourceCalculator::RecipeCollection& RC, const ResourceCalculator::IconCollection& icons, QWidget *parent)
+ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ItemCollection& IC, const ResourceCalculator::IconCollection& icons, QWidget *parent)
   : QDialog(parent)
   , _Model(IC, parent)
 {

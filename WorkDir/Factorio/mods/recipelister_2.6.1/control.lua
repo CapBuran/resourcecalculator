@@ -2,18 +2,20 @@ require("json")
  
 function printLocalisedName(folder, filename, object)
   game.write_file(folder .. filename, object.name, true)
+  game.write_file(folder .. filename, "|", true)
   if object.localised_name then 
-    game.write_file(folder .. filename, "=\"", true)
     game.write_file(folder .. filename, {object.localised_name[1]}, true)
-    game.write_file(folder .. filename, "\"\n", true)
-  else
-    game.write_file(folder .. filename, "nil\n", true)
   end
+  game.write_file(folder .. filename, "|", true)
+  if object.localised_description then 
+    game.write_file(folder .. filename, {object.localised_description[1]}, true)
+  end
+  game.write_file(folder .. filename, "|\n", true)
   return object.name
 end
 
 function getIcon(object)
-  local retval = "nil"
+  local retval = ""
   if object.icon then
     retval = "{" .. object.icon
     if object.icon_size then
@@ -35,7 +37,7 @@ function getIcon(object)
     end 
     retval = retval .. "}"
   end
-  return "nil"
+  return ""
 end
 
 function getEnergyData(prototype, data)

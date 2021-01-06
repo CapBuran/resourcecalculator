@@ -47,19 +47,30 @@
 <context>
     <name>FactoryTypesModel</name>
     <message>
-        <location filename="../FactorysTypesModel.cpp" line="57"/>
+        <source>Icon</source>
+        <translation type="vanished">Иконка</translation>
+    </message>
+    <message>
+        <source>Factory type name</source>
+        <translation type="vanished">Тип фабрики</translation>
+    </message>
+    <message>
+        <location filename="../FactorysTypesModel.cpp" line="79"/>
+        <source>New type factory</source>
+        <translation>Новый тип фабрики</translation>
+    </message>
+</context>
+<context>
+    <name>FactoryTypesModelRead</name>
+    <message>
+        <location filename="../FactorysTypesModel.cpp" line="62"/>
         <source>Icon</source>
         <translation>Иконка</translation>
     </message>
     <message>
-        <location filename="../FactorysTypesModel.cpp" line="59"/>
+        <location filename="../FactorysTypesModel.cpp" line="64"/>
         <source>Factory type name</source>
         <translation>Тип фабрики</translation>
-    </message>
-    <message>
-        <location filename="../FactorysTypesModel.cpp" line="74"/>
-        <source>New type factory</source>
-        <translation>Новый тип фабрики</translation>
     </message>
 </context>
 <context>
@@ -72,32 +83,32 @@
 <context>
     <name>FactorysEditDialog</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="146"/>
+        <location filename="../FactorysEditDialog.cpp" line="144"/>
         <source>OK</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="147"/>
+        <location filename="../FactorysEditDialog.cpp" line="145"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="148"/>
+        <location filename="../FactorysEditDialog.cpp" line="146"/>
         <source>Remote</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="149"/>
+        <location filename="../FactorysEditDialog.cpp" line="147"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="150"/>
+        <location filename="../FactorysEditDialog.cpp" line="148"/>
         <source>Factory types</source>
         <translation>Типы фабрик</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="183"/>
+        <location filename="../FactorysEditDialog.cpp" line="181"/>
         <source>Editor factorys</source>
         <translation>Редактор фабрик</translation>
     </message>
@@ -105,13 +116,13 @@
 <context>
     <name>FactorysEditDialogDelegate</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="52"/>
-        <location filename="../FactorysEditDialog.cpp" line="79"/>
+        <location filename="../FactorysEditDialog.cpp" line="51"/>
+        <location filename="../FactorysEditDialog.cpp" line="78"/>
         <source>Types not set!</source>
         <translation>Тип фабрики не назначен</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="55"/>
+        <location filename="../FactorysEditDialog.cpp" line="54"/>
         <source>, </source>
         <translation>,</translation>
     </message>
@@ -154,42 +165,42 @@
 <context>
     <name>FactorysModel</name>
     <message>
-        <location filename="../FactorysModel.cpp" line="74"/>
+        <location filename="../FactorysModel.cpp" line="75"/>
         <source>Icon</source>
         <translation>Иконка</translation>
     </message>
     <message>
-        <location filename="../FactorysModel.cpp" line="76"/>
+        <location filename="../FactorysModel.cpp" line="77"/>
         <source>Factory name</source>
         <translation>Название фабрики</translation>
     </message>
     <message>
-        <location filename="../FactorysModel.cpp" line="78"/>
+        <location filename="../FactorysModel.cpp" line="79"/>
         <source>Factory types</source>
         <translation>Типы фабрик</translation>
     </message>
     <message>
-        <location filename="../FactorysModel.cpp" line="80"/>
+        <location filename="../FactorysModel.cpp" line="81"/>
         <source>Speed</source>
         <translation>Скорость</translation>
     </message>
     <message>
-        <location filename="../FactorysModel.cpp" line="82"/>
+        <location filename="../FactorysModel.cpp" line="83"/>
         <source>Drilling power</source>
         <translation>Мщность бура</translation>
     </message>
     <message>
-        <location filename="../FactorysModel.cpp" line="84"/>
+        <location filename="../FactorysModel.cpp" line="85"/>
         <source>Slots for recipe</source>
         <translation>Кол-во слотов для предметов</translation>
     </message>
     <message>
-        <location filename="../FactorysModel.cpp" line="86"/>
+        <location filename="../FactorysModel.cpp" line="87"/>
         <source>Slots for modules</source>
         <translation>Кол-во слотов для модулей</translation>
     </message>
     <message>
-        <location filename="../FactorysModel.cpp" line="102"/>
+        <location filename="../FactorysModel.cpp" line="103"/>
         <source>New factory</source>
         <translation>Новая фабрика</translation>
     </message>
@@ -197,22 +208,22 @@
 <context>
     <name>FactorysTypesSelectedDialog</name>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="230"/>
+        <location filename="../FactorysTypesSelectedDialog.cpp" line="14"/>
         <source>OK</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="231"/>
+        <location filename="../FactorysTypesSelectedDialog.cpp" line="15"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="257"/>
+        <location filename="../FactorysTypesSelectedDialog.cpp" line="41"/>
         <source>Select an types factory</source>
         <translation>Вуберете типы фабрик</translation>
     </message>
     <message>
-        <location filename="../FactorysEditDialog.cpp" line="259"/>
+        <location filename="../FactorysTypesSelectedDialog.cpp" line="43"/>
         <source>Select an type factory</source>
         <translation>Выберете тип фабрики</translation>
     </message>
@@ -361,34 +372,57 @@
 <context>
     <name>ItemsModel</name>
     <message>
-        <location filename="../ItemsModel.cpp" line="65"/>
+        <source>Icon</source>
+        <translation type="vanished">Иконка</translation>
+    </message>
+    <message>
+        <source>Item Name</source>
+        <translation type="vanished">Название</translation>
+    </message>
+    <message>
+        <source>Is a liquid or gas</source>
+        <translation type="vanished">Жидкость/Газ</translation>
+    </message>
+    <message>
+        <source>Mining hardness</source>
+        <translation type="vanished">Трудность добычи</translation>
+    </message>
+    <message>
+        <source>Count</source>
+        <translation type="vanished">Количество</translation>
+    </message>
+    <message>
+        <location filename="../ItemsModel.cpp" line="151"/>
+        <source>New item</source>
+        <translation>Новый предмет</translation>
+    </message>
+</context>
+<context>
+    <name>ItemsModelRead</name>
+    <message>
+        <location filename="../ItemsModel.cpp" line="71"/>
         <source>Icon</source>
         <translation>Иконка</translation>
     </message>
     <message>
-        <location filename="../ItemsModel.cpp" line="67"/>
+        <location filename="../ItemsModel.cpp" line="73"/>
         <source>Item Name</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../ItemsModel.cpp" line="69"/>
+        <location filename="../ItemsModel.cpp" line="75"/>
         <source>Is a liquid or gas</source>
         <translation>Жидкость/Газ</translation>
     </message>
     <message>
-        <location filename="../ItemsModel.cpp" line="71"/>
+        <location filename="../ItemsModel.cpp" line="77"/>
         <source>Mining hardness</source>
         <translation>Трудность добычи</translation>
     </message>
     <message>
-        <location filename="../ItemsModel.cpp" line="73"/>
+        <location filename="../ItemsModel.cpp" line="79"/>
         <source>Count</source>
         <translation>Количество</translation>
-    </message>
-    <message>
-        <location filename="../ItemsModel.cpp" line="138"/>
-        <source>New item</source>
-        <translation>Новый предмет</translation>
     </message>
 </context>
 <context>
@@ -588,39 +622,66 @@
 <context>
     <name>ModulesModel</name>
     <message>
-        <location filename="../ModulesModel.cpp" line="68"/>
+        <source>Icon</source>
+        <translation type="vanished">Иконка</translation>
+    </message>
+    <message>
+        <source>Module name</source>
+        <translation type="vanished">Имя модуля</translation>
+    </message>
+    <message>
+        <source>Coefficient pollution</source>
+        <translation type="vanished">Коэфициент загрязнения</translation>
+    </message>
+    <message>
+        <source>Coefficient effectiveness</source>
+        <translation type="vanished">Кофициент эффективности</translation>
+    </message>
+    <message>
+        <source>Coefficient speed</source>
+        <translation type="vanished">Коеффициент скорости</translation>
+    </message>
+    <message>
+        <source>Coefficient productivity</source>
+        <translation type="vanished">Коеффициент продуктивности</translation>
+    </message>
+    <message>
+        <location filename="../ModulesModel.cpp" line="117"/>
+        <source>New module</source>
+        <translation>Новый модуль</translation>
+    </message>
+</context>
+<context>
+    <name>ModulesModelRead</name>
+    <message>
+        <location filename="../ModulesModel.cpp" line="73"/>
         <source>Icon</source>
         <translation>Иконка</translation>
     </message>
     <message>
-        <location filename="../ModulesModel.cpp" line="70"/>
+        <location filename="../ModulesModel.cpp" line="75"/>
         <source>Module name</source>
-        <translation>Имя модуля</translation>
+        <translation>Название</translation>
     </message>
     <message>
-        <location filename="../ModulesModel.cpp" line="72"/>
+        <location filename="../ModulesModel.cpp" line="77"/>
         <source>Coefficient pollution</source>
         <translation>Коэфициент загрязнения</translation>
     </message>
     <message>
-        <location filename="../ModulesModel.cpp" line="74"/>
+        <location filename="../ModulesModel.cpp" line="79"/>
         <source>Coefficient effectiveness</source>
         <translation>Кофициент эффективности</translation>
     </message>
     <message>
-        <location filename="../ModulesModel.cpp" line="76"/>
+        <location filename="../ModulesModel.cpp" line="81"/>
         <source>Coefficient speed</source>
         <translation>Коеффициент скорости</translation>
     </message>
     <message>
-        <location filename="../ModulesModel.cpp" line="78"/>
+        <location filename="../ModulesModel.cpp" line="83"/>
         <source>Coefficient productivity</source>
         <translation>Коеффициент продуктивности</translation>
-    </message>
-    <message>
-        <location filename="../ModulesModel.cpp" line="104"/>
-        <source>New module</source>
-        <translation>Новый модуль</translation>
     </message>
 </context>
 <context>
@@ -898,12 +959,12 @@
 <context>
     <name>RecipesEditDelegate</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="52"/>
+        <location filename="../RecipesEditDialog.cpp" line="53"/>
         <source>Result</source>
         <translation>Результат</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="52"/>
+        <location filename="../RecipesEditDialog.cpp" line="53"/>
         <source>Ingredients</source>
         <translation>Ингредиенты</translation>
     </message>
@@ -911,27 +972,27 @@
 <context>
     <name>RecipesEditDialog</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="153"/>
+        <location filename="../RecipesEditDialog.cpp" line="150"/>
         <source>Ok</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="154"/>
+        <location filename="../RecipesEditDialog.cpp" line="151"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="155"/>
+        <location filename="../RecipesEditDialog.cpp" line="152"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="156"/>
+        <location filename="../RecipesEditDialog.cpp" line="153"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="185"/>
+        <location filename="../RecipesEditDialog.cpp" line="182"/>
         <source>Recipes Edit</source>
         <translation>Редактор рецептов</translation>
     </message>
@@ -939,39 +1000,66 @@
 <context>
     <name>RecipesModel</name>
     <message>
-        <location filename="../RecipesModel.cpp" line="77"/>
+        <source>Icon</source>
+        <translation type="vanished">Иконка</translation>
+    </message>
+    <message>
+        <source>Recipe name</source>
+        <translation type="vanished">Название</translation>
+    </message>
+    <message>
+        <source>Recipe time</source>
+        <translation type="vanished">Время</translation>
+    </message>
+    <message>
+        <source>Result of recipe</source>
+        <translation type="vanished">Результат</translation>
+    </message>
+    <message>
+        <source>Ingredients of the recipe</source>
+        <translation type="vanished">Интегриенты</translation>
+    </message>
+    <message>
+        <source>Allowed factories</source>
+        <translation type="vanished">Тип рецепта</translation>
+    </message>
+    <message>
+        <location filename="../RecipesModel.cpp" line="177"/>
+        <source>New recipe</source>
+        <translation>Новый рецепт</translation>
+    </message>
+</context>
+<context>
+    <name>RecipesModelRead</name>
+    <message>
+        <location filename="../RecipesModel.cpp" line="84"/>
         <source>Icon</source>
         <translation>Иконка</translation>
     </message>
     <message>
-        <location filename="../RecipesModel.cpp" line="79"/>
+        <location filename="../RecipesModel.cpp" line="86"/>
         <source>Recipe name</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="../RecipesModel.cpp" line="81"/>
+        <location filename="../RecipesModel.cpp" line="88"/>
         <source>Recipe time</source>
         <translation>Время</translation>
     </message>
     <message>
-        <location filename="../RecipesModel.cpp" line="83"/>
+        <location filename="../RecipesModel.cpp" line="90"/>
         <source>Result of recipe</source>
         <translation>Результат</translation>
     </message>
     <message>
-        <location filename="../RecipesModel.cpp" line="85"/>
+        <location filename="../RecipesModel.cpp" line="92"/>
         <source>Ingredients of the recipe</source>
         <translation>Интегриенты</translation>
     </message>
     <message>
-        <location filename="../RecipesModel.cpp" line="87"/>
+        <location filename="../RecipesModel.cpp" line="94"/>
         <source>Allowed factories</source>
         <translation>Тип рецепта</translation>
-    </message>
-    <message>
-        <location filename="../RecipesModel.cpp" line="161"/>
-        <source>New recipe</source>
-        <translation>Новый рецепт</translation>
     </message>
 </context>
 <context>

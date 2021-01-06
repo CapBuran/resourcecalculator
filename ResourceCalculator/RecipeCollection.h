@@ -12,5 +12,4 @@ namespace ResourceCalculator
     RecipeCollection(const RecipeCollection& copy);
     bool DeleteItems(const std::set<KEY_ITEM>& keys);
   };
-
 }

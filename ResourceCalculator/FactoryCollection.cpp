@@ -21,8 +21,7 @@ namespace ResourceCalculator
 
   bool FactoryCollection::DeleteFactoryTypes(const std::set<KEY_TYPE_FACTORY>& keys)
   {
-    IteratorForAllItem([&](Factory& factory) { return (factory.DeleteTypes(keys)); });
+    IteratorForAllItem([&](Factory& factory) { return factory.DeleteTypes(keys); });
     return true;
   }
-
 }

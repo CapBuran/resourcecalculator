@@ -1,27 +1,33 @@
 #include <ItemsModel.h>
 
-ItemsModel::ItemsModel(ResourceCalculator::ItemCollection& IC, QObject* parent)
+ItemsModelRead::ItemsModelRead(const ResourceCalculator::ItemCollection& IC, QObject* parent)
   : QAbstractTableModel(parent)
-  , _IC(IC)
-  , _RC(IC.GetRecipes())
   , _IC_EDIT(_RC_EDIT)
 {
-  Select();
+  _IC_EDIT.CloneFrom(IC);
+  _RC_EDIT.CloneFrom(IC.GetRecipes());
 }
 
-int ItemsModel::rowCount(const QModelIndex& parent) const
+ItemsModel::ItemsModel(ResourceCalculator::ItemCollection& IC, QObject* parent)
+  : ItemsModelRead(IC, parent)
+  , _IC(IC)
+  , _RC(IC.GetRecipes())
+{
+}
+
+int ItemsModelRead::rowCount(const QModelIndex& parent) const
 {
   Q_UNUSED(parent);
   return _IC_EDIT.Size();
 }
 
-int ItemsModel::columnCount(const QModelIndex& parent) const
+int ItemsModelRead::columnCount(const QModelIndex& parent) const
 {
   Q_UNUSED(parent);
   return 5;
 }
 
-QVariant ItemsModel::data(const QModelIndex& index, int role) const
+QVariant ItemsModelRead::data(const QModelIndex& index, int role) const
 {
   using namespace ResourceCalculator;
   if (!index.isValid())
@@ -55,7 +61,7 @@ QVariant ItemsModel::data(const QModelIndex& index, int role) const
   return QVariant();
 }
 
-QVariant ItemsModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant ItemsModelRead::headerData(int section, Qt::Orientation orientation, int role) const
 {
   if (role != Qt::DisplayRole)
     return QVariant();
@@ -76,6 +82,13 @@ QVariant ItemsModel::headerData(int section, Qt::Orientation orientation, int ro
     }
   }
   return QVariant();
+}
+
+Qt::ItemFlags ItemsModelRead::flags(const QModelIndex& index) const
+{
+  if (!index.isValid())
+    return Qt::ItemIsEnabled;
+  return QAbstractTableModel::flags(index);
 }
 
 Qt::ItemFlags ItemsModel::flags(const QModelIndex& index) const
@@ -166,18 +179,12 @@ void ItemsModel::Commit()
   _RC.CloneFrom(_RC_EDIT);
 };
 
-void ItemsModel::Select()
-{
-  _IC_EDIT.CloneFrom(_IC);
-  _RC_EDIT.CloneFrom(_RC);
-}
-
-ResourceCalculator::CountsItem ItemsModel::GetCountItem(const QModelIndex& index) const
+ResourceCalculator::CountsItem ItemsModelRead::GetCountItem(const QModelIndex& index) const
 {
   return ResourceCalculator::CountsItem(_IC_EDIT(index.row()), index.siblingAtColumn(4).data(Qt::DisplayRole).toDouble());
 }
 
-int ItemsModel::GetIndex(const ResourceCalculator::CountsItem& ci) const
+int ItemsModelRead::GetIndex(const ResourceCalculator::CountsItem& ci) const
 {
   return _IC_EDIT(ci.ItemId);
 }

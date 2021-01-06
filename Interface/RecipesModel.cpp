@@ -1,31 +1,38 @@
 #include <RecipesModel.h>
 
-RecipesModel::RecipesModel(
-  ResourceCalculator::RecipeCollection& RC,
+RecipesModelRead::RecipesModelRead(
   const ResourceCalculator::ItemCollection& IC,
   const ResourceCalculator::FactoryTypeCollection& FTC,
   QObject *parent)
   : QAbstractTableModel(parent)
-  , _RC(RC)
-  , _IC(IC)
+  , _IC_EDIT(_RC_EDIT)
   , _FTC(FTC)
 {
-  Select();
+  _IC_EDIT.CloneFrom(IC);
 }
 
-int RecipesModel::rowCount(const QModelIndex &parent) const
+RecipesModel::RecipesModel(
+  ResourceCalculator::ItemCollection& IC,
+  const ResourceCalculator::FactoryTypeCollection& FTC,
+  QObject* parent)
+  : RecipesModelRead(IC, FTC, parent)
+  , _IC(IC)
+{
+}
+
+int RecipesModelRead::rowCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
   return _RC_EDIT.Size();
 }
 
-int RecipesModel::columnCount(const QModelIndex &parent) const
+int RecipesModelRead::columnCount(const QModelIndex &parent) const
 {
   Q_UNUSED(parent);
   return 6;
 }
 
-QVariant RecipesModel::data(const QModelIndex &index, int role) const
+QVariant RecipesModelRead::data(const QModelIndex &index, int role) const
 {
   using namespace ResourceCalculator;
   if (!index.isValid())
@@ -67,7 +74,7 @@ QVariant RecipesModel::data(const QModelIndex &index, int role) const
   return QVariant();
 }
 
-QVariant RecipesModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant RecipesModelRead::headerData(int section, Qt::Orientation orientation, int role) const
 {
   if (role != Qt::DisplayRole)
     return QVariant();
@@ -92,7 +99,14 @@ QVariant RecipesModel::headerData(int section, Qt::Orientation orientation, int 
   return QVariant();
 }
 
-Qt::ItemFlags RecipesModel::flags(const QModelIndex &index) const
+Qt::ItemFlags RecipesModelRead::flags(const QModelIndex &index) const
+{
+  if (!index.isValid())
+    return Qt::ItemIsEnabled;
+  return QAbstractTableModel::flags(index);
+}
+
+Qt::ItemFlags RecipesModel::flags(const QModelIndex& index) const
 {
   if (!index.isValid())
     return Qt::ItemIsEnabled;
@@ -103,7 +117,9 @@ bool RecipesModel::setData(const QModelIndex &index, const QVariant &value, int 
 {
   if (index.isValid() && role == Qt::EditRole) {
     using namespace ResourceCalculator;
-    Recipe& R = _RC_EDIT[_RC(index.row())];
+    RecipeCollection& _RC_EDIT = _IC.GetRecipes();
+
+    Recipe& R = _RC_EDIT[_RC_EDIT(index.row())];
 
     switch (index.column()) {
     case 0://Icon
@@ -184,20 +200,15 @@ bool RecipesModel::removeRows(int position, int rows, const QModelIndex &index)
 
 void RecipesModel::Commit()
 {
-  _RC.CloneFrom(_RC_EDIT);
+  _IC.CloneFrom(_IC_EDIT);
 }
 
-void RecipesModel::Select()
-{
-  _RC_EDIT.CloneFrom(_RC);
-}
-
-const ResourceCalculator::FactoryTypeCollection& RecipesModel::GetFactoryTypes() const
+const ResourceCalculator::FactoryTypeCollection& RecipesModelRead::GetFactoryTypes() const
 {
   return _FTC;
 }
 
-const ResourceCalculator::ItemCollection& RecipesModel::GetItems() const
+const ResourceCalculator::ItemCollection& RecipesModelRead::GetItems() const
 {
-  return _IC;
+  return _IC_EDIT;
 }

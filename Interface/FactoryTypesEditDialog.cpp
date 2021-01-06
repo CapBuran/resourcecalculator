@@ -2,9 +2,9 @@
 #include <IconSelectedDialog.h>
 #pragma region DELEGATE
 
-FactoryTypesEditDelegate::FactoryTypesEditDelegate(const ResourceCalculator::IconCollection& IC, QObject* parent)
+FactoryTypesEditDelegate::FactoryTypesEditDelegate(const ResourceCalculator::IconCollection& icons, QObject* parent)
   : QStyledItemDelegate(parent)
-  , _IC(IC)
+  , _Icons(icons)
 {
 }
 
@@ -15,7 +15,7 @@ void FactoryTypesEditDelegate::paint( QPainter * painter, const QStyleOptionView
   case 0:
   {
     QStyledItemDelegate::paint(painter, option, index);
-    const ResourceCalculator::Icon &icon = _IC.GetIcon(index.model()->data(index, Qt::DisplayRole).toString().toStdString());
+    const ResourceCalculator::Icon &icon = _Icons.GetIcon(index.model()->data(index, Qt::DisplayRole).toString().toStdString());
     if ( icon.GetRawData().size() > 0 ) {
       QPixmap pixmap;
       bool dd = pixmap.loadFromData( ( uchar* ) &icon.GetRawData()[0], ( uint ) icon.GetRawData().size() );
@@ -49,7 +49,7 @@ bool FactoryTypesEditDelegate::editorEvent( QEvent * event, QAbstractItemModel *
     switch ( index.column() ) {
     case 0:
     {
-      IconSelectedDialog _IconSelectedDialog(_IC);
+      IconSelectedDialog _IconSelectedDialog(_Icons);
       if ( _IconSelectedDialog.exec() ) {
         const ResourceCalculator::Icon * Icon = _IconSelectedDialog.GetResult();
         if ( Icon != nullptr ) {

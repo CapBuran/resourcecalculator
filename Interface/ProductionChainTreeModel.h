@@ -4,8 +4,6 @@
 
 #include <ProductionChainTree.h>
 
-class ProductionChainTreeItem;
-
 class ProductionChainTreeItem : private QObject
 {
   Q_OBJECT

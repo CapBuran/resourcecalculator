@@ -25,7 +25,7 @@ class ItemsEditDialog: public QDialog
 {
   Q_OBJECT
 public:
-  ItemsEditDialog(ResourceCalculator::ItemCollection& IC, ResourceCalculator::RecipeCollection& RC, const ResourceCalculator::IconCollection& Icons, QWidget *parent = 0);
+  ItemsEditDialog(ResourceCalculator::ItemCollection& IC, const ResourceCalculator::IconCollection& Icons, QWidget *parent = 0);
 private:
   QTableView *_tableView;
   QPushButton *_removeButton;

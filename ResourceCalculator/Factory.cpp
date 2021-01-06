@@ -40,7 +40,8 @@ namespace ResourceCalculator
 
   bool Factory::DeleteTypes(const std::set<KEY_TYPE_FACTORY>& types)
   {
-    _Types.erase(types.begin(), types.end());
+    for (KEY_TYPE_FACTORY typeFactory: types)
+      _Types.erase(typeFactory);
     return true;
   }
 

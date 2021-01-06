@@ -9,7 +9,7 @@ namespace ResourceCalculator
 
   bool RecipeCollection::DeleteItems(const std::set<KEY_ITEM>& ItemsKeysToDel)
   {
-    IteratorForAllItem( [&](Recipe& recipe) { return (recipe.DeleteItems(ItemsKeysToDel)); });
+    IteratorForAllItem( [&](Recipe& recipe) { return recipe.DeleteItems(ItemsKeysToDel); });
     return true;
   }
 }

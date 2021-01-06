@@ -30,17 +30,17 @@ class ItemSelectedDialog : public QDialog
   Q_OBJECT
 public:
   ItemSelectedDialog(
-    ItemsModel& model,
+    const ResourceCalculator::ItemCollection& IC,
     const ResourceCalculator::IconCollection& icons,
     ItemSelectedDialogMode Mode,
     const std::set<ResourceCalculator::CountsItem>& select,
     QWidget* parent);
   ItemSelectedDialog(
-    ItemsModel& model,
+    const ResourceCalculator::ItemCollection& IC,
     const ResourceCalculator::IconCollection& icons,
     QWidget* parent);
   std::set<ResourceCalculator::CountsItem> GetResult() const;
 private:
-  ItemsModel& _Model;
+  ItemsModelRead _Model;
   QTableView *_tableView;
 };

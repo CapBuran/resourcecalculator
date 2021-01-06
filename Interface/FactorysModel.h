@@ -19,7 +19,8 @@ public:
   bool removeRows( int position, int rows, const QModelIndex &index = QModelIndex() ) override;
   bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole ) override;
   void Commit();
-  void Select();
+  void BeginReset();
+  void EndReset();
   ResourceCalculator::FactoryTypeCollection& GetTypesData();
   const ResourceCalculator::FactoryTypeCollection& GetTypesData() const;
 private:

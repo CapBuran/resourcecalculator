@@ -305,7 +305,7 @@ namespace ResourceCalculator
         func(it.second);
     }
 
-    void CloneFrom(const MyIndexator& other)
+    virtual void CloneFrom(const MyIndexator& other)
     {
       *this = other;
     }

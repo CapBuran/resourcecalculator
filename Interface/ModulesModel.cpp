@@ -1,24 +1,29 @@
 #include <ModulesModel.h>
 
-ModulesModel::ModulesModel( ResourceCalculator::ModuleCollection& MC, QObject *parent )
-  : QAbstractTableModel( parent )
-  , _MC(MC)
+ModulesModelRead::ModulesModelRead(const ResourceCalculator::ModuleCollection& MC, QObject* parent)
+  : QAbstractTableModel(parent)
 {
-  Select();
+  _MC_EDIT = MC;
 }
 
-int ModulesModel::rowCount( const QModelIndex & parent ) const
+ModulesModel::ModulesModel(ResourceCalculator::ModuleCollection& MC, QObject* parent)
+  : ModulesModelRead(MC, parent)
+  , _MC(MC)
+{
+}
+
+int ModulesModelRead::rowCount( const QModelIndex & parent ) const
 {
   Q_UNUSED( parent );
   return _MC_EDIT.Size();
 }
 
-int ModulesModel::columnCount( const QModelIndex & parent ) const
+int ModulesModelRead::columnCount( const QModelIndex & parent ) const
 {
   return 6;
 }
 
-QVariant ModulesModel::data( const QModelIndex & index, int role ) const
+QVariant ModulesModelRead::data( const QModelIndex & index, int role ) const
 {
   using namespace ResourceCalculator;
 
@@ -57,7 +62,7 @@ QVariant ModulesModel::data( const QModelIndex & index, int role ) const
   return QVariant();
 }
 
-QVariant ModulesModel::headerData( int section, Qt::Orientation orientation, int role ) const
+QVariant ModulesModelRead::headerData( int section, Qt::Orientation orientation, int role ) const
 {
   if ( role != Qt::DisplayRole )
     return QVariant();
@@ -83,7 +88,15 @@ QVariant ModulesModel::headerData( int section, Qt::Orientation orientation, int
   return QVariant();
 }
 
-Qt::ItemFlags ModulesModel::flags( const QModelIndex & index ) const
+Qt::ItemFlags ModulesModelRead::flags(const QModelIndex& index) const
+{
+  if (!index.isValid())
+    return Qt::ItemIsEnabled;
+
+  return Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+}
+
+Qt::ItemFlags ModulesModel::flags(const QModelIndex& index) const
 {
   if (!index.isValid())
     return Qt::ItemIsEnabled;
@@ -188,10 +201,4 @@ bool ModulesModel::setData( const QModelIndex & index, const QVariant & value, i
 void ModulesModel::Commit()
 {
   _MC = _MC_EDIT;
-  Select();
-}
-
-void ModulesModel::Select()
-{
-  _MC_EDIT = _MC;
 }
