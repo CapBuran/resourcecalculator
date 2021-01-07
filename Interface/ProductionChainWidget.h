@@ -107,7 +107,6 @@ private:
 signals:
   void selectionChanged(const QItemSelection &selected);
 private slots:
-  void OnResized(int logicalIndex, int oldSize, int newSize);
   void _PushButtonAutoFitQuantity();
 };
 

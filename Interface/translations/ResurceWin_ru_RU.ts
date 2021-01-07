@@ -876,12 +876,12 @@
 <context>
     <name>ProductionChainWidget</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="589"/>
+        <location filename="../ProductionChainWidget.cpp" line="587"/>
         <source>Auto-fit quantity items</source>
         <translation>Автоподбор</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="591"/>
+        <location filename="../ProductionChainWidget.cpp" line="589"/>
         <source>Summ results:  </source>
         <translation>Сумма результатов</translation>
     </message>

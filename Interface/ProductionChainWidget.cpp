@@ -555,7 +555,7 @@ void ProductionChainWidget::_Init( )
 
   int VerticalMaxSizeHeader = 0;
 
-  for (int i = 0; i < 3; i++) 
+  for (int i = 0; i < 4; i++) 
   {
     ProductionChainHeaderView* header = dynamic_cast<ProductionChainHeaderView*>(tables[i]->horizontalHeader());
     int Height = header->GetMaxHeight();
@@ -563,7 +563,7 @@ void ProductionChainWidget::_Init( )
       VerticalMaxSizeHeader = Height;
   }
 
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 4; i++) {
     tables[i]->horizontalHeader()->setFixedHeight(VerticalMaxSizeHeader);
     tables[i]->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
   }
@@ -572,8 +572,6 @@ void ProductionChainWidget::_Init( )
   tables[3]->horizontalHeader()->hide();
   tables[3]->verticalScrollBar()->hide();
   tables[3]->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-  tables[3]->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
-  tables[3]->horizontalHeader()->setStretchLastSection(false);
 
   QWidget *WidgetLabel = new QWidget( this );
   WidgetLabel->setFixedHeight( VerticalSizeResult );
@@ -637,11 +635,6 @@ void ProductionChainWidget::_Init( )
 void ProductionChainWidget::_PushButtonAutoFitQuantity()
 {
   _Model.FitQuantity();
-}
-
-void ProductionChainWidget::OnResized(int logicalIndex, int oldSize, int newSize)
-{
-  tables[3]->setColumnWidth(logicalIndex, newSize);
 }
 
 void UpdateModel()
