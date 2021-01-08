@@ -102,7 +102,7 @@ ItemsEditDialog::ItemsEditDialog(ResourceCalculator::ItemCollection& IC, const R
   _tableView->setModel(&_Model);
   _tableView->sortByColumn(1, Qt::AscendingOrder);
   _tableView->setItemDelegate(Delegate);
-  _tableView->setSelectionMode(QTableView::SelectionMode::MultiSelection);
+  _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   _tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);

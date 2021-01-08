@@ -138,7 +138,7 @@ namespace ResourceCalculator
     EnumKey _Key = static_cast<EnumKey>(NoFoundKey);
   public:
     virtual ~ItemBase() {}
-    operator bool() const { return _Key != static_cast<EnumKey>(0); }
+    operator bool() const { return _Key != static_cast<EnumKey>(NoFoundKey); }
     DeclareAndDefinitionProperty( Key, EnumKey)
     DeclareAndDefinitionProperty( Name, std::string )
     DeclareAndDefinitionProperty( IconKey, std::string )

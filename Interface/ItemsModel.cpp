@@ -88,6 +88,22 @@ Qt::ItemFlags ItemsModelRead::flags(const QModelIndex& index) const
 {
   if (!index.isValid())
     return Qt::ItemIsEnabled;
+
+  switch (index.column())
+  {
+    case 0:
+      return Qt::ItemIsEditable | Qt::ItemIsEnabled;
+    case 1:
+      return Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    case 2:
+      return Qt::ItemIsEnabled;
+    case 3:
+      return Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    case 4:
+      return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    default:
+      return QAbstractTableModel::flags(index);
+  }
   return QAbstractTableModel::flags(index);
 }
 
@@ -95,11 +111,24 @@ Qt::ItemFlags ItemsModel::flags(const QModelIndex& index) const
 {
   if (!index.isValid())
     return Qt::ItemIsEnabled;
-  Qt::ItemFlags retval = QAbstractTableModel::flags(index);
-  if (index.column() == 1 || index.column() == 3) {
-    retval |= Qt::ItemIsEditable;
+
+  switch (index.column())
+  {
+    case 0:
+      return Qt::ItemIsEditable | Qt::ItemIsEnabled;
+    case 1:
+      return Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    case 2:
+      return Qt::ItemIsEnabled;
+    case 3:
+      return Qt::ItemIsEditable | Qt::ItemIsSelectable | Qt::ItemIsEnabled;
+    case 4:
+      return Qt::ItemIsEnabled | Qt::ItemIsSelectable;
+    default:
+      return QAbstractTableModel::flags(index);
   }
-  return retval;
+
+  return QAbstractTableModel::flags(index);
 }
 
 bool ItemsModel::setData(const QModelIndex& index, const QVariant& value, int role)
@@ -107,14 +136,11 @@ bool ItemsModel::setData(const QModelIndex& index, const QVariant& value, int ro
   using namespace ResourceCalculator;
   if (index.isValid() && role == Qt::EditRole) {
     Item& item = _IC_EDIT[(_IC_EDIT(index.row()))];
-    if (item) {
-      return false;
-    }
+    if (!item) return false;
     switch (index.column()) {
-    case 0: {
+    case 0: 
       item.SetIconKey(value.toString().toStdString());
       break;
-    }
     case 1: {
       std::string Name = value.toString().toStdString();
       if (Name.length() > 0) {
@@ -162,21 +188,22 @@ bool ItemsModel::insertRows(int position, int rows, const QModelIndex& index)
 bool ItemsModel::removeRows(int position, int rows, const QModelIndex& index)
 {
   Q_UNUSED(index);
-  beginResetModel();
+  beginRemoveRows(QModelIndex(), position, position + rows - 1);
+
   using namespace ResourceCalculator;
   std::set<KEY_ITEM> ToDelete;
   for (int row = 0; row < rows; ++row) {
     ToDelete.insert(_IC_EDIT(position + row));
   }
   bool retval = _IC_EDIT.Delete(ToDelete);
-  endResetModel();
+  endRemoveRows();
+
   return retval;
 }
 
 void ItemsModel::Commit()
 {
   _IC.CloneFrom(_IC_EDIT);
-  _RC.CloneFrom(_RC_EDIT);
 };
 
 ResourceCalculator::CountsItem ItemsModelRead::GetCountItem(const QModelIndex& index) const

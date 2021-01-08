@@ -94,20 +94,16 @@ bool RecipesEditDelegate::editorEvent(QEvent* event, QAbstractItemModel* model, 
     {
       const RecipesModel& modelRecipes = dynamic_cast<const RecipesModel&>(*index.model());
       ItemSelectedDialog _ItemSelectedDialog(_IC, _Icons, ItemSelectedDialogMode::ForRecipeSelectItemsResult, model->data(index).value<QT_CountsItem>(), nullptr);
-      if (_ItemSelectedDialog.exec()) {
-        QVariant V; V.setValue<QT_CountsItem>(_ItemSelectedDialog.GetResult());
-        model->setData(index, V);
-      }
+      if (_ItemSelectedDialog.exec())
+        model->setData(index, QVariant::fromValue<QT_CountsItem>(_ItemSelectedDialog.GetResult()));
       return false;
       break;
     }
     case 4:
     {
       ItemSelectedDialog _ItemSelectedDialog(_IC, _Icons, ItemSelectedDialogMode::ForRecipeSelectItemsRequired, model->data(index).value<QT_CountsItem>(), nullptr);
-      if (_ItemSelectedDialog.exec()) {
-        QVariant V; V.setValue<QT_CountsItem>(_ItemSelectedDialog.GetResult());
-        model->setData(index, V);
-      }
+      if (_ItemSelectedDialog.exec())
+        model->setData(index, QVariant::fromValue<QT_CountsItem>(_ItemSelectedDialog.GetResult()));
       return false;
       break;
     }
@@ -154,8 +150,8 @@ RecipesEditDialog::RecipesEditDialog(
 
   _tableView = new QTableView();
   _tableView->setModel(&_Model);
-  _tableView->setItemDelegate(new RecipesEditDelegate(IC, FTC, icons, _tableView));
-  _tableView->setSelectionMode(QTableView::SelectionMode::MultiSelection);
+  _tableView->setItemDelegate(new RecipesEditDelegate(_Model.GetItems(), FTC, icons, _tableView));
+  _tableView->setSelectionMode(QTableView::SelectionMode::SingleSelection);
   _tableView->setSelectionBehavior(QTableView::SelectionBehavior::SelectRows);
   _tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
   _tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);

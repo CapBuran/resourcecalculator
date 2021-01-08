@@ -636,7 +636,3 @@ void ProductionChainWidget::_PushButtonAutoFitQuantity()
 {
   _Model.FitQuantity();
 }
-
-void UpdateModel()
-{
-}

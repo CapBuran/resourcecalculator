@@ -392,7 +392,7 @@
         <translation type="vanished">Количество</translation>
     </message>
     <message>
-        <location filename="../ItemsModel.cpp" line="151"/>
+        <location filename="../ItemsModel.cpp" line="177"/>
         <source>New item</source>
         <translation>Новый предмет</translation>
     </message>
@@ -972,27 +972,27 @@
 <context>
     <name>RecipesEditDialog</name>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="150"/>
+        <location filename="../RecipesEditDialog.cpp" line="146"/>
         <source>Ok</source>
         <translation>Ок</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="151"/>
+        <location filename="../RecipesEditDialog.cpp" line="147"/>
         <source>Add</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="152"/>
+        <location filename="../RecipesEditDialog.cpp" line="148"/>
         <source>Remove</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="153"/>
+        <location filename="../RecipesEditDialog.cpp" line="149"/>
         <source>Cancel</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="../RecipesEditDialog.cpp" line="182"/>
+        <location filename="../RecipesEditDialog.cpp" line="178"/>
         <source>Recipes Edit</source>
         <translation>Редактор рецептов</translation>
     </message>
@@ -1024,7 +1024,7 @@
         <translation type="vanished">Тип рецепта</translation>
     </message>
     <message>
-        <location filename="../RecipesModel.cpp" line="177"/>
+        <location filename="../RecipesModel.cpp" line="176"/>
         <source>New recipe</source>
         <translation>Новый рецепт</translation>
     </message>

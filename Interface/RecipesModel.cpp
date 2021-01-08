@@ -117,10 +117,9 @@ bool RecipesModel::setData(const QModelIndex &index, const QVariant &value, int 
 {
   if (index.isValid() && role == Qt::EditRole) {
     using namespace ResourceCalculator;
-    RecipeCollection& _RC_EDIT = _IC.GetRecipes();
 
     Recipe& R = _RC_EDIT[_RC_EDIT(index.row())];
-
+    if (!R) return false;
     switch (index.column()) {
     case 0://Icon
     {
@@ -187,14 +186,14 @@ bool RecipesModel::insertRows(int position, int rows, const QModelIndex &index)
 
 bool RecipesModel::removeRows(int position, int rows, const QModelIndex &index)
 {
-  beginResetModel();
+  beginRemoveRows(QModelIndex(), position, position + rows - 1);
   using namespace ResourceCalculator;
   std::set<KEY_RECIPE> ToDelete;
   for (int row = 0; row < rows; ++row) {
     ToDelete.insert(_RC_EDIT(position + row));
   }
   bool retval = _RC_EDIT.Delete(ToDelete);
-  endResetModel();
+  endRemoveRows();
   return retval;
 }
 
