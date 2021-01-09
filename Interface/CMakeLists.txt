@@ -24,6 +24,8 @@ qt5_add_resources(Program_RES_GUI ResurceGui.qrc)
 
 source_group(MainWindow     FILES mainwindow.h)
 source_group(MainWindow     FILES mainwindow.cpp)
+source_group(MainWindow     FILES SizeHintsStorage.h)
+source_group(MainWindow     FILES SizeHintsStorage.cpp)
 source_group(MainWindow     FILES ProductionChainWidget.h)
 source_group(MainWindow     FILES ProductionChainWidget.cpp)
 source_group(MainWindow     FILES ProductionChainTabWidget.h)

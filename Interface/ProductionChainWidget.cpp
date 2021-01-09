@@ -6,34 +6,39 @@ Q_DECLARE_METATYPE(ResourceCalculator::FactoryType);
 
 #pragma region DELEGATE
 
-ProductionChainDelegate0::ProductionChainDelegate0( const ResourceCalculator::ProductionChainModel &PCM, QObject *parent)
+ProductionChainDelegate0::ProductionChainDelegate0( const ResourceCalculator::ProductionChainModel &PCM, const HorizontalSizeHintsStorage& sizeHints, QObject *parent)
   : _PCM(PCM)
-  , ProductionChainDelegateBase(PCM.GetPC(), parent)
+  , ProductionChainDelegateBase(PCM.GetPC(), sizeHints, parent)
 {
 }
 
 QSize ProductionChainDelegate0::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
 {
-  QSize RetValue = ProductionChainDelegateBase::sizeHint(option, index);
-  if (index.column() == 0)
+  QSize retValue = _SizeHints.GetRowsSizeMax(index.column());
+  if (!retValue.isValid())
   {
-    if (!Rect_.isValid())
-    {
+    QRect Rect;
+    if (index.column() == 0) {
       QFontMetrics fm(option.font);
-      const_cast<QRect&>(Rect_) = fm.boundingRect(QRect(0, 0, 150, 50), Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, tr("Production in a different chain"));
-      const_cast<QRect&>(Rect_).setWidth(Rect_.width() + 20);
+      QRect Rect = fm.boundingRect(QRect(0, 0, 150, 50), Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, tr("Production in a different chain"));
+      Rect.setWidth(Rect.width() + 20);
+      retValue.setWidth(retValue.width() + 20);
+      if (Rect.width() > retValue.width())
+      {
+        retValue.setWidth(Rect.width());
+      }
+      retValue.setHeight(17);
     }
-    RetValue.setWidth(RetValue.width() + 20);
-    if (Rect_.width() > RetValue.width())
+    else
     {
-      RetValue.setWidth(Rect_.width());
+      QStyleOptionViewItem optV4(option);
+      initStyleOption(&optV4, index);
+      QFontMetrics fm(optV4.fontMetrics);
+      retValue = QSize(fm.horizontalAdvance(optV4.text) + fm.overlinePos(), fm.height());
     }
+    _SizeHints.SetRowsSize(index.column(), retValue);
   }
-  if (RetValue.height() > 0)
-  {
-    RetValue.setHeight(17);
-  }
-  return RetValue;
+  return retValue;
 }
 
 QWidget *ProductionChainDelegate0::createEditor( QWidget *parent, const QStyleOptionViewItem &option,  const QModelIndex &index ) const
@@ -482,6 +487,7 @@ ProductionChainWidget::ProductionChainWidget(const ResourceCalculator::FullItemT
   : ProductionChainWidgetBase(tree, parent)
   , _PCM(tree, keyItem, 1)
   , _Model(_PCM, parent)
+  , _SizeHints(7)
 {
   _Init();
 }
@@ -521,9 +527,9 @@ void ProductionChainWidget::_Init( )
     tables[i]->setSelectionMode( QAbstractItemView::SingleSelection );
     tables[i]->setHorizontalHeader( new ProductionChainHeaderView( Qt::Orientation::Horizontal, tables[i] ) );
     if ( i == 0 ) {
-      tables[i]->setItemDelegate( new ProductionChainDelegate0( _Model.GetPCM(), tables[i] ) );
+      tables[i]->setItemDelegate( new ProductionChainDelegate0( _Model.GetPCM(), _SizeHints, tables[i] ) );
     } else {
-      tables[i]->setItemDelegate(new ProductionChainDelegateBase(_PC, tables[i]));
+      tables[i]->setItemDelegate( new ProductionChainDelegateBase(_PC, _SizeHints, tables[i]) );
       tables[i]->horizontalHeader()->setSectionResizeMode(QHeaderView::Fixed);
     }
     tables[i]->verticalHeader()->hide();
@@ -543,7 +549,7 @@ void ProductionChainWidget::_Init( )
   int VerticalSizeResult = 25;
 
   tables[0]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
-  tables[0]->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+  tables[0]->horizontalHeader()->setSectionResizeMode(QHeaderView::Interactive);
 
   tables[1]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
   tables[1]->setEditTriggers( QAbstractItemView::AllEditTriggers );

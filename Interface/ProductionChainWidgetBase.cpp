@@ -52,18 +52,25 @@ QSize ProductionChainHeaderView::sectionSizeFromContents(int logicalIndex) const
   return QSize(fm.height(), fm.horizontalAdvance(DisplayData));
 }
 
-ProductionChainDelegateBase::ProductionChainDelegateBase(const ResourceCalculator::ParamsCollection & PC, QObject * parent)
+ProductionChainDelegateBase::ProductionChainDelegateBase(const ResourceCalculator::ParamsCollection & PC, const HorizontalSizeHintsStorage& sizeHints, QObject * parent)
   : QStyledItemDelegate(parent)
   , _PC(PC)
+  , _SizeHints(sizeHints)
 {
 }
 
 QSize ProductionChainDelegateBase::sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-  QStyleOptionViewItem optV4(option);
-  initStyleOption(&optV4, index);
-  QFontMetrics fm(optV4.fontMetrics);
-  return QSize(fm.horizontalAdvance(optV4.text) + fm.overlinePos(), fm.height());
+  QSize retValue = _SizeHints.GetRowsSizeMax(7);
+  if (!retValue.isValid())
+  {
+    QStyleOptionViewItem optV4(option);
+    initStyleOption(&optV4, index);
+    QFontMetrics fm(optV4.fontMetrics);
+    retValue = QSize(fm.horizontalAdvance(optV4.text) + fm.overlinePos(), fm.height());
+    _SizeHints.SetRowsSize(7, retValue);
+  }
+  return retValue;
 }
 
 #pragma endregion DELEGATE

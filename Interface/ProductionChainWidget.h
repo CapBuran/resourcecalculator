@@ -1,19 +1,17 @@
-#ifndef ProductionChainWidget_H
-#define ProductionChainWidget_H
+#pragma once
 
 #include <QtWidgets>
 
 #include <ProductionChainModel.h>
-
-#include "ProductionChainWidgetBase.h"
+#include <SizeHintsStorage.h>
+#include <ProductionChainWidgetBase.h>
 
 class ProductionChainDelegate0: public ProductionChainDelegateBase {
   Q_OBJECT
 private:
-  QRect Rect_;
   const ResourceCalculator::ProductionChainModel &_PCM;
 public:
-  ProductionChainDelegate0( const ResourceCalculator::ProductionChainModel &PCM, QObject *parent = 0 );
+  ProductionChainDelegate0( const ResourceCalculator::ProductionChainModel &PCM, const HorizontalSizeHintsStorage& sizeHints, QObject *parent = 0 );
   QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   QWidget *createEditor( QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
   void setEditorData( QWidget *editor, const QModelIndex &index ) const override;
@@ -103,11 +101,10 @@ private:
   QTableView *tables[4];
   ResourceCalculator::ProductionChainModel _PCM;
   ProductionChainModel _Model;
+  HorizontalSizeHintsStorage _SizeHints;
   void _Init();
 signals:
   void selectionChanged(const QItemSelection &selected);
 private slots:
   void _PushButtonAutoFitQuantity();
 };
-
-#endif// ProductionChainWidget_H

@@ -1,5 +1,6 @@
-#ifndef ProductionChainWidgetBase_H
-#define ProductionChainWidgetBase_H
+#pragma once
+
+#include <SizeHintsStorage.h>
 
 #include <ProductionChainTree.h>
 
@@ -29,8 +30,9 @@ class ProductionChainDelegateBase: public QStyledItemDelegate {
   Q_OBJECT
 protected:
   const ResourceCalculator::ParamsCollection &_PC;
+  const HorizontalSizeHintsStorage& _SizeHints;
 public:
-  ProductionChainDelegateBase( const ResourceCalculator::ParamsCollection &PC, QObject *parent = 0 );
+  ProductionChainDelegateBase( const ResourceCalculator::ParamsCollection &PC, const HorizontalSizeHintsStorage& sizeHints, QObject *parent = 0 );
   virtual QSize sizeHint( const QStyleOptionViewItem &option, const QModelIndex &index ) const override;
 };
 
@@ -43,5 +45,3 @@ public:
 protected:
   const ResourceCalculator::ParamsCollection &_PC;
 };
-
-#endif// ProductionChainWidgetBase_H
