@@ -1,10 +1,9 @@
 #pragma once
 
-#include <ProductionChainTreeModel.h>
-
 #include <QtWidgets>
 
-#include "ProductionChainWidgetBase.h"
+#include <ProductionChainTreeModel.h>
+#include <ProductionChainWidgetBase.h>
 
 class ProductionChainModelSummProductionItems: public QAbstractTableModel {
   Q_OBJECT
@@ -42,6 +41,7 @@ public:
 private:
   ProductionChainModelSummProductionItems _Model;
   ProductionChainTreeModel _ModelTree;
+  HorizontalSizeHintsStorage _SizeHints;
 public slots:
   void on_selectionChanged(const QItemSelection &selected, const QItemSelection &deselected);
 };

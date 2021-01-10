@@ -27,7 +27,6 @@ QSize ProductionChainDelegate0::sizeHint(const QStyleOptionViewItem& option, con
       {
         retValue.setWidth(Rect.width());
       }
-      retValue.setHeight(17);
     }
     else
     {
@@ -35,7 +34,9 @@ QSize ProductionChainDelegate0::sizeHint(const QStyleOptionViewItem& option, con
       initStyleOption(&optV4, index);
       QFontMetrics fm(optV4.fontMetrics);
       retValue = QSize(fm.horizontalAdvance(optV4.text) + fm.overlinePos(), fm.height());
+      retValue.setWidth(retValue.width()+20);
     }
+    retValue.setHeight(12);
     _SizeHints.SetRowsSize(index.column(), retValue);
   }
   return retValue;
@@ -523,9 +524,8 @@ void ProductionChainWidget::_Init( )
     Proxys[i]->setSourceModel( &_Model );
     tables[i]->setModel( Proxys[i] );
     tables[i]->setSelectionBehavior( QAbstractItemView::SelectRows );
-    //tables[i]->setEditTriggers( QAbstractItemView::NoEditTriggers );
     tables[i]->setSelectionMode( QAbstractItemView::SingleSelection );
-    tables[i]->setHorizontalHeader( new ProductionChainHeaderView( Qt::Orientation::Horizontal, tables[i] ) );
+    tables[i]->setHorizontalHeader( new ProductionChainHeaderView( _SizeHints, Qt::Orientation::Horizontal, tables[i] ) );
     if ( i == 0 ) {
       tables[i]->setItemDelegate( new ProductionChainDelegate0( _Model.GetPCM(), _SizeHints, tables[i] ) );
     } else {
@@ -535,10 +535,7 @@ void ProductionChainWidget::_Init( )
     tables[i]->verticalHeader()->hide();
     tables[i]->setAlternatingRowColors( true );
     tables[i]->horizontalHeader()->setStretchLastSection( false );
-    int Height = dynamic_cast< ProductionChainHeaderView* >( tables[i]->horizontalHeader() )->GetMaxHeight();
-    if ( Height > MaxHeight ) {
-      MaxHeight = Height;
-    }
+    tables[i]->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
   }
 
   for ( int i = 0; i < 4; i++ ) {
@@ -556,28 +553,16 @@ void ProductionChainWidget::_Init( )
   tables[1]->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
   tables[2]->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+  tables[2]->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
 
   tables[3]->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
 
-  int VerticalMaxSizeHeader = 0;
-
-  for (int i = 0; i < 4; i++) 
-  {
-    ProductionChainHeaderView* header = dynamic_cast<ProductionChainHeaderView*>(tables[i]->horizontalHeader());
-    int Height = header->GetMaxHeight();
-    if (VerticalMaxSizeHeader < Height)
-      VerticalMaxSizeHeader = Height;
-  }
-
-  for (int i = 0; i < 4; i++) {
-    tables[i]->horizontalHeader()->setFixedHeight(VerticalMaxSizeHeader);
-    tables[i]->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
-  }
-
   tables[3]->setFixedHeight( VerticalSizeResult );
   tables[3]->horizontalHeader()->hide();
-  tables[3]->verticalScrollBar()->hide();
+  tables[3]->verticalScrollBar()->show();
+  tables[3]->setVerticalScrollBarPolicy( Qt::ScrollBarAlwaysOn );
   tables[3]->setHorizontalScrollBarPolicy( Qt::ScrollBarAlwaysOff );
+  tables[3]->horizontalHeader()->setFixedHeight(0);
 
   QWidget *WidgetLabel = new QWidget( this );
   WidgetLabel->setFixedHeight( VerticalSizeResult );
@@ -630,12 +615,9 @@ void ProductionChainWidget::_Init( )
   connect( tables[2]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[0]->verticalScrollBar(), SLOT( setValue( int ) ) );
   connect( tables[2]->verticalScrollBar(), SIGNAL( valueChanged( int ) ), tables[1]->verticalScrollBar(), SLOT( setValue( int ) ) );
 
-  connect(tables[2]->horizontalHeader(), SIGNAL(sectionResized(int, int, int)), SLOT(OnResized(int, int, int)));
-
   connect( &_Model, SIGNAL( AllDataChanged() ), &_Model, SLOT( ModelAllChanged( ) ) );
   
   connect(AutoFitQuantityButton, SIGNAL(clicked()), SLOT(_PushButtonAutoFitQuantity()));
-
 }
 
 void ProductionChainWidget::_PushButtonAutoFitQuantity()

@@ -773,7 +773,7 @@
     </message>
     <message>
         <location filename="../ProductionChainWidget.cpp" line="23"/>
-        <location filename="../ProductionChainWidget.cpp" line="129"/>
+        <location filename="../ProductionChainWidget.cpp" line="130"/>
         <source>Production in a different chain</source>
         <translation>Производство в другой цепочке</translation>
     </message>
@@ -781,42 +781,42 @@
 <context>
     <name>ProductionChainModel</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="277"/>
+        <location filename="../ProductionChainWidget.cpp" line="278"/>
         <source>Factory</source>
         <translation>Фабрика</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="279"/>
+        <location filename="../ProductionChainWidget.cpp" line="280"/>
         <source>Recipe</source>
         <translation>Рецепт</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="281"/>
+        <location filename="../ProductionChainWidget.cpp" line="282"/>
         <source>Modules productivity</source>
         <translation>Модуль продуктивности</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="283"/>
+        <location filename="../ProductionChainWidget.cpp" line="284"/>
         <source>Modules speed</source>
         <translation>Модуль скорости</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="285"/>
+        <location filename="../ProductionChainWidget.cpp" line="286"/>
         <source>Speed factory</source>
         <translation>Скорость фабрики</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="287"/>
+        <location filename="../ProductionChainWidget.cpp" line="288"/>
         <source>Time for recipe</source>
         <translation>Время рецепта</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="289"/>
+        <location filename="../ProductionChainWidget.cpp" line="290"/>
         <source>Real time for recipe</source>
         <translation>Время изготовления</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="291"/>
+        <location filename="../ProductionChainWidget.cpp" line="292"/>
         <source>Count factorys</source>
         <translation>Количество фабрик</translation>
     </message>
@@ -876,12 +876,12 @@
 <context>
     <name>ProductionChainWidget</name>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="593"/>
+        <location filename="../ProductionChainWidget.cpp" line="578"/>
         <source>Auto-fit quantity items</source>
         <translation>Автоподбор</translation>
     </message>
     <message>
-        <location filename="../ProductionChainWidget.cpp" line="595"/>
+        <location filename="../ProductionChainWidget.cpp" line="580"/>
         <source>Summ results:  </source>
         <translation>Сумма результатов</translation>
     </message>
@@ -889,7 +889,7 @@
 <context>
     <name>ProductionChainWidgetSummProductionItems</name>
     <message>
-        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="229"/>
+        <location filename="../ProductionChainWidgetSummProductionItems.cpp" line="230"/>
         <source>Sum of all items produced</source>
         <translation>Сумма всех производимых потребляемых предметов</translation>
     </message>

@@ -20,10 +20,12 @@ enum class ProductionChainWidgetType
 
 class ProductionChainHeaderView: public QHeaderView {
 public:
-  ProductionChainHeaderView( Qt::Orientation orientation, QWidget *parent = Q_NULLPTR );
+  ProductionChainHeaderView(const HorizontalSizeHintsStorage& sizeHints, Qt::Orientation orientation, QWidget *parent = Q_NULLPTR );
   void paintSection( QPainter *painter, const QRect &rect, int logicalIndex ) const override;
-  int GetMaxHeight() const;
-  QSize sectionSizeFromContents( int logicalIndex ) const override;
+  QSize sectionSizeFromContents(int logicalIndex) const override;
+  QSize sizeHint() const override;
+private:
+  const HorizontalSizeHintsStorage& _SizeHints;
 };
 
 class ProductionChainDelegateBase: public QStyledItemDelegate {

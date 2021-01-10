@@ -10,8 +10,9 @@ QString ToOut(double Value)
   return QString::number(Value, 'g', EpsilonToOut);
 }
 
-ProductionChainHeaderView::ProductionChainHeaderView(Qt::Orientation orientation, QWidget * parent) :
-  QHeaderView(orientation, parent)
+ProductionChainHeaderView::ProductionChainHeaderView(const HorizontalSizeHintsStorage& sizeHints, Qt::Orientation orientation, QWidget * parent)
+  : QHeaderView(orientation, parent)
+  , _SizeHints(sizeHints)
 {
   setFont(QFont(font().family(), 10));
 }
@@ -29,27 +30,28 @@ void ProductionChainHeaderView::paintSection(QPainter* painter, const QRect& rec
   painter->restore();
 }
 
-int ProductionChainHeaderView::GetMaxHeight() const
-{
-  const int count = model()->columnCount();
-  QFontMetrics fm(font());
-  int MaxHeight = 0;
-  for (int columb = 0; columb < count; columb++)
-  {
-    QString DisplayData = model()->headerData(columb, orientation()).toString();
-    QRect rect = fm.boundingRect(QRect(0, 0, 150, 50), Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, DisplayData);
-    auto width = rect.width();
-    if (width > MaxHeight) MaxHeight = width;
-  }
-
-  return MaxHeight;
-}
-
 QSize ProductionChainHeaderView::sectionSizeFromContents(int logicalIndex) const
 {
-  QString DisplayData = model()->headerData(logicalIndex, orientation()).toString();
-  QFontMetrics fm(font());
-  return QSize(fm.height(), fm.horizontalAdvance(DisplayData));
+  return sizeHint();
+}
+
+QSize ProductionChainHeaderView::sizeHint() const
+{
+  QSize retValue = _SizeHints.GetHeaderSizeMax(0);
+
+  if (!retValue.isValid())
+  {
+    const int count = model()->columnCount();
+    for (int columb = 0; columb < count; columb++)
+    {
+      QFontMetrics fm(font());
+      QString DisplayData = model()->headerData(columb, orientation()).toString();
+      retValue = fm.boundingRect(QRect(0, 0, 150, 50), Qt::AlignLeft | Qt::AlignTop | Qt::TextWordWrap, DisplayData).size();
+      retValue.transpose();
+      _SizeHints.SetHeaderSize(columb, retValue);
+    }
+  }
+  return QSize(-1, _SizeHints.GetHeaderSizeMax(0).height());
 }
 
 ProductionChainDelegateBase::ProductionChainDelegateBase(const ResourceCalculator::ParamsCollection & PC, const HorizontalSizeHintsStorage& sizeHints, QObject * parent)

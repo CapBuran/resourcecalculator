@@ -194,6 +194,7 @@ ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionIte
   : ProductionChainWidgetBase(tree, parent)
   , _Model(tree.GetPC(), parent)
   , _ModelTree(tree)
+  , _SizeHints(1)
 {
   _Model.Update();
 
@@ -206,7 +207,7 @@ ProductionChainWidgetSummProductionItems::ProductionChainWidgetSummProductionIte
   tableView->sortByColumn(1, Qt::AscendingOrder);
   tableView->setItemDelegate(new ProductionChainDelegateSummProductionItems(tree.GetPC()));
   tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-  tableView->setHorizontalHeader(new ProductionChainHeaderView(Qt::Orientation::Horizontal));
+  tableView->setHorizontalHeader(new ProductionChainHeaderView(_SizeHints, Qt::Orientation::Horizontal, tableView));
   tableView->verticalHeader()->setSectionResizeMode(QHeaderView::Fixed);
 
   tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
