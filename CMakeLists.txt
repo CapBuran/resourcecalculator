@@ -41,7 +41,7 @@ endif()
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
 # Widgets finds its own dependencies.
-find_package(Qt5 REQUIRED Widgets LinguistTools)
+find_package(Qt5 COMPONENTS Core Widgets LinguistTools)
 
 GIVE_ME_PATH()
 
@@ -53,24 +53,28 @@ SET(ENABLE_WINDOWS_CRYPTO OFF)
 SET(BUILD_SHARED_LIBS OFF)
 
 download_project(PROJ                zlib
-                 GIT_REPOSITORY      https://github.com/madler/zlib.git
+                 GIT_REPOSITORY      git@github.com:madler/zlib.git
                  GIT_TAG             master
                  UPDATE_DISCONNECTED 1
 )
 
 download_project(PROJ                libzip
-                 GIT_REPOSITORY      https://github.com/nih-at/libzip.git
+                 GIT_REPOSITORY      git@github.com:nih-at/libzip.git
                  GIT_TAG             master
                  UPDATE_DISCONNECTED 1
 )
 
 add_subdirectory(${zlib_SOURCE_DIR} ${zlib_BINARY_DIR})
 SET(ZLIB_INCLUDE_DIR ${zlib_SOURCE_DIR} ${zlib_BINARY_DIR})
-SET(ZLIB_LIBRARY ${zlib_BINARY_DIR}/Release/zlibstatic.lib)
+#SET(ZLIB_LIBRARY ${zlib_BINARY_DIR}/Release/zlibstatic.lib)
+#SET(ZLIB_LIBRARY zlibstatic)
+SET(ZLIB_LIBRARY ${ZLIB})
+#SET(ZLIB_LIBRARY zlib)
 
 add_subdirectory(${libzip_SOURCE_DIR} ${libzip_BINARY_DIR})
 SET(ZIPLIB_INCLUDE_DIR ${libzip_SOURCE_DIR}/lib ${libzip_BINARY_DIR})
-SET(ZIPLIB_LIBRARY zip)
+#SET(ZIPLIB_LIBRARY zip)
+SET(ZIPLIB_LIBRARY ${ZIPLIB})
 
 add_subdirectory(ThreeParty)
 

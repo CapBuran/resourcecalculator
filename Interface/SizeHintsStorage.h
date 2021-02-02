@@ -1,6 +1,6 @@
 #pragma once
 
-#include <QTCore>
+#include <QtCore>
 
 class HorizontalSizeHintsStorage
 {

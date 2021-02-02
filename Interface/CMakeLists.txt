@@ -88,6 +88,7 @@ source_group(Translation    FILES translations/ResurceWin_ru_RU.ts)
 
 add_executable(ResurceWin WIN32 ${Program_SRCS} ${Program_HDRS} ${Program_TRS} ${TS_FILES} ${Program_RES} ${Program_RES_GUI} )
 
+qt5_use_modules(ResurceWin Core)
 qt5_use_modules(ResurceWin Widgets)
 
 target_include_directories(ResurceWin PRIVATE ${CMAKE_BINARY_DIR}/ThreeParty/External/zlib-1.2.11)

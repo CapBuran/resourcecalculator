@@ -40,8 +40,8 @@ namespace ResourceCalculator
       {
         auto kr = _PC.RC(i);
         auto& recipe = _PC.RC[kr];
-        auto& required = recipe.GetRequired();
-        auto& results = recipe.GetResult();
+        auto required = recipe.GetRequired();
+        auto results = recipe.GetResult();
         auto& childrensRecipes = _childrensRecipes[i];
 
         childrensRecipes.resize(required.size());

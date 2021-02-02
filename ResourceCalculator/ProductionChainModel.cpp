@@ -379,7 +379,7 @@ namespace ResourceCalculator
       _SummSpeeds[i] = .0;
     }
 
-    for (auto& it = _DataRows.rbegin(); it != _DataRows.rend(); it++)
+    for (auto it = _DataRows.rbegin(); it != _DataRows.rend(); it++)
     {
       ProductionChainDataRow& ROW = **it;
       if (it == _DataRows.rbegin())

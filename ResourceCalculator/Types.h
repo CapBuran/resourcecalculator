@@ -142,14 +142,14 @@ namespace ResourceCalculator
     DeclareAndDefinitionProperty( Key, EnumKey)
     DeclareAndDefinitionProperty( Name, std::string )
     DeclareAndDefinitionProperty( IconKey, std::string )
-    int ItemBase::ReadFromJson(const Json::Value& jsonPr)
+    int ReadFromJson(const Json::Value& jsonPr)
     {
       _Key = static_cast<EnumKey>(jsonPr["Key"].asInt64());
       _Name = jsonPr["Name"]["ru"].asString();
       _IconKey = jsonPr["IconPath"].asString();
       return 0;
     }
-    int ItemBase::WriteToJson(Json::Value& jsonPr) const
+    int WriteToJson(Json::Value& jsonPr) const
     {
       jsonPr["Key"] = static_cast<Json::Value::Int64>(_Key);
       jsonPr["Name"]["ru"] = _Name;
