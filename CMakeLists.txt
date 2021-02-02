@@ -66,10 +66,13 @@ download_project(PROJ                libzip
 
 add_subdirectory(${zlib_SOURCE_DIR} ${zlib_BINARY_DIR})
 SET(ZLIB_INCLUDE_DIR ${zlib_SOURCE_DIR} ${zlib_BINARY_DIR})
-#SET(ZLIB_LIBRARY ${zlib_BINARY_DIR}/Release/zlibstatic.lib)
-#SET(ZLIB_LIBRARY zlibstatic)
-SET(ZLIB_LIBRARY ${ZLIB})
-#SET(ZLIB_LIBRARY zlib)
+
+if (WIN32)
+  SET(ZLIB_LIBRARY_DEBUG ${zlib_BINARY_DIR}/Debug/zlibstaticd.lib)
+  SET(ZLIB_LIBRARY_RELEASE ${zlib_BINARY_DIR}/Release/zlibstatic.lib)
+else (WIN32)
+  SET(ZLIB_LIBRARY ${ZLIB})
+endif (WIN32)
 
 add_subdirectory(${libzip_SOURCE_DIR} ${libzip_BINARY_DIR})
 SET(ZIPLIB_INCLUDE_DIR ${libzip_SOURCE_DIR}/lib ${libzip_BINARY_DIR})
